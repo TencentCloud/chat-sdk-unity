@@ -191,7 +191,7 @@ public class TestApi : MonoBehaviour
 
     void Start()
     {
-        
+
     }
     void OnDestroy()
     {
@@ -551,8 +551,10 @@ public class TestApi : MonoBehaviour
     {
         string conv_id = "287646";
         MsgLocator message_locator = new MsgLocator(); // 这里的消息可以是其他接口返回的实例，如消息列表接口
+        List<MsgLocator> list = new List<MsgLocator>();
+        list.Add(message_locator);
 
-        TIMResult res = TencentIMSDK.MsgFindByMsgLocatorList(conv_id, TIMConvType.kTIMConv_C2C, message_locator, addAsyncDataToConsole);
+        TIMResult res = TencentIMSDK.MsgFindByMsgLocatorList(conv_id, TIMConvType.kTIMConv_C2C, list, addAsyncDataToConsole);
         Utils.Log(((int)res).ToString());
         addDataToConsole(res);
     }

@@ -99,6 +99,8 @@ namespace com.tencent.imsdk.unity.types
     public bool? message_receipt_peer_read;
     /// <value>读写(选填), 消息是否需要已读回执（6.1 以上版本有效，需要您购买旗舰版套餐），群消息在使用该功能之前，需要先到 IM 控制台设置已读回执支持的群类型 (Read & Write (Optional), message needs read receipt or not, (SDK ver. ^6.1, only for Flagship Package). Before activate it, please go to IM console and set the group for read receipt feature.)</value>
     public bool? message_need_read_receipt;
+    /// <value>读写(选填), 是否支持消息扩展 (Read & Write (Optional), whether the message needs extension)</value>
+    public bool? message_support_message_extension;
     /// <value>只读, 是否已经发送了已读回执（只有Group 消息有效）(Read only, has sent receipt or not)</value>
     public bool? message_has_sent_receipt;
     /// <value>只读, 注意：这个字段是内部字段，不推荐使用，推荐调用 TIMMsgGetMessageReadReceipts 获取群消息已读回执 (Read only. Caveat: this is SDK internal field, please call TIMMsgGetMessageReadReceipts to get group message read receipts.)</value>
@@ -140,7 +142,21 @@ namespace com.tencent.imsdk.unity.types
     /// <value>读写 是否作为会话的 lasgMessage，true - 不作为，false - 作为 (Read & Write (Optional), message is excluded from the lastMessage)</value>
     public bool message_excluded_from_last_message;
   }
-
+  [JsonObject(MemberSerialization.OptOut)]
+  public class MessageExtension: ExtraData
+  {
+    // string, 读写(选填), 扩展字段的 key (Read & Write (Optional), message extension key)
+    public string message_extension_key;
+    // string, 读写(选填), 扩展字段的 value (Read & Write (Optional), message extension value)
+    public string message_extension_value;
+  }
+  [JsonObject(MemberSerialization.OptOut)]
+  public class MessageExtensionResult: ExtraData
+  {
+    public MessageExtension message_extension_item;
+    public int message_extension_result_code;
+    public string message_extension_result_info;
+  }
   [JsonObject(MemberSerialization.OptOut)]
   public class OfflinePushConfig : ExtraData
   {
@@ -1644,7 +1660,13 @@ namespace com.tencent.imsdk.unity.types
     ///<value>array [GroupMemberInfo](), 只读, 成员信息列表 (Read only, group member list)</value>
     public List<GroupMemberInfo> group_get_memeber_info_list_result_info_array;
   }
-
+  [JsonObject(MemberSerialization.OptOut)]
+  public class GroupGetTopicInfoResult: ExtraData
+  {
+    public int group_topic_info_result_error_code;
+    public string group_topic_info_result_error_message;
+    public GroupTopicInfo group_topic_info_result_topic_info;
+  }
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupTopicInfo : ExtraData
   {

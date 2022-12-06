@@ -254,4 +254,73 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/IM_Api_Example/Assets/Scenes/IM/GroupInitGroupAttributes.unity
     guid: 07bd0ea318cac425fbf90025279e1828
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgFindMessages.unity
+    guid: cbcbe362f2d1942b5b1128329e13de4e
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GroupSetGroupAttributes.unity
+    guid: af8f6cd4500164c9f80321102ab08b6c
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GroupDeleteGroupAttributes.unity
+    guid: dd0b5fee7456443968ba03870bca87a0
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GroupGetJoinedCommunityList.unity
+    guid: 1c1e2e8ca6b00464186c2696eb2bcc93
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GroupCreateTopicInCommunity.unity
+    guid: 7bf8cef6ea22244b5a06532ace86a42c
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GroupGetTopicInfoList.unity
+    guid: 98666aa1349ee4bcfbe1b1d658e936f5
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GroupDeleteTopicFromCommunity.unity
+    guid: 61aed353c162e4c3090e7fb95dcd55d3
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GroupSetTopicInfo.unity
+    guid: 90cfa0d5843564e7cae15eeb89ffcf35
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgFindByMsgLocatorList.unity
+    guid: c282cc8aff1354674a5be616e51e5b9a
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgImportMsgList.unity
+    guid: 2ef51f485f53d4d23bcb01b78cdbbd01
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgSaveMsg.unity
+    guid: 1c092257981f343fa9c5fab69bf94ac1
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgListDelete.unity
+    guid: 6e8383df26b08457cac08ef846c9b0a5
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgGetC2CReceiveMessageOpt.unity
+    guid: a94fb14bf04e4454abcbf4c6b92c000d
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgSetC2CReceiveMessageOpt.unity
+    guid: 1bc7f4f4c962145d384f13cfa17ca4c6
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgSetGroupReceiveMessageOpt.unity
+    guid: 90fe05475665f4924942f4e6191f6f3d
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgSetLocalCustomData.unity
+    guid: 454607108adcf4dc7b16a848180e9524
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgBatchSend.unity
+    guid: 4fc26cfdd6cce445794cc91be59914b0
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgDownloadMergerMessage.unity
+    guid: 80b610e85dafd433fa2c5ff5d590cd43
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgSearchLocalMessages.unity
+    guid: b61cddeaeab5747339eca9a6f580f8b2
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgDownloadElemToPath.unity
+    guid: 5d7121dee909e40e0b72b69eedade22d
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgGetMessageExtensions.unity
+    guid: 4d3232610b2de48e3b462ae852c8a244
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgSetMessageExtensions.unity
+    guid: 5888b5254fcbd4dfbaed1d4c5d3fd46a
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgDeleteMessageExtensions.unity
+    guid: b00868997e09547b691a709fc9cc4bd7
   m_configObjects: {}

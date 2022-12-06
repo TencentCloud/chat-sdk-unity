@@ -12,7 +12,7 @@ using System.Text;
 using System.Collections.Generic;
 public class SendTextMessage : MonoBehaviour
 {
-  string[] Labels = new string[] {"MessageLabel", "SelectFriendLabel", "SelectGroupLabel", "SelectPriorityLabel", "IsOnlineLabel", "IsUnreadLabel", "needReceiptLabel"};
+  string[] Labels = new string[] {"MessageLabel", "SelectFriendLabel", "SelectGroupLabel", "SelectPriorityLabel", "IsOnlineLabel", "IsUnreadLabel", "needReceiptLabel", "supportMsgExtLabel"};
   public Text Header;
   public InputField Input;
   public Dropdown SelectedFriend;
@@ -21,6 +21,7 @@ public class SendTextMessage : MonoBehaviour
   public Toggle IsOnline;
   public Toggle IsUnread;
   public Toggle Receipt;
+  public Toggle Extension;
   public Text Result;
   public Button Submit;
   public Button Copy;
@@ -56,6 +57,7 @@ public class SendTextMessage : MonoBehaviour
     IsOnline = GameObject.Find("Online").GetComponent<Toggle>();
     IsUnread = GameObject.Find("Unread").GetComponent<Toggle>();
     Receipt = GameObject.Find("Receipt").GetComponent<Toggle>();
+    Extension = GameObject.Find("Extension").GetComponent<Toggle>();
     Result = GameObject.Find("ResultText").GetComponent<Text>();
     Submit = GameObject.Find("Submit").GetComponent<Button>();
     Copy = GameObject.Find("Copy").GetComponent<Button>();
@@ -165,7 +167,8 @@ public class SendTextMessage : MonoBehaviour
       message_need_read_receipt = Receipt.isOn,
       message_priority = (TIMMsgPriority)SelectedPriority.value,
       message_is_excluded_from_unread_count = IsUnread.isOn,
-      message_is_online_msg = IsOnline.isOn
+      message_is_online_msg = IsOnline.isOn,
+      message_support_message_extension = Extension.isOn
     };
     StringBuilder messageId = new StringBuilder(128);
     if (SelectedGroup.value > 0)

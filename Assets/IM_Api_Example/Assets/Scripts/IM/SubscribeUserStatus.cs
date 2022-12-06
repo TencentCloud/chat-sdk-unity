@@ -42,7 +42,7 @@ public class SubscribeUserStatus : MonoBehaviour
 
   void SubscribeUserStatusSDK()
   {
-    var list = new List<string>(Input.text.Split(','));
+    var list = string.IsNullOrEmpty(Input.text) ? null : new List<string>(Input.text.Split(','));
     TIMResult res = TencentIMSDK.SubscribeUserStatus(list, Utils.addAsyncNullDataToScreen(GetResult));
     Result.text = Utils.SynchronizeResult(res);
   }

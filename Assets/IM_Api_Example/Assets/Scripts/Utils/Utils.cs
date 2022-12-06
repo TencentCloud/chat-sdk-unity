@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using com.tencent.im.unity.demo.types;
 using com.tencent.imsdk.unity.web;
+using EasyUI.Toast;
 namespace com.tencent.im.unity.demo.utils
 {
   public class Utils
@@ -22,7 +23,16 @@ namespace com.tencent.im.unity.demo.utils
       return (int code, string desc, string callbackData, string user_data) =>
     {
       string head = "\n" + user_data + "Asynchronous return:\n\n";
-      string body = @"{""code"":" + code.ToString() + @",""desc"":""" + desc + @""",""json_param"":" + (string.IsNullOrEmpty(callbackData) ? "null" : callbackData) + "}";
+      var isObj = callbackData.StartsWith("{") || callbackData.StartsWith("[");
+      string body;
+      if (isObj)
+      {
+        body = @"{""code"":" + code.ToString() + @",""desc"":""" + desc + @""",""json_param"":" + (string.IsNullOrEmpty(callbackData) ? "null" : callbackData) + "}";
+      }
+      else
+      {
+        body = @"{""code"":" + code.ToString() + @",""desc"":""" + desc + @""",""json_param"":""" + (string.IsNullOrEmpty(callbackData) ? "null" : callbackData) + @"""}";
+      }
       JObject json = JObject.Parse(body);
       string formatted = SyntaxHighlightJson(json.ToString());
       callback(head + formatted, callbackData);
@@ -33,7 +43,6 @@ namespace com.tencent.im.unity.demo.utils
       var callback = cb;
       return (int code, string desc, string user_data) =>
     {
-      Debug.Log("hello " + user_data);
       string head = "\n" + user_data + "Asynchronous return:\n\n";
       string body = @"{""code"":" + code.ToString() + @",""desc"":""" + desc + @""",""json_param"":" + "null" + "}";
       JObject json = JObject.Parse(body);
@@ -311,7 +320,7 @@ namespace com.tencent.im.unity.demo.utils
       return (string message_list, string user_data) =>
     {
       string head = "\n" + user_data + "Asynchronous return:\n\n";
-      string body = @"{""message_list"":""" + message_list + @"""}";
+      string body = @"{""message_list"":" + message_list + "}";
       JObject json = JObject.Parse(body);
       string formatted = SyntaxHighlightJson(json.ToString());
       callback(eventInfo, head + formatted);
@@ -337,7 +346,7 @@ namespace com.tencent.im.unity.demo.utils
       return (string group_id, string topic_id_array, string user_data) =>
     {
       string head = "\n" + user_data + "Asynchronous return:\n\n";
-      string body = @"{""group_id"":""" + group_id + @""",""topic_id_array"":""" + topic_id_array + @"""}";
+      string body = @"{""group_id"":""" + group_id + @""",""topic_id_array"":" + topic_id_array + "}";
       JObject json = JObject.Parse(body);
       string formatted = SyntaxHighlightJson(json.ToString());
       callback(eventInfo, head + formatted);
@@ -350,7 +359,7 @@ namespace com.tencent.im.unity.demo.utils
       return (string group_id, string topic_info, string user_data) =>
     {
       string head = "\n" + user_data + "Asynchronous return:\n\n";
-      string body = @"{""group_id"":""" + group_id + @""",""topic_info"":""" + topic_info + @"""}";
+      string body = @"{""group_id"":""" + group_id + @""",""topic_info"":" + topic_info + "}";
       JObject json = JObject.Parse(body);
       string formatted = SyntaxHighlightJson(json.ToString());
       callback(eventInfo, head + formatted);
@@ -377,6 +386,32 @@ namespace com.tencent.im.unity.demo.utils
     {
       string head = "\n" + user_data + "Asynchronous return:\n\n";
       string body = @"{""json_user_status_array"":" + json_user_status_array + "}";
+      JObject json = JObject.Parse(body);
+      string formatted = SyntaxHighlightJson(json.ToString());
+      callback(eventInfo, head + formatted);
+    };
+    }
+
+    public static MsgExtensionsChangedStringCallback SetMsgExtensionsChangedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string message_id, string message_extension_array, string user_data) =>
+    {
+      string head = "\n" + user_data + "Asynchronous return:\n\n";
+      string body = @"{""message_id"":""" + message_id + @""",""message_extension_array"":" + message_extension_array + "}";
+      JObject json = JObject.Parse(body);
+      string formatted = SyntaxHighlightJson(json.ToString());
+      callback(eventInfo, head + formatted);
+    };
+    }
+
+    public static MsgExtensionsDeletedStringCallback SetMsgExtensionsDeletedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string message_id, string message_extension_key_array, string user_data) =>
+    {
+      string head = "\n" + user_data + "Asynchronous return:\n\n";
+      string body = @"{""message_id"":""" + message_id + @""",""message_extension_key_array"":" + message_extension_key_array + "}";
       JObject json = JObject.Parse(body);
       string formatted = SyntaxHighlightJson(json.ToString());
       callback(eventInfo, head + formatted);
@@ -457,25 +492,26 @@ namespace com.tencent.im.unity.demo.utils
       return default(T);
     }
 
-    #if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern void CopyText(string str);
-    #endif
+#endif
 
     public static void Copy(string text)
     {
       var copyContent = text;
-      #if UNITY_WEBGL
+#if UNITY_WEBGL
         copyContent = Regex.Replace(text, @"\<(.*?color.*?)\>", string.Empty);
-      #endif
-      #if UNITY_WEBGL && !UNITY_EDITOR
+#endif
+#if UNITY_WEBGL && !UNITY_EDITOR
         CopyText(copyContent);
-      #else
-        TextEditor editor = new TextEditor();
-        editor.text = copyContent;
-        editor.SelectAll();
-        editor.Copy();
-      #endif
+#else
+      TextEditor editor = new TextEditor();
+      editor.text = copyContent;
+      editor.SelectAll();
+      editor.Copy();
+#endif
+      Toast.Show(Utils.t("Copied"));
     }
     public static bool IsCn()
     {

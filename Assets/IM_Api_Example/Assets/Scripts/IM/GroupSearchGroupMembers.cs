@@ -128,7 +128,7 @@ public class GroupSearchGroupMembers : MonoBehaviour
     var param = new GroupMemberSearchParam
     {
       group_search_member_params_groupid_list = new List<string>(SelectedGroups),
-      group_search_member_params_keyword_list = new List<string>(Input.text.Split(',')),
+      group_search_member_params_keyword_list = string.IsNullOrEmpty(Input.text) ? null : new List<string>(Input.text.Split(',')),
       group_search_member_params_field_list = fieldList
     };
     TIMResult res = TencentIMSDK.GroupSearchGroupMembers(param, Utils.addAsyncStringDataToScreen(GetResult));

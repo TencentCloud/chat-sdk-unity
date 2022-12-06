@@ -93,7 +93,6 @@ public class FriendshipCheckFriendType : MonoBehaviour
 
   public void FriendshipGetFriendProfileList()
   {
-    var Users = UserList;
     var cb = Utils.addAsyncStringDataToScreen(SetUserList);
     TIMResult res = TencentIMSDK.FriendshipGetFriendProfileList(cb);
   }

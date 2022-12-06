@@ -49,7 +49,7 @@ public class GroupSearchGroups : MonoBehaviour
 
   void GroupSearchGroupsSDK()
   {
-    var keywordList = new List<string>(Keyword.text.Split(','));
+    var keywordList = string.IsNullOrEmpty(Keyword.text) ? null : new List<string>(Keyword.text.Split(','));
     var fieldList = new List<TIMGroupSearchFieldKey>
     {
       SelectedSearchField.value == 1 ? TIMGroupSearchFieldKey.kTIMGroupSearchFieldKey_GroupName : TIMGroupSearchFieldKey.kTIMGroupSearchFieldKey_GroupId

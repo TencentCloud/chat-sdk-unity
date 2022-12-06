@@ -189,6 +189,16 @@ public class AddEventListener : MonoBehaviour
           TencentIMSDK.SetUserStatusChangedCallback(null);
           break;
         }
+      case "SetMsgExtensionsChangedCallback":
+        {
+          TencentIMSDK.SetMsgExtensionsChangedCallback(null);
+          break;
+        }
+      case "SetMsgExtensionsDeletedCallback":
+        {
+          TencentIMSDK.SetMsgExtensionsDeletedCallback(null);
+          break;
+        }
       default:
         {
           print($"Unknown event {eventName}");
@@ -333,6 +343,16 @@ public class AddEventListener : MonoBehaviour
       case "SetUserStatusChangedCallback":
         {
           TencentIMSDK.SetUserStatusChangedCallback(null, Utils.SetUserStatusChangedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetMsgExtensionsChangedCallback":
+        {
+          TencentIMSDK.SetMsgExtensionsChangedCallback(null, Utils.SetMsgExtensionsChangedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetMsgExtensionsDeletedCallback":
+        {
+          TencentIMSDK.SetMsgExtensionsDeletedCallback(null, Utils.SetMsgExtensionsDeletedCallback(GetResult, eventInfo));
           break;
         }
       default:

@@ -41,7 +41,7 @@ public class GetUserStatus : MonoBehaviour
 
   void GetUserStatusSDK()
   {
-    var list = new List<string>(Input.text.Split(','));
+    var list = string.IsNullOrEmpty(Input.text) ? null : new List<string>(Input.text.Split(','));
     TIMResult res = TencentIMSDK.GetUserStatus(list, Utils.addAsyncStringDataToScreen(GetResult));
     Result.text = Utils.SynchronizeResult(res);
   }

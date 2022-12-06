@@ -39,6 +39,11 @@ public static class I18n
       }
     },
     {
+      "Copied", new I18nData{
+        cn = "已复制"
+      }
+    },
+    {
       "Confirm", new I18nData{
         cn = "确认设置"
       }
@@ -70,6 +75,12 @@ public static class I18n
       "ExtLabel", new I18nData{
         cn = "自定义数据Extension",
         en = "Custom Message Extension"
+      }
+    },
+    {
+      "SelectElemTypeLabel", new I18nData{
+        cn = "选择元素类型",
+        en = "Select Elem Type"
       }
     },
     {
@@ -163,6 +174,12 @@ public static class I18n
       }
     },
     {
+      "supportMsgExtLabel", new I18nData{
+        cn = "是否支持消息扩展",
+        en = "Need message extension"
+      }
+    },
+    {
       "getGroupListFailed", new I18nData{
         cn = "获取群组失败，请登陆",
         en = "Get group list failed, please login"
@@ -172,6 +189,12 @@ public static class I18n
       "getGroupMemberListFailed", new I18nData{
         cn = "获取群组成员列表失败，请登陆",
         en = "Get group member list failed, please login"
+      }
+    },
+    {
+      "getTopicInfoListFailed", new I18nData{
+        cn = "获取话题列表失败，请登陆",
+        en = "Get topic info list failed, please login"
       }
     },
     {
@@ -452,6 +475,16 @@ public static class I18n
     {
       "SetUserStatusChangedCallback", new I18nData{
         cn = "用户状态变更通知回调"
+      }
+    },
+    {
+      "SetMsgExtensionsChangedCallback", new I18nData{
+        cn = "消息扩展信息更新的回调"
+      }
+    },
+    {
+      "SetMsgExtensionsDeletedCallback", new I18nData{
+        cn = "消息扩展信息删除的回调"
       }
     },
     {
@@ -746,6 +779,72 @@ public static class I18n
       "IsSearchNameCardLabel", new I18nData{
         cn = "设置是否搜索群成员名片",
         en = "Search keywords as name card"
+      }
+    },
+    {
+      "TopicIDLabel", new I18nData{
+        cn = "话题ID",
+        en = "Topic ID"
+      }
+    },
+    {
+      "TopicNameLabel", new I18nData{
+        cn = "话题名称",
+        en = "Topic Name"
+      }
+    },
+    {
+      "TopicIntroLabel", new I18nData{
+        cn = "话题介绍",
+        en = "Topic Introduction"
+      }
+    },
+    {
+      "TopicNotificationLabel", new I18nData{
+        cn = "话题公告",
+        en = "Topic Notification"
+      }
+    },
+    {
+      "TopicFaceUrlLabel", new I18nData{
+        cn = "话题头像",
+        en = "Topic Avatar URL"
+      }
+    },
+    {
+      "IsTopicAllMutedLabel", new I18nData{
+        cn = "是否话题全员禁言",
+        en = "Is All Muted Under The Topic"
+      }
+    },
+    {
+      "TopicSelfMuteTimeLabel", new I18nData{
+        cn = "当前用户在话题中禁言时间",
+        en = "Self Mute Time Under The Topic"
+      }
+    },
+    {
+      "TopicCustomStrLabel", new I18nData{
+        cn = "话题自定义字段",
+        en = "Topic Custom String"
+      }
+    },
+    {
+      "TopicRecvOptLabel", new I18nData{
+        cn = "话题消息接收选项",
+        en = "Topic Message Receiving Option"
+      }
+    },
+    {
+      "TopicDraftLabel", new I18nData{
+        cn = "话题草稿",
+        en = "Topic Draft Text"
+      }
+    },
+    {
+      "MsgRecvOptLabel", new I18nData{
+        cn = "消息接收选项",
+        en = "Message Receiving Option"
       }
     },
   };

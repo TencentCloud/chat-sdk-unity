@@ -83,7 +83,7 @@ public class GroupGetGroupAttributes : MonoBehaviour
   void GroupGetGroupAttributesSDK()
   {
     if (groupIDList.Count < 1) return;
-    var keyList = new List<string>(CustomKey.text.Split(','));
+    var keyList = string.IsNullOrEmpty(CustomKey.text) ? null : new List<string>(CustomKey.text.Split(','));
     TIMResult res = TencentIMSDK.GroupGetGroupAttributes(groupIDList[SelectedGroup.value], keyList, Utils.addAsyncStringDataToScreen(GetResult));
     Result.text = Utils.SynchronizeResult(res);
   }
