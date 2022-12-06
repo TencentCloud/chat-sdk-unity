@@ -1621,7 +1621,7 @@ var ImSDKPlugin = {
     var message = tim.findMessage(messageID);
     var msgStr = JSON.stringify(converter.toMessage(message));
     var msg = utils.getStrBuf(msgStr);
-    Module['dynCall_viiii'](cb, imResponse.code, '', msg, user_data);
+    Module['dynCall_viiii'](cb, 0, '', msg, user_data);
   },
   TIMMsgReportReaded: function TIMMsgReportReaded(conv_id, conv_type, message_param, cb, user_data) {
     if (!utils.isInit) {
@@ -3443,6 +3443,16 @@ var ImSDKPlugin = {
     });
   },
 
+  TIMMsgSetMessageExtensions: function TIMMsgSetMessageExtensions() {
+    utils._handleNotImplemented();
+  },
+  TIMMsgGetMessageExtensions: function TIMMsgGetMessageExtensions() {
+    utils._handleNotImplemented();
+  },
+  TIMMsgDeleteMessageExtensions: function TIMMsgDeleteMessageExtensions() {
+    utils._handleNotImplemented();
+  },
+
   TIMMsgGetMessageReadReceipts: function TIMMsgGetMessageReadReceipts(json_msg_array, cb, user_data) {
     if (!utils.isInit) {
       utils._handleNotLoggedIn();
@@ -3557,6 +3567,12 @@ var ImSDKPlugin = {
       return;
     }
     tim.off(TIM.EVENT.MESSAGE_RECEIVED, callback.onMessageReceived);
+  },
+  TIMSetMsgExtensionsChangedCallback: function TIMSetMsgExtensionsChangedCallback () {
+    utils._handleNotImplemented();
+  },
+  TIMSetMsgExtensionsDeletedCallback: function TIMSetMsgExtensionsDeletedCallback () {
+    utils._handleNotImplemented();
   },
   TIMSetMsgReadedReceiptCallback: function TIMSetMsgReadedReceiptCallback(cb, user_data) {
     if (!utils.isInit) {

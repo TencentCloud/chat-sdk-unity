@@ -57,6 +57,8 @@ namespace com.tencent.imsdk.unity
     private static Delegate GroupTopicChangedCallbackStore;
     private static Delegate SelfInfoUpdatedCallbackStore;
     private static Delegate UserStatusChangedCallbackStore;
+    private static Delegate MsgExtensionsChangedCallbackStore;
+    private static Delegate MsgExtensionsDeletedCallbackStore;
     // SetOnDeleteFriendCallback user_data is wrongly transmitted from the Native callback.
     private static string SetOnDeleteFriendCallbackUser_Data;
     private static HashSet<string> IsStringCallbackStore = new HashSet<string>();
@@ -68,27 +70,35 @@ namespace com.tencent.imsdk.unity
       Utils.Log("Tencent Cloud IM add config success .");
     }
 
-    static void Log(string user_data, params string[] args) {
-      if (!needLog) {
+    static void Log(string user_data, params string[] args)
+    {
+      if (!needLog)
+      {
         return;
       }
-      if (args.Length == 0) {
+      if (args.Length == 0)
+      {
         return;
       }
-      try {
+      try
+      {
         var prefix = "tencent-chat-unity-sdk: ";
-        if (args[args.Length - 1] == "tencent-chat-unity-sdk-res") {
+        if (args[args.Length - 1] == "tencent-chat-unity-sdk-res")
+        {
           prefix = "tencent-chat-unity-sdk-res: ";
           args = args.Take(args.Length - 1).ToArray();
         }
-        var param = new ExperimentalAPIReqeustParam {
+        var param = new ExperimentalAPIReqeustParam
+        {
           request_internal_operation = TIMInternalOperation.internal_operation_write_log.ToString(),
-          request_write_log_log_level_param = (int) TIMLogLevel.kTIMLog_Info,
+          request_write_log_log_level_param = (int)TIMLogLevel.kTIMLog_Info,
           request_write_log_log_content_param = String.Join(",", args),
           request_write_log_func_name_param = prefix + user_data
         };
         int res = IMNativeSDK.callExperimentalAPI(Utils.string2intptr(Utils.ToJson(param)), null, Utils.string2intptr(""));
-      } catch (Exception e) {
+      }
+      catch (Exception e)
+      {
         Utils.Log("Log Error" + e.ToString());
       }
     }
@@ -111,7 +121,7 @@ namespace com.tencent.imsdk.unity
       TIMResult res = CallExperimentalAPI(param, CallExperimentalAPICallback);
 
       string configString = Utils.ToJson(json_sdk_config);
-      needLog = (bool) need_log;
+      needLog = (bool)need_log;
       Utils.Log(configString);
 
       int timSucc = IMNativeSDK.TIMInit(sdk_app_id, Utils.string2intptr(configString));
@@ -807,10 +817,10 @@ namespace com.tencent.imsdk.unity
     /// </summary>
     /// <param name="conv_id">会话ID (Conversation ID)</param>
     /// <param name="conv_type">会话类型 TIMConvType (Conversation type)</param>
-    /// <param name="message_locator">消息定位符 MsgLocator</param>
+    /// <param name="message_locator">消息定位符 List<MsgLocator></param>
     /// <param name="callback">异步回调 (Asynchronous callback)</param>
     /// <returns><see cref="TIMResult"/></returns>
-    public static TIMResult MsgFindByMsgLocatorList(string conv_id, TIMConvType conv_type, MsgLocator message_locator, ValueCallback<List<Message>> callback)
+    public static TIMResult MsgFindByMsgLocatorList(string conv_id, TIMConvType conv_type, List<MsgLocator> message_locator, ValueCallback<List<Message>> callback)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
@@ -825,7 +835,7 @@ namespace com.tencent.imsdk.unity
       Log(user_data, conv_id, conv_type.ToString(), loc);
       return (TIMResult)timSucc;
     }
-    public static TIMResult MsgFindByMsgLocatorList(string conv_id, TIMConvType conv_type, MsgLocator message_locator, ValueCallback<string> callback)
+    public static TIMResult MsgFindByMsgLocatorList(string conv_id, TIMConvType conv_type, List<MsgLocator> message_locator, ValueCallback<string> callback)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
@@ -2377,7 +2387,7 @@ namespace com.tencent.imsdk.unity
     /// <param name="json_topic_id_array">话题 ID 列表 (Topic ID list)</param>
     /// <param name="callback">异步回调 (Asynchronous callback)</param>
     /// <returns><see cref="TIMResult"/></returns>
-    public static TIMResult GroupGetTopicInfoList(string group_id, List<string> json_topic_id_array, ValueCallback<List<GroupTopicInfo>> callback)
+    public static TIMResult GroupGetTopicInfoList(string group_id, List<string> json_topic_id_array, ValueCallback<List<GroupGetTopicInfoResult>> callback)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
@@ -2385,7 +2395,7 @@ namespace com.tencent.imsdk.unity
       var list = Utils.ToJson(json_topic_id_array);
 
       ValuecallbackStore.Add(user_data, callback);
-      ValuecallbackDeleStore.Add(user_data, threadOperation<List<GroupTopicInfo>>);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<List<GroupGetTopicInfoResult>>);
 
       int res = IMNativeSDK.TIMGroupGetTopicInfoList(Utils.string2intptr(group_id), Utils.string2intptr(list), ValueCallbackInstance, Utils.string2intptr(user_data));
 
@@ -2398,7 +2408,6 @@ namespace com.tencent.imsdk.unity
 
       string user_data = fn_name + "_" + Utils.getRandomStr();
       var list = Utils.ToJson(json_topic_id_array);
-
       ValuecallbackStore.Add(user_data, callback);
 
       int res = IMNativeSDK.TIMGroupGetTopicInfoList(Utils.string2intptr(group_id), Utils.string2intptr(list), StringValueCallbackInstance, Utils.string2intptr(user_data));
@@ -3395,6 +3404,119 @@ namespace com.tencent.imsdk.unity
     }
 
     /// <summary>
+    /// 设置消息扩展（6.7 及其以上版本支持，需要您购买旗舰版套餐）
+    /// Set message extensions (Available on native SDK v6.7 or higher, Flagship only)
+    /// </summary>
+    /// <param name="message">消息，消息需满足三个条件：1、消息发送前需设置 supportMessageExtension 为 true，2、消息必须是发送成功的状态，3、消息不能是社群（Community）和直播群（AVChatRoom）消息。(Message fulfills: 1. Sending message with true for supportMessageExtension. 2. Message status is sent. 3. Message not for Community and AVChatRoom)</param>
+    /// <param name="extensions">消息扩展信息，如果扩展 key 已经存在，则修改扩展的 value 信息，如果扩展 key 不存在，则新增扩展(Message extensions)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult MsgSetMessageExtensions(Message message, List<MessageExtension> extensions, ValueCallback<List<MessageExtensionResult>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+      var list = Utils.ToJson(extensions);
+
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<List<MessageExtensionResult>>);
+
+      int res = IMNativeSDK.TIMMsgSetMessageExtensions(Utils.string2intptr(msg), Utils.string2intptr(list), ValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data, msg, list);
+      return (TIMResult)res;
+    }
+
+    public static TIMResult MsgSetMessageExtensions(Message message, List<MessageExtension> extensions, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+      var list = Utils.ToJson(extensions);
+
+      ValuecallbackStore.Add(user_data, callback);
+
+      int res = IMNativeSDK.TIMMsgSetMessageExtensions(Utils.string2intptr(msg), Utils.string2intptr(list), StringValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data, msg, list);
+      return (TIMResult)res;
+    }
+
+    /// <summary>
+    /// 获取消息扩展（6.7 及其以上版本支持，需要您购买旗舰版套餐）
+    /// Get message extensions (Available on native SDK v6.7 or higher, Flagship only)
+    /// </summary>
+    /// <param name="message">消息(Message)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult MsgGetMessageExtensions(Message message, ValueCallback<List<MessageExtension>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<List<MessageExtension>>);
+
+      int res = IMNativeSDK.TIMMsgGetMessageExtensions(Utils.string2intptr(msg), ValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data, msg);
+      return (TIMResult)res;
+    }
+
+    public static TIMResult MsgGetMessageExtensions(Message message, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+
+      ValuecallbackStore.Add(user_data, callback);
+
+      int res = IMNativeSDK.TIMMsgGetMessageExtensions(Utils.string2intptr(msg), StringValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data, msg);
+      return (TIMResult)res;
+    }
+    /// <summary>
+    /// 删除消息扩展（6.7 及其以上版本支持，需要您购买旗舰版套餐）
+    /// Delete message extensions (Available on native SDK v6.7 or higher, Flagship only)
+    /// </summary>
+    /// <param name="message">消息(Message)</param>
+    /// <param name="extensions">扩展信息 key 列表，单次最大支持删除 20 个消息扩展，如果设置为空 ，表示删除消息所有扩展 (Extension key array. Maximum 20/call. If this sets to null, it will delete all the message extensions.)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult MsgDeleteMessageExtensions(Message message, List<MessageExtension> extensions, ValueCallback<List<MessageExtensionResult>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+      var list = Utils.ToJson(extensions);
+
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<List<MessageExtensionResult>>);
+
+      int res = IMNativeSDK.TIMMsgDeleteMessageExtensions(Utils.string2intptr(msg), Utils.string2intptr(list), ValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data, msg, list);
+      return (TIMResult)res;
+    }
+
+    public static TIMResult MsgDeleteMessageExtensions(Message message, List<MessageExtension> extensions, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+      var list = Utils.ToJson(extensions);
+
+      ValuecallbackStore.Add(user_data, callback);
+
+      int res = IMNativeSDK.TIMMsgDeleteMessageExtensions(Utils.string2intptr(msg), Utils.string2intptr(list), StringValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data, msg, list);
+      return (TIMResult)res;
+    }
+
+    /// <summary>
     /// 获取群消息已读群成员列表
     /// Get group message read member list
     /// </summary>
@@ -3428,7 +3550,7 @@ namespace com.tencent.imsdk.unity
       return (TIMResult)res;
     }
 
-    #if !UNITY_EDITOR && UNITY_WEBGL
+#if !UNITY_EDITOR && UNITY_WEBGL
     /// <summary>
     /// 获取群消息已读群成员列表
     /// Get group message read member list (Web Only, different callback)
@@ -3443,11 +3565,12 @@ namespace com.tencent.imsdk.unity
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
       string user_data = fn_name + "_" + Utils.getRandomStr();
+      string msg = Utils.ToJson(message);
       MsgGroupMessageReadMemberListCallbackWebStore = (Delegate)callback;
       int res = IMWebSDK.TIMMsgGetGroupMessageReadMemberListWeb(Utils.string2intptr(msg), filter, Utils.string2intptr(next_seq), count, TIMMsgGroupMessageReadMemberListCallbackInstanceWeb, Utils.string2intptr(user_data));
       return (TIMResult)res;
     }
-    #endif
+#endif
 
     /// <summary>
     /// 注册收到新消息回调
@@ -4178,6 +4301,58 @@ namespace com.tencent.imsdk.unity
       IMNativeSDK.TIMSetUserStatusChangedCallback(TIMUserStatusChangedCallbackInstance, Utils.string2intptr(user_data));
     }
 
+    /// <summary>
+    /// 设置消息扩展信息更新的回调
+    /// Set message extensions updated callback
+    /// </summary>
+    /// <param name="callback">回调 MsgExtensionsChangedCallback</param>
+    public static void SetMsgExtensionsChangedCallback(MsgExtensionsChangedCallback callback = null, MsgExtensionsChangedStringCallback stringCallback = null)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      if (stringCallback == null || callback != null)
+      {
+        IsStringCallbackStore.Remove(fn_name);
+      }
+      else
+      {
+        IsStringCallbackStore.Add(fn_name);
+      }
+      if (callback == null && stringCallback == null)
+      {
+        IMNativeSDK.TIMSetMsgExtensionsChangedCallback(null, Utils.string2intptr(""));
+        return;
+      }
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      MsgExtensionsChangedCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+      IMNativeSDK.TIMSetMsgExtensionsChangedCallback(TIMMsgExtensionsChangedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 设置消息扩展信息删除的回调
+    /// Set message extensions deleted callback
+    /// </summary>
+    /// <param name="callback">回调 MsgExtensionsDeletedCallback</param>
+    public static void SetMsgExtensionsDeletedCallback(MsgExtensionsDeletedCallback callback = null, MsgExtensionsDeletedStringCallback stringCallback = null)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      if (stringCallback == null || callback != null)
+      {
+        IsStringCallbackStore.Remove(fn_name);
+      }
+      else
+      {
+        IsStringCallbackStore.Add(fn_name);
+      }
+      if (callback == null && stringCallback == null)
+      {
+        IMNativeSDK.TIMSetMsgExtensionsDeletedCallback(null, Utils.string2intptr(""));
+        return;
+      }
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      MsgExtensionsDeletedCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+      IMNativeSDK.TIMSetMsgExtensionsDeletedCallback(TIMMsgExtensionsDeletedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
     [MonoPInvokeCallback(typeof(IMNativeSDK.CommonValueCallback))]
     private static void ValueCallbackInstance(int code, IntPtr desc, IntPtr json_param, IntPtr user_data)
     {
@@ -4574,14 +4749,43 @@ namespace com.tencent.imsdk.unity
               }
             }
             break;
+          case "TIMMsgExtensionsChangedCallback":
+
+            if (MsgExtensionsChangedCallbackStore != null)
+            {
+              if (typeof(T) == typeof(object))
+              {
+                MsgExtensionsChangedCallbackStore.DynamicInvoke(data.group_id, Utils.FromJson<List<MessageExtension>>(data.data), data.user_data);
+              }
+              else
+              {
+                MsgExtensionsChangedCallbackStore.DynamicInvoke(data.group_id, data.data, data.user_data);
+              }
+            }
+            break;
+          case "TIMMsgExtensionsDeletedCallback":
+
+            if (MsgExtensionsDeletedCallbackStore != null)
+            {
+              if (typeof(T) == typeof(object))
+              {
+                MsgExtensionsDeletedCallbackStore.DynamicInvoke(data.group_id, Utils.FromJson<List<MessageExtension>>(data.data), data.user_data);
+              }
+              else
+              {
+                MsgExtensionsDeletedCallbackStore.DynamicInvoke(data.group_id, data.data, data.user_data);
+              }
+            }
+            break;
         }
-        if (!data.user_data.StartsWith("CallExperimentalAPI") && !data.user_data.StartsWith("SetLogCallback")) {
+        if (!data.user_data.StartsWith("CallExperimentalAPI") && !data.user_data.StartsWith("SetLogCallback"))
+        {
           Log(data.user_data, data.data, "tencent-chat-unity-sdk-res");
         }
       }
       catch (System.Exception error)
       {
-        // Debug.LogError(error);
+        UnityEngine.Debug.LogError(error);
       }
 
     }
@@ -5012,6 +5216,38 @@ namespace com.tencent.imsdk.unity
       string user_data_string = Utils.intptr2string(user_data);
       string json_user_status_array_string = Utils.intptr2string(json_user_status_array);
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMUserStatusChangedCallback", data = json_user_status_array_string, user_data = user_data_string };
+      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
+      {
+        mainSyncContext.Post(threadOperation<object>, cc);
+      }
+      else
+      {
+        mainSyncContext.Post(threadOperation<string>, cc);
+      }
+    }
+    [MonoPInvokeCallback(typeof(IMNativeSDK.TIMMsgExtensionsChangedCallback))]
+    public static void TIMMsgExtensionsChangedCallbackInstance(IntPtr message_id, IntPtr message_extension_array, IntPtr user_data)
+    {
+      string user_data_string = Utils.intptr2string(user_data);
+      string msg_id = Utils.intptr2string(message_id);
+      string message_extensions = Utils.intptr2string(message_extension_array);
+      CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMMsgExtensionsChangedCallback", data = message_extensions, user_data = user_data_string, group_id = msg_id };
+      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
+      {
+        mainSyncContext.Post(threadOperation<object>, cc);
+      }
+      else
+      {
+        mainSyncContext.Post(threadOperation<string>, cc);
+      }
+    }
+    [MonoPInvokeCallback(typeof(IMNativeSDK.TIMMsgExtensionsDeletedCallback))]
+    public static void TIMMsgExtensionsDeletedCallbackInstance(IntPtr message_id, IntPtr message_extension_key_array, IntPtr user_data)
+    {
+      string user_data_string = Utils.intptr2string(user_data);
+      string msg_id = Utils.intptr2string(message_id);
+      string message_extensions = Utils.intptr2string(message_extension_key_array);
+      CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMMsgExtensionsDeletedCallback", data = message_extensions, user_data = user_data_string, group_id = msg_id };
       if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
       {
         mainSyncContext.Post(threadOperation<object>, cc);

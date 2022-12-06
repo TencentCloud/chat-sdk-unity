@@ -307,11 +307,13 @@ namespace com.tencent.imsdk.unity.native
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void TIMAddRecvNewMsgCallback(TIMRecvNewMsgCallback cb, IntPtr user_data);
 
-
-
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void TIMRemoveRecvNewMsgCallback(TIMRecvNewMsgCallback cb);
 
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void TIMSetMsgExtensionsChangedCallback(TIMMsgExtensionsChangedCallback cb, IntPtr user_data);
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void TIMSetMsgExtensionsDeletedCallback(TIMMsgExtensionsDeletedCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void TIMSetMsgReadedReceiptCallback(TIMMsgReadedReceiptCallback cb, IntPtr user_data);
@@ -374,6 +376,12 @@ namespace com.tencent.imsdk.unity.native
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMMsgSendMessageReadReceipts(IntPtr json_msg_array, CommonValueCallback cb, IntPtr user_data);
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMMsgSetMessageExtensions(IntPtr json_msg, IntPtr json_extension_array, CommonValueCallback cb, IntPtr user_data);
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMMsgGetMessageExtensions(IntPtr json_msg, CommonValueCallback cb, IntPtr user_data);
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMMsgDeleteMessageExtensions(IntPtr json_msg, IntPtr json_extension_key_array, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMMsgGetMessageReadReceipts(IntPtr json_msg_array, CommonValueCallback cb, IntPtr user_data);
@@ -448,6 +456,10 @@ namespace com.tencent.imsdk.unity.native
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void TIMFriendApplicationListReadCallback(IntPtr user_data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void TIMMsgExtensionsChangedCallback(IntPtr message_id, IntPtr message_extension_array, IntPtr user_data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void TIMMsgExtensionsDeletedCallback(IntPtr message_id, IntPtr message_extension_key_array, IntPtr user_data);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void TIMFriendBlackListAddedCallback(IntPtr json_friend_black_added_array, IntPtr user_data);

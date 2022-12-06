@@ -177,7 +177,19 @@ namespace com.tencent.imsdk.unity.callback
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
   public delegate void UserStatusChangedCallback(List<UserStatus> json_user_status_array, string user_data);
 
-  ///
+  /// <summary>
+  /// 设置消息扩展信息更新的回调 (Callback for message extensions updated)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgExtensionsChangedCallback(string message_id, List<MessageExtension> message_extension_array, string user_data);
+
+  /// <summary>
+  /// 设置消息扩展信息删除的回调 (Callback for message extensions deleted)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgExtensionsDeletedCallback(string message_id, List<MessageExtension> message_extension_key_array, string user_data);
+
+  /// ----------------------------------------------------------------
 
   /// String 类型回调 (String type data callback)
   /// <summary>
@@ -299,5 +311,17 @@ namespace com.tencent.imsdk.unity.callback
   /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
   public delegate void UserStatusChangedStringCallback(string json_user_status_array, string user_data);
+
+  /// <summary>
+  /// 设置消息扩展信息更新的回调 (Callback for message extensions updated)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgExtensionsChangedStringCallback(string message_id, string message_extension_array, string user_data);
+
+  /// <summary>
+  /// 设置消息扩展信息删除的回调 (Callback for message extensions deleted)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgExtensionsDeletedStringCallback(string message_id, string message_extension_key_array, string user_data);
 
 }
