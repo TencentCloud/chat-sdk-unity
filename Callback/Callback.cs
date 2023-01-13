@@ -52,16 +52,58 @@ namespace com.tencent.imsdk.unity.callback
   public delegate void GroupAttributeChangedCallback(string group_id, List<GroupAttributes> group_attributes, string user_data);
 
   /// <summary>
+  /// 群计数器变更的回调 (Callback for group counter changing)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void GroupCounterChangedCallback(string group_id, string group_counter_key, ulong group_counter_new_value, string user_data);
+
+  /// <summary>
   /// 会话信息回调 (Callback for conversation event)
   /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
   public delegate void ConvEventCallback(TIMConvEvent conv_event, List<ConvInfo> conv_list, string user_data);
 
   /// <summary>
+  /// 会话分组被创建 (Callback for conversation group created)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void ConvConversationGroupCreatedCallback(string group_name, List<string> conversation_array, string user_data);
+
+  /// <summary>
+  /// 会话分组被删除 (Callback for conversation group deleted)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void ConvConversationGroupDeletedCallback(string group_name, string user_data);
+
+  /// <summary>
+  /// 会话分组名变更 (Callback for conversation group name changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void ConvConversationGroupNameChangedCallback(string old_name, string new_name, string user_data);
+
+  /// <summary>
+  /// 会话分组新增会话 (Callback for conversation added to a group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void ConvConversationsAddedToGroupCallback(string group_name, List<string> conversation_array, string user_data);
+
+  /// <summary>
+  /// 会话分组删除会话 (Callback for conversation deleted from the group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void ConvConversationsDeletedFromGroupCallback(string group_name, List<string> conversation_array, string user_data);
+
+  /// <summary>
   /// 全部未读数改变 (Callback for conversation total unread message count changing)
   /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
   public delegate void ConvTotalUnreadMessageCountChangedCallback(int total_unread_count, string user_data);
+
+  /// <summary>
+  /// 按会话 filter 过滤的未读消息总数变化 (Callback for conversation by filter unread message count changing)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void ConvTotalUnreadMessageCountChangedByFilterCallback(ConversationListFilter filter, int total_unread_count, string user_data);
 
   /// <summary>
   /// 网络状态回调 (Callback for network status changing)
@@ -97,7 +139,7 @@ namespace com.tencent.imsdk.unity.callback
   /// 好友资料改变回调 (Callback for updating friend's profile)
   /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-  public delegate void UpdateFriendProfileCallback(List<FriendProfileItem> friend_profile_update_array, string user_data);
+  public delegate void UpdateFriendProfileCallback(List<FriendProfileUpdate> friend_profile_update_array, string user_data);
 
   /// <summary>
   /// 申请加好友回调 (Callback for friend's adding request)
@@ -233,6 +275,30 @@ namespace com.tencent.imsdk.unity.callback
   /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
   public delegate void ConvEventStringCallback(TIMConvEvent conv_event, string conv_list, string user_data);
+
+  /// <summary>
+  /// 会话分组被创建 (Callback for conversation group created)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void ConvConversationGroupCreatedStringCallback(string group_name, string conversation_array, string user_data);
+
+  /// <summary>
+  /// 会话分组新增会话 (Callback for conversation added to a group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void ConvConversationsAddedToGroupStringCallback(string group_name, string conversation_array, string user_data);
+
+  /// <summary>
+  /// 会话分组删除会话 (Callback for conversation deleted from the group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void ConvConversationsDeletedFromGroupStringCallback(string group_name, string conversation_array, string user_data);
+
+  /// <summary>
+  /// 按会话 filter 过滤的未读消息总数变化 (Callback for conversation by filter unread message count changing)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void ConvTotalUnreadMessageCountChangedByFilterStringCallback(string filter, int total_unread_count, string user_data);
 
   /// <summary>
   /// 添加好友回调 (Callback for adding friend)
