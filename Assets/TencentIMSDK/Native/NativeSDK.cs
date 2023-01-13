@@ -89,6 +89,42 @@ namespace com.tencent.imsdk.unity.native
     public static extern int TIMConvGetTotalUnreadMessageCount(CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvGetUnreadMessageCountByFilter(IntPtr filter, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvSubscribeUnreadMessageCountByFilter(IntPtr filter);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvUnsubscribeUnreadMessageCountByFilter(IntPtr filter);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvAddConversationsToGroup(IntPtr group_name, IntPtr conversation_id_array, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvCreateConversationGroup(IntPtr group_name, IntPtr conversation_id_array, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvDeleteConversationGroup(IntPtr group_name, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvDeleteConversationsFromGroup(IntPtr group_name, IntPtr conversation_id_array, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvGetConversationGroupList(CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvGetConversationListByFilter(IntPtr filter, ulong next_seq, uint count, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvMarkConversation(IntPtr conversation_id_array, long mark_type, bool enable_mark, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvRenameConversationGroup(IntPtr old_name, IntPtr new_name, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvSetConversationCustomData(IntPtr conversation_id_array, IntPtr custom_data, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMMsgSendMessage(string conv_id, int conv_type, IntPtr message_param, StringBuilder message_id, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
@@ -194,6 +230,10 @@ namespace com.tencent.imsdk.unity.native
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMGroupGetMemberInfoList(IntPtr json_group_getmeminfos_param, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMGroupMarkGroupMemberList(IntPtr group_id, IntPtr member_array, int mark_type, bool enable_mark, CommonValueCallback cb, IntPtr user_data);
+
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMGroupModifyMemberInfo(IntPtr json_group_modifymeminfo_param, CommonValueCallback cb, IntPtr user_data);
 
@@ -205,9 +245,20 @@ namespace com.tencent.imsdk.unity.native
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMGroupHandlePendency(IntPtr json_group_handle_pendency_param, CommonValueCallback cb, IntPtr user_data);
 
-
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMGroupGetOnlineMemberCount(IntPtr group_id, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMGroupSetGroupCounters(IntPtr group_id, IntPtr json_group_counter_array, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMGroupGetGroupCounters(IntPtr group_id, IntPtr json_group_counter_array, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMGroupIncreaseGroupCounter(IntPtr group_id, IntPtr group_counter_key, ulong group_counter_value, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMGroupDecreaseGroupCounter(IntPtr group_id, IntPtr group_counter_key, ulong group_counter_value, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMGroupSearchGroups(IntPtr json_group_search_groups_param, CommonValueCallback cb, IntPtr user_data);
@@ -232,6 +283,7 @@ namespace com.tencent.imsdk.unity.native
     public static extern int TIMGroupSetTopicInfo(IntPtr json_topic_info, CommonValueCallback cb, IntPtr user_data);
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMGroupGetTopicInfoList(IntPtr group_id, IntPtr json_topic_id_array, CommonValueCallback cb, IntPtr user_data);
+
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMGetUserStatus(IntPtr json_identifier_array, CommonValueCallback cb, IntPtr user_data);
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
@@ -330,10 +382,31 @@ namespace com.tencent.imsdk.unity.native
     public static extern void TIMSetGroupAttributeChangedCallback(TIMGroupAttributeChangedCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void TIMSetGroupCounterChangedCallback(TIMGroupCounterChangedCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void TIMSetConvEventCallback(TIMConvEventCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void TIMSetConvConversationGroupCreatedCallback(TIMConvConversationGroupCreatedCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void TIMSetConvConversationGroupDeletedCallback(TIMConvConversationGroupDeletedCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void TIMSetConvConversationGroupNameChangedCallback(TIMConvConversationGroupNameChangedCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void TIMSetConvConversationsAddedToGroupCallback(TIMConvConversationsAddedToGroupCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void TIMSetConvConversationsDeletedFromGroupCallback(TIMConvConversationsDeletedFromGroupCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void TIMSetConvTotalUnreadMessageCountChangedCallback(TIMConvTotalUnreadMessageCountChangedCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void TIMSetConvUnreadMessageCountChangedByFilterCallback(TIMConvTotalUnreadMessageCountChangedByFilterCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void TIMSetNetworkStatusListenerCallback(TIMNetworkStatusListenerCallback cb, IntPtr user_data);
@@ -384,6 +457,9 @@ namespace com.tencent.imsdk.unity.native
     public static extern int TIMMsgDeleteMessageExtensions(IntPtr json_msg, IntPtr json_extension_key_array, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMMsgTranslateText(IntPtr json_source_text_array, IntPtr source_language, IntPtr target_language, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMMsgGetMessageReadReceipts(IntPtr json_msg_array, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
@@ -427,10 +503,31 @@ namespace com.tencent.imsdk.unity.native
     public delegate void TIMGroupAttributeChangedCallback(IntPtr group_id, IntPtr json_group_attibute_array, IntPtr user_data);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void TIMGroupCounterChangedCallback(IntPtr group_id, IntPtr group_counter_key, ulong group_counter_new_value, IntPtr user_data);
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void TIMConvEventCallback(int conv_event, IntPtr json_conv_array, IntPtr user_data);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void TIMConvConversationGroupCreatedCallback(IntPtr group_name, IntPtr conversation_array, IntPtr user_data);
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void TIMConvConversationGroupDeletedCallback(IntPtr group_name, IntPtr user_data);
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void TIMConvConversationGroupNameChangedCallback(IntPtr old_name, IntPtr new_name, IntPtr user_data);
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void TIMConvConversationsAddedToGroupCallback(IntPtr group_name, IntPtr conversation_array, IntPtr user_data);
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void TIMConvConversationsDeletedFromGroupCallback(IntPtr group_name, IntPtr conversation_array, IntPtr user_data);
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void TIMConvTotalUnreadMessageCountChangedCallback(int total_unread_count, IntPtr user_data);
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void TIMConvTotalUnreadMessageCountChangedByFilterCallback(IntPtr filter, int total_unread_count, IntPtr user_data);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void TIMNetworkStatusListenerCallback(int status, int code, IntPtr desc, IntPtr user_data);
 

@@ -1346,7 +1346,34 @@ var ImSDKPlugin = {
     });
   },
 
-  TIMConvGetTotalUnreadMessageCount: function TIMConvGetTotalUnreadMessageCount() {
+  TIMConvAddConversationsToGroup: function TIMConvAddConversationsToGroup() {
+    utils._handleNotImplemented();
+  },
+  TIMConvAddConversationsToGroup: function TIMConvAddConversationsToGroup() {
+    utils._handleNotImplemented();
+  },
+  TIMConvCreateConversationGroup: function TIMConvCreateConversationGroup() {
+    utils._handleNotImplemented();
+  },
+  TIMConvDeleteConversationGroup: function TIMConvDeleteConversationGroup() {
+    utils._handleNotImplemented();
+  },
+  TIMConvDeleteConversationsFromGroup: function TIMConvDeleteConversationsFromGroup() {
+    utils._handleNotImplemented();
+  },
+  TIMConvGetConversationGroupList: function TIMConvGetConversationGroupList() {
+    utils._handleNotImplemented();
+  },
+  TIMConvGetConversationListByFilter: function TIMConvGetConversationListByFilter() {
+    utils._handleNotImplemented();
+  },
+  TIMConvMarkConversation: function TIMConvMarkConversation() {
+    utils._handleNotImplemented();
+  },
+  TIMConvRenameConversationGroup: function TIMConvRenameConversationGroup() {
+    utils._handleNotImplemented();
+  },
+  TIMConvSetConversationCustomData: function TIMConvSetConversationCustomData() {
     utils._handleNotImplemented();
   },
   TIMMsgSendMessage: function TIMMsgSendMessage(conv_id, conv_type, message_param, message_id, cb, user_data) {
@@ -2201,6 +2228,9 @@ var ImSDKPlugin = {
         console.warn('getGroupMemberList error:', imError);
       });
     }
+  },
+  TIMGroupMarkGroupMemberList: function TIMGroupMarkGroupMemberList() {
+    utils._handleNotImplemented();
   },
   TIMGroupModifyMemberInfo: function TIMGroupModifyMemberInfo(json_group_modifymeminfo_param, cb, user_data) {
     // null
@@ -3660,6 +3690,21 @@ var ImSDKPlugin = {
     tim.on(TIM.EVENT.GROUP_ATTRIBUTES_UPDATED, callback.onGroupAttributesUpdated);
   },
   TIMSetConvEventCallback: function TIMSetConvEventCallback(cb, user_data) {
+    utils._handleNotImplemented();
+  },
+  TIMSetConvConversationGroupCreatedCallback: function TIMSetConvConversationGroupCreatedCallback(cb, user_data) {
+    utils._handleNotImplemented();
+  },
+  TIMSetConvConversationGroupDeletedCallback: function TIMSetConvConversationGroupDeletedCallback(cb, user_data) {
+    utils._handleNotImplemented();
+  },
+  TIMSetConvConversationGroupNameChangedCallback: function TIMSetConvConversationGroupNameChangedCallback(cb, user_data) {
+    utils._handleNotImplemented();
+  },
+  TIMSetConvConversationsAddedToGroupCallback: function TIMSetConvConversationsAddedToGroupCallback(cb, user_data) {
+    utils._handleNotImplemented();
+  },
+  TIMSetConvConversationsDeletedFromGroupCallback: function TIMSetConvConversationsDeletedFromGroupCallback(cb, user_data) {
     utils._handleNotImplemented();
   },
   TIMSetConvTotalUnreadMessageCountChangedCallback: function TIMSetConvTotalUnreadMessageCountChangedCallback(cb, user_data) {

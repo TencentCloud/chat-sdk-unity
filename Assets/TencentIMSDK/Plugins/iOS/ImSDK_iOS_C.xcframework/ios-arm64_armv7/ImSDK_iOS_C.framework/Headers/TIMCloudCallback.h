@@ -408,16 +408,21 @@ typedef void (*TIMGroupTipsEventCallback)(const char* json_group_tip, const void
 *
 * @param json_group_attibute_array 变更的群属性列表
 * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
-* 
-* @note 某个已加入的群的属性被修改了，会返回所在群组的所有属性（该群所有的成员都能收到）
 *
 * @example
-*
-*
 * json_group_attibute_array 的示例。 json key 请参考[GroupAttributes](TIMCloudDef.h)
 * [{"group_atrribute_key":"atrribute_key1","group_atrribute_value":"atrribute_value1"}]
 */
 typedef void (*TIMGroupAttributeChangedCallback)(const char *group_id, const char* json_group_attibute_array, const void* user_data);
+
+/**
+* 群计数器变更的回调
+*
+* @param group_id 群组 ID
+* @param group_counter_key 变更的群计数器的 key
+* @param group_counter_new_value 变更后的群计数器的 value
+*/
+typedef void (*TIMGroupCounterChangedCallback)(const char *group_id, const char *group_counter_key, int64_t group_counter_new_value, const void *user_data);
 
 /**
 * 话题创建的回调
@@ -532,6 +537,16 @@ typedef void (*TIMConvEventCallback)(enum TIMConvEvent conv_event, const char* j
 *
 */
 typedef void (*TIMConvTotalUnreadMessageCountChangedCallback)(int total_unread_count, const void* user_data);
+
+/**
+* @brief 按会话 filter 过滤的未读消息总数变化
+*
+* @param filter 获取未读总数的 filter，详见 @TIMConversationListFilter
+* @param total_unread_count 未读的消息总数
+* @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+*
+*/
+typedef void (*TIMConvTotalUnreadMessageCountChangedByFilterCallback)(const char* filter, int total_unread_count, const void* user_data);
 
 /**
 * @brief 会话分组被创建

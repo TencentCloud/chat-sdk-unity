@@ -72,7 +72,7 @@ enum TIMErrCode {
     ERR_HTTP_REQ_FAILED                         = 6010,    // HTTP 请求失败，请检查 URL 地址是否合法，可在网页浏览器尝试访问该 URL 地址。
     ERR_INVALID_MSG_ELEM                        = 6016,    // IM SDK 无效消息 elem，具体可查看错误信息进一步定义哪个字段。
     ERR_INVALID_SDK_OBJECT                      = 6021,    // 无效的对象，例如用户自己生成 TIMImage 对象，或内部赋值错误导致对象无效。
-    ERR_SDK_MSG_BODY_SIZE_LIMIT                 = 8001,    // 消息长度超出限制，消息长度不要超过8k，消息长度是各个 elem 长度的总和，elem 长度是所有 elem 字段的长度总和。
+    ERR_SDK_MSG_BODY_SIZE_LIMIT                 = 8001,    // 消息长度超出限制，消息长度不要超过12k，消息长度是各个 elem 长度的总和，elem 长度是所有 elem 字段的长度总和。
     ERR_SDK_MSG_KEY_REQ_DIFFER_RSP              = 8002,    // 消息 KEY 错误，内部错误，网络请求包的 KEY 和 回复包的不一致。
     ERR_SDK_IMAGE_CONVERT_ERROR                 = 8003,    // 万象优图 HTTP 请求失败。
     ERR_SDK_IMAGE_CI_BLOCK                      = 8004,    // 万象优图因为鉴黄等原因转缩略图失败。
@@ -204,7 +204,7 @@ enum TIMErrCode {
     ERR_SVR_COMM_REQ_FREQ_LIMIT_EX              = 60019,  // 请求过于频繁，请稍后重试。
     ERR_SVR_COMM_INVALID_SERVICE                = 60020,  // 未购买套餐包或购买的套餐包正在配置中暂未生效，请五分钟后再次尝试。
     ERR_SVR_COMM_SENSITIVE_TEXT                 = 80001,  // 文本安全打击，文本中可能包含敏感词汇。
-    ERR_SVR_COMM_BODY_SIZE_LIMIT                = 80002,  // 发消息包体过长，目前支持最大8k消息包体长度，请减少包体大小重试。
+    ERR_SVR_COMM_BODY_SIZE_LIMIT                = 80002,  // 发消息包体过长，目前支持最大12k消息包体长度，请减少包体大小重试。
 
     // 帐号错误码
 
@@ -321,7 +321,7 @@ enum TIMErrCode {
     ERR_SVR_MSG_INTERNAL_ERROR3                 = 90995,  // 服务内部错误，请重试。
     ERR_SVR_MSG_INTERNAL_ERROR4                 = 91000,  // 服务内部错误，请重试。
     ERR_SVR_MSG_INTERNAL_ERROR5                 = 90992,  // 服务内部错误，请重试；如果所有请求都返回该错误码，且 App 配置了第三方回调，请检查 App 服务端是否正常向云通信 IM 后台服务端返回回调结果。
-    ERR_SVR_MSG_BODY_SIZE_LIMIT                 = 93000,  // JSON 数据包超长，消息包体请不要超过8k。
+    ERR_SVR_MSG_BODY_SIZE_LIMIT                 = 93000,  // JSON 数据包超长，消息包体请不要超过12k。
     ERR_SVR_MSG_LONGPOLLING_COUNT_LIMIT         = 91101,  // Web 端长轮询被踢（Web 端同时在线实例个数超出限制）。
     // 120001 - 130000,  // 单聊第三方回调返回的自定义错误码。
 
@@ -888,10 +888,13 @@ enum TIMAndroidOfflinePushNotifyMode {
 */
 // Struct AndroidOfflinePushConfig JsonKey
 static const char* kTIMAndroidOfflinePushConfigTitle         = "android_offline_push_config_title";            //string, 读写, 通知标题
-static const char* kTIMAndroidOfflinePushConfigSound         = "android_offline_push_config_sound";            //string, 读写, 离线推送声音设置（仅对 Android 生效）。只有华为和谷歌手机支持设置声音提示，小米手机设置声音提示，请您参照：https://dev.mi.com/console/doc/detail?pId=1278%23_3_0。AndroidSound: Android 工程里 raw 目录中的铃声文件名，不需要后缀名。
+static const char* kTIMAndroidOfflinePushConfigSound         = "android_offline_push_config_sound";            //string, 读写, 离线推送声音设置（仅对 Android 生效）。只有华为和谷歌手机支持设置声音提示，小米手机设置声音提示，请您参照：https://dev.mi.com/console/doc/detail?pId=1278%23_3_0。另外，谷歌手机 FCM 推送在 Android 8.0 及以上系统设置声音提示，必须调用 setAndroidFCMChannelID 设置好 channelID，才能生效。AndroidSound: Android 工程里 raw 目录中的铃声文件名，不需要后缀名。
 static const char* kTIMAndroidOfflinePushConfigNotifyMode    = "android_offline_push_config_notify_mode";      //uint [TIMAndroidOfflinePushNotifyMode](), 读写, 当前消息的通知模式
 static const char* kTIMAndroidOfflinePushConfigVIVOClassification = "android_offline_push_config_vivo_classification";            //uint32, 读写，离线推送设置 VIVO 手机 （仅对 Android 生效），VIVO 手机离线推送消息分类，0：运营消息，1：系统消息。默认取值为 1 。
 static const char* kTIMAndroidOfflinePushConfigOPPOChannelID = "android_offline_push_config_oppo_channel_id";  //string, 读写, 离线推送设置 OPPO 手机 8.0 系统及以上的渠道 ID（仅对 Android 生效）。
+static const char* kTIMAndroidOfflinePushConfigXiaoMiChannelID = "android_offline_push_config_xiaomi_channel_id";  //string, 读写, 离线推送设置小米手机 8.0 系统及以上的渠道 ID（仅对 Android 生效）。
+static const char* kTIMAndroidOfflinePushConfigFCMChannelID = "android_offline_push_config_fcm_channel_id";  //string, 读写, 离线推送设置 FCM 通道手机 8.0 系统及以上的渠道 ID（仅对 Android 生效）。
+static const char* kTIMAndroidOfflinePushConfigHuaWeiCategory = "android_offline_push_config_huawei_category";  //string, 读写, 离线推送设置华为推送消息分类，详见：https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-classification-0000001149358835#section1076611477914
 // EndStruct
 
 /**
@@ -947,8 +950,8 @@ static const char* kImSDK_MesssageAtALL = "__kImSDK_MesssageAtALL__";
 * + 目前文件和语音Elem不一定会按照添加顺序传输，其他Elem按照顺序，不过建议不要过于依赖Elem顺序进行处理，应该逐个按照Elem类型处理，防止异常情况下进程Crash。
 * > 针对群组的红包和点赞消息
 * + 对于直播场景，会有点赞和发红包功能，点赞相对优先级较低，红包消息优先级较高，具体消息内容可以使用自定义消息[CustomElem]()进行定义，发送消息时，可通过 kTIMMsgPriority 定义消息优先级。
-* > 阅后即焚消息
-* + 开发者通过设置 kTIMMsgIsOnlineMsg 字段为true时，表示发送阅后即焚消息,该消息有如下特性
+* > 在线消息
+* + 开发者通过设置 kTIMMsgIsOnlineMsg 字段为true时，表示发送在线消息,该消息有如下特性
 * >>C2C会话,当此消息发送时，只有对方在线，对方才会收到。如果当时离线，后续再登录也收不到此消息。
 * >>群会话,当此消息发送时，只有群里在线的成员才会收到。如果当时离线，后续再登录也收不到此消息。
 * >>此消息服务器不会保存
@@ -968,7 +971,7 @@ static const char* kTIMMsgServerTime  = "message_server_time";   //uint64,      
 static const char* kTIMMsgIsFormSelf  = "message_is_from_self";  //bool,           读写(选填),       消息是否来自自己
 static const char* kTIMMsgPlatform    = "message_platform";      //uint, [TIMPlatform](), 读写(选填), 发送消息的平台
 static const char* kTIMMsgIsRead      = "message_is_read";       //bool,           读写(选填),       消息是否已读
-static const char* kTIMMsgIsOnlineMsg = "message_is_online_msg"; //bool,           读写(选填),       消息是否是在线消息，false表示普通消息,true表示阅后即焚消息，默认为false
+static const char* kTIMMsgIsOnlineMsg = "message_is_online_msg"; //bool,           读写(选填),       消息是否是在线消息，false表示普通消息,true表示在线消息，默认为false
 static const char* kTIMMsgIsPeerRead  = "message_is_peer_read";                 //bool,           只读,            对方是否已读（会话维度，已读的条件：msg_time <= 对端标记会话已读的时间），该字段为 true 的条件是消息 timestamp <= 对端标记会话已读的时间
 static const char* kTIMMsgReceiptPeerRead  = "message_receipt_peer_read";       //bool,           只读,            对方是否已读（消息维度，已读的条件：对端针对该消息上报了已读）
 static const char* kTIMMsgNeedReadReceipt    = "message_need_read_receipt";     //bool,           读写(选填),    消息是否需要已读回执（6.1 以上版本有效，需要您购买旗舰版套餐），群消息在使用该功能之前，需要先到 IM 控制台设置已读回执支持的群类型
@@ -995,6 +998,14 @@ static const char* kTIMMsgExcludedFromLastMessage  = "message_excluded_from_last
 static const char* kTIMMsgTargetGroupMemberArray  = "message_target_group_member_array";        // array string, 只写(选填), 指定群消息接收成员（定向消息）；不支持群 @ 消息设置，不支持社群（Community）和直播群（AVChatRoom）消息设置；该字段设置后，消息会不计入会话未读数。
 static const char* kTIMMsgOfflinePushConfig     = "message_offlie_push_config";        // object [OfflinePushConfig](), 读写(选填), 消息的离线推送设置
 static const char* kTIMMsgRevokerUserId         = "message_revoker_user_id";        // string, 只读(选填), 消息的撤回者 user_id
+// EndStruct
+
+/**
+* @brief 文本消息翻译结果
+*/
+// Struct MessageTranslateTextResult JsonKey
+static const char* kTIMMsgTranslateTextSourceText = "msg_translate_text_source_text";   // string, 只读, 待翻译的文本
+static const char* kTIMMsgTranslateTextTargetText = "msg_translate_text_target_text";   // string, 只读, 翻译后的文本
 // EndStruct
 
 /**
@@ -1597,10 +1608,8 @@ static const char* kTIMConvConversationGroupArray   = "conv_conversation_group_a
 */
 // Struct TIMConversationListFilter JsonKey
 static const char* kTIMConversationListFilterConvType           = "conversation_list_filter_conv_type";         // uint [TIMConvType](), 只写, 会话类型
-static const char* kTIMConversationListFilterNextSeq            = "conversation_list_filter_next_seq";          // uint64, 只写, 分页拉取的游标
-static const char* kTIMConversationListFilterCount              = "conversation_list_filter_count";             // uint32, 只写, 分页拉取的个数
+static const char* kTIMConversationListFilterConversationGroup          = "conversation_list_filter_conversation_group";         // string 只写, 会话分组名称
 static const char* kTIMConversationListFilterMarkType           = "conversation_list_filter_mark_type";         // uint [TIMConversationMarkType](), 只写, 标记类型
-static const char* kTIMConversationListFilterGroupName          = "conversation_list_filter_group_name";         // string 只写, 会话分组名称，注意：不是群组名称
 // EndStruct
 
 /**
@@ -1876,6 +1885,14 @@ static const char* kTIMGroupTopicOperationResultTopicID             = "group_top
 static const char* kTIMGroupTopicInfoResultErrorCode           = "group_topic_info_result_error_code";          // int,     只读, 结果 0：成功；非0：失败
 static const char* kTIMGroupTopicInfoResultErrorMessage        = "group_topic_info_result_error_message";       // string,  只读, 如果删除失败，会返回错误信息
 static const char* kTIMGroupTopicInfoResultTopicInfo           = "group_topic_info_result_topic_info";          // object [TIMGroupTopicInfo](),  只读, 如果获取成功，会返回对应的 info
+// EndStruct
+
+/**
+* @brief 群计数器信息
+*/
+// Struct TIMGroupCounter JsonKey
+static const char* kTIMGroupCounterKey = "group_counter_key";          // string, 读写, 群计数器的 key 值
+static const char* kTIMGroupCounterValue = "group_counter_value";      // int64, 读写, 群计数器的 value 值
 // EndStruct
 
 /**

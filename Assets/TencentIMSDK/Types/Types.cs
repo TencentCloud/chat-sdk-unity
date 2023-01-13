@@ -10,10 +10,10 @@ namespace com.tencent.imsdk.unity.types
   [JsonObject(MemberSerialization.OptOut)]
   public class SdkConfig : ExtraData
   {
-    /// <value>只写，SDK配置本地路径 (Write only, SDK config local path)</value>
-    public string sdk_config_config_file_path = System.IO.Directory.GetCurrentDirectory() + "/.TIM-Config";
-    /// <value>只写，SDK日志本地路径 (Write only, SDK log file path)</value>
-    public string sdk_config_log_file_path = System.IO.Directory.GetCurrentDirectory() + "/.TIM-Log";
+    /// <value>只写，SDK配置本地路径 (Write only, SDK config local path) 推荐设置为 $"{System.IO.Directory.GetCurrentDirectory()}/.TIM-Config"</value>
+    public string sdk_config_config_file_path;
+    /// <value>只写，SDK日志本地路径 (Write only, SDK log file path) 推荐设置为 $"{System.IO.Directory.GetCurrentDirectory()}/.TIM-Log"</value>
+    public string sdk_config_log_file_path;
     /// <value> uint64, 只写(选填), 配置Android平台的Java虚拟机指针 (Write only (optional), config of Android Java VM pointer)</value>
     public ulong? sdk_config_java_vm;
   }
@@ -140,10 +140,10 @@ namespace com.tencent.imsdk.unity.types
     /// <value>读写(选填), 消息的离线推送设置 (Read & Write (Optional), message offline push config)</value>
     public OfflinePushConfig message_offlie_push_config;
     /// <value>读写 是否作为会话的 lasgMessage，true - 不作为，false - 作为 (Read & Write (Optional), message is excluded from the lastMessage)</value>
-    public bool message_excluded_from_last_message;
+    public bool? message_excluded_from_last_message;
   }
   [JsonObject(MemberSerialization.OptOut)]
-  public class MessageExtension: ExtraData
+  public class MessageExtension : ExtraData
   {
     // string, 读写(选填), 扩展字段的 key (Read & Write (Optional), message extension key)
     public string message_extension_key;
@@ -151,7 +151,7 @@ namespace com.tencent.imsdk.unity.types
     public string message_extension_value;
   }
   [JsonObject(MemberSerialization.OptOut)]
-  public class MessageExtensionResult: ExtraData
+  public class MessageExtensionResult : ExtraData
   {
     public MessageExtension message_extension_item;
     public int message_extension_result_code;
@@ -165,7 +165,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>读写, 当前消息离线推送时的扩展字段 (Read & Write, offline message notification text extension info)</value>
     public string offline_push_config_ext; // 文本消息
     /// <value>读写, 当前消息是否允许推送，默认允许推送 kTIMOfflinePushFlag_Default (Read & Write, allow offline push or not: Default kTIMOfflinePushFlag_Default)</value>
-    public TIMOfflinePushFlag offline_push_config_flag; // 文本消息
+    public TIMOfflinePushFlag? offline_push_config_flag; // 文本消息
     /// <value>读写, iOS离线推送配置 (Read & Write, iOS offline push config)</value>
     public IOSOfflinePushConfig offline_push_config_ios_config; // 文本消息
     /// <value>读写, Android离线推送配置 (Read & Write, Android offline push config)</value>
@@ -180,7 +180,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>读写, 当前消息在iOS设备上的离线推送提示声音URL。当设置为push.no_sound时表示无提示音无振动 (Read & Write, offline push sound URL)</value>
     public string ios_offline_push_config_sound; // 文本消息
     /// <value>读写, 是否忽略badge计数。若为true，在iOS接收端，这条消息不会使App的应用图标未读计数增加 (Read & Write, should offline push ignore badge count.)</value>
-    public bool ios_offline_push_config_ignore_badge; // 文本消息
+    public bool? ios_offline_push_config_ignore_badge; // 文本消息
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -191,7 +191,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>读写, 当前消息在Android设备上的离线推送提示声音URL (Read & Write, offline push sound URL)</value>
     public string android_offline_push_config_sound; // 文本消息
     /// <value>读写, 当前消息的通知模式 (Read & Write, offline push notify mode)</value>
-    public TIMAndroidOfflinePushNotifyMode android_offline_push_config_notify_mode; // 文本消息
+    public TIMAndroidOfflinePushNotifyMode? android_offline_push_config_notify_mode; // 文本消息
     /// <value>读写，离线推送设置 VIVO 手机 （仅对 Android 生效），VIVO 手机离线推送消息分类，0：运营消息，1：系统消息。默认取值为 1 。 (Read & Write, offline push config for VIVO classification: 0: operation msg, 1: system message. Default 1)</value>
     public int android_offline_push_config_vivo_classification = 1;
     /// <value>读写, OPPO的ChannelID (OPPO ChannelID)</value>
@@ -425,23 +425,23 @@ namespace com.tencent.imsdk.unity.types
     /// <value>只写, 修改用户昵称 (Write only, nick name)</value>
     public string user_profile_item_nick_name; // UserProfileItem
     /// <value>只写, 修改用户性别 (Write only, gender)</value>
-    public TIMGenderType user_profile_item_gender; // UserProfileItem
+    public TIMGenderType? user_profile_item_gender; // UserProfileItem
     /// <value>只写, 修改用户头像 (Write only, avatar URL)</value>
     public string user_profile_item_face_url; // UserProfileItem
     /// <value>只写, 修改用户签名 (Write only, self signature)</value>
     public string user_profile_item_self_signature; // UserProfileItem
     /// <value>只写, 修改用户加好友的选项 (Write only, add permission type)</value>
-    public TIMProfileAddPermission user_profile_item_add_permission; // UserProfileItem
+    public TIMProfileAddPermission? user_profile_item_add_permission; // UserProfileItem
     /// <value>只写, 修改位置 (Write only, location)</value>
     public string user_profile_item_location; // UserProfileItem
     /// <value>只写, 修改语言 (Write only, preferred language)</value>
-    public uint user_profile_item_language; // UserProfileItem
+    public uint? user_profile_item_language; // UserProfileItem
     /// <value>只写, 修改生日 (Write only, birthday)</value>
-    public uint user_profile_item_birthday; // UserProfileItem
+    public uint? user_profile_item_birthday; // UserProfileItem
     /// <value>只写, 修改等级 (Write only, level)</value>
-    public uint user_profile_item_level; // UserProfileItem
+    public uint? user_profile_item_level; // UserProfileItem
     /// <value>只写, 修改角色 (Write only, role)</value>
-    public uint user_profile_item_role; // UserProfileItem
+    public uint? user_profile_item_role; // UserProfileItem
     /// <value>只写, 修改[自定义资料字段](https://cloud.tencent.com/document/product/269/1500#.E8.87.AA.E5.AE.9A.E4.B9.89.E8.B5.84.E6.96.99.E5.AD.97.E6.AE.B5) (Write only, custom key-value pair. Check [Custom Profile Fields](https://www.tencentcloud.com/document/product/1047/33520))</value>
     public List<UserProfileCustemStringInfo> user_profile_item_custom_string_array; // UserProfileItem
   }
@@ -728,9 +728,9 @@ namespace com.tencent.imsdk.unity.types
   public class GroupMemberGetInfoOption : ExtraData
   {
     /// <value>读写(选填), 根据想要获取的信息过滤，默认值为0xffffffff(获取全部信息) (Write (Optional), get group member info flag, default: 0xffffffff)</value>
-    public TIMGroupMemberInfoFlag group_member_get_info_option_info_flag;
+    public TIMGroupMemberInfoFlag? group_member_get_info_option_info_flag;
     /// <value>读写(选填), 根据成员角色过滤，默认值为kTIMGroupMemberRoleFlag_All，获取所有角色 (Write (Optional), filter by role flag, default: kTIMGroupMemberRoleFlag_All)</value>
-    public TIMGroupMemberRoleFlag group_member_get_info_option_role_flag;
+    public TIMGroupMemberRoleFlag? group_member_get_info_option_role_flag;
     /// <value>只写(选填), 请参考[自定义字段](https://cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Write (Optional), Check [Custom Profile Fields](https://www.tencentcloud.com/document/product/1047/33520))</value>
     public List<string> group_member_get_info_option_custom_array;
   }
@@ -887,7 +887,7 @@ namespace com.tencent.imsdk.unity.types
   }
 
   [JsonObject(MemberSerialization.OptOut)]
-  public class FriendProfileItem : ExtraData
+  public class FriendProfileItem : UserProfileItem
   {
     /// <value>只写, 修改好友备注 (Write only, modified friend's remark)</value>
     public string friend_profile_item_remark;
@@ -895,6 +895,15 @@ namespace com.tencent.imsdk.unity.types
     public List<string> friend_profile_item_group_name_array;
     /// <value>只写, 修改[自定义好友字段](https://cloud.tencent.com/document/product/269/1501#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.A5.BD.E5.8F.8B.E5.AD.97.E6.AE.B5) (Write only, modified [Custom Friend Fields](https://www.tencentcloud.com/document/product/1047/33521))</value>
     public List<FriendProfileCustemStringInfo> friend_profile_item_custom_string_array;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class FriendProfileUpdate : ExtraData
+  {
+    /// <value>只写, 资料更新的好友的UserID (Write only, profile updated friend's userID)</value>
+    public string friend_profile_update_identifier;
+    /// <value>只写, FriendProfileItem, 资料更新的Item (Write only, updated friend's profile item)</value>
+    public FriendProfileItem friend_profile_update_item;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -1175,13 +1184,13 @@ namespace com.tencent.imsdk.unity.types
   public class UserConfig : ExtraData
   {
     /// <value>只写(选填), true表示要收已读回执事件 (Write only (Optional), is read receipt acceptable)</value>
-    public bool user_config_is_read_receipt;
+    public bool? user_config_is_read_receipt;
     /// <value>只写(选填), true表示服务端要删掉已读状态 (Write only (Optional), is sync report (should server end delete the read status))</value>
-    public bool user_config_is_sync_report;
+    public bool? user_config_is_sync_report;
     /// <value>只写(选填), true表示群tips不计入群消息已读计数 (Write only (Optional), is ingoring group tips messages for unread count)</value>
-    public bool user_config_is_ingore_grouptips_unread;
+    public bool? user_config_is_ingore_grouptips_unread;
     /// <value>只写(选填), 是否禁用本地数据库，true表示禁用，false表示不禁用。默认是false (Write only (Optional), is disabling local storage, default: false)</value>
-    public bool user_config_is_is_disable_storage;
+    public bool? user_config_is_is_disable_storage;
     /// <value>只写(选填),获取群组信息默认选项 (Write only (Optional), get group info option)</value>
     public GroupGetInfoOption user_config_group_getinfo_option;
     /// <value>只写(选填),获取群组成员信息默认选项 (Write only (Optional), get group member info option)</value>
@@ -1192,7 +1201,7 @@ namespace com.tencent.imsdk.unity.types
   public class GroupGetInfoOption : ExtraData
   {
     /// <value>读写(选填), 根据想要获取的信息过滤，默认值为0xffffffff(获取全部信息) (Read & Write (Optional), filter flag, default: 0xffffffff (accuring all info))</value>
-    public TIMGroupGetInfoFlag group_get_info_option_info_flag;
+    public TIMGroupGetInfoFlag? group_get_info_option_info_flag;
     /// <value>只写(选填), 请参考[自定义字段](https://cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Write only (Optional), check [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
     public List<string> group_get_info_option_custom_array;
   }
@@ -1661,7 +1670,7 @@ namespace com.tencent.imsdk.unity.types
     public List<GroupMemberInfo> group_get_memeber_info_list_result_info_array;
   }
   [JsonObject(MemberSerialization.OptOut)]
-  public class GroupGetTopicInfoResult: ExtraData
+  public class GroupGetTopicInfoResult : ExtraData
   {
     public int group_topic_info_result_error_code;
     public string group_topic_info_result_error_message;
@@ -1687,7 +1696,7 @@ namespace com.tencent.imsdk.unity.types
     ///<value>string, 读写, 话题自定义字段 (Read & Write, custom topic string)</value>
     public string group_topic_info_custom_string;
     ///<value>uint [TIMReceiveMessageOpt]()只读，话题消息接收选项，修改话题消息接收选项请调用 setGroupReceiveMessageOpt 接口 (Read only, topic message receiving option, call setGroupReceiveMessageOpt to modify this field)</value>
-    public TIMReceiveMessageOpt group_topic_info_recv_opt;
+    public TIMReceiveMessageOpt? group_topic_info_recv_opt;
     ///<value>string, 读写, 话题草稿 (Read & Write, topic draft text)</value>
     public string group_topic_info_draft_text;
     ///<value>uint64, 只读, 话题消息未读数量 (Read only, topic unread count)</value>
@@ -1697,7 +1706,7 @@ namespace com.tencent.imsdk.unity.types
     ///<value>array [GroupAtInfo](), 只读, 话题 at 信息列表 (Read only, topic group @ info list)</value>
     public List<GroupAtInfo> group_topic_info_group_at_info_array;
     ///<value>uint [TIMGroupModifyInfoFlag](),只写(必填), 修改标识,可设置多个值按位或 (Write only (Required), modification flag, bit union)</value>
-    public TIMGroupModifyInfoFlag group_modify_info_param_modify_flag;
+    public TIMGroupModifyInfoFlag? group_modify_info_param_modify_flag;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -1706,7 +1715,7 @@ namespace com.tencent.imsdk.unity.types
     ///<value>string, 只读, 用户 ID (Read only, user ID)</value>
     public string user_status_identifier;
     ///<value>uint [TIMUserStatusType](), 只读, 用户的状态 (Read only, user status type)</value>
-    public TIMUserStatusType user_status_status_type;
+    public TIMUserStatusType? user_status_status_type;
     ///<value>string, 读写, 用户的自定义状态 (Read & Write, user's custom status)</value>
     public string user_status_custom_status;
   }
@@ -1720,6 +1729,57 @@ namespace com.tencent.imsdk.unity.types
     public string group_topic_operation_result_error_message;
     ///<value>只读, 如果删除成功，会返回对应的 topicID (Read only, if success, return its topic ID)</value>
     public string group_topic_operation_result_topic_id;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class ConversationOperationResult : ExtraData
+  {
+    ///<value>只读, 会话 ID (Read only, conversation ID)</value>
+    public string conversation_operation_result_conversation_id;
+    ///<value>只读, 返回码 (Read only, result code)</value>
+    public int conversation_operation_result_result_code;
+    ///<value>只读, 返回信息 (Read only, result info)</value>
+    public string conversation_operation_result_result_info;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class ConversationListFilter : ExtraData
+  {
+    ///<value>[TIMConvType](), 只写, 会话类型 (Write only, conversation type)</value>
+    public TIMConvType? conversation_list_filter_conv_type;
+    ///<value>[TIMConversationMarkType](), 只写, 标记类型 (Write only, mark type)</value>
+    public TIMConversationMarkType? conversation_list_filter_mark_type;
+    ///<value>只写, 会话分组名称，注意：不是群组名称 (Write only, conversation group name)</value>
+    public string conversation_list_filter_conversation_group;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class ConversationListResult : ExtraData
+  {
+    ///<value>array [ConvInfo](), 只读, 会话列表 (Read only, conversation info array)</value>
+    public List<ConvInfo> conversation_list_result_conv_list;
+    ///<value>uint64, 只读, 分页拉取的游标 (Read only, next sequence)</value>
+    public ulong? conversation_list_result_next_seq;
+    ///<value>bool, 只读, 分页拉取是否结束 (Read only, is result finished)</value>
+    public uint? conversation_list_result_is_finished;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class GroupCounter : ExtraData
+  {
+    ///<value>string, 读写, 群计数器的 key 值 (Read & write, group counter key)</value>
+    public string group_counter_key;
+    ///<value>int64, 读写, 群计数器的 value 值 (Read & write, group counter value)</value>
+    public long? group_counter_value;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class MessageTranslateTextResult : ExtraData
+  {
+    ///<value>string, 只读, 待翻译的文本 (Read only, source text)</value>
+    public string msg_translate_text_source_text;
+    ///<value>string, 只读, 翻译后的文本 (Read only, translated text)</value>
+    public string msg_translate_text_target_text;
   }
 
   // 用于处理Deserialize时多余的参数

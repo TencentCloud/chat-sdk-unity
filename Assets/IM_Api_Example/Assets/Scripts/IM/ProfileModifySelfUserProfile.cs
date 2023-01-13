@@ -80,11 +80,21 @@ public class ProfileModifySelfUserProfile : MonoBehaviour
         });
       }
     }
-    var param = new UserProfileItem
+    var gender = (TIMGenderType)Gender.value;
+    var addPermission = (TIMProfileAddPermission)AddPermission.value;
+
+    var param = new UserProfileItem();
+
+    if (gender != TIMGenderType.kTIMGenderType_Unkown)
     {
-      user_profile_item_gender = (TIMGenderType)Gender.value,
-      user_profile_item_add_permission = (TIMProfileAddPermission)AddPermission.value,
-    };
+      param.user_profile_item_gender = gender;
+    }
+
+    if (addPermission != TIMProfileAddPermission.kTIMProfileAddPermission_Unknown)
+    {
+      param.user_profile_item_add_permission = addPermission;
+    }
+
     if (!string.IsNullOrEmpty(Nickname.text))
     {
       param.user_profile_item_nick_name = Nickname.text;

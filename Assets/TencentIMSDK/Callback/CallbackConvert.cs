@@ -21,6 +21,7 @@ namespace com.tencent.imsdk.unity.callback
         public int total_size { get; set; } = 0;
 
         public string group_id { get; set; } = "";
+        public string group_name { get; set; } = "";
 
         public int conv_event { get; set; } = 0;
 
@@ -30,7 +31,7 @@ namespace com.tencent.imsdk.unity.callback
 
         public CallbackConvert() {}
 
-        public CallbackConvert(int code, string type, string data, string user_data, string desc = "", int index = 0 , int cur_size = 0, int total_size = 0, string group_id = "", int conv_event = 0, ulong next_seq = 0, bool is_finished = true)
+        public CallbackConvert(int code, string type, string data, string user_data, string desc = "", int index = 0 , int cur_size = 0, int total_size = 0, string group_id = "", int conv_event = 0, ulong next_seq = 0, bool is_finished = true, string group_name = "")
         {
             this.code = code;
             this.data = data;
@@ -44,6 +45,7 @@ namespace com.tencent.imsdk.unity.callback
             this.conv_event = conv_event;
             this.next_seq = next_seq;
             this.is_finished = is_finished;
+            this.group_name = group_name;
         }
     }
 }

@@ -71,6 +71,26 @@ namespace com.tencent.imsdk.unity.enums
     kTIMConv_System,  // 系统会话
   };
 
+  public enum TIMConversationMarkType
+  {
+    /// <summary>
+    /// <description>会话标星 (Conversation star)</description>
+    /// </summary>
+    kTIMConversationMarkTypeStar = 0x1, // 会话标星
+    /// <summary>
+    /// <description>会话标记未读（重要会话）(Mark conv unread) (C2C conversation)</description>
+    /// </summary>
+    kTIMConversationMarkTypeUnread = 0x1 << 1,     // 会话标记未读（重要会话）
+    /// <summary>
+    /// <description>会话折叠 (Conversation fold)</description>
+    /// </summary>
+    kTIMConversationMarkTypeFold = 0x1 << 2,   // 会话折叠
+    /// <summary>
+    /// <description>会话隐藏 (Conversation hide)</description>
+    /// </summary>
+    kTIMConversationMarkTypeHide = 0x1 << 3,  // 会话隐藏
+  }
+
   public enum TIMMsgPriority
   {
     /// <summary>

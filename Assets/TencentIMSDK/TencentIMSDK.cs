@@ -25,44 +25,73 @@ namespace com.tencent.imsdk.unity
     private static Dictionary<string, SendOrPostCallback> ValuecallbackDeleStore = new Dictionary<string, SendOrPostCallback>();
     // private static Dictionary<string, StringBuilder> StrBuilderStore = new Dictionary<string, StringBuilder>();
 
-    private static Delegate RecvNewMsgCallbackStore;
-
-    private static Delegate MsgReadedReceiptCallbackStore;
-    private static Delegate MsgRevokeCallbackStore;
-    private static Delegate MsgElemUploadProgressCallbackStore;
-    private static Delegate GroupTipsEventCallbackStore;
-
-    private static Delegate GroupAttributeChangedCallbackStore;
-
-    private static Delegate ConvEventCallbackStore;
-
+    private static RecvNewMsgCallback RecvNewMsgCallbackStore;
+    private static MsgReadedReceiptCallback MsgReadedReceiptCallbackStore;
+    private static MsgRevokeCallback MsgRevokeCallbackStore;
+    private static MsgElemUploadProgressCallback MsgElemUploadProgressCallbackStore;
+    private static GroupTipsEventCallback GroupTipsEventCallbackStore;
+    private static GroupAttributeChangedCallback GroupAttributeChangedCallbackStore;
+    private static GroupCounterChangedCallback GroupCounterChangedCallbackStore;
+    private static ConvEventCallback ConvEventCallbackStore;
+    private static ConvConversationGroupCreatedCallback ConvConversationGroupCreatedCallbackStore;
+    private static ConvConversationGroupDeletedCallback ConvConversationGroupDeletedCallbackStore;
+    private static ConvConversationGroupNameChangedCallback ConvConversationGroupNameChangedCallbackStore;
+    private static ConvConversationsAddedToGroupCallback ConvConversationsAddedToGroupCallbackStore;
+    private static ConvConversationsDeletedFromGroupCallback ConvConversationsDeletedFromGroupCallbackStore;
     private static ConvTotalUnreadMessageCountChangedCallback ConvTotalUnreadMessageCountChangedCallbackStore;
+    private static ConvTotalUnreadMessageCountChangedByFilterCallback ConvUnreadMessageCountChangedByFilterCallbackStore;
     private static NetworkStatusListenerCallback NetworkStatusListenerCallbackStore;
     private static KickedOfflineCallback KickedOfflineCallbackStore;
     private static UserSigExpiredCallback UserSigExpiredCallbackStore;
-    private static Delegate OnAddFriendCallbackStore;
-    private static Delegate OnDeleteFriendCallbackStore;
-    private static Delegate UpdateFriendProfileCallbackStore;
-    private static Delegate FriendAddRequestCallbackStore;
-    private static Delegate FriendApplicationListDeletedCallbackStore;
+    private static OnAddFriendCallback OnAddFriendCallbackStore;
+    private static OnDeleteFriendCallback OnDeleteFriendCallbackStore;
+    private static UpdateFriendProfileCallback UpdateFriendProfileCallbackStore;
+    private static FriendAddRequestCallback FriendAddRequestCallbackStore;
+    private static FriendApplicationListDeletedCallback FriendApplicationListDeletedCallbackStore;
     private static FriendApplicationListReadCallback FriendApplicationListReadCallbackStore;
-    private static Delegate FriendBlackListAddedCallbackStore;
-    private static Delegate FriendBlackListDeletedCallbackStore;
+    private static FriendBlackListAddedCallback FriendBlackListAddedCallbackStore;
+    private static FriendBlackListDeletedCallback FriendBlackListDeletedCallbackStore;
     private static LogCallback LogCallbackStore;
-    private static Delegate MsgUpdateCallbackStore;
-    private static Delegate MsgGroupMessageReadMemberListCallbackStore;
-    private static Delegate MsgGroupMessageReadMemberListCallbackWebStore;
-    private static Delegate GroupTopicCreatedCallbackStore;
-    private static Delegate GroupTopicDeletedCallbackStore;
-    private static Delegate GroupTopicChangedCallbackStore;
-    private static Delegate SelfInfoUpdatedCallbackStore;
-    private static Delegate UserStatusChangedCallbackStore;
-    private static Delegate MsgExtensionsChangedCallbackStore;
-    private static Delegate MsgExtensionsDeletedCallbackStore;
+    private static MsgUpdateCallback MsgUpdateCallbackStore;
+    private static MsgGroupMessageReadMemberListCallback MsgGroupMessageReadMemberListCallbackStore;
+    private static IMWebSDK.MsgGroupMessageReadMemberListCallback MsgGroupMessageReadMemberListCallbackWebStore;
+    private static GroupTopicCreatedCallback GroupTopicCreatedCallbackStore;
+    private static GroupTopicDeletedCallback GroupTopicDeletedCallbackStore;
+    private static GroupTopicChangedCallback GroupTopicChangedCallbackStore;
+    private static SelfInfoUpdatedCallback SelfInfoUpdatedCallbackStore;
+    private static UserStatusChangedCallback UserStatusChangedCallbackStore;
+    private static MsgExtensionsChangedCallback MsgExtensionsChangedCallbackStore;
+    private static MsgExtensionsDeletedCallback MsgExtensionsDeletedCallbackStore;
+
+    private static RecvNewMsgStringCallback RecvNewMsgStringCallbackStore;
+    private static MsgReadedReceiptStringCallback MsgReadedReceiptStringCallbackStore;
+    private static MsgRevokeStringCallback MsgRevokeStringCallbackStore;
+    private static MsgElemUploadProgressStringCallback MsgElemUploadProgressStringCallbackStore;
+    private static GroupTipsEventStringCallback GroupTipsEventStringCallbackStore;
+    private static GroupAttributeChangedStringCallback GroupAttributeChangedStringCallbackStore;
+    private static ConvEventStringCallback ConvEventStringCallbackStore;
+    private static ConvConversationGroupCreatedStringCallback ConvConversationGroupCreatedStringCallbackStore;
+    private static ConvConversationsAddedToGroupStringCallback ConvConversationsAddedToGroupStringCallbackStore;
+    private static ConvConversationsDeletedFromGroupStringCallback ConvConversationsDeletedFromGroupStringCallbackStore;
+    private static ConvTotalUnreadMessageCountChangedByFilterStringCallback ConvUnreadMessageCountChangedByFilterStringCallbackStore;
+    private static OnAddFriendStringCallback OnAddFriendStringCallbackStore;
+    private static OnDeleteFriendStringCallback OnDeleteFriendStringCallbackStore;
+    private static UpdateFriendProfileStringCallback UpdateFriendProfileStringCallbackStore;
+    private static FriendAddRequestStringCallback FriendAddRequestStringCallbackStore;
+    private static FriendApplicationListDeletedStringCallback FriendApplicationListDeletedStringCallbackStore;
+    private static FriendBlackListAddedStringCallback FriendBlackListAddedStringCallbackStore;
+    private static FriendBlackListDeletedStringCallback FriendBlackListDeletedStringCallbackStore;
+    private static MsgUpdateStringCallback MsgUpdateStringCallbackStore;
+    private static MsgGroupMessageReadMemberListStringCallback MsgGroupMessageReadMemberListStringCallbackStore;
+    private static GroupTopicDeletedStringCallback GroupTopicDeletedStringCallbackStore;
+    private static GroupTopicChangedStringCallback GroupTopicChangedStringCallbackStore;
+    private static SelfInfoUpdatedStringCallback SelfInfoUpdatedStringCallbackStore;
+    private static UserStatusChangedStringCallback UserStatusChangedStringCallbackStore;
+    private static MsgExtensionsChangedStringCallback MsgExtensionsChangedStringCallbackStore;
+    private static MsgExtensionsDeletedStringCallback MsgExtensionsDeletedStringCallbackStore;
+
     // SetOnDeleteFriendCallback user_data is wrongly transmitted from the Native callback.
     private static string SetOnDeleteFriendCallbackUser_Data;
-    private static HashSet<string> IsStringCallbackStore = new HashSet<string>();
-
     private static bool needLog;
 
     public static void CallExperimentalAPICallback(int code, string desc, string data, string user_data)
@@ -70,7 +99,7 @@ namespace com.tencent.imsdk.unity
       Utils.Log("Tencent Cloud IM add config success .");
     }
 
-    static void Log(string user_data, params string[] args)
+    static void Log(string user_data, params object[] args)
     {
       if (!needLog)
       {
@@ -83,11 +112,15 @@ namespace com.tencent.imsdk.unity
       try
       {
         var prefix = "tencent-chat-unity-sdk: ";
-        if (args[args.Length - 1] == "tencent-chat-unity-sdk-res")
+        if (args[args.Length - 1].ToString() == "tencent-chat-unity-sdk-res")
         {
           prefix = "tencent-chat-unity-sdk-res: ";
           args = args.Take(args.Length - 1).ToArray();
         }
+
+        // Convert obj to string
+        args = args.Select(arg => arg.ToString()).ToArray();
+
         var param = new ExperimentalAPIReqeustParam
         {
           request_internal_operation = TIMInternalOperation.internal_operation_write_log.ToString(),
@@ -546,6 +579,488 @@ namespace com.tencent.imsdk.unity
       int timSucc = IMNativeSDK.TIMConvGetTotalUnreadMessageCount(StringValueCallbackInstance, Utils.string2intptr(user_data));
 
       return (TIMResult)timSucc;
+    }
+
+    /// <summary>
+    /// 根据 filter 获取未读总数（7.0 及以上版本支持）
+    /// Get unread message count by filter (^7.0)
+    /// </summary>
+    /// <param name="filter">会话 filter (Conversation list filter)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult ConvGetUnreadMessageCountByFilter(ConversationListFilter filter, ValueCallback<GetTotalUnreadNumberResult> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleGetUnreadMessageCountByFilter(filter, fn_name, callback, null);
+    }
+    public static TIMResult ConvGetUnreadMessageCountByFilter(ConversationListFilter filter, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleGetUnreadMessageCountByFilter(filter, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleGetUnreadMessageCountByFilter(ConversationListFilter filter, string fn_name, ValueCallback<GetTotalUnreadNumberResult> callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var filterStr = Utils.ToJson(filter);
+      var filterPtr = Utils.string2intptr(filterStr);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<GetTotalUnreadNumberResult>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMConvGetUnreadMessageCountByFilter(filterPtr, ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMConvGetUnreadMessageCountByFilter(filterPtr, StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, filterStr);
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
+    /// 注册监听指定 filter 的会话未读总数变化（7.0 及以上版本支持）
+    /// Subscribe unread message count by filter (^7.0)
+    /// </summary>
+    /// <param name="filter">会话 filter (Conversation list filter)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult ConvSubscribeUnreadMessageCountByFilter(ConversationListFilter filter)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string filterStr = Utils.ToJson(filter);
+
+      var filterPtr = Utils.string2intptr(filterStr);
+
+      int timSucc = IMNativeSDK.TIMConvSubscribeUnreadMessageCountByFilter(filterPtr);
+
+      Log(fn_name, filterStr);
+
+      return (TIMResult)timSucc;
+    }
+
+    /// <summary>
+    /// 取消监听指定 filter 的会话未读总数变化（7.0 及以上版本支持）
+    /// Unsubscribe unread message count by filter (^7.0)
+    /// </summary>
+    /// <param name="filter">会话 filter (Conversation list filter)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult ConvUnsubscribeUnreadMessageCountByFilter(ConversationListFilter filter)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string filterStr = Utils.ToJson(filter);
+
+      var filterPtr = Utils.string2intptr(filterStr);
+
+      int timSucc = IMNativeSDK.TIMConvUnsubscribeUnreadMessageCountByFilter(filterPtr);
+
+      Log(fn_name, filterStr);
+
+      return (TIMResult)timSucc;
+    }
+
+    /// <summary>
+    /// 创建会话分组（从 6.5 版本开始支持，需要您购买旗舰版套餐）
+    /// Create conversation group (^6.5, Flagship ver. package only)
+    /// </summary>
+    /// <param name="group_name">分组名 (Group name)</param>
+    /// <param name="conversation_id_array">会话 ID 列表 (Conversation ID array)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult ConvCreateConversationGroup(string group_name, List<string> conversation_id_array, ValueCallback<List<ConversationOperationResult>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleCreateConvGroup(group_name, conversation_id_array, fn_name, callback, null);
+    }
+    public static TIMResult ConvCreateConversationGroup(string group_name, List<string> conversation_id_array, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleCreateConvGroup(group_name, conversation_id_array, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleCreateConvGroup(string group_name, List<string> conversation_id_array, string fn_name, ValueCallback<List<ConversationOperationResult>> callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var groupNamePtr = Utils.string2intptr(group_name);
+      var conversationIdArrayStr = Utils.ToJson(conversation_id_array);
+      var conversationIdArrayPtr = Utils.string2intptr(conversationIdArrayStr);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<List<ConversationOperationResult>>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMConvCreateConversationGroup(groupNamePtr, conversationIdArrayPtr, ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMConvCreateConversationGroup(groupNamePtr, conversationIdArrayPtr, StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, group_name, conversationIdArrayStr);
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
+    /// 添加会话到一个会话分组（从 6.5 版本开始支持，需要您购买旗舰版套餐）
+    /// Add the conversation to an group (^6.5, Flagship ver. package only)
+    /// </summary>
+    /// <param name="group_name">分组名 (Group name)</param>
+    /// <param name="conversation_id_array">会话 ID 列表 (Conversation ID array)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult ConvAddConversationsToGroup(string group_name, List<string> conversation_id_array, ValueCallback<List<ConversationOperationResult>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleAddConvToGroup(group_name, conversation_id_array, fn_name, callback, null);
+    }
+    public static TIMResult ConvAddConversationsToGroup(string group_name, List<string> conversation_id_array, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleAddConvToGroup(group_name, conversation_id_array, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleAddConvToGroup(string group_name, List<string> conversation_id_array, string fn_name, ValueCallback<List<ConversationOperationResult>> callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var groupNamePtr = Utils.string2intptr(group_name);
+      var conversationIdArrayStr = Utils.ToJson(conversation_id_array);
+      var conversationIdArrayPtr = Utils.string2intptr(conversationIdArrayStr);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<List<ConversationOperationResult>>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMConvAddConversationsToGroup(groupNamePtr, conversationIdArrayPtr, ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMConvAddConversationsToGroup(groupNamePtr, conversationIdArrayPtr, StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, group_name, conversationIdArrayStr);
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
+    /// 从会话分组中删除多个会话（从 6.5 版本开始支持，需要您购买旗舰版套餐）
+    /// Delete conversations from an group (^6.5, Flagship ver. package only)
+    /// </summary>
+    /// <param name="group_name">分组名 (Group name)</param>
+    /// <param name="conversation_id_array">会话 ID 列表 (Conversation ID array)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult ConvDeleteConversationsFromGroup(string group_name, List<string> conversation_id_array, ValueCallback<List<ConversationOperationResult>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleDeleteConvsFromGroup(group_name, conversation_id_array, fn_name, callback, null);
+    }
+    public static TIMResult ConvDeleteConversationsFromGroup(string group_name, List<string> conversation_id_array, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleDeleteConvsFromGroup(group_name, conversation_id_array, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleDeleteConvsFromGroup(string group_name, List<string> conversation_id_array, string fn_name, ValueCallback<List<ConversationOperationResult>> callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var groupNamePtr = Utils.string2intptr(group_name);
+      var conversationIdArrayStr = Utils.ToJson(conversation_id_array);
+      var conversationIdArrayPtr = Utils.string2intptr(conversationIdArrayStr);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<List<ConversationOperationResult>>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMConvDeleteConversationsFromGroup(groupNamePtr, conversationIdArrayPtr, ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMConvDeleteConversationsFromGroup(groupNamePtr, conversationIdArrayPtr, StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, group_name, conversationIdArrayStr);
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
+    /// 删除会话分组（从 6.5 版本开始支持，需要您购买旗舰版套餐）
+    /// Delete conversation group (^6.5, Flagship ver. package only)
+    /// </summary>
+    /// <param name="group_name">分组名 (Group name)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult ConvDeleteConversationGroup(string group_name, NullValueCallback callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleDeleteConvGroup(group_name, fn_name, callback, null);
+    }
+    public static TIMResult ConvDeleteConversationGroup(string group_name, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleDeleteConvGroup(group_name, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleDeleteConvGroup(string group_name, string fn_name, NullValueCallback callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var groupNamePtr = Utils.string2intptr(group_name);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<object>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMConvDeleteConversationGroup(groupNamePtr, ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMConvDeleteConversationGroup(groupNamePtr, StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, group_name);
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
+    /// 获取会话分组列表（从 6.5 版本开始支持，需要您购买旗舰版套餐）
+    /// Get conversation group (^6.5, Flagship ver. package only)
+    /// </summary>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult ConvGetConversationGroupList(ValueCallback<List<string>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleGetConvGroupList(fn_name, callback, null);
+    }
+    public static TIMResult ConvGetConversationGroupList(ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleGetConvGroupList(fn_name, null, callback);
+    }
+
+    private static TIMResult HandleGetConvGroupList(string fn_name, ValueCallback<List<string>> callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<List<string>>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMConvGetConversationGroupList(ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMConvGetConversationGroupList(StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
+    /// 获取会话列表高级接口（从 6.5 版本开始支持）
+    /// Get conversation list by filter (^6.5)
+    /// </summary>
+    /// <param name="filter">获取会话列表高级接口的 filter (Get conversation filter)</param>
+    /// <param name="next_seq">分页拉取的游标 (Next seq)</param>
+    /// <param name="count">分页拉取的个数 (Page count)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult ConvGetConversationListByFilter(ConversationListFilter filter, ulong next_seq,uint count,ValueCallback<ConversationListResult> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleGetConvListByFilter(filter, next_seq, count, fn_name, callback, null);
+    }
+    public static TIMResult ConvGetConversationListByFilter(ConversationListFilter filter, ulong next_seq,uint count, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleGetConvListByFilter(filter, next_seq, count, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleGetConvListByFilter(ConversationListFilter filter, ulong next_seq,uint count, string fn_name, ValueCallback<ConversationListResult> callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var filterStr = Utils.ToJson(filter);
+      var filterPtr = Utils.string2intptr(filterStr);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<ConversationListResult>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMConvGetConversationListByFilter(filterPtr, next_seq, count, ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMConvGetConversationListByFilter(filterPtr, next_seq, count, StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, filterStr);
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
+    /// 标记会话（从 6.5 版本开始支持，需要您购买旗舰版套餐）
+    /// Mark conversation (^6.5, Flagship ver. package only)
+    /// </summary>
+    /// <param name="conversation_id_array">会话 ID 列表 (Conversation ID array)</param>
+    /// <param name="mark_type">会话标记类型 (Mark type)</param>
+    /// <param name="enable_mark">true：设置标记 false：取消标记 (Is enable mark)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult ConvMarkConversation(List<string> conversation_id_array, TIMConversationMarkType mark_type, bool enable_mark, ValueCallback<List<ConversationOperationResult>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleMarkConv(conversation_id_array, mark_type, enable_mark, fn_name, callback, null);
+    }
+    public static TIMResult ConvMarkConversation(List<string> conversation_id_array, TIMConversationMarkType mark_type, bool enable_mark, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleMarkConv(conversation_id_array, mark_type, enable_mark, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleMarkConv(List<string> conversation_id_array, TIMConversationMarkType mark_type, bool enable_mark, string fn_name, ValueCallback<List<ConversationOperationResult>> callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var conversationIdArrayStr = Utils.ToJson(conversation_id_array);
+      var conversationIdArrayPtr = Utils.string2intptr(conversationIdArrayStr);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<List<ConversationOperationResult>>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMConvMarkConversation(conversationIdArrayPtr, (long)mark_type, enable_mark, ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMConvMarkConversation(conversationIdArrayPtr, (long)mark_type, enable_mark, StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, conversationIdArrayStr, mark_type.ToString(), enable_mark.ToString());
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
+    /// 重命名会话分组（从 6.5 版本开始支持，需要您购买旗舰版套餐）
+    /// Rename conversation group (^6.5, Flagship ver. package only)
+    /// </summary>
+    /// <param name="old_name">旧分组名 (Old group name)</param>
+    /// <param name="new_name">新分组名 (New group name)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult ConvRenameConversationGroup(string old_name, string new_name, NullValueCallback callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleRenameConvGroup(old_name, new_name, fn_name, callback, null);
+    }
+    public static TIMResult ConvRenameConversationGroup(string old_name, string new_name, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleRenameConvGroup(old_name, new_name, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleRenameConvGroup(string old_name, string new_name, string fn_name, NullValueCallback callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var oldNamePtr = Utils.string2intptr(old_name);
+      var newNamePtr = Utils.string2intptr(new_name);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<object>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMConvRenameConversationGroup(oldNamePtr, newNamePtr, ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMConvRenameConversationGroup(oldNamePtr, newNamePtr, StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, old_name, new_name);
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
+    /// 设置会话自定义数据（从 6.5 版本开始支持）
+    /// Set conversation custom data (^6.5)
+    /// </summary>
+    /// <param name="conversation_id_array">会话 ID 列表 (Conversation ID array)</param>
+    /// <param name="custom_data">自定义数据，最大支持 256 bytes (Custom data, maximum 256 bytes)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult ConvSetConversationCustomData(List<string> conversation_id_array, string custom_data, ValueCallback<List<ConversationOperationResult>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleSetConvCustomData(conversation_id_array, custom_data, fn_name, callback, null);
+    }
+    public static TIMResult ConvSetConversationCustomData(List<string> conversation_id_array, string custom_data, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleSetConvCustomData(conversation_id_array, custom_data, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleSetConvCustomData(List<string> conversation_id_array, string custom_data, string fn_name, ValueCallback<List<ConversationOperationResult>> callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var customDataPtr = Utils.string2intptr(custom_data);
+      var conversationIdArrayStr = Utils.ToJson(conversation_id_array);
+      var conversationIdArrayPtr = Utils.string2intptr(conversationIdArrayStr);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<List<ConversationOperationResult>>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMConvSetConversationCustomData(customDataPtr, conversationIdArrayPtr, ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMConvSetConversationCustomData(customDataPtr, conversationIdArrayPtr, StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, conversationIdArrayStr, custom_data);
+      return (TIMResult) timSucc;
     }
 
     /// <summary>
@@ -1877,6 +2392,53 @@ namespace com.tencent.imsdk.unity
     }
 
     /// <summary>
+    /// 标记群成员（从 6.6 版本开始支持，需要您购买旗舰版套餐）
+    /// Mark group member (^6.6, Flagship ver. package only)
+    /// </summary>
+    /// <param name="group_id">群 ID (Group ID)</param>
+    /// <param name="member_array">群成员 ID 列表 (Group member ID array)</param>
+    /// <param name="mark_type">标记类型 (Mark type)</param>
+    /// <param name="enable_mark">true：设置标记 false：取消标记 (Is enable mark)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult GroupMarkGroupMemberList(string group_id, List<string> member_array, int mark_type, bool enable_mark, NullValueCallback callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleMarkGroupMemberList(group_id, member_array, mark_type, enable_mark, fn_name, callback, null);
+    }
+    public static TIMResult GroupMarkGroupMemberList(string group_id, List<string> member_array, int mark_type, bool enable_mark, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleMarkGroupMemberList(group_id, member_array, mark_type, enable_mark, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleMarkGroupMemberList(string group_id, List<string> member_array, int mark_type, bool enable_mark, string fn_name, NullValueCallback callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var memberArrayStr = Utils.ToJson(member_array);
+      var memberArrayPtr = Utils.string2intptr(memberArrayStr);
+      var groupIdPtr = Utils.string2intptr(group_id);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<object>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMGroupMarkGroupMemberList(groupIdPtr, memberArrayPtr, mark_type, enable_mark, ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMGroupMarkGroupMemberList(groupIdPtr, memberArrayPtr, mark_type, enable_mark, StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, group_id, memberArrayStr, mark_type.ToString(), enable_mark.ToString());
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
     /// 获取群未决信息列表
     /// Get group pendency list
     /// </summary>
@@ -2018,6 +2580,186 @@ namespace com.tencent.imsdk.unity
 
       Log(user_data, group_id);
       return (TIMResult)res;
+    }
+
+    /// <summary>
+    /// 设置群计数器（7.0 及其以上版本支持）
+    /// Set group counters (^7.0)
+    /// </summary>
+    /// <param name="group_id">群 ID (Group ID)</param>
+    /// <param name="group_counter_array">群计数器信息列表 (Group counter array)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult GroupSetGroupCounters(string group_id, List<GroupCounter> group_counter_array, ValueCallback<List<GroupCounter>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleSetGroupCounters(group_id, group_counter_array, fn_name, callback, null);
+    }
+    public static TIMResult GroupSetGroupCounters(string group_id, List<GroupCounter> group_counter_array, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleSetGroupCounters(group_id, group_counter_array, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleSetGroupCounters(string group_id, List<GroupCounter> group_counter_array, string fn_name, ValueCallback<List<GroupCounter>> callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var groupIdPtr = Utils.string2intptr(group_id);
+      var counterArrStr = Utils.ToJson(group_counter_array);
+      var counterArrPtr = Utils.string2intptr(counterArrStr);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<List<GroupCounter>>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMGroupSetGroupCounters(groupIdPtr, counterArrPtr, ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMGroupSetGroupCounters(groupIdPtr, counterArrPtr, StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, group_id, counterArrStr);
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
+    /// 获取群计数器（7.0 及其以上版本支持）
+    /// Get group counters (^7.0)
+    /// </summary>
+    /// <param name="group_id">群 ID (Group ID)</param>
+    /// <param name="group_counter_key_array">群计数器信息 key 列表 (Group counter key array)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult GroupGetGroupCounters(string group_id, List<string> group_counter_key_array, ValueCallback<List<GroupCounter>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleGetGroupCounters(group_id, group_counter_key_array, fn_name, callback, null);
+    }
+    public static TIMResult GroupGetGroupCounters(string group_id, List<string> group_counter_key_array, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleGetGroupCounters(group_id, group_counter_key_array, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleGetGroupCounters(string group_id, List<string> group_counter_key_array, string fn_name, ValueCallback<List<GroupCounter>> callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var groupIdPtr = Utils.string2intptr(group_id);
+      var counterArrStr = Utils.ToJson(group_counter_key_array);
+      var counterArrPtr = Utils.string2intptr(counterArrStr);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<List<GroupCounter>>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMGroupGetGroupCounters(groupIdPtr, counterArrPtr, ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMGroupGetGroupCounters(groupIdPtr, counterArrPtr, StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, group_id, counterArrStr);
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
+    /// 递增群计数器（7.0 及其以上版本支持）
+    /// Increase group counter (^7.0)
+    /// </summary>
+    /// <param name="group_id">群 ID (Group ID)</param>
+    /// <param name="group_counter_key">群计数器的 key (Group counter key)</param>
+    /// <param name="group_counter_value">群计数器的递增变化量 value (Group counter value)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult GroupIncreaseGroupCounter(string group_id, string group_counter_key, ulong group_counter_value, ValueCallback<List<GroupCounter>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleIncreaseGroupCounter(group_id, group_counter_key, group_counter_value, fn_name, callback, null);
+    }
+    public static TIMResult GroupIncreaseGroupCounter(string group_id, string group_counter_key, ulong group_counter_value, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleIncreaseGroupCounter(group_id, group_counter_key, group_counter_value, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleIncreaseGroupCounter(string group_id, string group_counter_key, ulong group_counter_value,  string fn_name, ValueCallback<List<GroupCounter>> callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var groupIdPtr = Utils.string2intptr(group_id);
+      var counterKeyPtr = Utils.string2intptr(group_counter_key);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<List<GroupCounter>>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMGroupIncreaseGroupCounter(groupIdPtr, counterKeyPtr, group_counter_value,  ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMGroupIncreaseGroupCounter(groupIdPtr, counterKeyPtr, group_counter_value,  StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, group_id, group_counter_key, group_counter_value);
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
+    /// 递减群计数器（7.0 及其以上版本支持）
+    /// Decrease group counter (^7.0)
+    /// </summary>
+    /// <param name="group_id">群 ID (Group ID)</param>
+    /// <param name="group_counter_key">群计数器的 key (Group counter key)</param>
+    /// <param name="group_counter_value">群计数器的递增变化量 value (Group counter value)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult GroupDecreaseGroupCounter(string group_id, string group_counter_key, ulong group_counter_value, ValueCallback<List<GroupCounter>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleDecreaseGroupCounter(group_id, group_counter_key, group_counter_value, fn_name, callback, null);
+    }
+    public static TIMResult GroupDecreaseGroupCounter(string group_id, string group_counter_key, ulong group_counter_value, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleDecreaseGroupCounter(group_id, group_counter_key, group_counter_value, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleDecreaseGroupCounter(string group_id, string group_counter_key, ulong group_counter_value,  string fn_name, ValueCallback<List<GroupCounter>> callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var groupIdPtr = Utils.string2intptr(group_id);
+      var counterKeyPtr = Utils.string2intptr(group_counter_key);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<List<GroupCounter>>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMGroupDecreaseGroupCounter(groupIdPtr, counterKeyPtr, group_counter_value,  ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMGroupDecreaseGroupCounter(groupIdPtr, counterKeyPtr, group_counter_value,  StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, group_id, group_counter_key, group_counter_value);
+      return (TIMResult) timSucc;
     }
 
     /// <summary>
@@ -3517,6 +4259,53 @@ namespace com.tencent.imsdk.unity
     }
 
     /// <summary>
+    /// 翻译文本消息
+    /// Translate text
+    /// </summary>
+    /// <param name="json_source_text_array">待翻译文本数组 (Source text array)</param>
+    /// <param name="source_language">源语言 (Source language)</param>
+    /// <param name="target_language">目标语言 (Target language)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult MsgTranslateText(List<string> json_source_text_array, string source_language, string target_language, ValueCallback<List<MessageTranslateTextResult>> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleTranslateText(json_source_text_array, source_language, target_language, fn_name, callback, null);
+    }
+    public static TIMResult MsgTranslateText(List<string> json_source_text_array, string source_language, string target_language, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      return HandleTranslateText(json_source_text_array, source_language, target_language, fn_name, null, callback);
+    }
+
+    private static TIMResult HandleTranslateText(List<string> json_source_text_array, string source_language, string target_language, string fn_name, ValueCallback<List<MessageTranslateTextResult>> callback = null, ValueCallback<string> strCallback = null)
+    {
+      string user_data = Utils.GetUserDataFromFnName(fn_name);
+      int timSucc;
+      var textArrayStr = Utils.ToJson(json_source_text_array);
+      var textArrayPtr = Utils.string2intptr(textArrayStr);
+      var sourceLangPtr = Utils.string2intptr(source_language);
+      var targetLangPtr = Utils.string2intptr(target_language);
+
+      if (callback != null)
+      {
+        ValuecallbackDeleStore.Add(user_data, threadOperation<List<MessageTranslateTextResult>>);
+        ValuecallbackStore.Add(user_data, callback);
+        timSucc = IMNativeSDK.TIMMsgTranslateText(textArrayPtr, sourceLangPtr, targetLangPtr, ValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        ValuecallbackStore.Add(user_data, strCallback);
+        timSucc = IMNativeSDK.TIMMsgTranslateText(textArrayPtr, sourceLangPtr, targetLangPtr, StringValueCallbackInstance, Utils.string2intptr(user_data));
+      }
+
+      Log(user_data, textArrayStr, source_language, target_language);
+      return (TIMResult) timSucc;
+    }
+
+    /// <summary>
     /// 获取群消息已读群成员列表
     /// Get group message read member list
     /// </summary>
@@ -3529,22 +4318,21 @@ namespace com.tencent.imsdk.unity
     public static TIMResult GetMsgGroupMessageReadMemberList(Message message, TIMGroupMessageReadMembersFilter filter, ulong next_seq, int count, MsgGroupMessageReadMemberListCallback callback = null, MsgGroupMessageReadMemberListStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
-      {
-        IsStringCallbackStore.Remove(fn_name);
-      }
-      else
-      {
-        IsStringCallbackStore.Add(fn_name);
-      }
-      if (callback == null && stringCallback == null)
-      {
-        int timRes = IMNativeSDK.TIMMsgGetGroupMessageReadMemberList(Utils.string2intptr(""), filter, next_seq, count, null, Utils.string2intptr(""));
-        return (TIMResult)timRes;
-      }
+
       string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
+      {
+        MsgGroupMessageReadMemberListCallbackStore = callback;
+      }
+
+      if (stringCallback != null)
+      {
+        MsgGroupMessageReadMemberListStringCallbackStore = stringCallback;
+      }
+
       var msg = Utils.ToJson(message);
-      MsgGroupMessageReadMemberListCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       int res = IMNativeSDK.TIMMsgGetGroupMessageReadMemberList(Utils.string2intptr(msg), filter, next_seq, count, TIMMsgGroupMessageReadMemberListCallbackInstance, Utils.string2intptr(user_data));
       Log(user_data, msg, filter.ToString(), next_seq.ToString(), count.ToString());
       return (TIMResult)res;
@@ -3566,7 +4354,7 @@ namespace com.tencent.imsdk.unity
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
       string user_data = fn_name + "_" + Utils.getRandomStr();
       string msg = Utils.ToJson(message);
-      MsgGroupMessageReadMemberListCallbackWebStore = (Delegate)callback;
+      MsgGroupMessageReadMemberListCallbackWebStore = callback;
       int res = IMWebSDK.TIMMsgGetGroupMessageReadMemberListWeb(Utils.string2intptr(msg), filter, Utils.string2intptr(next_seq), count, TIMMsgGroupMessageReadMemberListCallbackInstanceWeb, Utils.string2intptr(user_data));
       return (TIMResult)res;
     }
@@ -3583,21 +4371,25 @@ namespace com.tencent.imsdk.unity
     public static void AddRecvNewMsgCallback(RecvNewMsgCallback callback = null, RecvNewMsgStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        RecvNewMsgCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        RecvNewMsgStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMAddRecvNewMsgCallback(null, Utils.string2intptr(""));
+        RemoveRecvNewMsgCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      RecvNewMsgCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMAddRecvNewMsgCallback(TIMRecvNewMsgCallbackInstance, Utils.string2intptr(user_data));
     }
 
@@ -3605,11 +4397,31 @@ namespace com.tencent.imsdk.unity
     /// 移除收到新消息回调
     /// Remove receiving new message callback
     /// </summary>
-    public static void RemoveRecvNewMsgCallback()
+    /// <param name="callback">回调 RecvNewMsgCallback</param>
+    /// <param name="stringCallback">回调 RecvNewMsgStringCallback</param>
+    public static void RemoveRecvNewMsgCallback(RecvNewMsgCallback callback = null, RecvNewMsgStringCallback stringCallback = null)
     {
-      IMNativeSDK.TIMRemoveRecvNewMsgCallback(TIMRecvNewMsgCallbackInstance);
-    }
+      if (callback != null && RecvNewMsgCallbackStore != null)
+      {
+        RecvNewMsgCallbackStore -= callback;
+      }
 
+      if (stringCallback != null && RecvNewMsgStringCallbackStore != null)
+      {
+        RecvNewMsgStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        RecvNewMsgCallbackStore = null;
+        RecvNewMsgStringCallbackStore = null;
+      }
+
+      if (RecvNewMsgCallbackStore == null && RecvNewMsgStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMRemoveRecvNewMsgCallback(TIMRecvNewMsgCallbackInstance);
+      }
+    }
 
     /// <summary>
     /// 设置消息已读回执回调
@@ -3617,25 +4429,59 @@ namespace com.tencent.imsdk.unity
     /// <para>发送方发送消息，接收方调用接口[TIMMsgReportReaded]()上报该消息已读，发送方ImSDK会通过此接口设置的回调抛出 (Sender sends messages, and receiver report read messages by TIMMsgReportReaded, and the sender will be notified via this callback)</para>
     /// </summary>
     /// <param name="callback">回调 MsgReadedReceiptCallback</param>
+    /// <param name="stringCallback">回调 MsgReadedReceiptStringCallback</param>
     public static void SetMsgReadedReceiptCallback(MsgReadedReceiptCallback callback = null, MsgReadedReceiptStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        MsgReadedReceiptCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        MsgReadedReceiptStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetMsgReadedReceiptCallback(null, Utils.string2intptr(""));
+        RemoveMsgReadedReceiptCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      MsgReadedReceiptCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetMsgReadedReceiptCallback(TIMMsgReadedReceiptCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除消息已读回执回调
+    /// Remove message read receipt callback
+    /// </summary>
+    /// <param name="callback">回调 MsgReadedReceiptCallback</param>
+    /// <param name="stringCallback">回调 MsgReadedReceiptStringCallback</param>
+    public static void RemoveMsgReadedReceiptCallback(MsgReadedReceiptCallback callback = null, MsgReadedReceiptStringCallback stringCallback = null)
+    {
+      if (callback != null && MsgReadedReceiptCallbackStore != null)
+      {
+        MsgReadedReceiptCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && MsgReadedReceiptStringCallbackStore != null)
+      {
+        MsgReadedReceiptStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        MsgReadedReceiptCallbackStore = null;
+        MsgReadedReceiptStringCallbackStore = null;
+      }
+
+      if (MsgReadedReceiptCallbackStore == null && MsgReadedReceiptStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetMsgReadedReceiptCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -3644,27 +4490,61 @@ namespace com.tencent.imsdk.unity
     /// <para>发送方发送消息，接收方收到消息。此时发送方调用接口[TIMMsgRevoke]()撤回该消息，接收方的ImSDK会通过此接口设置的回调抛出 (Sender sends messages, and revoke the messages by TIMMsgRevoke, and the receiver will be notified via this callback)</para>
     /// </summary>
     /// <param name="callback">回调 MsgRevokeCallback</param>
+    /// <param name="stringCallback">回调 MsgRevokeStringCallback</param>
     public static void SetMsgRevokeCallback(MsgRevokeCallback callback = null, MsgRevokeStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        MsgRevokeCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        MsgRevokeStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetMsgRevokeCallback(null, Utils.string2intptr(""));
+        RemoveMsgRevokeCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      MsgRevokeCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetMsgRevokeCallback(TIMMsgRevokeCallbackInstance, Utils.string2intptr(user_data));
     }
 
+    /// <summary>
+    /// 移除接收的消息被撤回回调
+    /// Remove message revoking callback
+    /// </summary>
+    /// <param name="callback">回调 MsgRevokeCallback</param>
+    /// <param name="stringCallback">回调 MsgRevokeStringCallback</param>
+    public static void RemoveMsgRevokeCallback(MsgRevokeCallback callback = null, MsgRevokeStringCallback stringCallback = null)
+    {
+      if (callback != null && MsgRevokeCallbackStore != null)
+      {
+        MsgRevokeCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && MsgRevokeStringCallbackStore != null)
+      {
+        MsgRevokeStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        MsgRevokeCallbackStore = null;
+        MsgRevokeStringCallbackStore = null;
+      }
+
+      if (MsgRevokeCallbackStore == null && MsgRevokeStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetMsgRevokeCallback(null, Utils.string2intptr(""));
+      }
+    }
 
     /// <summary>
     /// 设置消息内元素相关文件上传进度回调
@@ -3672,25 +4552,60 @@ namespace com.tencent.imsdk.unity
     /// <para>设置消息元素上传进度回调。当消息内包含图片、声音、文件、视频元素时，ImSDK会上传这些文件，并触发此接口设置的回调，用户可以根据回调感知上传的进度 (Set message element uploading progress callback. When message element contains image, audio, file and video, the progress is notified via this callback)</para>
     /// </summary>
     /// <param name="callback">回调 MsgElemUploadProgressCallback</param>
+    /// <param name="stringCallback">回调 MsgElemUploadProgressStringCallback</param>
     public static void SetMsgElemUploadProgressCallback(MsgElemUploadProgressCallback callback = null, MsgElemUploadProgressStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        MsgElemUploadProgressCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        MsgElemUploadProgressStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetMsgElemUploadProgressCallback(null, Utils.string2intptr(""));
+        RemoveMsgElemUploadProgressCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      MsgElemUploadProgressCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetMsgElemUploadProgressCallback(TIMMsgElemUploadProgressCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除消息内元素相关文件上传进度回调
+    /// Remove message element uploading progress callback
+    /// </summary>
+    /// <param name="callback">回调 MsgElemUploadProgressCallback</param>
+    /// <param name="stringCallback">回调 MsgElemUploadProgressStringCallback</param>
+    public static void RemoveMsgElemUploadProgressCallback(MsgElemUploadProgressCallback callback = null, MsgElemUploadProgressStringCallback stringCallback = null)
+    {
+      if (callback != null && MsgElemUploadProgressCallbackStore != null)
+      {
+        MsgElemUploadProgressCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && MsgElemUploadProgressStringCallbackStore != null)
+      {
+        MsgElemUploadProgressStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        MsgElemUploadProgressCallbackStore = null;
+        MsgElemUploadProgressStringCallbackStore = null;
+      }
+
+      if (MsgElemUploadProgressCallbackStore == null && MsgElemUploadProgressStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetMsgElemUploadProgressCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -3699,25 +4614,60 @@ namespace com.tencent.imsdk.unity
     /// <para>群组系统消息事件包括 加入群、退出群、踢出群、设置管理员、取消管理员、群资料变更、群成员资料变更。此消息是针对所有群组成员下发的 (Group tips event includes: join group, quit group, remove from the group, grant admin, devolve admin, modify group info, modify group member info. This callback is for all the group members)</para>
     /// </summary>
     /// <param name="callback">回调 GroupTipsEventCallback</param>
+    /// <param name="stringCallback">回调 GroupTipsEventStringCallback</param>
     public static void SetGroupTipsEventCallback(GroupTipsEventCallback callback = null, GroupTipsEventStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        GroupTipsEventCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        GroupTipsEventStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetGroupTipsEventCallback(null, Utils.string2intptr(""));
+        RemoveGroupTipsEventCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      GroupTipsEventCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetGroupTipsEventCallback(TIMGroupTipsEventCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除群组系统消息回调
+    /// Remove group tips event callback
+    /// </summary>
+    /// <param name="callback">回调 GroupTipsEventCallback</param>
+    /// <param name="stringCallback">回调 GroupTipsEventStringCallback</param>
+    public static void RemoveGroupTipsEventCallback(GroupTipsEventCallback callback = null, GroupTipsEventStringCallback stringCallback = null)
+    {
+      if (callback != null && GroupTipsEventCallbackStore != null)
+      {
+        GroupTipsEventCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && GroupTipsEventStringCallbackStore != null)
+      {
+        GroupTipsEventStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        GroupTipsEventCallbackStore = null;
+        GroupTipsEventStringCallbackStore = null;
+      }
+
+      if (GroupTipsEventCallbackStore == null && GroupTipsEventStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetGroupTipsEventCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -3726,27 +4676,106 @@ namespace com.tencent.imsdk.unity
     /// <para>某个已加入的群的属性被修改了，会返回所在群组的所有属性（该群所有的成员都能收到）(If some attributes from a joined group are modified, all members from that group will receive the all the modified attributes)</para>
     /// </summary>
     /// <param name="callback">回调 GroupAttributeChangedCallback</param>
+    /// <param name="stringCallback">回调 GroupAttributeChangedStringCallback</param>
     public static void SetGroupAttributeChangedCallback(GroupAttributeChangedCallback callback = null, GroupAttributeChangedStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        GroupAttributeChangedCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        GroupAttributeChangedStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetGroupAttributeChangedCallback(null, Utils.string2intptr(""));
+        RemoveGroupAttributeChangedCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      GroupAttributeChangedCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetGroupAttributeChangedCallback(TIMGroupAttributeChangedCallbackInstance, Utils.string2intptr(user_data));
     }
 
+    /// <summary>
+    /// 设置群计数器变更回调
+    /// Set group counter changed callback
+    /// </summary>
+    /// <param name="callback">回调 GroupCounterChangedCallback</param>
+    public static void SetGroupCounterChangedCallback(GroupCounterChangedCallback callback)
+    {
+      if (callback != null)
+      {
+        string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+        string user_data = fn_name + "_" + Utils.getRandomStr();
+
+        GroupCounterChangedCallbackStore += callback;
+
+        IMNativeSDK.TIMSetGroupCounterChangedCallback(TIMGroupCounterChangedCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+        RemoveGroupCounterChangedCallback();
+      }
+    }
+
+    /// <summary>
+    /// 移除群计数器变更回调
+    /// Remove group counter changed callback
+    /// </summary>
+    /// <param name="callback">回调 GroupCounterChangedCallback</param>
+    public static void RemoveGroupCounterChangedCallback(GroupCounterChangedCallback callback = null)
+    {
+      if (callback != null && GroupCounterChangedCallbackStore != null)
+      {
+        GroupCounterChangedCallbackStore -= callback;
+      }
+      else
+      {
+        GroupCounterChangedCallbackStore = null;
+      }
+
+      if (GroupCounterChangedCallbackStore == null )
+      {
+        IMNativeSDK.TIMSetGroupCounterChangedCallback(null, Utils.string2intptr(""));
+      }
+    }
+
+    /// <summary>
+    /// 移除群组属性变更回调
+    /// Remove group attribute changed callback
+    /// </summary>
+    /// <param name="callback">回调 GroupAttributeChangedCallback</param>
+    /// <param name="stringCallback">回调 GroupAttributeChangedStringCallback</param>
+    public static void RemoveGroupAttributeChangedCallback(GroupAttributeChangedCallback callback = null, GroupAttributeChangedStringCallback stringCallback = null)
+    {
+      if (callback != null && GroupAttributeChangedCallbackStore != null)
+      {
+        GroupAttributeChangedCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && GroupAttributeChangedStringCallbackStore != null)
+      {
+        GroupAttributeChangedStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        GroupAttributeChangedCallbackStore = null;
+        GroupAttributeChangedStringCallbackStore = null;
+      }
+
+      if (GroupAttributeChangedCallbackStore == null && GroupAttributeChangedStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetGroupAttributeChangedCallback(null, Utils.string2intptr(""));
+      }
+    }
 
     /// <summary>
     /// 设置会话事件回调
@@ -3762,25 +4791,59 @@ namespace com.tencent.imsdk.unity
     /// <para>调用接口[TIMConvDelete]()删除会话成功时会触发会话删除事件 (Use TIMConvDelete to delete conversation will trigger delete conversation event)</para>
     /// </summary>
     /// <param name="callback">回调 ConvEventCallback</param>
+    /// <param name="stringCallback">回调 ConvEventStringCallback</param>
     public static void SetConvEventCallback(ConvEventCallback callback = null, ConvEventStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        ConvEventCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        ConvEventStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetConvEventCallback(null, Utils.string2intptr(""));
+        RemoveConvEventCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      ConvEventCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetConvEventCallback(TIMConvEventCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除会话事件回调
+    /// Remove conversation event callback
+    /// </summary>
+    /// <param name="callback">回调 ConvEventCallback</param>
+    /// <param name="stringCallback">回调 ConvEventStringCallback</param>
+    public static void RemoveConvEventCallback(ConvEventCallback callback = null, ConvEventStringCallback stringCallback = null)
+    {
+      if (callback != null && ConvEventCallbackStore != null)
+      {
+        ConvEventCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && ConvEventStringCallbackStore != null)
+      {
+        ConvEventStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        ConvEventCallbackStore = null;
+        ConvEventStringCallbackStore = null;
+      }
+
+      if (ConvEventCallbackStore == null && ConvEventStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetConvEventCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -3796,16 +4859,366 @@ namespace com.tencent.imsdk.unity
 
         string user_data = fn_name + "_" + Utils.getRandomStr();
 
-        ConvTotalUnreadMessageCountChangedCallbackStore = callback;
+        ConvTotalUnreadMessageCountChangedCallbackStore += callback;
 
         IMNativeSDK.TIMSetConvTotalUnreadMessageCountChangedCallback(TIMConvTotalUnreadMessageCountChangedCallbackInstance, Utils.string2intptr(user_data));
       }
       else
       {
-        IMNativeSDK.TIMSetConvTotalUnreadMessageCountChangedCallback(null, Utils.string2intptr(""));
+          RemoveConvTotalUnreadMessageCountChangedCallback();
+      }
+    }
+
+    /// <summary>
+    /// 移除会话未读消息总数变更的回调
+    /// Remove conversation total unread message count changed callback
+    /// </summary>
+    /// <param name="callback">回调 ConvTotalUnreadMessageCountChangedCallback</param>
+    public static void RemoveConvTotalUnreadMessageCountChangedCallback(ConvTotalUnreadMessageCountChangedCallback callback = null)
+    {
+      if (callback != null && ConvTotalUnreadMessageCountChangedCallbackStore != null)
+      {
+        ConvTotalUnreadMessageCountChangedCallbackStore -= callback;
+      }
+      else
+      {
+        ConvTotalUnreadMessageCountChangedCallbackStore = null;
       }
 
+      if (ConvTotalUnreadMessageCountChangedCallbackStore == null )
+      {
+        IMNativeSDK.TIMSetConvTotalUnreadMessageCountChangedCallback(null, Utils.string2intptr(""));
+      }
+    }
 
+    /// <summary>
+    /// 设置按会话 filter 过滤的未读消息总数变更的回调
+    /// Set filtered conversation unread message count changed callback
+    /// </summary>
+    /// <param name="callback">回调 ConvTotalUnreadMessageCountChangedByFilterCallback</param>
+    /// <param name="stringCallback">回调 ConvTotalUnreadMessageCountChangedByFilterStringCallback</param>
+    public static void SetConvUnreadMessageCountChangedByFilterCallback(ConvTotalUnreadMessageCountChangedByFilterCallback callback = null, ConvTotalUnreadMessageCountChangedByFilterStringCallback stringCallback = null)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
+      {
+        ConvUnreadMessageCountChangedByFilterCallbackStore += callback;
+      }
+
+      if (stringCallback != null)
+      {
+        ConvUnreadMessageCountChangedByFilterStringCallbackStore += stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        RemoveConvUnreadMessageCountChangedByFilterCallback();
+        return;
+      }
+
+      IMNativeSDK.TIMSetConvUnreadMessageCountChangedByFilterCallback(TIMConvUnreadMessageCountChangedByFilterCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除按会话 filter 过滤的未读消息总数变更的回调
+    /// Remove filtered conversation unread message count changed callback
+    /// </summary>
+    /// <param name="callback">回调 ConvTotalUnreadMessageCountChangedByFilterCallback</param>
+    /// <param name="stringCallback">回调 ConvTotalUnreadMessageCountChangedByFilterStringCallback</param>
+    public static void RemoveConvUnreadMessageCountChangedByFilterCallback(ConvTotalUnreadMessageCountChangedByFilterCallback callback = null, ConvTotalUnreadMessageCountChangedByFilterStringCallback stringCallback = null)
+    {
+      if (callback != null && ConvUnreadMessageCountChangedByFilterCallbackStore != null)
+      {
+        ConvUnreadMessageCountChangedByFilterCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && ConvUnreadMessageCountChangedByFilterStringCallbackStore != null)
+      {
+        ConvUnreadMessageCountChangedByFilterStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        ConvUnreadMessageCountChangedByFilterCallbackStore = null;
+        ConvUnreadMessageCountChangedByFilterStringCallbackStore = null;
+      }
+
+      if (ConvUnreadMessageCountChangedByFilterCallbackStore == null && ConvUnreadMessageCountChangedByFilterStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetConvUnreadMessageCountChangedByFilterCallback(null, Utils.string2intptr(""));
+      }
+    }
+
+    /// <summary>
+    /// 设置会话分组被创建回调
+    /// Set conversation been created callback
+    /// </summary>
+    /// <param name="callback">回调 ConvConversationGroupCreatedCallback</param>
+    /// <param name="stringCallback">回调 ConvConversationGroupCreatedStringCallback</param>
+    public static void SetConvConversationGroupCreatedCallback(ConvConversationGroupCreatedCallback callback = null, ConvConversationGroupCreatedStringCallback stringCallback = null)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
+      {
+        ConvConversationGroupCreatedCallbackStore += callback;
+      }
+
+      if (stringCallback != null)
+      {
+        ConvConversationGroupCreatedStringCallbackStore += stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        RemoveConvConversationGroupCreatedCallback();
+        return;
+      }
+
+      IMNativeSDK.TIMSetConvConversationGroupCreatedCallback(TIMConvConversationGroupCreatedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除会话分组被创建回调
+    /// Remove conversation been created callback
+    /// </summary>
+    /// <param name="callback">回调 ConvConversationGroupCreatedCallback</param>
+    /// <param name="stringCallback">回调 ConvConversationGroupCreatedStringCallback</param>
+    public static void RemoveConvConversationGroupCreatedCallback(ConvConversationGroupCreatedCallback callback = null, ConvConversationGroupCreatedStringCallback stringCallback = null)
+    {
+      if (callback != null && ConvConversationGroupCreatedCallbackStore != null)
+      {
+        ConvConversationGroupCreatedCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && ConvConversationGroupCreatedStringCallbackStore != null)
+      {
+        ConvConversationGroupCreatedStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        ConvConversationGroupCreatedCallbackStore = null;
+        ConvConversationGroupCreatedStringCallbackStore = null;
+      }
+
+      if (ConvConversationGroupCreatedCallbackStore == null && ConvConversationGroupCreatedStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetConvConversationGroupCreatedCallback(null, Utils.string2intptr(""));
+      }
+    }
+
+    /// <summary>
+    /// 设置会话分组被删除的回调
+    /// Set conversation group deleted callback
+    /// </summary>
+    /// <param name="callback">回调 ConvConversationGroupDeletedCallback</param>
+    public static void SetConvConversationGroupDeletedCallback(ConvConversationGroupDeletedCallback callback)
+    {
+      if (callback != null)
+      {
+        string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+        string user_data = fn_name + "_" + Utils.getRandomStr();
+
+        ConvConversationGroupDeletedCallbackStore += callback;
+
+        IMNativeSDK.TIMSetConvConversationGroupDeletedCallback(TIMConvConversationGroupDeletedCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+          RemoveConvConversationGroupDeletedCallback();
+      }
+    }
+
+    /// <summary>
+    /// 设置会话分组名变更回调
+    /// Set conversation group name changed callback
+    /// </summary>
+    /// <param name="callback">回调 ConvConversationGroupNameChangedCallback</param>
+    public static void SetConvConversationGroupNameChangedCallback(ConvConversationGroupNameChangedCallback callback)
+    {
+      if (callback != null)
+      {
+        string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+        string user_data = fn_name + "_" + Utils.getRandomStr();
+
+        ConvConversationGroupNameChangedCallbackStore += callback;
+
+        IMNativeSDK.TIMSetConvConversationGroupNameChangedCallback(TIMConvConversationGroupNameChangedCallbackInstance, Utils.string2intptr(user_data));
+      }
+      else
+      {
+          RemoveConvConversationGroupNameChangedCallback();
+      }
+    }
+
+    /// <summary>
+    /// 移除会话分组名变更回调
+    /// Remove conversation group name changed callback
+    /// </summary>
+    /// <param name="callback">回调 ConvConversationGroupNameChangedCallback</param>
+    public static void RemoveConvConversationGroupNameChangedCallback(ConvConversationGroupNameChangedCallback callback = null)
+    {
+      if (callback != null && ConvConversationGroupNameChangedCallbackStore != null)
+      {
+        ConvConversationGroupNameChangedCallbackStore -= callback;
+      }
+      else
+      {
+        ConvConversationGroupNameChangedCallbackStore = null;
+      }
+
+      if (ConvConversationGroupNameChangedCallbackStore == null )
+      {
+        IMNativeSDK.TIMSetConvConversationGroupNameChangedCallback(null, Utils.string2intptr(""));
+      }
+    }
+
+    /// <summary>
+    /// 移除会话分组被删除的回调
+    /// Remove conversation group deleted callback
+    /// </summary>
+    /// <param name="callback">回调 ConvConversationGroupDeletedCallback</param>
+    public static void RemoveConvConversationGroupDeletedCallback(ConvConversationGroupDeletedCallback callback = null)
+    {
+      if (callback != null && ConvConversationGroupDeletedCallbackStore != null)
+      {
+        ConvConversationGroupDeletedCallbackStore -= callback;
+      }
+      else
+      {
+        ConvConversationGroupDeletedCallbackStore = null;
+      }
+
+      if (ConvConversationGroupDeletedCallbackStore == null )
+      {
+        IMNativeSDK.TIMSetConvConversationGroupDeletedCallback(null, Utils.string2intptr(""));
+      }
+    }
+
+    /// <summary>
+    /// 设置会话分组新增会话回调
+    /// Set conversation added to group callback
+    /// </summary>
+    /// <param name="callback">回调 ConvConversationsAddedToGroupCallback</param>
+    /// <param name="stringCallback">回调 ConvConversationsAddedToGroupStringCallback</param>
+    public static void SetConvConversationsAddedToGroupCallback(ConvConversationsAddedToGroupCallback callback = null, ConvConversationsAddedToGroupStringCallback stringCallback = null)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
+      {
+        ConvConversationsAddedToGroupCallbackStore += callback;
+      }
+
+      if (stringCallback != null)
+      {
+        ConvConversationsAddedToGroupStringCallbackStore += stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        RemoveConvConversationsAddedToGroupCallback();
+        return;
+      }
+
+      IMNativeSDK.TIMSetConvConversationsAddedToGroupCallback(TIMConvConversationsAddedToGroupCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除会话分组新增会话回调
+    /// Remove conversation added to group callback
+    /// </summary>
+    /// <param name="callback">回调 ConvConversationsAddedToGroupCallback</param>
+    /// <param name="stringCallback">回调 ConvConversationsAddedToGroupStringCallback</param>
+    public static void RemoveConvConversationsAddedToGroupCallback(ConvConversationsAddedToGroupCallback callback = null, ConvConversationsAddedToGroupStringCallback stringCallback = null)
+    {
+      if (callback != null && ConvConversationsAddedToGroupCallbackStore != null)
+      {
+        ConvConversationsAddedToGroupCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && ConvConversationsAddedToGroupStringCallbackStore != null)
+      {
+        ConvConversationsAddedToGroupStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        ConvConversationsAddedToGroupCallbackStore = null;
+        ConvConversationsAddedToGroupStringCallbackStore = null;
+      }
+
+      if (ConvConversationsAddedToGroupCallbackStore == null && ConvConversationsAddedToGroupStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetConvConversationsAddedToGroupCallback(null, Utils.string2intptr(""));
+      }
+    }
+
+        /// <summary>
+    /// 设置会话分组删除会话回调
+    /// Set conversation been deleted from group callback
+    /// </summary>
+    /// <param name="callback">回调 ConvConversationsDeletedFromGroupCallback</param>
+    /// <param name="stringCallback">回调 ConvConversationsDeletedFromGroupStringCallback</param>
+    public static void SetConvConversationsDeletedFromGroupCallback(ConvConversationsDeletedFromGroupCallback callback = null, ConvConversationsDeletedFromGroupStringCallback stringCallback = null)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
+      {
+        ConvConversationsDeletedFromGroupCallbackStore += callback;
+      }
+
+      if (stringCallback != null)
+      {
+        ConvConversationsDeletedFromGroupStringCallbackStore += stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        RemoveConvConversationsDeletedFromGroupCallback();
+        return;
+      }
+
+      IMNativeSDK.TIMSetConvConversationsDeletedFromGroupCallback(TIMConvConversationsDeletedFromGroupCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除会话分组删除会话回调
+    /// Remove conversation been deleted from group callback
+    /// </summary>
+    /// <param name="callback">回调 ConvConversationsDeletedFromGroupCallback</param>
+    /// <param name="stringCallback">回调 ConvConversationsDeletedFromGroupStringCallback</param>
+    public static void RemoveConvConversationsDeletedFromGroupCallback(ConvConversationsDeletedFromGroupCallback callback = null, ConvConversationsDeletedFromGroupStringCallback stringCallback = null)
+    {
+      if (callback != null && ConvConversationsDeletedFromGroupCallbackStore != null)
+      {
+        ConvConversationsDeletedFromGroupCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && ConvConversationsDeletedFromGroupStringCallbackStore != null)
+      {
+        ConvConversationsDeletedFromGroupStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        ConvConversationsDeletedFromGroupCallbackStore = null;
+        ConvConversationsDeletedFromGroupStringCallbackStore = null;
+      }
+
+      if (ConvConversationsDeletedFromGroupCallbackStore == null && ConvConversationsDeletedFromGroupStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetConvConversationsDeletedFromGroupCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -3825,16 +5238,36 @@ namespace com.tencent.imsdk.unity
 
         string user_data = fn_name + "_" + Utils.getRandomStr();
 
-        NetworkStatusListenerCallbackStore = callback;
+        NetworkStatusListenerCallbackStore += callback;
 
         IMNativeSDK.TIMSetNetworkStatusListenerCallback(TIMNetworkStatusListenerCallbackInstance, Utils.string2intptr(user_data));
       }
       else
       {
-        IMNativeSDK.TIMSetNetworkStatusListenerCallback(null, Utils.string2intptr(""));
+        RemoveNetworkStatusListenerCallback();
+      }
+    }
+
+    /// <summary>
+    /// 移除网络连接状态监听回调
+    /// Remove network status changed callback
+    /// </summary>
+    /// <param name="callback">回调 NetworkStatusListenerCallback</param>
+    public static void RemoveNetworkStatusListenerCallback(NetworkStatusListenerCallback callback = null)
+    {
+      if (callback != null && NetworkStatusListenerCallbackStore != null)
+      {
+        NetworkStatusListenerCallbackStore -= callback;
+      }
+      else
+      {
+        NetworkStatusListenerCallbackStore = null;
       }
 
-
+      if (NetworkStatusListenerCallbackStore == null )
+      {
+        IMNativeSDK.TIMSetNetworkStatusListenerCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -3859,16 +5292,36 @@ namespace com.tencent.imsdk.unity
 
         string user_data = fn_name + "_" + Utils.getRandomStr();
 
-        KickedOfflineCallbackStore = callback;
+        KickedOfflineCallbackStore += callback;
 
         IMNativeSDK.TIMSetKickedOfflineCallback(TIMKickedOfflineCallbackInstance, Utils.string2intptr(user_data));
       }
       else
       {
-        IMNativeSDK.TIMSetKickedOfflineCallback(null, Utils.string2intptr(""));
+        RemoveKickedOfflineCallback();
+      }
+    }
+
+    /// <summary>
+    /// 移除被踢下线通知回调
+    /// Remove user kicked offline callback
+    /// </summary>
+    /// <param name="callback">回调 KickedOfflineCallback</param>
+    public static void RemoveKickedOfflineCallback(KickedOfflineCallback callback = null)
+    {
+      if (callback != null && KickedOfflineCallbackStore != null)
+      {
+        KickedOfflineCallbackStore -= callback;
+      }
+      else
+      {
+        KickedOfflineCallbackStore = null;
       }
 
-
+      if (KickedOfflineCallbackStore == null )
+      {
+        IMNativeSDK.TIMSetKickedOfflineCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -3886,16 +5339,36 @@ namespace com.tencent.imsdk.unity
 
         string user_data = fn_name + "_" + Utils.getRandomStr();
 
-        UserSigExpiredCallbackStore = callback;
+        UserSigExpiredCallbackStore += callback;
 
         IMNativeSDK.TIMSetUserSigExpiredCallback(TIMUserSigExpiredCallbackInstance, Utils.string2intptr(user_data));
       }
       else
       {
-        IMNativeSDK.TIMSetUserSigExpiredCallback(null, Utils.string2intptr(""));
+        RemoveUserSigExpiredCallback();
+      }
+    }
+
+    /// <summary>
+    /// 移除票据过期回调
+    /// Remove user signature expired callback
+    /// </summary>
+    /// <param name="callback">回调 UserSigExpiredCallback</param>
+    public static void RemoveUserSigExpiredCallback(UserSigExpiredCallback callback = null)
+    {
+      if (callback != null && UserSigExpiredCallbackStore != null)
+      {
+        UserSigExpiredCallbackStore -= callback;
+      }
+      else
+      {
+        UserSigExpiredCallbackStore = null;
       }
 
-
+      if (UserSigExpiredCallbackStore == null )
+      {
+        IMNativeSDK.TIMSetUserSigExpiredCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -3904,25 +5377,60 @@ namespace com.tencent.imsdk.unity
     /// <para>此回调为了多终端同步。例如A设备、B设备都登陆了同一帐号的ImSDK，A设备添加了好友，B设备ImSDK会收到添加好友的推送，ImSDK通过此回调告知开发者 (This is for multi-platform synchronization. Eg. A,B logged with the same account, and A adds a new friend, then B will receive this callback.)</para>
     /// </summary>
     /// <param name="callback">回调 OnAddFriendCallback</param>
+    /// <param name="stringCallback">回调 OnAddFriendStringCallback</param>
     public static void SetOnAddFriendCallback(OnAddFriendCallback callback = null, OnAddFriendStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        OnAddFriendCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        OnAddFriendStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetOnAddFriendCallback(null, Utils.string2intptr(""));
+        RemoveOnAddFriendCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      OnAddFriendCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetOnAddFriendCallback(TIMOnAddFriendCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除添加好友的回调
+    /// Remove add friend listener
+    /// </summary>
+    /// <param name="callback">回调 OnAddFriendCallback</param>
+    /// <param name="stringCallback">回调 OnAddFriendStringCallback</param>
+    public static void RemoveOnAddFriendCallback(OnAddFriendCallback callback = null, OnAddFriendStringCallback stringCallback = null)
+    {
+      if (callback != null && OnAddFriendCallbackStore != null)
+      {
+        OnAddFriendCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && OnAddFriendStringCallbackStore != null)
+      {
+        OnAddFriendStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        OnAddFriendCallbackStore = null;
+        OnAddFriendStringCallbackStore = null;
+      }
+
+      if (OnAddFriendCallbackStore == null && OnAddFriendStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetOnAddFriendCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -3931,26 +5439,62 @@ namespace com.tencent.imsdk.unity
     /// <para>此回调为了多终端同步。例如A设备、B设备都登陆了同一帐号的ImSDK，A设备删除了好友，B设备ImSDK会收到删除好友的推送，ImSDK通过此回调告知开发者 (This is for multi-platform synchronization. Eg. A,B logged with the same account, and A deletes a friend, then B will receive this callback.)</para>
     /// </summary>
     /// <param name="callback">回调 OnDeleteFriendCallback</param>
+    /// <param name="stringCallback">回调 OnDeleteFriendStringCallback</param>
     public static void SetOnDeleteFriendCallback(OnDeleteFriendCallback callback = null, OnDeleteFriendStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        OnDeleteFriendCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        OnDeleteFriendStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetOnDeleteFriendCallback(null, Utils.string2intptr(""));
+        RemoveOnDeleteFriendCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
+
       SetOnDeleteFriendCallbackUser_Data = user_data;
-      OnDeleteFriendCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetOnDeleteFriendCallback(TIMOnDeleteFriendCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除删除好友的回调
+    /// Remove delete friend listener
+    /// </summary>
+    /// <param name="callback">回调 OnDeleteFriendCallback</param>
+    /// <param name="stringCallback">回调 OnDeleteFriendStringCallback</param>
+    public static void RemoveOnDeleteFriendCallback(OnDeleteFriendCallback callback = null, OnDeleteFriendStringCallback stringCallback = null)
+    {
+      if (callback != null && OnDeleteFriendCallbackStore != null)
+      {
+        OnDeleteFriendCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && OnDeleteFriendStringCallbackStore != null)
+      {
+        OnDeleteFriendStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        OnDeleteFriendCallbackStore = null;
+        OnDeleteFriendStringCallbackStore = null;
+      }
+
+      if (OnDeleteFriendCallbackStore == null && OnDeleteFriendStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetOnDeleteFriendCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -3959,25 +5503,60 @@ namespace com.tencent.imsdk.unity
     /// <para>此回调为了多终端同步。例如A设备、B设备都登陆了同一帐号的ImSDK，A设备更新了好友资料，B设备ImSDK会收到更新好友资料的推送，ImSDK通过此回调告知开发者 (This is for multi-platform synchronization. Eg. A,B logged with the same account, and A updates a friend's profile, then B will receive this callback.)</para>
     /// </summary>
     /// <param name="callback">回调 UpdateFriendProfileCallback</param>
+    /// <param name="stringCallback">回调 UpdateFriendProfileStringCallback</param>
     public static void SetUpdateFriendProfileCallback(UpdateFriendProfileCallback callback = null, UpdateFriendProfileStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        UpdateFriendProfileCallbackStore += callback;
       }
-      else
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        UpdateFriendProfileStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetUpdateFriendProfileCallback(null, Utils.string2intptr(""));
+        RemoveUpdateFriendProfileCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      UpdateFriendProfileCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetUpdateFriendProfileCallback(TIMUpdateFriendProfileCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除更新好友资料的回调
+    /// Remove update friend's profile callback
+    /// </summary>
+    /// <param name="callback">回调 UpdateFriendProfileCallback</param>
+    /// <param name="stringCallback">回调 UpdateFriendProfileStringCallback</param>
+    public static void RemoveUpdateFriendProfileCallback(UpdateFriendProfileCallback callback = null, UpdateFriendProfileStringCallback stringCallback = null)
+    {
+      if (callback != null && UpdateFriendProfileCallbackStore != null)
+      {
+        UpdateFriendProfileCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && UpdateFriendProfileStringCallbackStore != null)
+      {
+        UpdateFriendProfileStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        UpdateFriendProfileCallbackStore = null;
+        UpdateFriendProfileStringCallbackStore = null;
+      }
+
+      if (UpdateFriendProfileCallbackStore == null && UpdateFriendProfileStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetUpdateFriendProfileCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -3986,25 +5565,60 @@ namespace com.tencent.imsdk.unity
     /// <para>当前登入用户设置添加好友需要确认时，如果有用户请求加当前登入用户为好友，会收到好友添加请求的回调，ImSDK通过此回调告知开发者。如果多终端登入同一帐号，每个终端都会收到这个回调 (If current user's friend request needs confirmation, and other applies a friend request to the user, the user will receive thiss callback. If you logged on multi-platforms, each of them will trigger this callback)</para>
     /// </summary>
     /// <param name="callback">回调 FriendAddRequestCallback</param>
+    /// <param name="stringCallback">回调 FriendAddRequestStringCallback</param>
     public static void SetFriendAddRequestCallback(FriendAddRequestCallback callback = null, FriendAddRequestStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        FriendAddRequestCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        FriendAddRequestStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetFriendAddRequestCallback(null, Utils.string2intptr(""));
+        RemoveFriendAddRequestCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      FriendAddRequestCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetFriendAddRequestCallback(TIMFriendAddRequestCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除好友添加请求的回调
+    /// Remove friend request callback
+    /// </summary>
+    /// <param name="callback">回调 FriendAddRequestCallback</param>
+    /// <param name="stringCallback">回调 FriendAddRequestStringCallback</param>
+    public static void RemoveFriendAddRequestCallback(FriendAddRequestCallback callback = null, FriendAddRequestStringCallback stringCallback = null)
+    {
+      if (callback != null && FriendAddRequestCallbackStore != null)
+      {
+        FriendAddRequestCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && FriendAddRequestStringCallbackStore != null)
+      {
+        FriendAddRequestStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        FriendAddRequestCallbackStore = null;
+        FriendAddRequestStringCallbackStore = null;
+      }
+
+      if (FriendAddRequestCallbackStore == null && FriendAddRequestStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetFriendAddRequestCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -4016,25 +5630,60 @@ namespace com.tencent.imsdk.unity
     /// <para>4. 申请加别人好友被拒绝 (4. Apply other friend request and get rejected)</para>
     /// </summary>
     /// <param name="callback">回调 FriendApplicationListDeletedCallback</param>
+    /// <param name="stringCallback">回调 FriendApplicationListDeletedStringCallback</param>
     public static void SetFriendApplicationListDeletedCallback(FriendApplicationListDeletedCallback callback = null, FriendApplicationListDeletedStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        FriendApplicationListDeletedCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        FriendApplicationListDeletedStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetFriendApplicationListDeletedCallback(null, Utils.string2intptr(""));
+        RemoveFriendApplicationListDeletedCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      FriendApplicationListDeletedCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetFriendApplicationListDeletedCallback(TIMFriendApplicationListDeletedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除好友申请被删除的回调
+    /// Remove friend application list deleted callback
+    /// </summary>
+    /// <param name="callback">回调 FriendApplicationListDeletedCallback</param>
+    /// <param name="stringCallback">回调 FriendApplicationListDeletedStringCallback</param>
+    public static void RemoveFriendApplicationListDeletedCallback(FriendApplicationListDeletedCallback callback = null, FriendApplicationListDeletedStringCallback stringCallback = null)
+    {
+      if (callback != null && FriendApplicationListDeletedCallbackStore != null)
+      {
+        FriendApplicationListDeletedCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && FriendApplicationListDeletedStringCallbackStore != null)
+      {
+        FriendApplicationListDeletedStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        FriendApplicationListDeletedCallbackStore = null;
+        FriendApplicationListDeletedStringCallbackStore = null;
+      }
+
+      if (FriendApplicationListDeletedCallbackStore == null && FriendApplicationListDeletedStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetFriendApplicationListDeletedCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -4045,22 +5694,42 @@ namespace com.tencent.imsdk.unity
     /// <param name="callback">回调 FriendApplicationListReadCallback</param>
     public static void SetFriendApplicationListReadCallback(FriendApplicationListReadCallback callback)
     {
-
       if (callback != null)
       {
         string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
         string user_data = fn_name + "_" + Utils.getRandomStr();
 
-        FriendApplicationListReadCallbackStore = callback;
+        FriendApplicationListReadCallbackStore += callback;
 
         IMNativeSDK.TIMSetFriendApplicationListReadCallback(TIMFriendApplicationListReadCallbackInstance, Utils.string2intptr(user_data));
       }
       else
       {
-        IMNativeSDK.TIMSetFriendApplicationListReadCallback(null, Utils.string2intptr(""));
+        RemoveFriendApplicationListReadCallback();
+      }
+    }
+
+    /// <summary>
+    /// 移除好友申请已读的回调
+    /// Remove friend application list read callback
+    /// </summary>
+    /// <param name="callback">回调 FriendApplicationListReadCallback</param>
+    public static void RemoveFriendApplicationListReadCallback(FriendApplicationListReadCallback callback = null)
+    {
+      if (callback != null && FriendApplicationListReadCallbackStore != null)
+      {
+        FriendApplicationListReadCallbackStore -= callback;
+      }
+      else
+      {
+        FriendApplicationListReadCallbackStore = null;
       }
 
+      if (FriendApplicationListReadCallbackStore == null )
+      {
+        IMNativeSDK.TIMSetFriendApplicationListReadCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -4068,25 +5737,60 @@ namespace com.tencent.imsdk.unity
     /// Set blacklist added new user callback
     /// </summary>
     /// <param name="callback">回调 FriendBlackListAddedCallback</param>
+    /// <param name="stringCallback">回调 FriendBlackListAddedStringCallback</param>
     public static void SetFriendBlackListAddedCallback(FriendBlackListAddedCallback callback = null, FriendBlackListAddedStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        FriendBlackListAddedCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        FriendBlackListAddedStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetFriendBlackListAddedCallback(null, Utils.string2intptr(""));
+        RemoveFriendBlackListAddedCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      FriendBlackListAddedCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetFriendBlackListAddedCallback(TIMFriendBlackListAddedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除黑名单新增的回调
+    /// Remove blacklist added new user callback
+    /// </summary>
+    /// <param name="callback">回调 FriendBlackListAddedCallback</param>
+    /// <param name="stringCallback">回调 FriendBlackListAddedStringCallback</param>
+    public static void RemoveFriendBlackListAddedCallback(FriendBlackListAddedCallback callback = null, FriendBlackListAddedStringCallback stringCallback = null)
+    {
+      if (callback != null && FriendBlackListAddedCallbackStore != null)
+      {
+        FriendBlackListAddedCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && FriendBlackListAddedStringCallbackStore != null)
+      {
+        FriendBlackListAddedStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        FriendBlackListAddedCallbackStore = null;
+        FriendBlackListAddedStringCallbackStore = null;
+      }
+
+      if (FriendBlackListAddedCallbackStore == null && FriendBlackListAddedStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetFriendBlackListAddedCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -4094,25 +5798,60 @@ namespace com.tencent.imsdk.unity
     /// Set blacklist deleted user callback
     /// </summary>
     /// <param name="callback">回调 FriendBlackListDeletedCallback</param>
+    /// <param name="stringCallback">回调 FriendBlackListDeletedStringCallback</param>
     public static void SetFriendBlackListDeletedCallback(FriendBlackListDeletedCallback callback = null, FriendBlackListDeletedStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        FriendBlackListDeletedCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        FriendBlackListDeletedStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetFriendBlackListDeletedCallback(null, Utils.string2intptr(""));
+        RemoveFriendBlackListDeletedCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      FriendBlackListDeletedCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetFriendBlackListDeletedCallback(TIMFriendBlackListDeletedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除黑名单删除的回调
+    /// Remove blacklist deleted user callback
+    /// </summary>
+    /// <param name="callback">回调 FriendBlackListDeletedCallback</param>
+    /// <param name="stringCallback">回调 FriendBlackListDeletedStringCallback</param>
+    public static void RemoveFriendBlackListDeletedCallback(FriendBlackListDeletedCallback callback = null, FriendBlackListDeletedStringCallback stringCallback = null)
+    {
+      if (callback != null && FriendBlackListDeletedCallbackStore != null)
+      {
+        FriendBlackListDeletedCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && FriendBlackListDeletedStringCallbackStore != null)
+      {
+        FriendBlackListDeletedStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        FriendBlackListDeletedCallbackStore = null;
+        FriendBlackListDeletedStringCallbackStore = null;
+      }
+
+      if (FriendBlackListDeletedCallbackStore == null && FriendBlackListDeletedStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetFriendBlackListDeletedCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -4124,22 +5863,42 @@ namespace com.tencent.imsdk.unity
     /// <param name="callback">回调 LogCallback</param>
     public static void SetLogCallback(LogCallback callback)
     {
-
       if (callback != null)
       {
         string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
         string user_data = fn_name + "_" + Utils.getRandomStr();
 
-        LogCallbackStore = callback;
+        LogCallbackStore += callback;
 
         IMNativeSDK.TIMSetLogCallback(TIMLogCallbackInstance, Utils.string2intptr(user_data));
       }
       else
       {
-        IMNativeSDK.TIMSetLogCallback(null, Utils.string2intptr(""));
+        RemoveLogCallback();
+      }
+    }
+
+    /// <summary>
+    /// 移除日志回调
+    /// Remove log callback
+    /// </summary>
+    /// <param name="callback">回调 LogCallback</param>
+    public static void RemoveLogCallback(LogCallback callback = null)
+    {
+      if (callback != null && LogCallbackStore != null)
+      {
+        LogCallbackStore -= callback;
+      }
+      else
+      {
+        LogCallbackStore = null;
       }
 
+      if (LogCallbackStore == null )
+      {
+        IMNativeSDK.TIMSetLogCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -4151,25 +5910,60 @@ namespace com.tencent.imsdk.unity
     /// <para> 您的业务服务器可以对该条消息进行修改（例如过滤敏感词），如果您的服务器对消息进行了修改，ImSDK就会通过此回调通知您 (Your server may modify the message (eg. content moderation), if your server modifies the message, ImSDK will notify you via this callback)</para>
     /// </summary>
     /// <param name="callback">回调 MsgUpdateCallback</param>
+    /// <param name="stringCallback">回调 MsgUpdateStringCallback</param>
     public static void SetMsgUpdateCallback(MsgUpdateCallback callback = null, MsgUpdateStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        MsgUpdateCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        MsgUpdateStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetMsgUpdateCallback(null, Utils.string2intptr(""));
+        RemoveMsgUpdateCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      MsgUpdateCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetMsgUpdateCallback(TIMMsgUpdateCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除消息在云端被修改后回传回来的消息更新通知回调
+    /// Remove message updated on the cloud callback
+    /// </summary>
+    /// <param name="callback">回调 MsgUpdateCallback</param>
+    /// <param name="stringCallback">回调 MsgUpdateStringCallback</param>
+    public static void RemoveMsgUpdateCallback(MsgUpdateCallback callback = null, MsgUpdateStringCallback stringCallback = null)
+    {
+      if (callback != null && MsgUpdateCallbackStore != null)
+      {
+        MsgUpdateCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && MsgUpdateStringCallbackStore != null)
+      {
+        MsgUpdateStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        MsgUpdateCallbackStore = null;
+        MsgUpdateStringCallbackStore = null;
+      }
+
+      if (MsgUpdateCallbackStore == null && MsgUpdateStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetMsgUpdateCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -4182,12 +5976,36 @@ namespace com.tencent.imsdk.unity
       if (callback != null)
       {
         string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
         string user_data = fn_name + "_" + Utils.getRandomStr();
-        GroupTopicCreatedCallbackStore = callback;
+
+        GroupTopicCreatedCallbackStore += callback;
 
         IMNativeSDK.TIMSetGroupTopicCreatedCallback(TIMGroupTopicCreatedCallbackInstance, Utils.string2intptr(user_data));
       }
       else
+      {
+        RemoveGroupTopicCreatedCallback();
+      }
+    }
+
+    /// <summary>
+    /// 移除话题创建回调
+    /// Remove group topic created callback
+    /// </summary>
+    /// <param name="callback">回调 GroupTopicCreatedCallback</param>
+    public static void RemoveGroupTopicCreatedCallback(GroupTopicCreatedCallback callback = null)
+    {
+      if (callback != null && GroupTopicCreatedCallbackStore != null)
+      {
+        GroupTopicCreatedCallbackStore -= callback;
+      }
+      else
+      {
+        GroupTopicCreatedCallbackStore = null;
+      }
+
+      if (GroupTopicCreatedCallbackStore == null )
       {
         IMNativeSDK.TIMSetGroupTopicCreatedCallback(null, Utils.string2intptr(""));
       }
@@ -4198,25 +6016,60 @@ namespace com.tencent.imsdk.unity
     /// Set group topic deleted callback
     /// </summary>
     /// <param name="callback">回调 GroupTopicDeletedCallback</param>
+    /// <param name="stringCallback">回调 GroupTopicDeletedStringCallback</param>
     public static void SetGroupTopicDeletedCallback(GroupTopicDeletedCallback callback = null, GroupTopicDeletedStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        GroupTopicDeletedCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        GroupTopicDeletedStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetGroupTopicDeletedCallback(null, Utils.string2intptr(""));
+        RemoveGroupTopicDeletedCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      GroupTopicDeletedCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetGroupTopicDeletedCallback(TIMGroupTopicDeletedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除话题被删除回调
+    /// Remove group topic deleted callback
+    /// </summary>
+    /// <param name="callback">回调 GroupTopicDeletedCallback</param>
+    /// <param name="stringCallback">回调 GroupTopicDeletedStringCallback</param>
+    public static void RemoveGroupTopicDeletedCallback(GroupTopicDeletedCallback callback = null, GroupTopicDeletedStringCallback stringCallback = null)
+    {
+      if (callback != null && GroupTopicDeletedCallbackStore != null)
+      {
+        GroupTopicDeletedCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && GroupTopicDeletedStringCallbackStore != null)
+      {
+        GroupTopicDeletedStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        GroupTopicDeletedCallbackStore = null;
+        GroupTopicDeletedStringCallbackStore = null;
+      }
+
+      if (GroupTopicDeletedCallbackStore == null && GroupTopicDeletedStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetGroupTopicDeletedCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -4224,25 +6077,60 @@ namespace com.tencent.imsdk.unity
     /// Set group topic updated callback
     /// </summary>
     /// <param name="callback">回调 GroupTopicChangedCallback</param>
+    /// <param name="stringCallback">回调 GroupTopicChangedStringCallback</param>
     public static void SetGroupTopicChangedCallback(GroupTopicChangedCallback callback = null, GroupTopicChangedStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        GroupTopicChangedCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        GroupTopicChangedStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetGroupTopicChangedCallback(null, Utils.string2intptr(""));
+        RemoveGroupTopicChangedCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      GroupTopicChangedCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetGroupTopicChangedCallback(TIMGroupTopicChangedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除话题更新回调
+    /// Remove group topic updated callback
+    /// </summary>
+    /// <param name="callback">回调 GroupTopicChangedCallback</param>
+    /// <param name="stringCallback">回调 GroupTopicChangedStringCallback</param>
+    public static void RemoveGroupTopicChangedCallback(GroupTopicChangedCallback callback = null, GroupTopicChangedStringCallback stringCallback = null)
+    {
+      if (callback != null && GroupTopicChangedCallbackStore != null)
+      {
+        GroupTopicChangedCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && GroupTopicChangedStringCallbackStore != null)
+      {
+        GroupTopicChangedStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        GroupTopicChangedCallbackStore = null;
+        GroupTopicChangedStringCallbackStore = null;
+      }
+
+      if (GroupTopicChangedCallbackStore == null && GroupTopicChangedStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetGroupTopicChangedCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -4250,25 +6138,60 @@ namespace com.tencent.imsdk.unity
     /// Set self info updated callback
     /// </summary>
     /// <param name="callback">回调 SelfInfoUpdatedCallback</param>
+    /// <param name="stringCallback">回调 SelfInfoUpdatedStringCallback</param>
     public static void SetSelfInfoUpdatedCallback(SelfInfoUpdatedCallback callback = null, SelfInfoUpdatedStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        SelfInfoUpdatedCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        SelfInfoUpdatedStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetSelfInfoUpdatedCallback(null, Utils.string2intptr(""));
+        RemoveSelfInfoUpdatedCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      SelfInfoUpdatedCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetSelfInfoUpdatedCallback(TIMSelfInfoUpdatedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除当前用户的资料发生更新时的回调
+    /// Remove self info updated callback
+    /// </summary>
+    /// <param name="callback">回调 SelfInfoUpdatedCallback</param>
+    /// <param name="stringCallback">回调 SelfInfoUpdatedStringCallback</param>
+    public static void RemoveSelfInfoUpdatedCallback(SelfInfoUpdatedCallback callback = null, SelfInfoUpdatedStringCallback stringCallback = null)
+    {
+      if (callback != null && SelfInfoUpdatedCallbackStore != null)
+      {
+        SelfInfoUpdatedCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && SelfInfoUpdatedStringCallbackStore != null)
+      {
+        SelfInfoUpdatedStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        SelfInfoUpdatedCallbackStore = null;
+        SelfInfoUpdatedStringCallbackStore = null;
+      }
+
+      if (SelfInfoUpdatedCallbackStore == null && SelfInfoUpdatedStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetSelfInfoUpdatedCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -4280,25 +6203,60 @@ namespace com.tencent.imsdk.unity
     /// <param>3. 同一个账号多设备登陆，当其中一台设备修改了自定义状态，所有设备都会收到该回调 (An account logged on multi-platforms, and the status is changed on one of the devices, all platforms will receive this callback)</param>
     /// </summary>
     /// <param name="callback">回调 UserStatusChangedCallback</param>
+    /// <param name="stringCallback">回调 UserStatusChangedStringCallback</param>
     public static void SetUserStatusChangedCallback(UserStatusChangedCallback callback = null, UserStatusChangedStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        UserStatusChangedCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        UserStatusChangedStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetUserStatusChangedCallback(null, Utils.string2intptr(""));
+        RemoveUserStatusChangedCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      UserStatusChangedCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetUserStatusChangedCallback(TIMUserStatusChangedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除用户状态变更通知回调
+    /// Remove user status updated callback
+    /// </summary>
+    /// <param name="callback">回调 UserStatusChangedCallback</param>
+    /// <param name="stringCallback">回调 UserStatusChangedStringCallback</param>
+    public static void RemoveUserStatusChangedCallback(UserStatusChangedCallback callback = null, UserStatusChangedStringCallback stringCallback = null)
+    {
+      if (callback != null && UserStatusChangedCallbackStore != null)
+      {
+        UserStatusChangedCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && UserStatusChangedStringCallbackStore != null)
+      {
+        UserStatusChangedStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        UserStatusChangedCallbackStore = null;
+        UserStatusChangedStringCallbackStore = null;
+      }
+
+      if (UserStatusChangedCallbackStore == null && UserStatusChangedStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetUserStatusChangedCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -4306,25 +6264,60 @@ namespace com.tencent.imsdk.unity
     /// Set message extensions updated callback
     /// </summary>
     /// <param name="callback">回调 MsgExtensionsChangedCallback</param>
+    /// <param name="stringCallback">回调 MsgExtensionsChangedStringCallback</param>
     public static void SetMsgExtensionsChangedCallback(MsgExtensionsChangedCallback callback = null, MsgExtensionsChangedStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        MsgExtensionsChangedCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        MsgExtensionsChangedStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetMsgExtensionsChangedCallback(null, Utils.string2intptr(""));
+        RemoveMsgExtensionsChangedCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      MsgExtensionsChangedCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetMsgExtensionsChangedCallback(TIMMsgExtensionsChangedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除消息扩展信息更新的回调
+    /// Remove message extensions updated callback
+    /// </summary>
+    /// <param name="callback">回调 MsgExtensionsChangedCallback</param>
+    /// <param name="stringCallback">回调 MsgExtensionsChangedStringCallback</param>
+    public static void RemoveMsgExtensionsChangedCallback(MsgExtensionsChangedCallback callback = null, MsgExtensionsChangedStringCallback stringCallback = null)
+    {
+      if (callback != null && MsgExtensionsChangedCallbackStore != null)
+      {
+        MsgExtensionsChangedCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && MsgExtensionsChangedStringCallbackStore != null)
+      {
+        MsgExtensionsChangedStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        MsgExtensionsChangedCallbackStore = null;
+        MsgExtensionsChangedStringCallbackStore = null;
+      }
+
+      if (MsgExtensionsChangedCallbackStore == null && MsgExtensionsChangedStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetMsgExtensionsChangedCallback(null, Utils.string2intptr(""));
+      }
     }
 
     /// <summary>
@@ -4332,25 +6325,60 @@ namespace com.tencent.imsdk.unity
     /// Set message extensions deleted callback
     /// </summary>
     /// <param name="callback">回调 MsgExtensionsDeletedCallback</param>
+    /// <param name="stringCallback">回调 MsgExtensionsDeletedStringCallback</param>
     public static void SetMsgExtensionsDeletedCallback(MsgExtensionsDeletedCallback callback = null, MsgExtensionsDeletedStringCallback stringCallback = null)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-      if (stringCallback == null || callback != null)
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
       {
-        IsStringCallbackStore.Remove(fn_name);
+        MsgExtensionsDeletedCallbackStore += callback;
       }
-      else
+
+      if (stringCallback != null)
       {
-        IsStringCallbackStore.Add(fn_name);
+        MsgExtensionsDeletedStringCallbackStore += stringCallback;
       }
+
       if (callback == null && stringCallback == null)
       {
-        IMNativeSDK.TIMSetMsgExtensionsDeletedCallback(null, Utils.string2intptr(""));
+        RemoveMsgExtensionsDeletedCallback();
         return;
       }
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      MsgExtensionsDeletedCallbackStore = callback != null ? (Delegate)callback : (Delegate)stringCallback;
+
       IMNativeSDK.TIMSetMsgExtensionsDeletedCallback(TIMMsgExtensionsDeletedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    /// <summary>
+    /// 移除消息扩展信息删除的回调
+    /// Remove message extensions deleted callback
+    /// </summary>
+    /// <param name="callback">回调 MsgExtensionsDeletedCallback</param>
+    /// <param name="stringCallback">回调 MsgExtensionsDeletedStringCallback</param>
+    public static void RemoveMsgExtensionsDeletedCallback(MsgExtensionsDeletedCallback callback = null, MsgExtensionsDeletedStringCallback stringCallback = null)
+    {
+      if (callback != null && MsgExtensionsDeletedCallbackStore != null)
+      {
+        MsgExtensionsDeletedCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && MsgExtensionsDeletedStringCallbackStore != null)
+      {
+        MsgExtensionsDeletedStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        MsgExtensionsDeletedCallbackStore = null;
+        MsgExtensionsDeletedStringCallbackStore = null;
+      }
+
+      if (MsgExtensionsDeletedCallbackStore == null && MsgExtensionsDeletedStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetMsgExtensionsDeletedCallback(null, Utils.string2intptr(""));
+      }
     }
 
     [MonoPInvokeCallback(typeof(IMNativeSDK.CommonValueCallback))]
@@ -4408,374 +6436,445 @@ namespace com.tencent.imsdk.unity
               }
 
             }
+
             break;
+
           case "TIMRecvNewMsgCallback":
             if (RecvNewMsgCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                RecvNewMsgCallbackStore.DynamicInvoke(Utils.FromJson<List<Message>>(data.data), data.user_data);
-              }
-              else
-              {
-                RecvNewMsgCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              RecvNewMsgCallbackStore(Utils.FromJson<List<Message>>(data.data), data.user_data);
             }
+
+            if (RecvNewMsgStringCallbackStore != null)
+            {
+              RecvNewMsgStringCallbackStore(data.data, data.user_data);
+            }
+
             break;
+
           case "TIMMsgReadedReceiptCallback":
             if (MsgReadedReceiptCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                MsgReadedReceiptCallbackStore.DynamicInvoke(Utils.FromJson<List<MessageReceipt>>(data.data), data.user_data);
-              }
-              else
-              {
-                MsgReadedReceiptCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              MsgReadedReceiptCallbackStore(Utils.FromJson<List<MessageReceipt>>(data.data), data.user_data);
             }
+
+            if (MsgReadedReceiptStringCallbackStore != null)
+            {
+              MsgReadedReceiptStringCallbackStore(data.data, data.user_data);
+            }
+
             break;
+
           case "TIMMsgRevokeCallback":
             if (MsgRevokeCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                MsgRevokeCallbackStore.DynamicInvoke(Utils.FromJson<List<MsgLocator>>(data.data), data.user_data);
-              }
-              else
-              {
-                MsgRevokeCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              MsgRevokeCallbackStore(Utils.FromJson<List<MsgLocator>>(data.data), data.user_data);
             }
+
+            if (MsgRevokeStringCallbackStore != null)
+            {
+              MsgRevokeStringCallbackStore(data.data, data.user_data);
+            }
+
             break;
+
           case "TIMMsgElemUploadProgressCallback":
             if (MsgElemUploadProgressCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                MsgElemUploadProgressCallbackStore.DynamicInvoke(Utils.FromJson<Message>(data.data), data.index, data.cur_size, data.total_size, data.user_data);
-              }
-              else
-              {
-                MsgElemUploadProgressCallbackStore.DynamicInvoke(data.data, data.index, data.cur_size, data.total_size, data.user_data);
-              }
-
+              MsgElemUploadProgressCallbackStore(Utils.FromJson<Message>(data.data), data.index, data.cur_size, data.total_size, data.user_data);
             }
-            break;
-          case "TIMGroupTipsEventCallback":
 
+            if (MsgElemUploadProgressStringCallbackStore != null)
+            {
+              MsgElemUploadProgressStringCallbackStore(data.data, data.index, data.cur_size, data.total_size, data.user_data);
+            }
+
+            break;
+
+          case "TIMGroupTipsEventCallback":
             if (GroupTipsEventCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                GroupTipsEventCallbackStore.DynamicInvoke(Utils.FromJson<GroupTipsElem>(data.data), data.user_data);
-              }
-              else
-              {
-                GroupTipsEventCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              GroupTipsEventCallbackStore(Utils.FromJson<GroupTipsElem>(data.data), data.user_data);
             }
-            break;
-          case "TIMGroupAttributeChangedCallback":
 
+            if (GroupTipsEventStringCallbackStore != null)
+            {
+              GroupTipsEventStringCallbackStore(data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMGroupAttributeChangedCallback":
             if (GroupAttributeChangedCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                GroupAttributeChangedCallbackStore.DynamicInvoke(data.group_id, Utils.FromJson<List<GroupAttributes>>(data.data), data.user_data);
-              }
-              else
-              {
-                GroupAttributeChangedCallbackStore.DynamicInvoke(data.group_id, data.data, data.user_data);
-              }
+              GroupAttributeChangedCallbackStore(data.group_id, Utils.FromJson<List<GroupAttributes>>(data.data), data.user_data);
             }
-            break;
-          case "TIMConvEventCallback":
 
+            if (GroupAttributeChangedStringCallbackStore != null)
+            {
+              GroupAttributeChangedStringCallbackStore(data.group_id, data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMGroupCounterChangedCallbackInstance":
+            if (GroupCounterChangedCallbackStore != null)
+            {
+              GroupCounterChangedCallbackStore(data.group_id, data.data, data.next_seq, data.user_data);
+            }
+
+            break;
+
+          case "TIMConvEventCallback":
             if (ConvEventCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                ConvEventCallbackStore.DynamicInvoke((TIMConvEvent)data.conv_event, Utils.FromJson<List<ConvInfo>>(data.data), data.user_data);
-              }
-              else
-              {
-                ConvEventCallbackStore.DynamicInvoke((TIMConvEvent)data.conv_event, data.data, data.user_data);
-              }
+              ConvEventCallbackStore((TIMConvEvent)data.conv_event, Utils.FromJson<List<ConvInfo>>(data.data), data.user_data);
             }
 
+            if (ConvEventStringCallbackStore != null)
+            {
+              ConvEventStringCallbackStore((TIMConvEvent)data.conv_event, data.data, data.user_data);
+            }
 
             break;
+
           case "TIMConvTotalUnreadMessageCountChangedCallback":
 
             if (ConvTotalUnreadMessageCountChangedCallbackStore != null)
             {
               ConvTotalUnreadMessageCountChangedCallbackStore(data.code, data.user_data);
-
             }
+
             break;
+
+          case "TIMConvUnreadMessageCountChangedByFilterCallback":
+
+            if (ConvUnreadMessageCountChangedByFilterCallbackStore != null)
+            {
+              ConvUnreadMessageCountChangedByFilterCallbackStore(Utils.FromJson<ConversationListFilter>(data.data), data.total_size, data.user_data);
+            }
+
+            if (ConvUnreadMessageCountChangedByFilterStringCallbackStore != null)
+            {
+              ConvUnreadMessageCountChangedByFilterStringCallbackStore(data.data, data.total_size, data.user_data);
+            }
+
+            break;
+
+          case "TIMSetConvConversationGroupCreatedCallback":
+            if (ConvConversationGroupCreatedCallbackStore != null)
+            {
+              ConvConversationGroupCreatedCallbackStore(data.group_name, Utils.FromJson<List<string>>(data.data), data.user_data);
+            }
+
+            if (ConvConversationGroupCreatedStringCallbackStore != null)
+            {
+              ConvConversationGroupCreatedStringCallbackStore(data.group_name, data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMSetConvConversationGroupDeletedCallback":
+
+            if (ConvConversationGroupDeletedCallbackStore != null)
+            {
+              ConvConversationGroupDeletedCallbackStore(data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMSetConvConversationGroupNameChangedCallback":
+
+            if (ConvConversationGroupNameChangedCallbackStore != null)
+            {
+              ConvConversationGroupNameChangedCallbackStore(data.group_name, data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMSetConvConversationsAddedToGroupCallback":
+            if (ConvConversationsAddedToGroupCallbackStore != null)
+            {
+              ConvConversationsAddedToGroupCallbackStore(data.group_name, Utils.FromJson<List<string>>(data.data), data.user_data);
+            }
+
+            if (ConvConversationsAddedToGroupStringCallbackStore != null)
+            {
+              ConvConversationsAddedToGroupStringCallbackStore(data.group_name, data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMSetConvConversationsDeletedFromGroupCallback":
+            if (ConvConversationsDeletedFromGroupCallbackStore != null)
+            {
+              ConvConversationsDeletedFromGroupCallbackStore(data.group_name, Utils.FromJson<List<string>>(data.data), data.user_data);
+            }
+
+            if (ConvConversationsDeletedFromGroupStringCallbackStore != null)
+            {
+              ConvConversationsDeletedFromGroupStringCallbackStore(data.group_name, data.data, data.user_data);
+            }
+
+            break;
+
           case "TIMNetworkStatusListenerCallback":
 
             if (NetworkStatusListenerCallbackStore != null)
             {
               NetworkStatusListenerCallbackStore((TIMNetworkStatus)data.code, data.index, data.desc, data.user_data);
-
             }
+
             break;
+
           case "TIMKickedOfflineCallback":
 
             if (KickedOfflineCallbackStore != null)
             {
               KickedOfflineCallbackStore(data.user_data);
-
             }
+
             break;
+
           case "TIMUserSigExpiredCallback":
 
             if (UserSigExpiredCallbackStore != null)
             {
               UserSigExpiredCallbackStore(data.user_data);
-
             }
 
             break;
+
           case "TIMOnAddFriendCallback":
 
             if (OnAddFriendCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                OnAddFriendCallbackStore.DynamicInvoke(Utils.FromJson<List<string>>(data.data), data.user_data);
-              }
-              else
-              {
-                OnAddFriendCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              OnAddFriendCallbackStore(Utils.FromJson<List<string>>(data.data), data.user_data);
             }
+
+            if (OnAddFriendStringCallbackStore != null)
+            {
+              OnAddFriendStringCallbackStore(data.data, data.user_data);
+            }
+
             break;
+
           case "TIMOnDeleteFriendCallback":
             if (OnDeleteFriendCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                OnDeleteFriendCallbackStore.DynamicInvoke(Utils.FromJson<List<string>>(data.data), data.user_data);
-              }
-              else
-              {
-                OnDeleteFriendCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              OnDeleteFriendCallbackStore(Utils.FromJson<List<string>>(data.data), data.user_data);
             }
-            break;
-          case "TIMUpdateFriendProfileCallback":
 
+            if (OnDeleteFriendStringCallbackStore != null)
+            {
+              OnDeleteFriendStringCallbackStore(data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMUpdateFriendProfileCallback":
             if (UpdateFriendProfileCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                UpdateFriendProfileCallbackStore.DynamicInvoke(Utils.FromJson<List<FriendProfileItem>>(data.data), data.user_data);
-              }
-              else
-              {
-                UpdateFriendProfileCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              UpdateFriendProfileCallbackStore(Utils.FromJson<List<FriendProfileUpdate>>(data.data), data.user_data);
             }
+
+            if (UpdateFriendProfileStringCallbackStore != null)
+            {
+              UpdateFriendProfileStringCallbackStore(data.data, data.user_data);
+            }
+
             break;
 
           case "TIMFriendAddRequestCallback":
-
             if (FriendAddRequestCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                FriendAddRequestCallbackStore.DynamicInvoke(Utils.FromJson<List<FriendAddPendency>>(data.data), data.user_data);
-              }
-              else
-              {
-                FriendAddRequestCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              FriendAddRequestCallbackStore(Utils.FromJson<List<FriendAddPendency>>(data.data), data.user_data);
             }
-            break;
-          case "TIMFriendApplicationListDeletedCallback":
 
+            if (FriendAddRequestStringCallbackStore != null)
+            {
+              FriendAddRequestStringCallbackStore(data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMFriendApplicationListDeletedCallback":
             if (FriendApplicationListDeletedCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                FriendApplicationListDeletedCallbackStore.DynamicInvoke(Utils.FromJson<List<string>>(data.data), data.user_data);
-              }
-              else
-              {
-                FriendApplicationListDeletedCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              FriendApplicationListDeletedCallbackStore(Utils.FromJson<List<string>>(data.data), data.user_data);
             }
+
+            if (FriendApplicationListDeletedStringCallbackStore != null)
+            {
+              FriendApplicationListDeletedStringCallbackStore(data.data, data.user_data);
+            }
+
             break;
+
           case "TIMFriendApplicationListReadCallback":
 
             if (FriendApplicationListReadCallbackStore != null)
             {
               FriendApplicationListReadCallbackStore(data.user_data);
-
             }
-            break;
-          case "TIMFriendBlackListAddedCallback":
 
+            break;
+
+          case "TIMFriendBlackListAddedCallback":
             if (FriendBlackListAddedCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                FriendBlackListAddedCallbackStore.DynamicInvoke(Utils.FromJson<List<FriendProfile>>(data.data), data.user_data);
-              }
-              else
-              {
-                FriendBlackListAddedCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              FriendBlackListAddedCallbackStore(Utils.FromJson<List<FriendProfile>>(data.data), data.user_data);
             }
-            break;
-          case "TIMFriendBlackListDeletedCallback":
 
+            if (FriendBlackListAddedStringCallbackStore != null)
+            {
+              FriendBlackListAddedStringCallbackStore(data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMFriendBlackListDeletedCallback":
             if (FriendBlackListDeletedCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                FriendBlackListDeletedCallbackStore.DynamicInvoke(Utils.FromJson<List<string>>(data.data), data.user_data);
-              }
-              else
-              {
-                FriendBlackListDeletedCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              FriendBlackListDeletedCallbackStore(Utils.FromJson<List<string>>(data.data), data.user_data);
             }
+
+            if (FriendBlackListDeletedStringCallbackStore != null)
+            {
+              FriendBlackListDeletedStringCallbackStore(data.data, data.user_data);
+            }
+
             break;
+
           case "TIMLogCallback":
 
             if (LogCallbackStore != null)
             {
               LogCallbackStore((TIMLogLevel)data.code, data.data, data.user_data);
             }
-            break;
-          case "TIMMsgUpdateCallback":
 
+            break;
+
+          case "TIMMsgUpdateCallback":
             if (MsgUpdateCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                MsgUpdateCallbackStore.DynamicInvoke(Utils.FromJson<List<Message>>(data.data), data.user_data);
-              }
-              else
-              {
-                MsgUpdateCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              MsgUpdateCallbackStore(Utils.FromJson<List<Message>>(data.data), data.user_data);
             }
-            break;
-          case "TIMMsgGroupMessageReadMemberListCallback":
 
+            if (MsgUpdateStringCallbackStore != null)
+            {
+              MsgUpdateStringCallbackStore(data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMMsgGroupMessageReadMemberListCallback":
             if (MsgGroupMessageReadMemberListCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                MsgGroupMessageReadMemberListCallbackStore.DynamicInvoke(Utils.FromJson<List<GroupMemberInfo>>(data.data), data.next_seq, data.is_finished, data.user_data);
-              }
-              else
-              {
-                MsgGroupMessageReadMemberListCallbackStore.DynamicInvoke(data.data, data.next_seq, data.is_finished, data.user_data);
-              }
+              MsgGroupMessageReadMemberListCallbackStore(Utils.FromJson<List<GroupMemberInfo>>(data.data), data.next_seq, data.is_finished, data.user_data);
             }
+
+            if (MsgGroupMessageReadMemberListStringCallbackStore != null)
+            {
+              MsgGroupMessageReadMemberListStringCallbackStore(data.data, data.next_seq, data.is_finished, data.user_data);
+            }
+
             break;
+
           case "TIMMsgGroupMessageReadMemberListCallbackWeb":
             if (MsgGroupMessageReadMemberListCallbackWebStore != null)
             {
-              MsgGroupMessageReadMemberListCallbackWebStore.DynamicInvoke(data.data, data.next_seq.ToString(), data.is_finished, data.user_data);
+              MsgGroupMessageReadMemberListCallbackWebStore(data.data, data.next_seq.ToString(), data.is_finished, data.user_data);
             }
+
             break;
+
           case "TIMGroupTopicCreatedCallback":
 
             if (GroupTopicCreatedCallbackStore != null)
             {
-              GroupTopicCreatedCallbackStore.DynamicInvoke(data.group_id, data.data, data.user_data);
+              GroupTopicCreatedCallbackStore(data.group_id, data.data, data.user_data);
             }
+
             break;
+
           case "TIMGroupTopicDeletedCallback":
 
             if (GroupTopicDeletedCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                GroupTopicDeletedCallbackStore.DynamicInvoke(data.group_id, Utils.FromJson<List<string>>(data.data), data.user_data);
-              }
-              else
-              {
-                GroupTopicDeletedCallbackStore.DynamicInvoke(data.group_id, data.data, data.user_data);
-              }
+              GroupTopicDeletedCallbackStore(data.group_id, Utils.FromJson<List<string>>(data.data), data.user_data);
             }
-            break;
-          case "TIMGroupTopicChangedCallback":
 
+            if (GroupTopicDeletedStringCallbackStore != null)
+            {
+              GroupTopicDeletedStringCallbackStore(data.group_id, data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMGroupTopicChangedCallback":
             if (GroupTopicChangedCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                GroupTopicChangedCallbackStore.DynamicInvoke(data.group_id, Utils.FromJson<GroupTopicInfo>(data.data), data.user_data);
-              }
-              else
-              {
-                GroupTopicChangedCallbackStore.DynamicInvoke(data.group_id, data.data, data.user_data);
-              }
+              GroupTopicChangedCallbackStore(data.group_id, Utils.FromJson<GroupTopicInfo>(data.data), data.user_data);
             }
-            break;
-          case "TIMSelfInfoUpdatedCallback":
 
+            if (GroupTopicChangedStringCallbackStore != null)
+            {
+              GroupTopicChangedStringCallbackStore(data.group_id, data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMSelfInfoUpdatedCallback":
             if (SelfInfoUpdatedCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                SelfInfoUpdatedCallbackStore.DynamicInvoke(Utils.FromJson<UserStatus>(data.data), data.user_data);
-              }
-              else
-              {
-                SelfInfoUpdatedCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              SelfInfoUpdatedCallbackStore(Utils.FromJson<UserProfile>(data.data), data.user_data);
             }
-            break;
-          case "TIMUserStatusChangedCallback":
 
+            if (SelfInfoUpdatedStringCallbackStore != null)
+            {
+              SelfInfoUpdatedStringCallbackStore(data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMUserStatusChangedCallback":
             if (UserStatusChangedCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                UserStatusChangedCallbackStore.DynamicInvoke(Utils.FromJson<List<UserStatus>>(data.data), data.user_data);
-              }
-              else
-              {
-                UserStatusChangedCallbackStore.DynamicInvoke(data.data, data.user_data);
-              }
+              UserStatusChangedCallbackStore(Utils.FromJson<List<UserStatus>>(data.data), data.user_data);
             }
-            break;
-          case "TIMMsgExtensionsChangedCallback":
 
+            if (UserStatusChangedStringCallbackStore != null)
+            {
+              UserStatusChangedStringCallbackStore(data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMMsgExtensionsChangedCallback":
             if (MsgExtensionsChangedCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                MsgExtensionsChangedCallbackStore.DynamicInvoke(data.group_id, Utils.FromJson<List<MessageExtension>>(data.data), data.user_data);
-              }
-              else
-              {
-                MsgExtensionsChangedCallbackStore.DynamicInvoke(data.group_id, data.data, data.user_data);
-              }
+              MsgExtensionsChangedCallbackStore(data.group_id, Utils.FromJson<List<MessageExtension>>(data.data), data.user_data);
             }
-            break;
-          case "TIMMsgExtensionsDeletedCallback":
 
+            if (MsgExtensionsChangedStringCallbackStore != null)
+            {
+              MsgExtensionsChangedStringCallbackStore(data.group_id, data.data, data.user_data);
+            }
+
+            break;
+
+          case "TIMMsgExtensionsDeletedCallback":
             if (MsgExtensionsDeletedCallbackStore != null)
             {
-              if (typeof(T) == typeof(object))
-              {
-                MsgExtensionsDeletedCallbackStore.DynamicInvoke(data.group_id, Utils.FromJson<List<MessageExtension>>(data.data), data.user_data);
-              }
-              else
-              {
-                MsgExtensionsDeletedCallbackStore.DynamicInvoke(data.group_id, data.data, data.user_data);
-              }
+              MsgExtensionsDeletedCallbackStore(data.group_id, Utils.FromJson<List<MessageExtension>>(data.data), data.user_data);
             }
+
+            if (MsgExtensionsDeletedStringCallbackStore != null)
+            {
+              MsgExtensionsDeletedStringCallbackStore(data.group_id, data.data, data.user_data);
+            }
+
             break;
         }
         if (!data.user_data.StartsWith("CallExperimentalAPI") && !data.user_data.StartsWith("SetLogCallback"))
@@ -4800,14 +6899,7 @@ namespace com.tencent.imsdk.unity
 
         string user_data_string = Utils.intptr2string(user_data);
         CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMRecvNewMsgCallback", data = json_msg_array_string, user_data = user_data_string, desc = "" };
-        if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-        {
-          mainSyncContext.Post(threadOperation<object>, cc);
-        }
-        else
-        {
-          mainSyncContext.Post(threadOperation<string>, cc);
-        }
+        mainSyncContext.Post(threadOperation<object>, cc);
       }
       catch (Exception e)
       {
@@ -4826,14 +6918,8 @@ namespace com.tencent.imsdk.unity
       string user_data_string = Utils.intptr2string(user_data);
 
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMMsgReadedReceiptCallback", data = json_msg_readed_receipt_array_string, user_data = user_data_string, desc = "" };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
 
     }
 
@@ -4843,15 +6929,10 @@ namespace com.tencent.imsdk.unity
       string json_msg_locator_array_string = Utils.intptr2string(json_msg_locator_array);
 
       string user_data_string = Utils.intptr2string(user_data);
+
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMMsgRevokeCallback", data = json_msg_locator_array_string, user_data = user_data_string, desc = "" };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
 
@@ -4862,34 +6943,21 @@ namespace com.tencent.imsdk.unity
 
       string user_data_string = Utils.intptr2string(user_data);
 
-
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMMsgElemUploadProgressCallback", data = json_msg_string, user_data = user_data_string, desc = "", index = index, cur_size = cur_size, total_size = total_size };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
 
-
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
+
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMGroupTipsEventCallback))]
     private static void TIMGroupTipsEventCallbackInstance(IntPtr json_group_tip_array, IntPtr user_data)
     {
       string json_group_tip_array_string = Utils.intptr2string(json_group_tip_array);
 
       string user_data_string = Utils.intptr2string(user_data);
+
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMGroupTipsEventCallback", data = json_group_tip_array_string, user_data = user_data_string, desc = "" };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
 
@@ -4903,15 +6971,20 @@ namespace com.tencent.imsdk.unity
       string user_data_string = Utils.intptr2string(user_data);
 
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMGroupAttributeChangedCallback", data = json_group_attibute_array_string, user_data = user_data_string, group_id = group_id_string };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
+
+    [MonoPInvokeCallback(typeof(IMNativeSDK.TIMGroupCounterChangedCallback))]
+    private static void TIMGroupCounterChangedCallbackInstance(IntPtr group_id, IntPtr group_counter_key, ulong group_counter_new_value, IntPtr user_data)
+    {
+      string group_id_string = Utils.intptr2string(group_id);
+      string group_counter_key_string = Utils.intptr2string(group_counter_key);
+      string user_data_string = Utils.intptr2string(user_data);
+
+      mainSyncContext.Post(threadOperation<string>, new CallbackConvert { code = 0, type = "TIMGroupCounterChangedCallbackInstance", data = group_counter_key_string, group_id = group_id_string, next_seq = group_counter_new_value, user_data = user_data_string });
+    }
+
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMConvEventCallback))]
     private static void TIMConvEventCallbackInstance(int conv_event, IntPtr json_conv_array, IntPtr user_data)
     {
@@ -4920,14 +6993,8 @@ namespace com.tencent.imsdk.unity
       string user_data_string = Utils.intptr2string(user_data);
 
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMConvEventCallback", data = json_conv_array_string, user_data = user_data_string, conv_event = conv_event };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
 
@@ -4938,6 +7005,73 @@ namespace com.tencent.imsdk.unity
       mainSyncContext.Post(threadOperation<string>, new CallbackConvert { code = 0, type = "TIMConvTotalUnreadMessageCountChangedCallback", data = total_unread_count.ToString(), user_data = user_data_string });
     }
 
+    [MonoPInvokeCallback(typeof(IMNativeSDK.TIMConvTotalUnreadMessageCountChangedByFilterCallback))]
+    private static void TIMConvUnreadMessageCountChangedByFilterCallbackInstance(IntPtr filter, int total_unread_count, IntPtr user_data)
+    {
+      string filter_string = Utils.intptr2string(filter);
+
+      string user_data_string = Utils.intptr2string(user_data);
+
+      CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMConvUnreadMessageCountChangedByFilterCallback", data = filter_string, user_data = user_data_string, total_size = total_unread_count };
+
+      mainSyncContext.Post(threadOperation<object>, cc);
+    }
+
+    [MonoPInvokeCallback(typeof(IMNativeSDK.TIMConvConversationGroupCreatedCallback))]
+    private static void TIMConvConversationGroupCreatedCallbackInstance(IntPtr group_name, IntPtr conversation_array, IntPtr user_data)
+    {
+      string group_name_string = Utils.intptr2string(group_name);
+      string conversation_array_string = Utils.intptr2string(conversation_array);
+      string user_data_string = Utils.intptr2string(user_data);
+
+      CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMSetConvConversationGroupCreatedCallback", data = conversation_array_string, user_data = user_data_string, group_name = group_name_string };
+
+      mainSyncContext.Post(threadOperation<object>, cc);
+    }
+
+    [MonoPInvokeCallback(typeof(IMNativeSDK.TIMConvConversationGroupDeletedCallback))]
+    private static void TIMConvConversationGroupDeletedCallbackInstance(IntPtr group_name, IntPtr user_data)
+    {
+      string group_name_string = Utils.intptr2string(group_name);
+      string user_data_string = Utils.intptr2string(user_data);
+
+      mainSyncContext.Post(threadOperation<string>, new CallbackConvert { code = 0, type = "TIMSetConvConversationGroupDeletedCallback", data = group_name_string, user_data = user_data_string });
+    }
+
+    [MonoPInvokeCallback(typeof(IMNativeSDK.TIMConvConversationGroupNameChangedCallback))]
+    private static void TIMConvConversationGroupNameChangedCallbackInstance(IntPtr old_name, IntPtr new_name, IntPtr user_data)
+    {
+      string old_name_string = Utils.intptr2string(old_name);
+      string new_name_string = Utils.intptr2string(new_name);
+      string user_data_string = Utils.intptr2string(user_data);
+
+      mainSyncContext.Post(threadOperation<string>, new CallbackConvert { code = 0, type = "TIMSetConvConversationGroupNameChangedCallback", data = new_name_string, user_data = user_data_string, group_name = old_name_string });
+    }
+
+    [MonoPInvokeCallback(typeof(IMNativeSDK.TIMConvConversationsAddedToGroupCallback))]
+    private static void TIMConvConversationsAddedToGroupCallbackInstance(IntPtr group_name, IntPtr conversation_array, IntPtr user_data)
+    {
+      string group_name_string = Utils.intptr2string(group_name);
+      string conversation_array_string = Utils.intptr2string(conversation_array);
+      string user_data_string = Utils.intptr2string(user_data);
+
+      CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMSetConvConversationsAddedToGroupCallback", data = conversation_array_string, user_data = user_data_string, group_name = group_name_string };
+
+      mainSyncContext.Post(threadOperation<object>, cc);
+    }
+
+    [MonoPInvokeCallback(typeof(IMNativeSDK.TIMConvConversationsDeletedFromGroupCallback))]
+    private static void TIMConvConversationsDeletedFromGroupCallbackInstance(IntPtr group_name, IntPtr conversation_array, IntPtr user_data)
+    {
+      string group_name_string = Utils.intptr2string(group_name);
+      string conversation_array_string = Utils.intptr2string(conversation_array);
+      string user_data_string = Utils.intptr2string(user_data);
+
+      CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMSetConvConversationsDeletedFromGroupCallback", data = conversation_array_string, user_data = user_data_string, group_name = group_name_string };
+
+      mainSyncContext.Post(threadOperation<object>, cc);
+    }
+
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMNetworkStatusListenerCallback))]
     private static void TIMNetworkStatusListenerCallbackInstance(int status, int code, IntPtr desc, IntPtr user_data)
     {
@@ -4945,6 +7079,7 @@ namespace com.tencent.imsdk.unity
       string desc_string = Utils.intptr2string(desc);
       mainSyncContext.Post(threadOperation<string>, new CallbackConvert { code = status, type = "TIMNetworkStatusListenerCallback", data = "", user_data = user_data_string, desc = desc_string, index = code });
     }
+
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMKickedOfflineCallback))]
     private static void TIMKickedOfflineCallbackInstance(IntPtr user_data)
     {
@@ -4967,14 +7102,8 @@ namespace com.tencent.imsdk.unity
       string json_identifier_array_string = Utils.intptr2string(json_identifier_array);
 
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMOnAddFriendCallback", data = json_identifier_array_string, user_data = user_data_string };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMOnDeleteFriendCallback))]
@@ -4986,14 +7115,8 @@ namespace com.tencent.imsdk.unity
       string json_identifier_array_string = Utils.intptr2string(json_identifier_array);
 
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMOnDeleteFriendCallback", data = json_identifier_array_string, user_data = user_data_string };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMUpdateFriendProfileCallback))]
@@ -5004,14 +7127,8 @@ namespace com.tencent.imsdk.unity
       string json_friend_profile_update_array_string = Utils.intptr2string(json_friend_profile_update_array);
 
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMUpdateFriendProfileCallback", data = json_friend_profile_update_array_string, user_data = user_data_string };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMFriendAddRequestCallback))]
@@ -5022,14 +7139,8 @@ namespace com.tencent.imsdk.unity
       string json_friend_add_request_pendency_array_string = Utils.intptr2string(json_friend_add_request_pendency_array);
 
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMFriendAddRequestCallback", data = json_friend_add_request_pendency_array_string, user_data = user_data_string };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMFriendApplicationListDeletedCallback))]
@@ -5040,14 +7151,8 @@ namespace com.tencent.imsdk.unity
       string json_identifier_array_string = Utils.intptr2string(json_identifier_array);
 
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMFriendApplicationListDeletedCallback", data = json_identifier_array_string, user_data = user_data_string };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMFriendApplicationListReadCallback))]
@@ -5063,15 +7168,10 @@ namespace com.tencent.imsdk.unity
       string user_data_string = Utils.intptr2string(user_data);
 
       string json_friend_black_added_array_string = Utils.intptr2string(json_friend_black_added_array);
+
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMFriendBlackListAddedCallback", data = json_friend_black_added_array_string, user_data = user_data_string };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMFriendBlackListDeletedCallback))]
@@ -5082,14 +7182,8 @@ namespace com.tencent.imsdk.unity
       string json_identifier_array_string = Utils.intptr2string(json_identifier_array);
 
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMFriendBlackListDeletedCallback", data = json_identifier_array_string, user_data = user_data_string };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMLogCallback))]
@@ -5112,14 +7206,8 @@ namespace com.tencent.imsdk.unity
       string json_msg_array_string = Utils.intptr2string(json_msg_array);
 
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMMsgUpdateCallback", data = json_msg_array_string, user_data = user_data_string };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMMsgGroupMessageReadMemberListCallback))]
@@ -5128,15 +7216,10 @@ namespace com.tencent.imsdk.unity
       string user_data_string = Utils.intptr2string(user_data);
 
       string json_group_member_array_string = Utils.intptr2string(json_group_member_array);
+
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMMsgGroupMessageReadMemberListCallback", data = json_group_member_array_string, user_data = user_data_string, next_seq = next_seq, is_finished = is_finished };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
     [MonoPInvokeCallback(typeof(IMWebSDK.TIMMsgGroupMessageReadMemberListCallback))]
@@ -5146,6 +7229,7 @@ namespace com.tencent.imsdk.unity
       string json_group_member_array_string = Utils.intptr2string(json_group_member_array);
       ulong next_seq = Convert.ToUInt64(Utils.intptr2string(next_seq_str));
       bool is_finished = Convert.ToBoolean(Utils.intptr2string(is_finished_str));
+
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMMsgGroupMessageReadMemberListCallbackWeb", data = json_group_member_array_string, user_data = user_data_string, next_seq = next_seq, is_finished = is_finished };
       mainSyncContext.Post(threadOperation<string>, cc);
     }
@@ -5156,6 +7240,7 @@ namespace com.tencent.imsdk.unity
       string user_data_string = Utils.intptr2string(user_data);
       string json_group_id_string = Utils.intptr2string(group_id);
       string json_topic_id_string = Utils.intptr2string(topic_id);
+
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMGroupTopicCreatedCallback", data = json_group_id_string, user_data = user_data_string, group_id = json_group_id_string };
       mainSyncContext.Post(threadOperation<string>, cc);
     }
@@ -5166,15 +7251,10 @@ namespace com.tencent.imsdk.unity
       string user_data_string = Utils.intptr2string(user_data);
       string json_group_id_string = Utils.intptr2string(group_id);
       string json_topic_id_array_string = Utils.intptr2string(topic_id_array);
+
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMGroupTopicDeletedCallback", data = json_topic_id_array_string, user_data = user_data_string, group_id = json_group_id_string };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMGroupTopicChangedCallback))]
@@ -5183,15 +7263,10 @@ namespace com.tencent.imsdk.unity
       string user_data_string = Utils.intptr2string(user_data);
       string json_group_id_string = Utils.intptr2string(group_id);
       string json_topic_info_string = Utils.intptr2string(topic_info);
+
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMGroupTopicChangedCallback", data = json_topic_info_string, user_data = user_data_string, group_id = json_group_id_string };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMSelfInfoUpdatedCallback))]
@@ -5199,15 +7274,10 @@ namespace com.tencent.imsdk.unity
     {
       string user_data_string = Utils.intptr2string(user_data);
       string json_user_profile_string = Utils.intptr2string(json_user_profile);
+
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMSelfInfoUpdatedCallback", data = json_user_profile_string, user_data = user_data_string };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
 
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMUserStatusChangedCallback))]
@@ -5215,47 +7285,34 @@ namespace com.tencent.imsdk.unity
     {
       string user_data_string = Utils.intptr2string(user_data);
       string json_user_status_array_string = Utils.intptr2string(json_user_status_array);
+
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMUserStatusChangedCallback", data = json_user_status_array_string, user_data = user_data_string };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
+
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMMsgExtensionsChangedCallback))]
     public static void TIMMsgExtensionsChangedCallbackInstance(IntPtr message_id, IntPtr message_extension_array, IntPtr user_data)
     {
       string user_data_string = Utils.intptr2string(user_data);
       string msg_id = Utils.intptr2string(message_id);
       string message_extensions = Utils.intptr2string(message_extension_array);
+
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMMsgExtensionsChangedCallback", data = message_extensions, user_data = user_data_string, group_id = msg_id };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
+
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMMsgExtensionsDeletedCallback))]
     public static void TIMMsgExtensionsDeletedCallbackInstance(IntPtr message_id, IntPtr message_extension_key_array, IntPtr user_data)
     {
       string user_data_string = Utils.intptr2string(user_data);
       string msg_id = Utils.intptr2string(message_id);
       string message_extensions = Utils.intptr2string(message_extension_key_array);
+
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMMsgExtensionsDeletedCallback", data = message_extensions, user_data = user_data_string, group_id = msg_id };
-      if (!IsStringCallbackStore.Contains(user_data_string.Split('_')[0]))
-      {
-        mainSyncContext.Post(threadOperation<object>, cc);
-      }
-      else
-      {
-        mainSyncContext.Post(threadOperation<string>, cc);
-      }
+
+      mainSyncContext.Post(threadOperation<object>, cc);
     }
   }
 }
