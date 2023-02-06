@@ -84,12 +84,12 @@ We apply ourselves to the development of full platform coverage Tencent Cloud IM
 ```json
 {
     "dependencies":{
-    "com.tencent.imsdk.unity":"https://github.com/TencentCloud/TIMSDK.git#unity"
+    "com.tencent.imsdk.unity":"https://github.com/TencentCloud/chat-sdk-unity.git#unity"
   }
 }
 ```
 
-For you to better understand all the APIs within Tencent Cloud IM SDK, we have offered [API Example](https://github.com/TencentCloud/TIMSDK/tree/master/Unity/im_unity_sdk_plus/Assets/IM_Api_Example) for testing SDK APIs and calling certain APIs on the early stage of development.
+For you to better understand all the APIs within Tencent Cloud IM SDK, we have offered [API Example](https://github.com/TencentCloud/chat-sdk-unity/tree/main/Assets/IM_Api_Example) for testing SDK APIs and calling certain APIs on the early stage of development.
 
 [](id:part3)
 ## Part 3. Load dependencies

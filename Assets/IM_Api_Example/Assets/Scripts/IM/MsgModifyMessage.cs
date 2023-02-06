@@ -18,7 +18,6 @@ public class MsgModifyMessage : MonoBehaviour
   public Text Result;
   public Button Submit;
   public Button Copy;
-  public Toggle PinToggle;
   public InputField Input;
   private List<ConvInfo> ConvList;
   private List<Message> MsgList;

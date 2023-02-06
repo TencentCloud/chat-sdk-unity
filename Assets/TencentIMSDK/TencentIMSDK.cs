@@ -157,6 +157,10 @@ namespace com.tencent.imsdk.unity
       needLog = (bool)need_log;
       Utils.Log(configString);
 
+      string sdkVersion = GetSDKVersion();
+
+      Utils.Log("Current Native SDK Version: " + sdkVersion);
+
       int timSucc = IMNativeSDK.TIMInit(sdk_app_id, Utils.string2intptr(configString));
       return (TIMResult)timSucc;
     }
@@ -893,7 +897,7 @@ namespace com.tencent.imsdk.unity
     /// <param name="count">分页拉取的个数 (Page count)</param>
     /// <param name="callback">异步回调 (Asynchronous callback)</param>
     /// <returns><see cref="TIMResult"/></returns>
-    public static TIMResult ConvGetConversationListByFilter(ConversationListFilter filter, ulong next_seq,uint count,ValueCallback<ConversationListResult> callback)
+    public static TIMResult ConvGetConversationListByFilter(ConversationListFilter filter, ulong next_seq, uint count,ValueCallback<ConversationListResult> callback)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
@@ -1051,12 +1055,12 @@ namespace com.tencent.imsdk.unity
       {
         ValuecallbackDeleStore.Add(user_data, threadOperation<List<ConversationOperationResult>>);
         ValuecallbackStore.Add(user_data, callback);
-        timSucc = IMNativeSDK.TIMConvSetConversationCustomData(customDataPtr, conversationIdArrayPtr, ValueCallbackInstance, Utils.string2intptr(user_data));
+        timSucc = IMNativeSDK.TIMConvSetConversationCustomData(conversationIdArrayPtr, customDataPtr, ValueCallbackInstance, Utils.string2intptr(user_data));
       }
       else
       {
         ValuecallbackStore.Add(user_data, strCallback);
-        timSucc = IMNativeSDK.TIMConvSetConversationCustomData(customDataPtr, conversationIdArrayPtr, StringValueCallbackInstance, Utils.string2intptr(user_data));
+        timSucc = IMNativeSDK.TIMConvSetConversationCustomData(conversationIdArrayPtr, customDataPtr, StringValueCallbackInstance, Utils.string2intptr(user_data));
       }
 
       Log(user_data, conversationIdArrayStr, custom_data);
@@ -2723,7 +2727,7 @@ namespace com.tencent.imsdk.unity
     /// </summary>
     /// <param name="group_id">群 ID (Group ID)</param>
     /// <param name="group_counter_key">群计数器的 key (Group counter key)</param>
-    /// <param name="group_counter_value">群计数器的递增变化量 value (Group counter value)</param>
+    /// <param name="group_counter_value">群计数器的递减变化量 value (Group counter value)</param>
     /// <param name="callback">异步回调 (Asynchronous callback)</param>
     /// <returns><see cref="TIMResult"/></returns>
     public static TIMResult GroupDecreaseGroupCounter(string group_id, string group_counter_key, ulong group_counter_value, ValueCallback<List<GroupCounter>> callback)
@@ -3129,7 +3133,7 @@ namespace com.tencent.imsdk.unity
     /// <param name="json_topic_id_array">话题 ID 列表 (Topic ID list)</param>
     /// <param name="callback">异步回调 (Asynchronous callback)</param>
     /// <returns><see cref="TIMResult"/></returns>
-    public static TIMResult GroupGetTopicInfoList(string group_id, List<string> json_topic_id_array, ValueCallback<List<GroupGetTopicInfoResult>> callback)
+    public static TIMResult GroupGetTopicInfoList(string group_id, List<string> json_topic_id_array, ValueCallback<List<GroupTopicInfoResult>> callback)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
@@ -3137,7 +3141,7 @@ namespace com.tencent.imsdk.unity
       var list = Utils.ToJson(json_topic_id_array);
 
       ValuecallbackStore.Add(user_data, callback);
-      ValuecallbackDeleStore.Add(user_data, threadOperation<List<GroupGetTopicInfoResult>>);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<List<GroupTopicInfoResult>>);
 
       int res = IMNativeSDK.TIMGroupGetTopicInfoList(Utils.string2intptr(group_id), Utils.string2intptr(list), ValueCallbackInstance, Utils.string2intptr(user_data));
 
@@ -6542,7 +6546,7 @@ namespace com.tencent.imsdk.unity
 
             if (ConvTotalUnreadMessageCountChangedCallbackStore != null)
             {
-              ConvTotalUnreadMessageCountChangedCallbackStore(data.code, data.user_data);
+              ConvTotalUnreadMessageCountChangedCallbackStore(Int32.Parse(data.data), data.user_data);
             }
 
             break;

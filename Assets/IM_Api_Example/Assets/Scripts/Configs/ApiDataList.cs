@@ -138,6 +138,78 @@ namespace com.tencent.im.unity.demo.config.ApiDataList
         ""apiText"": ""会话置顶"",
         ""apiDesc"": ""会话置顶"",
         ""scene"": ""ConvPinConversation""
+      },
+      {
+        ""apiName"": ""ConvMarkConversation"",
+        ""apiText"": ""标记会话"",
+        ""apiDesc"": ""标记会话"",
+        ""scene"": ""ConvMarkConversation""
+      },
+      {
+        ""apiName"": ""ConvCreateConversationGroup"",
+        ""apiText"": ""创建会话分组"",
+        ""apiDesc"": ""创建会话分组"",
+        ""scene"": ""ConvCreateConversationGroup""
+      },
+      {
+        ""apiName"": ""ConvAddConversationsToGroup"",
+        ""apiText"": ""添加会话到一个会话分组"",
+        ""apiDesc"": ""添加会话到一个会话分组"",
+        ""scene"": ""ConvAddConversationsToGroup""
+      },
+      {
+        ""apiName"": ""ConvGetConversationGroupList"",
+        ""apiText"": ""获取会话分组列表"",
+        ""apiDesc"": ""获取会话分组列表"",
+        ""scene"": ""ConvGetConversationGroupList""
+      },
+      {
+        ""apiName"": ""ConvRenameConversationGroup"",
+        ""apiText"": ""重命名会话分组"",
+        ""apiDesc"": ""重命名会话分组"",
+        ""scene"": ""ConvRenameConversationGroup""
+      },
+      {
+        ""apiName"": ""ConvDeleteConversationsFromGroup"",
+        ""apiText"": ""从会话分组中删除多个会话"",
+        ""apiDesc"": ""从会话分组中删除多个会话"",
+        ""scene"": ""ConvDeleteConversationsFromGroup""
+      },
+      {
+        ""apiName"": ""ConvDeleteConversationGroup"",
+        ""apiText"": ""删除会话分组"",
+        ""apiDesc"": ""删除会话分组"",
+        ""scene"": ""ConvDeleteConversationGroup""
+      },
+      {
+        ""apiName"": ""ConvGetConversationListByFilter"",
+        ""apiText"": ""获取会话列表高级接口"",
+        ""apiDesc"": ""获取会话列表高级接口"",
+        ""scene"": ""ConvGetConversationListByFilter""
+      },
+      {
+        ""apiName"": ""ConvGetUnreadMessageCountByFilter"",
+        ""apiText"": ""根据 filter 获取未读总数"",
+        ""apiDesc"": ""根据 filter 获取未读总数"",
+        ""scene"": ""ConvGetUnreadMessageCountByFilter""
+      },
+      {
+        ""apiName"": ""ConvSubscribeUnreadMessageCountByFilter"",
+        ""apiText"": ""注册监听指定 filter 的会话未读总数变化"",
+        ""apiDesc"": ""注册监听指定 filter 的会话未读总数变化"",
+        ""scene"": ""ConvSubscribeUnreadMessageCountByFilter""
+      },
+      {
+        ""apiName"": ""ConvUnsubscribeUnreadMessageCountByFilter"",
+        ""apiText"": ""取消监听指定 filter 的会话未读总数变化"",
+        ""apiDesc"": ""取消监听指定 filter 的会话未读总数变化"",
+        ""scene"": ""ConvUnsubscribeUnreadMessageCountByFilter""
+      },
+      {
+        ""apiName"": ""ConvSetConversationCustomData"",
+        ""apiText"": ""设置会话自定义数据"",
+        ""apiDesc"": ""设置会话自定义数据"",
+        ""scene"": ""ConvSetConversationCustomData""
       }
     ]
   },
@@ -366,6 +438,12 @@ namespace com.tencent.im.unity.demo.config.ApiDataList
         ""apiText"": ""删除消息扩展"",
         ""apiDesc"": ""删除消息扩展"",
         ""scene"": ""MsgDeleteMessageExtensions""
+      },
+      {
+        ""apiName"": ""MsgTranslateText"",
+        ""apiText"": ""翻译文本消息"",
+        ""apiDesc"": ""翻译文本消息"",
+        ""scene"": ""MsgTranslateText""
       }
     ]
   },
@@ -643,6 +721,36 @@ namespace com.tencent.im.unity.demo.config.ApiDataList
         ""apiDesc"": ""修改话题信息"",
         ""scene"": ""GroupSetTopicInfo""
       },
+      {
+        ""apiName"": ""GroupMarkGroupMemberList"",
+        ""apiText"": ""标记群成员"",
+        ""apiDesc"": ""标记群成员"",
+        ""scene"": ""GroupMarkGroupMemberList""
+      },
+      {
+        ""apiName"": ""GroupSetGroupCounters"",
+        ""apiText"": ""设置群计数器"",
+        ""apiDesc"": ""设置群计数器"",
+        ""scene"": ""GroupSetGroupCounters""
+      },
+      {
+        ""apiName"": ""GroupGetGroupCounters"",
+        ""apiText"": ""获取群计数器"",
+        ""apiDesc"": ""获取群计数器"",
+        ""scene"": ""GroupGetGroupCounters""
+      },
+      {
+        ""apiName"": ""GroupIncreaseGroupCounter"",
+        ""apiText"": ""递增群计数器"",
+        ""apiDesc"": ""递增群计数器"",
+        ""scene"": ""GroupIncreaseGroupCounter""
+      },
+      {
+        ""apiName"": ""GroupDecreaseGroupCounter"",
+        ""apiText"": ""递减群计数器"",
+        ""apiDesc"": ""递减群计数器"",
+        ""scene"": ""GroupDecreaseGroupCounter""
+      }
     ]
   },
 ]

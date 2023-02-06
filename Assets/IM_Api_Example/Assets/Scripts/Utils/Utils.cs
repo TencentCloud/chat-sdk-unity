@@ -578,5 +578,27 @@ namespace com.tencent.im.unity.demo.utils
 
       Debug.Log("Permission result: " + permission);
     }
+
+    public static bool IsValidConvID(string id)
+    {
+      return id.StartsWith("c2c_") || id.StartsWith("group_") || id.StartsWith("system_");
+    }
+
+    public static string SetConvIDPrefix(string id, TIMConvType conv_type)
+    {
+      if (conv_type == TIMConvType.kTIMConv_C2C)
+      {
+        return "c2c_" + id;
+      }
+      if (conv_type == TIMConvType.kTIMConv_Group)
+      {
+        return "group_" + id;
+      }
+      if (conv_type == TIMConvType.kTIMConv_System)
+      {
+        return "system_" + id;
+      }
+      return id;
+    }
   }
 }

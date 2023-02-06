@@ -830,6 +830,18 @@ public static class I18n
       }
     },
     {
+      "GroupCounterKeyLabel", new I18nData{
+        cn = "群计数器的 key 值",
+        en = "Group Counter keys"
+      }
+    },
+    {
+      "GroupCounterValueLabel", new I18nData{
+        cn = "群计数器的 value 值",
+        en = "Group Counter values (long)"
+      }
+    },
+    {
       "TopicRecvOptLabel", new I18nData{
         cn = "话题消息接收选项",
         en = "Topic Message Receiving Option"

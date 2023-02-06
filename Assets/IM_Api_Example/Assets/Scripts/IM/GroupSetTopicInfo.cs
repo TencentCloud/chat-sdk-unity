@@ -66,8 +66,8 @@ public class GroupSetTopicInfo : MonoBehaviour
       topicIDList = new List<string>();
       SelectedTopicID.ClearOptions();
       string text = (string)parameters[1];
-      List<GroupGetTopicInfoResult> List = Utils.FromJson<List<GroupGetTopicInfoResult>>(text);
-      foreach (GroupGetTopicInfoResult item in List)
+      List<GroupTopicInfoResult> List = Utils.FromJson<List<GroupTopicInfoResult>>(text);
+      foreach (GroupTopicInfoResult item in List)
       {
         string topic_id = item.group_topic_info_result_topic_info.group_topic_info_topic_id;
         print(topic_id);

@@ -17,7 +17,6 @@ public class MsgListDelete : MonoBehaviour
   public Text Result;
   public Button Submit;
   public Button Copy;
-  public Toggle PinToggle;
   private List<ConvInfo> ConvList;
   private List<Message> MsgList;
   void Start()
