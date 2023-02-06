@@ -145,16 +145,19 @@ namespace com.tencent.imsdk.unity.types
   [JsonObject(MemberSerialization.OptOut)]
   public class MessageExtension : ExtraData
   {
-    // string, 读写(选填), 扩展字段的 key (Read & Write (Optional), message extension key)
+    /// <value>string, 读写(选填), 扩展字段的 key (Read & Write (Optional), message extension key)</value>
     public string message_extension_key;
-    // string, 读写(选填), 扩展字段的 value (Read & Write (Optional), message extension value)
+    /// <value>string, 读写(选填), 扩展字段的 value (Read & Write (Optional), message extension value)</value>
     public string message_extension_value;
   }
   [JsonObject(MemberSerialization.OptOut)]
   public class MessageExtensionResult : ExtraData
   {
+    /// <value>object, 只读, 消息扩展操作返回结果所对应的扩展字段 (Read only, message extension item)</value>
     public MessageExtension message_extension_item;
+    /// <value>uint32, 只读, 消息扩展操作的返回码 (Read only, result code)</value>
     public int message_extension_result_code;
+    /// <value>string, 只读, 消息扩展操作的返回信息提示 (Read only, result infomation)</value>
     public string message_extension_result_info;
   }
   [JsonObject(MemberSerialization.OptOut)]
@@ -1005,13 +1008,13 @@ namespace com.tencent.imsdk.unity.types
     public TIMConvType msg_receipt_conv_type;
     /// <value>只读, 时间戳 (Read only, receipt timestamp)</value>
     public ulong msg_receipt_time_stamp;
-    //<value>string, 只读, 群消息 ID (Read only, receipt message ID)</value>
+    /// <value>string, 只读, 群消息 ID (Read only, receipt message ID)</value>
     public string msg_receipt_msg_id;
-    //<value>bool, C2C 对端消息是否已读 (is C2C peer end read)</value>
+    /// <value>bool, C2C 对端消息是否已读 (is C2C peer end read)</value>
     public bool msg_receipt_is_peer_read;
-    //<value>uint64, 只读, 群消息已读人数 (Read only, message receipt read count)</value>
+    /// <value>uint64, 只读, 群消息已读人数 (Read only, message receipt read count)</value>
     public int msg_receipt_read_count;
-    //<value>uint64, 只读, 群消息未读人数 (Read only, message receipt unread count)</value>
+    /// <value>uint64, 只读, 群消息未读人数 (Read only, message receipt unread count)</value>
     public int msg_receipt_unread_count;
   }
 
@@ -1077,6 +1080,8 @@ namespace com.tencent.imsdk.unity.types
     public bool conv_is_pinned; // 群组系统消息元素
     /// <value>只读, 获取会话展示名称，其展示优先级如下：1、群组，群名称 -> 群 ID;C2C; 2、对方好友备注 -> 对方昵称 -> 对方的 userID (Read only, conversation show name, the display priority: 1. group conversation: group name -> group ID. 2. C2C conversation: peer's remark -> peer's nickname -> peer's user ID)</value>
     public string conv_show_name; // 群组系统消息元素
+    /// <value>只读, 会话标记列表，取值详见 @TIMConversationMarkType（从 6.5 版本开始支持）(Read only, conversation's mark type list)</value>
+    public List<ulong> conv_mark_array;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -1282,503 +1287,508 @@ namespace com.tencent.imsdk.unity.types
     public CosSaveRegionForConversationParam request_set_cos_save_region_for_conversation_param;
     /// <value>只写(选填), 设置 UI 平台，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetUIPlatform 时需要设置 (Write only (Optional), set ui platform, required when kTIMRequestInternalOperation sets to kTIMInternalOperationSetUIPlatform)</value>
     public int? request_set_ui_platform_param;
-    // int, 只写(选填), 打印日志的级别, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationWriteLog 时需要设置 (Write only (Optional), set log level, used when kTIMRequestInternalOperation sets to kTIMInternalOperationWriteLog)
+    /// <value>int, 只写(选填), 打印日志的级别, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationWriteLog 时需要设置 (Write only (Optional), set log level, used when kTIMRequestInternalOperation sets to kTIMInternalOperationWriteLog)</value>
     public int? request_write_log_log_level_param;
-    // string, 只写(选填), 打印日志的内容, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationWriteLog 时需要设置 (Write only (Optional), set log content, used when kTIMRequestInternalOperation sets to kTIMInternalOperationWriteLog)
+    /// <value>string, 只写(选填), 打印日志的内容, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationWriteLog 时需要设置 (Write only (Optional), set log content, used when kTIMRequestInternalOperation sets to kTIMInternalOperationWriteLog)</value>
     public string request_write_log_log_content_param;
-    // string, 只写(选填), 打印日志的文件名, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationWriteLog 时需要设置 (Write only (Optional), set log file name, used when kTIMRequestInternalOperation sets to kTIMInternalOperationWriteLog)
+    /// <value>string, 只写(选填), 打印日志的文件名, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationWriteLog 时需要设置 (Write only (Optional), set log file name, used when kTIMRequestInternalOperation sets to kTIMInternalOperationWriteLog)</value>
     public string request_write_log_file_name_param;
-    // string, 只写(选填), 打印日志的函数名, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationWriteLog 时需要设置 (Write only (Optional), set log function name, used when kTIMRequestInternalOperation sets to kTIMInternalOperationWriteLog)
+    /// <value>string, 只写(选填), 打印日志的函数名, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationWriteLog 时需要设置 (Write only (Optional), set log function name, used when kTIMRequestInternalOperation sets to kTIMInternalOperationWriteLog)</value>
     public string request_write_log_func_name_param;
-    // int, 只写(选填), 打印日志的所在行数, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationWriteLog 时需要设置 (Write only (Optional), set log line number, used when kTIMRequestInternalOperation sets to kTIMInternalOperationWriteLog)
+    /// <value>int, 只写(选填), 打印日志的所在行数, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationWriteLog 时需要设置 (Write only (Optional), set log line number, used when kTIMRequestInternalOperation sets to kTIMInternalOperationWriteLog)</value>
     public int? request_write_log_line_number_param;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class GetTotalUnreadNumberResult : ExtraData
   {
-    ///<value>int, 只读，会话未读数 (Read only, conversation unread count)</value>
+    /// <value>int, 只读，会话未读数 (Read only, conversation unread count)</value>
     public int conv_get_total_unread_message_count_result_unread_count;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class GetC2CRecvMsgOptResult : ExtraData
   {
-    ///<value>string, 只读，用户ID (Read only, user ID)</value>
+    /// <value>string, 只读，用户ID (Read only, user ID)</value>
     public string msg_recv_msg_opt_result_identifier;
-    ///<value>uint [TIMReceiveMessageOpt](), 只读，消息接收选项 (Read only, message receiving option)</value>
+    /// <value>uint [TIMReceiveMessageOpt](), 只读，消息接收选项 (Read only, message receiving option)</value>
     public TIMReceiveMessageOpt msg_recv_msg_opt_result_opt;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class CreateGroupResult : ExtraData
   {
-    ///<value>string, 只读, 创建的群ID (Read only, created group ID)</value>
+    /// <value>string, 只读, 创建的群ID (Read only, created group ID)</value>
     public string create_group_result_groupid;
   }
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupInviteMemberResult : ExtraData
   {
-    ///<value>string, 只读, 被邀请加入群组的用户ID (Read only, invited member user ID)</value>
+    /// <value>string, 只读, 被邀请加入群组的用户ID (Read only, invited member user ID)</value>
     public string group_invite_member_result_identifier;
-    ///<value>uint [HandleGroupMemberResult](), 只读, 邀请结果 (Read only, invitation result)</value>
+    /// <value>uint [HandleGroupMemberResult](), 只读, 邀请结果 (Read only, invitation result)</value>
     public HandleGroupMemberResult group_invite_member_result_result;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupDeleteMemberResult : ExtraData
   {
-    ///<value>string, 只读, 删除的成员ID (Read only, deleted user ID)</value>
+    /// <value>string, 只读, 删除的成员ID (Read only, deleted user ID)</value>
     public string group_delete_member_result_identifier;
-    ///<value>uint [HandleGroupMemberResult](), 只读, 删除结果 (Read only, deletion result)</value>
+    /// <value>uint [HandleGroupMemberResult](), 只读, 删除结果 (Read only, deletion result)</value>
     public HandleGroupMemberResult group_delete_member_result_result;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupBaseInfo : ExtraData
   {
-    ///<value>string, 只读, 群组ID (Read only, group ID)</value>
+    /// <value>string, 只读, 群组ID (Read only, group ID)</value>
     public string group_base_info_group_id;
-    ///<value>string, 只读, 群组名称 (Read only, group name)</value>
+    /// <value>string, 只读, 群组名称 (Read only, group name)</value>
     public string group_base_info_group_name;
-    ///<value>uint [TIMGroupType](), 只读, 群组类型 (Read only, group type)</value>
+    /// <value>uint [TIMGroupType](), 只读, 群组类型 (Read only, group type)</value>
     public TIMGroupType group_base_info_group_type;
-    ///<value>string, 只读, 群组头像URL (Read only, group avatar URL)</value>
+    /// <value>string, 只读, 群组头像URL (Read only, group avatar URL)</value>
     public string group_base_info_face_url;
-    ///<value>uint, 只读, 群资料的Seq，群资料的每次变更都会增加这个字段的值 (Read only, group info sequence, every modification of the group will change this seq)</value>
+    /// <value>uint, 只读, 群资料的Seq，群资料的每次变更都会增加这个字段的值 (Read only, group info sequence, every modification of the group will change this seq)</value>
     public uint group_base_info_info_seq;
-    ///<value>uint, 只读, 群最新消息的Seq。群组内每一条消息都有一条唯一的消息Seq，且该Seq是按照发消息顺序而连续的。从1开始，群内每增加一条消息，LastestSeq就会增加1 (Read only, group message's latest seq. Every group maintains its own sequencial message seq number. Start from 1, every message occurs an augmentation of the seq number)</value>
+    /// <value>uint, 只读, 群最新消息的Seq。群组内每一条消息都有一条唯一的消息Seq，且该Seq是按照发消息顺序而连续的。从1开始，群内每增加一条消息，LastestSeq就会增加1 (Read only, group message's latest seq. Every group maintains its own sequencial message seq number. Start from 1, every message occurs an augmentation of the seq number)</value>
     public uint group_base_info_lastest_seq;
-    ///<value>uint, 只读, 用户所在群已读的消息Seq (Read only, group message read seq)</value>
+    /// <value>uint, 只读, 用户所在群已读的消息Seq (Read only, group message read seq)</value>
     public uint group_base_info_readed_seq;
-    ///<value>uint, 只读, 消息接收选项 (Read only, group message receiving flag)</value>
+    /// <value>uint, 只读, 消息接收选项 (Read only, group message receiving flag)</value>
     public uint group_base_info_msg_flag;
-    ///<value>bool, 只读, 当前群组是否设置了全员禁言 (Read only, is current group set mute all)</value>
+    /// <value>bool, 只读, 当前群组是否设置了全员禁言 (Read only, is current group set mute all)</value>
     public bool group_base_info_is_shutup_all;
-    ///<value>object [GroupSelfInfo](), 只读, 用户所在群的个人信息 (Read only, user self info in that group)</value>
+    /// <value>object [GroupSelfInfo](), 只读, 用户所在群的个人信息 (Read only, user self info in that group)</value>
     public GroupSelfInfo group_base_info_self_info;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupSelfInfo : ExtraData
   {
-    ///<value>uint, 只读, 加入群组时间 (Read only, group join time)</value>
+    /// <value>uint, 只读, 加入群组时间 (Read only, group join time)</value>
     public uint group_self_info_join_time;
-    ///<value>uint, 只读, 用户在群组中的角色 (Read only, self role in the group)</value>
+    /// <value>uint, 只读, 用户在群组中的角色 (Read only, self role in the group)</value>
     public uint group_self_info_role;
-    ///<value>uint, 只读, 消息未读计数 (Read only, message unread count)</value>
+    /// <value>uint, 只读, 消息未读计数 (Read only, message unread count)</value>
     public uint group_self_info_unread_num;
-    ///<value>uint [TIMReceiveMessageOpt](), 只读, 消息接收选项 (Read only, message receiving option)</value>
+    /// <value>uint [TIMReceiveMessageOpt](), 只读, 消息接收选项 (Read only, message receiving option)</value>
     public TIMReceiveMessageOpt group_self_info_msg_flag;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class GetGroupInfoResult : ExtraData
   {
-    ///<value>int [错误码](https:///cloud.tencent.com/document/product/269/1671), 只读, 获取群组详细信息的结果 (Read only, group info result code [Error Codes](https://www.tencentcloud.com/document/product/1047/34348))</value>
+    /// <value>int [错误码](https:///cloud.tencent.com/document/product/269/1671), 只读, 获取群组详细信息的结果 (Read only, group info result code [Error Codes](https://www.tencentcloud.com/document/product/1047/34348))</value>
     public int get_groups_info_result_code;
-    ///<value>string, 只读, 获取群组详细失败的描述信息 (Read only, group info result description)</value>
+    /// <value>string, 只读, 获取群组详细失败的描述信息 (Read only, group info result description)</value>
     public string get_groups_info_result_desc;
-    ///<value>object [GroupDetailInfo](), 只读, 群组详细信息 (Read only, group info details)</value>
+    /// <value>object [GroupDetailInfo](), 只读, 群组详细信息 (Read only, group info details)</value>
     public GroupDetailInfo get_groups_info_result_info;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupDetailInfo : ExtraData
   {
-    ///<value>string, 只读, 群组ID (Read only, group ID)</value>
+    /// <value>string, 只读, 群组ID (Read only, group ID)</value>
     public string group_detial_info_group_id;
-    ///<value>uint [TIMGroupType](), 只读, 群组类型 (Read only, group type)</value>
+    /// <value>uint [TIMGroupType](), 只读, 群组类型 (Read only, group type)</value>
     public TIMGroupType group_detial_info_group_type;
-    ///<value>bool, 只读, 社群是否支持创建话题，只在群类型为 Community 时有效 (Read only, does support topic, works only when group_type is Community)</value>
+    /// <value>bool, 只读, 社群是否支持创建话题，只在群类型为 Community 时有效 (Read only, does support topic, works only when group_type is Community)</value>
     public bool? group_detial_info_is_support_topic;
-    ///<value>string, 只读, 群组名称 (Read only, group name)</value>
+    /// <value>string, 只读, 群组名称 (Read only, group name)</value>
     public string group_detial_info_group_name;
-    ///<value>string, 只读, 群组公告 (Read only, group notification)</value>
+    /// <value>string, 只读, 群组公告 (Read only, group notification)</value>
     public string group_detial_info_notification;
-    ///<value>string, 只读, 群组简介 (Read only, group introduction)</value>
+    /// <value>string, 只读, 群组简介 (Read only, group introduction)</value>
     public string group_detial_info_introduction;
-    ///<value>string, 只读, 群组头像URL (Read only, group avatar URL)</value>
+    /// <value>string, 只读, 群组头像URL (Read only, group avatar URL)</value>
     public string group_detial_info_face_url;
-    ///<value>uint, 只读, 群组创建时间 (Read only, group created time)</value>
+    /// <value>uint, 只读, 群组创建时间 (Read only, group created time)</value>
     public uint group_detial_info_create_time;
-    ///<value>uint, 只读, 群资料的Seq，群资料的每次变更都会增加这个字段的值 (Read only, group info sequence number, every modification will augment the sequence number)</value>
+    /// <value>uint, 只读, 群资料的Seq，群资料的每次变更都会增加这个字段的值 (Read only, group info sequence number, every modification will augment the sequence number)</value>
     public uint group_detial_info_info_seq;
-    ///<value>uint, 只读, 群组信息最后修改时间 (Read only, last modification time)</value>
+    /// <value>uint, 只读, 群组信息最后修改时间 (Read only, last modification time)</value>
     public uint group_detial_info_last_info_time;
-    ///<value>uint, 只读, 群最新消息的Seq (Read only, latest group message sequence)</value>
+    /// <value>uint, 只读, 群最新消息的Seq (Read only, latest group message sequence)</value>
     public uint group_detial_info_next_msg_seq;
-    ///<value>uint, 只读, 最新群组消息时间 (Read only, latest message time)</value>
+    /// <value>uint, 只读, 最新群组消息时间 (Read only, latest message time)</value>
     public uint group_detial_info_last_msg_time;
-    ///<value>uint, 只读, 群组当前成员数量 (Read only, group member count)</value>
+    /// <value>uint, 只读, 群组当前成员数量 (Read only, group member count)</value>
     public uint group_detial_info_member_num;
-    ///<value>uint, 只读, 群组最大成员数量 (Read only, maximum group member count)</value>
+    /// <value>uint, 只读, 群组最大成员数量 (Read only, maximum group member count)</value>
     public uint group_detial_info_max_member_num;
-    ///<value>uint [TIMGroupAddOption](), 只读, 群组加群选项 (Read only, joining group option)</value>
+    /// <value>uint [TIMGroupAddOption](), 只读, 群组加群选项 (Read only, joining group option)</value>
     public TIMGroupAddOption group_detial_info_add_option;
-    ///<value>uint, 只读, 群组在线成员数量 (Read only, online member count)</value>
+    /// <value>uint, 只读, 群组在线成员数量 (Read only, online member count)</value>
     public uint group_detial_info_online_member_num;
-    ///<value>uint, 只读, 群组成员是否对外可见 (Read only, is visible to outsiders)</value>
+    /// <value>uint, 只读, 群组成员是否对外可见 (Read only, is visible to outsiders)</value>
     public uint group_detial_info_visible;
-    ///<value>uint, 只读, 群组是否能被搜索 (Read only, is searchable)</value>
+    /// <value>uint, 只读, 群组是否能被搜索 (Read only, is searchable)</value>
     public uint group_detial_info_searchable;
-    ///<value>bool, 只读, 群组是否被设置了全员禁言 (Read only, is set mute all)</value>
+    /// <value>bool, 只读, 群组是否被设置了全员禁言 (Read only, is set mute all)</value>
     public bool group_detial_info_is_shutup_all;
-    ///<value>string, 只读, 群组所有者ID (Read only, group owner user ID)</value>
+    /// <value>string, 只读, 群组所有者ID (Read only, group owner user ID)</value>
     public string group_detial_info_owener_identifier;
-    ///<value>array [GroupInfoCustemString](), 只读, 请参考[自定义字段](https:///cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Read only, [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
+    /// <value>array [GroupInfoCustemString](), 只读, 请参考[自定义字段](https:///cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Read only, [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
     public List<GroupInfoCustemString> group_detial_info_custom_info;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupInfo : ExtraData
   {
-    ///<value>string, 只读, 群组ID (Read only, group ID)</value>
+    /// <value>string, 只读, 群组ID (Read only, group ID)</value>
     public string group_base_info_group_id;
-    ///<value>string, 只读, 群组名称 (Read only, group name)</value>
+    /// <value>string, 只读, 群组名称 (Read only, group name)</value>
     public string group_base_info_group_name;
-    ///<value>uint [TIMGroupType](), 只读, 群组类型 (Read only, group type)</value>
+    /// <value>uint [TIMGroupType](), 只读, 群组类型 (Read only, group type)</value>
     public TIMGroupType group_base_info_group_type;
-    ///<value>string, 只读, 群组头像URL (Read only, group avatar URL)</value>
+    /// <value>string, 只读, 群组头像URL (Read only, group avatar URL)</value>
     public string group_base_info_face_url;
-    ///<value>uint, 只读, 群资料的Seq，群资料的每次变更都会增加这个字段的值 (Read only,  group info sequence, every modification of the group will change this seq)</value>
+    /// <value>uint, 只读, 群资料的Seq，群资料的每次变更都会增加这个字段的值 (Read only,  group info sequence, every modification of the group will change this seq)</value>
     public uint group_base_info_info_seq;
-    ///<value>uint, 只读, 群最新消息的Seq。群组内每一条消息都有一条唯一的消息Seq，且该Seq是按照发消息顺序而连续的。从1开始，群内每增加一条消息，LastestSeq就会增加1 (Read only, group message's latest seq. Every group maintains its own sequencial message seq number. Start from 1, every message occurs an augmentation of the seq number)</value>
+    /// <value>uint, 只读, 群最新消息的Seq。群组内每一条消息都有一条唯一的消息Seq，且该Seq是按照发消息顺序而连续的。从1开始，群内每增加一条消息，LastestSeq就会增加1 (Read only, group message's latest seq. Every group maintains its own sequencial message seq number. Start from 1, every message occurs an augmentation of the seq number)</value>
     public uint group_base_info_lastest_seq;
-    ///<value>uint, 只读, 用户所在群已读的消息Seq (Read only, group message read seq)</value>
+    /// <value>uint, 只读, 用户所在群已读的消息Seq (Read only, group message read seq)</value>
     public uint group_base_info_readed_seq;
-    ///<value>uint, 只读, 消息接收选项 (Read only, group message receiving flag)</value>
+    /// <value>uint, 只读, 消息接收选项 (Read only, group message receiving flag)</value>
     public uint group_base_info_msg_flag;
-    ///<value>bool, 只读, 当前群组是否设置了全员禁言 (Read only, is current group set mute all)</value>
+    /// <value>bool, 只读, 当前群组是否设置了全员禁言 (Read only, is current group set mute all)</value>
     public bool group_base_info_is_shutup_all;
-    ///<value>object [GroupSelfInfo](), 只读, 用户所在群的个人信息 (Read only, user self info in that group)</value>
+    /// <value>object [GroupSelfInfo](), 只读, 用户所在群的个人信息 (Read only, user self info in that group)</value>
     public GroupSelfInfo group_base_info_self_info;
-    ///<value>string, 只读, 群组ID (Read only, group ID)</value>
+    /// <value>string, 只读, 群组ID (Read only, group ID)</value>
     public string group_detial_info_group_id;
-    ///<value>uint [TIMGroupType](), 只读, 群组类型 (Read only, group type)</value>
+    /// <value>uint [TIMGroupType](), 只读, 群组类型 (Read only, group type)</value>
     public TIMGroupType group_detial_info_group_type;
-    ///<value>bool, 只读, 社群是否支持创建话题，只在群类型为 Community 时有效 (Read only, does support topic, works only when group_type is Community)</value>
+    /// <value>bool, 只读, 社群是否支持创建话题，只在群类型为 Community 时有效 (Read only, does support topic, works only when group_type is Community)</value>
     public bool? group_detial_info_is_support_topic;
-    ///<value>string, 只读, 群组名称 (Read only, group name)</value>
+    /// <value>string, 只读, 群组名称 (Read only, group name)</value>
     public string group_detial_info_group_name;
-    ///<value>string, 只读, 群组公告 (Read only, group notification)</value>
+    /// <value>string, 只读, 群组公告 (Read only, group notification)</value>
     public string group_detial_info_notification;
-    ///<value>string, 只读, 群组简介 (Read only, group introduction)</value>
+    /// <value>string, 只读, 群组简介 (Read only, group introduction)</value>
     public string group_detial_info_introduction;
-    ///<value>string, 只读, 群组头像URL (Read only, group avatar URL)</value>
+    /// <value>string, 只读, 群组头像URL (Read only, group avatar URL)</value>
     public string group_detial_info_face_url;
-    ///<value>uint, 只读, 群组创建时间 (Read only, group created time)</value>
+    /// <value>uint, 只读, 群组创建时间 (Read only, group created time)</value>
     public uint group_detial_info_create_time;
-    ///<value>uint, 只读, 群资料的Seq，群资料的每次变更都会增加这个字段的值 (Read only, group info sequence number, every modification will augment the sequence number)</value>
+    /// <value>uint, 只读, 群资料的Seq，群资料的每次变更都会增加这个字段的值 (Read only, group info sequence number, every modification will augment the sequence number)</value>
     public uint group_detial_info_info_seq;
-    ///<value>uint, 只读, 群组信息最后修改时间 (Read only, last modification time)</value>
+    /// <value>uint, 只读, 群组信息最后修改时间 (Read only, last modification time)</value>
     public uint group_detial_info_last_info_time;
-    ///<value>uint, 只读, 群最新消息的Seq (Read only, latest group message sequence)</value>
+    /// <value>uint, 只读, 群最新消息的Seq (Read only, latest group message sequence)</value>
     public uint group_detial_info_next_msg_seq;
-    ///<value>uint, 只读, 最新群组消息时间 (Read only, group member count)</value>
+    /// <value>uint, 只读, 最新群组消息时间 (Read only, group member count)</value>
     public uint group_detial_info_last_msg_time;
-    ///<value>uint, 只读, 群组当前成员数量 (Read only, group member count)</value>
+    /// <value>uint, 只读, 群组当前成员数量 (Read only, group member count)</value>
     public uint group_detial_info_member_num;
-    ///<value>uint, 只读, 群组最大成员数量 (Read only, maximum group member count)</value>
+    /// <value>uint, 只读, 群组最大成员数量 (Read only, maximum group member count)</value>
     public uint group_detial_info_max_member_num;
-    ///<value>uint [TIMGroupAddOption](), 只读, 群组加群选项 (Read only, joining group option)</value>
+    /// <value>uint [TIMGroupAddOption](), 只读, 群组加群选项 (Read only, joining group option)</value>
     public TIMGroupAddOption group_detial_info_add_option;
-    ///<value>uint, 只读, 群组在线成员数量 (Read only, online member count)</value>
+    /// <value>uint, 只读, 群组在线成员数量 (Read only, online member count)</value>
     public uint group_detial_info_online_member_num;
-    ///<value>uint, 只读, 群组成员是否对外可见 (Read only, is visible to outsiders)</value>
+    /// <value>uint, 只读, 群组成员是否对外可见 (Read only, is visible to outsiders)</value>
     public uint group_detial_info_visible;
-    ///<value>uint, 只读, 群组是否能被搜索 (Read only, is searchable)</value>
+    /// <value>uint, 只读, 群组是否能被搜索 (Read only, is searchable)</value>
     public uint group_detial_info_searchable;
-    ///<value>bool, 只读, 群组是否被设置了全员禁言 (Read only, is set mute all)</value>
+    /// <value>bool, 只读, 群组是否被设置了全员禁言 (Read only, is set mute all)</value>
     public bool group_detial_info_is_shutup_all;
-    ///<value>string, 只读, 群组所有者ID (Read only, group owner user ID)</value>
+    /// <value>string, 只读, 群组所有者ID (Read only, group owner user ID)</value>
     public string group_detial_info_owener_identifier;
-    ///<value>array [GroupInfoCustemString](), 只读, 请参考[自定义字段](https:///cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Read only, [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
+    /// <value>array [GroupInfoCustemString](), 只读, 请参考[自定义字段](https:///cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Read only, [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
     public List<GroupInfoCustemString> group_detial_info_custom_info;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupPendencyResult : ExtraData
   {
-    ///<value>uint64, 只读, 下一次拉取的起始时戳,server返回0表示没有更多的数据,否则在下次获取数据时以这个时间戳作为开始时间戳 (Read only, next group pendency start time, 0 means no more data, otherwise use this timestamp to search)</value>
+    /// <value>uint64, 只读, 下一次拉取的起始时戳,server返回0表示没有更多的数据,否则在下次获取数据时以这个时间戳作为开始时间戳 (Read only, next group pendency start time, 0 means no more data, otherwise use this timestamp to search)</value>
     public ulong group_pendency_result_next_start_time;
-    ///<value>uint64, 只读, 已读上报的时间戳 (Read only, reported read time seq)</value>
+    /// <value>uint64, 只读, 已读上报的时间戳 (Read only, reported read time seq)</value>
     public ulong group_pendency_result_read_time_seq;
-    ///<value>uint, 只读, 未决请求的未读数 (Read only, pendency unread number)</value>
+    /// <value>uint, 只读, 未决请求的未读数 (Read only, pendency unread number)</value>
     public uint group_pendency_result_unread_num;
-    ///<value>array [GroupPendency](), 只读, 群未决信息列表 (Read only, pendency list)</value>
+    /// <value>array [GroupPendency](), 只读, 群未决信息列表 (Read only, pendency list)</value>
     public List<GroupPendency> group_pendency_result_pendency_array;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupGetOnlineMemberCountResult : ExtraData
   {
-    ///<value>int, 只读, 指定群的在线人数 (Read only, group online member count)</value>
+    /// <value>int, 只读, 指定群的在线人数 (Read only, group online member count)</value>
     public int group_get_online_member_count_result;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class FriendResult : ExtraData
   {
-    ///<value>string, 只读, 关系链操作的用户ID (Read only, friend operator's user ID)</value>
+    /// <value>string, 只读, 关系链操作的用户ID (Read only, friend operator's user ID)</value>
     public string friend_result_identifier;
-    ///<value>int [错误码](https:///cloud.tencent.com/document/product/269/1671), 只读, 关系链操作的结果 (Read only, operation code, [Error Codes](https://www.tencentcloud.com/document/product/1047/34348))</value>
+    /// <value>int [错误码](https:///cloud.tencent.com/document/product/269/1671), 只读, 关系链操作的结果 (Read only, operation code, [Error Codes](https://www.tencentcloud.com/document/product/1047/34348))</value>
     public int friend_result_code;
-    ///<value>string, 只读, 关系链操作失败的详细描述 (Read only, friend result description)</value>
+    /// <value>string, 只读, 关系链操作失败的详细描述 (Read only, friend result description)</value>
     public string friend_result_desc;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class FriendshipCheckFriendTypeResult : ExtraData
   {
-    ///<value>string, 只读, 被检测的好友UserID (Read only, checked friend's user ID)</value>
+    /// <value>string, 只读, 被检测的好友UserID (Read only, checked friend's user ID)</value>
     public string friendship_check_friendtype_result_identifier;
-    ///<value>uint [TIMFriendCheckRelation](), 只读, 检测成功时返回的二者之间的关系 (Read only, relation result)</value>
+    /// <value>uint [TIMFriendCheckRelation](), 只读, 检测成功时返回的二者之间的关系 (Read only, relation result)</value>
     public TIMFriendCheckRelation friendship_check_friendtype_result_relation;
-    ///<value>int [错误码](https:///cloud.tencent.com/document/product/269/1671), 只读, 检测的结果 (Read only, result code, [Error Codes](https://www.tencentcloud.com/document/product/1047/34348))</value>
+    /// <value>int [错误码](https:///cloud.tencent.com/document/product/269/1671), 只读, 检测的结果 (Read only, result code, [Error Codes](https://www.tencentcloud.com/document/product/1047/34348))</value>
     public int friendship_check_friendtype_result_code;
-    ///<value>string, 只读, 检测好友失败的描述信息 (Read only, failed result description)</value>
+    /// <value>string, 只读, 检测好友失败的描述信息 (Read only, failed result description)</value>
     public string friendship_check_friendtype_result_desc;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class PendencyPage : ExtraData
   {
-    ///<value>uint64, 只读, 未决请求信息页的起始时间 (Read only, pendency page start time)</value>
+    /// <value>uint64, 只读, 未决请求信息页的起始时间 (Read only, pendency page start time)</value>
     public ulong pendency_page_start_time;
-    ///<value>uint64, 只读, 未决请求信息页的未读数量 (Read only, pendency page unread number)</value>
+    /// <value>uint64, 只读, 未决请求信息页的未读数量 (Read only, pendency page unread number)</value>
     public int pendency_page_unread_num;
-    ///<value>uint64, 只读, 未决请求信息页的当前Seq (Read only, pendency page current seq)</value>
+    /// <value>uint64, 只读, 未决请求信息页的当前Seq (Read only, pendency page current seq)</value>
     public ulong pendency_page_current_seq;
-    ///<value>array [FriendAddPendencyInfo](), 只读, 未决请求信息页的未决信息列表 (Read only, pendency info list)</value>
+    /// <value>array [FriendAddPendencyInfo](), 只读, 未决请求信息页的未决信息列表 (Read only, pendency info list)</value>
     public List<FriendAddPendencyInfo> pendency_page_pendency_info_array;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class FriendAddPendencyInfo : ExtraData
   {
-    ///<value>uint [TIMFriendPendencyType](), 只读, 好友添加请求未决类型 (Read only, friend addition pendency type)</value>
+    /// <value>uint [TIMFriendPendencyType](), 只读, 好友添加请求未决类型 (Read only, friend addition pendency type)</value>
     public TIMFriendPendencyType friend_add_pendency_info_type;
-    ///<value>string, 只读, 好友添加请求未决的UserID (Read only, peer's user ID)</value>
+    /// <value>string, 只读, 好友添加请求未决的UserID (Read only, peer's user ID)</value>
     public string friend_add_pendency_info_idenitifer;
-    ///<value>string, 只读, 好友添加请求未决的昵称 (Read only, peer's nickname)</value>
+    /// <value>string, 只读, 好友添加请求未决的昵称 (Read only, peer's nickname)</value>
     public string friend_add_pendency_info_nick_name;
-    ///<value>uint64, 只读, 发起好友申请的时间 (Read only, request time)</value>
+    /// <value>uint64, 只读, 发起好友申请的时间 (Read only, request time)</value>
     public ulong friend_add_pendency_info_add_time;
-    ///<value>string, 只读, 好友添加请求未决的添加来源 (Read only, request source)</value>
+    /// <value>string, 只读, 好友添加请求未决的添加来源 (Read only, request source)</value>
     public string friend_add_pendency_info_add_source;
-    ///<value>string, 只读, 好友添加请求未决的添加附言 (Read only, request appending words)</value>
+    /// <value>string, 只读, 好友添加请求未决的添加附言 (Read only, request appending words)</value>
     public string friend_add_pendency_info_add_wording;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class FriendInfoGetResult : ExtraData
   {
-    ///<value>string, 只读, 好友 user_id (Read only, friend's user ID)</value>
+    /// <value>string, 只读, 好友 user_id (Read only, friend's user ID)</value>
     public string friendship_friend_info_get_result_identifier;
-    ///<value>uint [TIMFriendshipRelationType], 只读， 好友关系 (Read only, relationship)</value>
+    /// <value>uint [TIMFriendshipRelationType], 只读， 好友关系 (Read only, relationship)</value>
     public TIMFriendshipRelationType friendship_friend_info_get_result_relation_type;
-    ///<value>uint， 只读，错误码 (Read only, error code)</value>
+    /// <value>uint， 只读，错误码 (Read only, error code)</value>
     public uint friendship_friend_info_get_result_error_code;
-    ///<value>string, 只读， 错误描述 (Read only, error description)</value>
+    /// <value>string, 只读， 错误描述 (Read only, error description)</value>
     public string friendship_friend_info_get_result_error_message;
-    ///<value>[FriendProfile], 只读, 好友资料 (Read only, friend's profile)</value>
+    /// <value>[FriendProfile], 只读, 好友资料 (Read only, friend's profile)</value>
     public FriendProfile friendship_friend_info_get_result_field_info;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class MessageSearchResult : ExtraData
   {
-    ///<value>uint, 只读, 如果您本次搜索【指定会话】，那么返回满足搜索条件的消息总数量；如果您本次搜索【全部会话】，那么返回满足搜索条件的消息所在的所有会话总数量。 (Read only, if you searched for [specified conversation], it will return the number of messages in the specified conversation; if you searched for [all conversation], it will return the number of messages in all conversations)</value>
+    /// <value>uint, 只读, 如果您本次搜索【指定会话】，那么返回满足搜索条件的消息总数量；如果您本次搜索【全部会话】，那么返回满足搜索条件的消息所在的所有会话总数量。 (Read only, if you searched for [specified conversation], it will return the number of messages in the specified conversation; if you searched for [all conversation], it will return the number of messages in all conversations)</value>
     public uint msg_search_result_total_count;
-    ///<value>array [TIMMessageSearchResultItem](), 只读, 如果您本次搜索【指定会话】，那么返回结果列表只包含该会话结果；如果您本次搜索【全部会话】，那么对满足搜索条件的消息根据会话 ID 分组，分页返回分组结果； (Read only, if you searched for [specified conversation], it will return the search result in the specified conversation; if you searched for [all conversation], it will return message results in all conversations by pages)</value>
+    /// <value>array [TIMMessageSearchResultItem](), 只读, 如果您本次搜索【指定会话】，那么返回结果列表只包含该会话结果；如果您本次搜索【全部会话】，那么对满足搜索条件的消息根据会话 ID 分组，分页返回分组结果； (Read only, if you searched for [specified conversation], it will return the search result in the specified conversation; if you searched for [all conversation], it will return message results in all conversations by pages)</value>
     public List<MessageSearchResultItem> msg_search_result_item_array;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class MessageSearchResultItem : ExtraData
   {
-    ///<value>string, 只读，会话 ID (Read only, conversation ID)</value>
+    /// <value>string, 只读，会话 ID (Read only, conversation ID)</value>
     public string msg_search_result_item_conv_id;
-    ///<value>uint [TIMConvType](), 只读, 会话类型 (Read only, conversation type)</value>
+    /// <value>uint [TIMConvType](), 只读, 会话类型 (Read only, conversation type)</value>
     public TIMConvType msg_search_result_item_conv_type;
-    ///<value>uint, 只读, 当前会话一共搜索到了多少条符合要求的消息 (Read only, number of total message count)</value>
+    /// <value>uint, 只读, 当前会话一共搜索到了多少条符合要求的消息 (Read only, number of total message count)</value>
     public uint msg_search_result_item_total_message_count;
-    ///<value>array [Message](), 只读, 满足搜索条件的消息列表 (Read only, message list)</value>
+    /// <value>array [Message](), 只读, 满足搜索条件的消息列表 (Read only, message list)</value>
     public List<Message> msg_search_result_item_message_array;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class MsgBatchSendResult : ExtraData
   {
-    ///<value>string, 只读, 接收群发消息的用户 ID (Read only, receiver's user ID)</value>
+    /// <value>string, 只读, 接收群发消息的用户 ID (Read only, receiver's user ID)</value>
     public string msg_batch_send_result_identifier;
-    ///<value>int [错误码](https:///cloud.tencent.com/document/product/269/1671), 只读, 消息发送结果 (Read only, result code [Error Codes](https://www.tencentcloud.com/document/product/1047/34348))</value>
+    /// <value>int [错误码](https:///cloud.tencent.com/document/product/269/1671), 只读, 消息发送结果 (Read only, result code [Error Codes](https://www.tencentcloud.com/document/product/1047/34348))</value>
     public int msg_batch_send_result_code;
-    ///<value>string, 只读, 消息发送的描述 (Read only, result description)</value>
+    /// <value>string, 只读, 消息发送的描述 (Read only, result description)</value>
     public string msg_batch_send_result_desc;
-    ///<value>object [Message](), 只读, 发送的消息 (Read only, message)</value>
+    /// <value>object [Message](), 只读, 发送的消息 (Read only, message)</value>
     public Message msg_batch_send_result_msg;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class MsgDownloadElemResult : ExtraData
   {
-    ///<value>uint, 只读, 当前已下载的大小 (Read only, current downloading size)</value>
+    /// <value>uint, 只读, 当前已下载的大小 (Read only, current downloading size)</value>
     public uint msg_download_elem_result_current_size;
-    ///<value>uint, 只读, 需要下载的文件总大小 (Read only, total downloading size)</value>
+    /// <value>uint, 只读, 需要下载的文件总大小 (Read only, total downloading size)</value>
     public uint msg_download_elem_result_total_size;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class ReponseInfo : ExtraData
   {
-    ///<value>string [TIMInternalOperation](), 只读(必填), 响应的内部操作 (Read only, internal operation response)</value>
+    /// <value>string [TIMInternalOperation](), 只读(必填), 响应的内部操作 (Read only, internal operation response)</value>
     public string response_internal_operation;
-    ///<value>object [SSODataRes](), 只读(选填), sso发包请求的响应, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationSSOData 时有值 (Read only, SSO data package, required when kTIMResponseInternalOperation is kTIMInternalOperationSSOData)</value>
+    /// <value>object [SSODataRes](), 只读(选填), sso发包请求的响应, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationSSOData 时有值 (Read only, SSO data package, required when kTIMResponseInternalOperation is kTIMInternalOperationSSOData)</value>
     public SSODataRes response_sso_data_res;
-    ///<value>array [UserInfo](), 只读(选填), 响应的tinyid列表, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationUserId2TinyId 时有值 (Read only, tiny ID list response, required when kTIMRequestInternalOperation is kTIMInternalOperationUserId2TinyId)</value>
+    /// <value>array [UserInfo](), 只读(选填), 响应的tinyid列表, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationUserId2TinyId 时有值 (Read only, tiny ID list response, required when kTIMRequestInternalOperation is kTIMInternalOperationUserId2TinyId)</value>
     public List<UserInfo> response_userid_tinyid_res;
-    ///<value>array [UserInfo](), 只读(选填), 响应的userid列表, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationTinyId2UserId 时有值 (Read only, user ID list response, required when kTIMResponseInternalOperation is kTIMInternalOperationTinyId2UserId)</value>
+    /// <value>array [UserInfo](), 只读(选填), 响应的userid列表, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationTinyId2UserId 时有值 (Read only, user ID list response, required when kTIMResponseInternalOperation is kTIMInternalOperationTinyId2UserId)</value>
     public List<UserInfo> response_tinyid_userid_res;
-    ///<value>bool, 只读(选填), true 表示当前环境为测试环境，false表示当前环境是正式环境, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationSetEnv 时有值 (Read only, is test environment, default: false, required when kTIMResponseInternalOperation is kTIMInternalOperationSetEnv)</value>
+    /// <value>bool, 只读(选填), true 表示当前环境为测试环境，false表示当前环境是正式环境, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationSetEnv 时有值 (Read only, is test environment, default: false, required when kTIMResponseInternalOperation is kTIMInternalOperationSetEnv)</value>
     public bool response_set_env_res;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class UserInfo : ExtraData
   {
+    /// <value>string, userid</value>
     public string user_info_userid;
+    /// <value>uint, tinyid</value>
     public uint user_info_tinyid;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class SSODataRes : ExtraData
   {
-    ///<value>string, 只读(必填), sso返回数据对应请求的命令字 (Read only, SSO cmd data response)</value>
+    /// <value>string, 只读(必填), sso返回数据对应请求的命令字 (Read only, SSO cmd data response)</value>
     public string sso_data_res_cmd;
-    ///<value>string, 只读(必填), sso返回的内容，内容是二进制，sdk内部使用base64编码了，外部使用前需要base64解码 (Read only, SSO returned data in base64 format, use after decoding base64)</value>
+    /// <value>string, 只读(必填), sso返回的内容，内容是二进制，sdk内部使用base64编码了，外部使用前需要base64解码 (Read only, SSO returned data in base64 format, use after decoding base64)</value>
     public string sso_data_res_body;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupGetMemberInfoListResult : ExtraData
   {
-    ///<value>uint64, 只读, 下一次拉取的标志,server返回0表示没有更多的数据,否则在下次获取数据时填入这个标志 (Read only, next group member seq, 0 means no more data, otherwise use this seq to search)</value>
+    /// <value>uint64, 只读, 下一次拉取的标志,server返回0表示没有更多的数据,否则在下次获取数据时填入这个标志 (Read only, next group member seq, 0 means no more data, otherwise use this seq to search)</value>
     public ulong group_get_memeber_info_list_result_next_seq;
-    ///<value>array [GroupMemberInfo](), 只读, 成员信息列表 (Read only, group member list)</value>
+    /// <value>array [GroupMemberInfo](), 只读, 成员信息列表 (Read only, group member list)</value>
     public List<GroupMemberInfo> group_get_memeber_info_list_result_info_array;
   }
   [JsonObject(MemberSerialization.OptOut)]
-  public class GroupGetTopicInfoResult : ExtraData
+  public class GroupTopicInfoResult : ExtraData
   {
+    /// <value>int, 只读, 结果 0：成功；非0：失败 (Read only, 0: success, !0: error)</value>
     public int group_topic_info_result_error_code;
+    /// <value>string, 只读, 如果删除失败，会返回错误信息 (Read only, if failed, it will return error message)</value>
     public string group_topic_info_result_error_message;
+    /// <value>object [TIMGroupTopicInfo](), 只读, 如果获取成功，会返回对应的 info (Read only, if successed, it will return GroupTopicInfo)</value>
     public GroupTopicInfo group_topic_info_result_topic_info;
   }
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupTopicInfo : ExtraData
   {
-    ///<value>string, 读写, 话题 ID (Read & Write, topic ID)</value>
+    /// <value>string, 读写, 话题 ID (Read & Write, topic ID)</value>
     public string group_topic_info_topic_id;
-    ///<value>string, 读写, 话题名称 (Read & Write, topic name)</value>
+    /// <value>string, 读写, 话题名称 (Read & Write, topic name)</value>
     public string group_topic_info_topic_name;
-    ///<value>string, 读写, 话题介绍 (Read & Write, topic introduction)</value>
+    /// <value>string, 读写, 话题介绍 (Read & Write, topic introduction)</value>
     public string group_topic_info_introduction;
-    ///<value>string, 读写, 话题公告 (Read & Write, topic notification)</value>
+    /// <value>string, 读写, 话题公告 (Read & Write, topic notification)</value>
     public string group_topic_info_notification;
-    ///<value>string, 读写, 话题头像 (Read & Write, topic avatar URL)</value>
+    /// <value>string, 读写, 话题头像 (Read & Write, topic avatar URL)</value>
     public string group_topic_info_topic_face_url;
-    ///<value>bool, 读写, 话题全员禁言 (Read & Write, is topic all muted)</value>
+    /// <value>bool, 读写, 话题全员禁言 (Read & Write, is topic all muted)</value>
     public bool? group_topic_info_is_all_muted;
-    ///<value>uint32, 读写, 当前用户在话题中的禁言时间 (Read & Write, self muted time)</value>
+    /// <value>uint32, 读写, 当前用户在话题中的禁言时间 (Read & Write, self muted time)</value>
     public uint? group_topic_info_self_mute_time;
-    ///<value>string, 读写, 话题自定义字段 (Read & Write, custom topic string)</value>
+    /// <value>string, 读写, 话题自定义字段 (Read & Write, custom topic string)</value>
     public string group_topic_info_custom_string;
-    ///<value>uint [TIMReceiveMessageOpt]()只读，话题消息接收选项，修改话题消息接收选项请调用 setGroupReceiveMessageOpt 接口 (Read only, topic message receiving option, call setGroupReceiveMessageOpt to modify this field)</value>
+    /// <value>uint [TIMReceiveMessageOpt]()只读，话题消息接收选项，修改话题消息接收选项请调用 setGroupReceiveMessageOpt 接口 (Read only, topic message receiving option, call setGroupReceiveMessageOpt to modify this field)</value>
     public TIMReceiveMessageOpt? group_topic_info_recv_opt;
-    ///<value>string, 读写, 话题草稿 (Read & Write, topic draft text)</value>
+    /// <value>string, 读写, 话题草稿 (Read & Write, topic draft text)</value>
     public string group_topic_info_draft_text;
-    ///<value>uint64, 只读, 话题消息未读数量 (Read only, topic unread count)</value>
+    /// <value>uint64, 只读, 话题消息未读数量 (Read only, topic unread count)</value>
     public uint? group_topic_info_unread_count;
-    ///<value>object [Message](),只读, 话题 lastMessage (Read only, topic lastMessage)</value>
+    /// <value>object [Message](),只读, 话题 lastMessage (Read only, topic lastMessage)</value>
     public Message group_topic_info_last_message;
-    ///<value>array [GroupAtInfo](), 只读, 话题 at 信息列表 (Read only, topic group @ info list)</value>
+    /// <value>array [GroupAtInfo](), 只读, 话题 at 信息列表 (Read only, topic group @ info list)</value>
     public List<GroupAtInfo> group_topic_info_group_at_info_array;
-    ///<value>uint [TIMGroupModifyInfoFlag](),只写(必填), 修改标识,可设置多个值按位或 (Write only (Required), modification flag, bit union)</value>
+    /// <value>uint [TIMGroupModifyInfoFlag](),只写(必填), 修改标识,可设置多个值按位或 (Write only (Required), modification flag, bit union)</value>
     public TIMGroupModifyInfoFlag? group_modify_info_param_modify_flag;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class UserStatus : ExtraData
   {
-    ///<value>string, 只读, 用户 ID (Read only, user ID)</value>
+    /// <value>string, 只读, 用户 ID (Read only, user ID)</value>
     public string user_status_identifier;
-    ///<value>uint [TIMUserStatusType](), 只读, 用户的状态 (Read only, user status type)</value>
+    /// <value>uint [TIMUserStatusType](), 只读, 用户的状态 (Read only, user status type)</value>
     public TIMUserStatusType? user_status_status_type;
-    ///<value>string, 读写, 用户的自定义状态 (Read & Write, user's custom status)</value>
+    /// <value>string, 读写, 用户的自定义状态 (Read & Write, user's custom status)</value>
     public string user_status_custom_status;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupTopicOperationResult : ExtraData
   {
-    ///<value>只读, 结果 0：成功；非0：失败 (Read only, result code, 0: success; !0: fail)</value>
+    /// <value>只读, 结果 0：成功；非0：失败 (Read only, result code, 0: success; !0: fail)</value>
     public int group_topic_operation_result_error_code;
-    ///<value>只读, 如果删除失败，会返回错误信息 (Read only, error message if request failed)</value>
+    /// <value>只读, 如果删除失败，会返回错误信息 (Read only, error message if request failed)</value>
     public string group_topic_operation_result_error_message;
-    ///<value>只读, 如果删除成功，会返回对应的 topicID (Read only, if success, return its topic ID)</value>
+    /// <value>只读, 如果删除成功，会返回对应的 topicID (Read only, if success, return its topic ID)</value>
     public string group_topic_operation_result_topic_id;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class ConversationOperationResult : ExtraData
   {
-    ///<value>只读, 会话 ID (Read only, conversation ID)</value>
+    /// <value>只读, 会话 ID (Read only, conversation ID)</value>
     public string conversation_operation_result_conversation_id;
-    ///<value>只读, 返回码 (Read only, result code)</value>
+    /// <value>只读, 返回码 (Read only, result code)</value>
     public int conversation_operation_result_result_code;
-    ///<value>只读, 返回信息 (Read only, result info)</value>
+    /// <value>只读, 返回信息 (Read only, result info)</value>
     public string conversation_operation_result_result_info;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class ConversationListFilter : ExtraData
   {
-    ///<value>[TIMConvType](), 只写, 会话类型 (Write only, conversation type)</value>
+    /// <value>[TIMConvType](), 只写, 会话类型 (Write only, conversation type)</value>
     public TIMConvType? conversation_list_filter_conv_type;
-    ///<value>[TIMConversationMarkType](), 只写, 标记类型 (Write only, mark type)</value>
+    /// <value>[TIMConversationMarkType](), 只写, 标记类型 (Write only, mark type)</value>
     public TIMConversationMarkType? conversation_list_filter_mark_type;
-    ///<value>只写, 会话分组名称，注意：不是群组名称 (Write only, conversation group name)</value>
+    /// <value>只写, 会话分组名称，注意：不是群组名称 (Write only, conversation group name)</value>
     public string conversation_list_filter_conversation_group;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class ConversationListResult : ExtraData
   {
-    ///<value>array [ConvInfo](), 只读, 会话列表 (Read only, conversation info array)</value>
+    /// <value>array [ConvInfo](), 只读, 会话列表 (Read only, conversation info array)</value>
     public List<ConvInfo> conversation_list_result_conv_list;
-    ///<value>uint64, 只读, 分页拉取的游标 (Read only, next sequence)</value>
+    /// <value>uint64, 只读, 分页拉取的游标 (Read only, next sequence)</value>
     public ulong? conversation_list_result_next_seq;
-    ///<value>bool, 只读, 分页拉取是否结束 (Read only, is result finished)</value>
-    public uint? conversation_list_result_is_finished;
+    /// <value>bool, 只读, 分页拉取是否结束 (Read only, is result finished)</value>
+    public bool? conversation_list_result_is_finished;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupCounter : ExtraData
   {
-    ///<value>string, 读写, 群计数器的 key 值 (Read & write, group counter key)</value>
+    /// <value>string, 读写, 群计数器的 key 值 (Read & write, group counter key)</value>
     public string group_counter_key;
-    ///<value>int64, 读写, 群计数器的 value 值 (Read & write, group counter value)</value>
+    /// <value>int64, 读写, 群计数器的 value 值 (Read & write, group counter value)</value>
     public long? group_counter_value;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
   public class MessageTranslateTextResult : ExtraData
   {
-    ///<value>string, 只读, 待翻译的文本 (Read only, source text)</value>
+    /// <value>string, 只读, 待翻译的文本 (Read only, source text)</value>
     public string msg_translate_text_source_text;
-    ///<value>string, 只读, 翻译后的文本 (Read only, translated text)</value>
+    /// <value>string, 只读, 翻译后的文本 (Read only, translated text)</value>
     public string msg_translate_text_target_text;
   }
 
