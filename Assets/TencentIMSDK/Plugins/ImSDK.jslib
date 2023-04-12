@@ -1345,7 +1345,48 @@ var ImSDKPlugin = {
       console.warn('pinConversation error:', imError); // 置顶会话失败的相关信息
     });
   },
-
+  TIMConvGetTotalUnreadMessageCount: function TIMConvGetTotalUnreadMessageCount(cb,user_data){
+    if (!utils.isInit) {
+      utils._handleNotLoggedIn();
+      return;
+    }
+    let totalUnreadCount = tim.getTotalUnreadMessageCount();
+    var res = {
+        conv_get_total_unread_message_count_result_unread_count: totalUnreadCount
+      };
+    Module['dynCall_viiii'](cb, 0, '', res, user_data);
+  },
+  TIMConvGetUnreadMessageCountByFilter:function TIMConvGetUnreadMessageCountByFilter (){
+    utils._handleNotImplemented();
+  },
+  TIMConvSubscribeUnreadMessageCountByFilter: function TIMConvSubscribeUnreadMessageCountByFilter(){
+    utils._handleNotImplemented();
+  },
+  TIMConvUnsubscribeUnreadMessageCountByFilter: function TIMConvUnsubscribeUnreadMessageCountByFilter(){
+    utils._handleNotImplemented();
+  },
+  TIMGroupDecreaseGroupCounter: function TIMGroupDecreaseGroupCounter(){
+    utils._handleNotImplemented();
+  },
+  TIMGroupGetGroupCounters: function TIMGroupGetGroupCounters(){
+    utils._handleNotImplemented();
+  },
+  TIMGroupIncreaseGroupCounter: function TIMGroupIncreaseGroupCounter(){
+    utils._handleNotImplemented();
+  },
+  TIMGroupSetGroupCounters: function TIMGroupSetGroupCounters(){
+    utils._handleNotImplemented();
+  },
+  TIMMsgTranslateText: function TIMMsgTranslateText(){
+    utils._handleNotImplemented();
+  },
+  TIMSetConvUnreadMessageCountChangedByFilterCallback: function TIMSetConvUnreadMessageCountChangedByFilterCallback(){
+    utils._handleNotImplemented();
+  },
+  TIMSetGroupCounterChangedCallback: function TIMSetGroupCounterChangedCallback(){
+    utils._handleNotImplemented();
+  },
+ 
   TIMConvAddConversationsToGroup: function TIMConvAddConversationsToGroup() {
     utils._handleNotImplemented();
   },
