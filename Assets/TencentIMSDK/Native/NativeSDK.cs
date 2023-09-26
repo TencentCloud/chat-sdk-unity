@@ -16,7 +16,7 @@ namespace com.tencent.imsdk.unity.native
     #region DllImport
 #if UNITY_EDITOR
 #if UNITY_EDITOR_OSX
-                    public const string MyLibName = "ImSDKForMac";
+                    public const string MyLibName = "libImSDKForMac_C";
 #else
                     public const string MyLibName = "ImSDK";
 #endif
@@ -28,7 +28,7 @@ namespace com.tencent.imsdk.unity.native
 #elif UNITY_STANDALONE_WIN
                     public const string MyLibName = "ImSDK";
 #elif UNITY_STANDALONE_OSX
-                    public const string MyLibName = "ImSDKForMac";
+                    public const string MyLibName = "libImSDKForMac_C";
 #elif UNITY_WEBGL
                     public const string MyLibName = "__Internal";
 #else

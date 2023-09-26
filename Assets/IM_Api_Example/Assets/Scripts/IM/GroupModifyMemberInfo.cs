@@ -88,7 +88,7 @@ public class GroupModifyMemberInfo : MonoBehaviour
       groupMemberIDList = new List<string>();
       SelectedGroupMember.ClearOptions();
       string text = (string)parameters[1];
-      List<GroupMemberInfo> List = Utils.FromJson<GroupGetMemberInfoListResult>(text).group_get_memeber_info_list_result_info_array;
+      List<GroupMemberInfo> List = Utils.FromJson<GroupGetMemberInfoListResult>(text).group_get_member_info_list_result_info_array;
       foreach (GroupMemberInfo item in List)
       {
         print(item.group_member_info_identifier);

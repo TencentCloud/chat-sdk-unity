@@ -534,25 +534,25 @@ var ImSDKPlugin = {
     },
     toGroupDetailInfo: function toGroupDetailInfo(group) {
       var res = {};
-      res.group_detial_info_group_id = group.groupID;
-      res.group_detial_info_group_type = this.toGroupType(group.type);
-      res.group_detial_info_is_support_topic = group.isSupportTopic;
-      res.group_detial_info_group_name = group.name;
-      res.group_detial_info_notification = group.notification;
-      res.group_detial_info_introduction = group.introduction;
-      res.group_detial_info_face_url = group.avatar;
-      res.group_detial_info_create_time = group.createTime;
-      res.group_detial_info_info_seq = group.infoSequence;
-      res.group_detial_info_last_info_time = group.lastInfoTime;
-      res.group_detial_info_next_msg_seq = group.nextMessageSeq;
+      res.group_detail_info_group_id = group.groupID;
+      res.group_detail_info_group_type = this.toGroupType(group.type);
+      res.group_detail_info_is_support_topic = group.isSupportTopic;
+      res.group_detail_info_group_name = group.name;
+      res.group_detail_info_notification = group.notification;
+      res.group_detail_info_introduction = group.introduction;
+      res.group_detail_info_face_url = group.avatar;
+      res.group_detail_info_create_time = group.createTime;
+      res.group_detail_info_info_seq = group.infoSequence;
+      res.group_detail_info_last_info_time = group.lastInfoTime;
+      res.group_detail_info_next_msg_seq = group.nextMessageSeq;
       if (group.lastMessage) {
-        res.group_detial_info_last_msg_time = group.lastMessage.lastTime;
+        res.group_detail_info_last_msg_time = group.lastMessage.lastTime;
       }
-      res.group_detial_info_member_num = group.memberCount;
-      res.group_detial_info_max_member_num = group.maxMemberCount;
-      res.group_detial_info_add_option = this.toGroupAddOption(group.joinOption);
-      res.group_detial_info_is_shutup_all = group.muteAllMembers;
-      res.group_detial_info_owener_identifier = group.ownerID;
+      res.group_detail_info_member_num = group.memberCount;
+      res.group_detail_info_max_member_num = group.maxMemberCount;
+      res.group_detail_info_add_option = this.toGroupAddOption(group.joinOption);
+      res.group_detail_info_is_shutup_all = group.muteAllMembers;
+      res.group_detail_info_owener_identifier = group.ownerID;
       if (group.groupCustomField) {
         var list = this.toGroupInfoCustemString(group.groupCustomField);
         res.create_group_param_custom_info = list;
@@ -2238,8 +2238,8 @@ var ImSDKPlugin = {
       promise.then(function (imResponse) {
         console.log(imResponse.data.memberList); // 群成员列表
         var res = {
-          group_get_memeber_info_list_result_next_seq: 0,
-          group_get_memeber_info_list_result_info_array: imResponse.data.memberList.map(function (member) {
+          group_get_member_info_list_result_next_seq: 0,
+          group_get_member_info_list_result_info_array: imResponse.data.memberList.map(function (member) {
             return converter.toGroupMemberInfo(member, options.groupID);
           })
         };
@@ -2250,7 +2250,7 @@ var ImSDKPlugin = {
       });
     } else {
       // getGroupMemberList
-      var offset = param.group_get_memeber_info_list_result_next_seq ? param.group_get_memeber_info_list_result_next_seq : 0;
+      var offset = param.group_get_member_info_list_result_next_seq ? param.group_get_member_info_list_result_next_seq : 0;
       options.offset = offset;
       var count = 15;
       options.count = count;
@@ -2258,8 +2258,8 @@ var ImSDKPlugin = {
       _promise6.then(function (imResponse) {
         console.log(imResponse.data.memberList); // 群成员列表
         var res = {
-          group_get_memeber_info_list_result_next_seq: offset + count,
-          group_get_memeber_info_list_result_info_array: imResponse.data.memberList.map(function (member) {
+          group_get_member_info_list_result_next_seq: offset + count,
+          group_get_member_info_list_result_info_array: imResponse.data.memberList.map(function (member) {
             return converter.toGroupMemberInfo(member, options.groupID);
           })
         };

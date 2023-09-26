@@ -104,7 +104,7 @@ public class GroupGetMemberInfoList : MonoBehaviour
   void GetResult(params object[] parameters)
   {
     Result.text += (string)parameters[0];
-    LastSeq.text = Utils.FromJson<GroupGetMemberInfoListResult>((string)parameters[1]).group_get_memeber_info_list_result_next_seq.ToString();
+    LastSeq.text = Utils.FromJson<GroupGetMemberInfoListResult>((string)parameters[1]).group_get_member_info_list_result_next_seq.ToString();
   }
 
   void CopyText()
