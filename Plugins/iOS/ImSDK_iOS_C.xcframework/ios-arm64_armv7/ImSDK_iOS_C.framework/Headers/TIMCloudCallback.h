@@ -244,34 +244,45 @@ typedef void (*TIMMsgGroupMessageReadMemberListCallback)(const char* json_group_
 /**
 * @brief 接收的消息被撤回回调
 *
-* @param json_msg_locator_array 消息定位符数组
+* @param json_msg_revoke_info_array 撤回信息数组
 * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
-* 
+*
+* @note 从 7.4 版本开始，该回调支持返回撤回者信息和撤回原因
+*
+*
 * @example
-* void MsgRevokeCallback(const char* json_msg_locator_array, const void* user_data) {
-*     Json::Value json_value_locators;
+* void MsgRevokeCallback(const char* json_msg_revoke_info_array, const void* user_data) {
+*     Json::Value json_value_revoke_info_list;
 *     Json::Reader reader;
-*     if (!reader.parse(json_msg_locator_array, json_value_locators)) {
+*     if (!reader.parse(json_msg_revoke_info_array, json_value_revoke_info_list)) {
 *         // Json 解析失败
 *         return;
 *     }
-*     for (Json::ArrayIndex i = 0; i < json_value_locators.size(); i++) {
-*         Json::Value& json_value_locator = json_value_locators[i];
-*     
-*         std::string convid = json_value_locator[kTIMMsgLocatorConvId].asString();
-*         uint32_t conv_type = json_value_locator[kTIMMsgLocatorConvType].asUInt();
-*         bool isrevoke      = json_value_locator[kTIMMsgLocatorIsRevoked].asBool();
-*         uint64_t time      = json_value_locator[kTIMMsgLocatorTime].asUInt64();
-*         uint64_t seq       = json_value_locator[kTIMMsgLocatorSeq].asUInt64();
-*         uint64_t rand      = json_value_locator[kTIMMsgLocatorRand].asUInt64();
-*         bool isself        = json_value_locator[kTIMMsgLocatorIsSelf].asBool();
-*     
+*     for (Json::ArrayIndex i = 0; i < json_value_revoke_info_list.size(); i++) {
+*         Json::Value& json_value_revoke_info = json_value_revoke_info_list[i];
+*
+*         // 撤回的消息标识符
+*         std::string convid = json_value_revoke_info[kTIMMsgLocatorConvId].asString();
+*         uint32_t conv_type = json_value_revoke_info[kTIMMsgLocatorConvType].asUInt();
+*         bool isrevoke      = json_value_revoke_info[kTIMMsgLocatorIsRevoked].asBool();
+*         uint64_t time      = json_value_revoke_info[kTIMMsgLocatorTime].asUInt64();
+*         uint64_t seq       = json_value_revoke_info[kTIMMsgLocatorSeq].asUInt64();
+*         uint64_t rand      = json_value_revoke_info[kTIMMsgLocatorRand].asUInt64();
+*         bool isself        = json_value_revoke_info[kTIMMsgLocatorIsSelf].asBool();
+*
+*         // 撤回者
+*         std::string revoker_id = json_value_revoke_info[kTIMMsgRevokerUserID].asString();
+*         std::string revoker_nick_name = json_value_revoke_info[kTIMMsgRevokerNickName].asString();
+*         std::string revoker_face_url = json_value_revoke_info[kTIMMsgRevokerFaceUrl].asString();
+*
+*         // 撤回原因
+*         std::string revoke_reason = json_value_revoke_info[kTIMMsgRevokeReason].asString();
+*
 *         // 消息撤回逻辑
 *     }
 * }
-* 
 */
-typedef void (*TIMMsgRevokeCallback)(const char* json_msg_locator_array, const void* user_data);
+typedef void (*TIMMsgRevokeCallback)(const char* json_msg_revoke_info_array, const void* user_data);
 
 /**
 * @brief 消息扩展信息更新回调
@@ -296,7 +307,7 @@ typedef void (*TIMMsgExtensionsChangedCallback)(const char* message_id, const ch
 
 
 /**
-* @brief 消息扩展信息更新回调
+* @brief 消息扩展信息删除回调
 *
 * @param message_id 消息 ID
 * @param message_extension_key_array 扩展信息的关键字列表
@@ -310,6 +321,38 @@ typedef void (*TIMMsgExtensionsChangedCallback)(const char* message_id, const ch
 * ] 
 */
 typedef void (*TIMMsgExtensionsDeletedCallback)(const char* message_id, const char* message_extension_key_array, const void* user_data);
+
+/**
+* @brief 消息回应信息更新回调
+*
+* @param message_reaction_change_info_array 回应信息变更列表
+* @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+*
+* @note
+* - 该回调是消息 Reaction 的增量回调，只会携带变更的 Reaction 信息。
+* - 当变更的 Reaction 信息里的 message_reaction_total_user_count 字段值为 0 时，表明该 Reaction 已经没有用户在使用，您可以在 UI 上移除该 Reaction 的展示。
+*
+* @example 返回的回应信息列表 json 示例
+* [
+*     {
+*         "message_reaction_change_info_msg_id":"12345678910-1689942227-1328217716",
+*         "message_reaction_change_info_reaction_list":[
+*             {
+*                 "message_reaction_id":"emoji1",
+*                 "message_reaction_total_user_count":1,
+*                 "message_reaction_user_info_array":[
+*                     {
+*                         "user_profile_face_url":"www.google.com",
+*                         "user_profile_identifier":"kkkm",
+*                         "user_profile_nick_name":"mizore",
+*                     }
+*                 ]
+*             }
+*         ]
+*     }
+* ]
+*/
+typedef void (*TIMMsgReactionsChangedCallback)(const char* message_reaction_change_info_array, const void* user_data);
 
 /**
 * @brief 消息内容被修改的回调
@@ -406,14 +449,14 @@ typedef void (*TIMGroupTipsEventCallback)(const char* json_group_tip, const void
 /**
 * @brief 群属性变更回调
 *
-* @param json_group_attibute_array 变更的群属性列表
+* @param json_group_attribute_array 变更的群属性列表
 * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
 *
 * @example
-* json_group_attibute_array 的示例。 json key 请参考[GroupAttributes](TIMCloudDef.h)
-* [{"group_atrribute_key":"atrribute_key1","group_atrribute_value":"atrribute_value1"}]
+* json_group_attribute_array 的示例。 json key 请参考[GroupAttributes](TIMCloudDef.h)
+* [{"group_attribute_key":"attribute_key1","group_attribute_value":"attribute_value1"}]
 */
-typedef void (*TIMGroupAttributeChangedCallback)(const char *group_id, const char* json_group_attibute_array, const void* user_data);
+typedef void (*TIMGroupAttributeChangedCallback)(const char *group_id, const char* json_group_attribute_array, const void* user_data);
 
 /**
 * 群计数器变更的回调
@@ -648,15 +691,23 @@ typedef void (*TIMUserSigExpiredCallback)(const void* user_data);
 /**
 * @brief 当前用户的资料更新的回调
 *
-* @param json_user_profile 当前用户的资料，请参考[TIMUserStatus](TIMCloudDef.h)
+* @param json_user_profile 当前用户的资料，请参考[UserProfile](TIMCloudDef.h)
 * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
 */
 typedef void (*TIMSelfInfoUpdatedCallback)(const char* json_user_profile, const void* user_data);
 
 /**
+* @brief 用户资料变更的回调
+*
+* @param json_user_info_array 用户资料更新列表，用户资料请参考[UserProfile](TIMCloudDef.h)
+* @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+*/
+typedef void (*TIMUserInfoChangedCallback)(const char* json_user_info_array, const void* user_data);
+
+/**
 * @brief 用户状态变更的回调
 *
-* @param json_user_profile 用户状态的列表，请参考[TIMUserStatus](TIMCloudDef.h)
+* @param json_user_status_array 用户状态的列表，用户状态请参考[TIMUserStatus](TIMCloudDef.h)
 * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
 */
 typedef void (*TIMUserStatusChangedCallback)(const char* json_user_status_array, const void* user_data);
@@ -780,7 +831,7 @@ typedef void(*TIMFriendApplicationListReadCallback)(const void* user_data);
 *       "user_profile_role": 4000,
 *       "user_profile_self_signature": "1111111"
 *   }
-*}]
+* }]
 */
 typedef void(*TIMFriendBlackListAddedCallback)(const char* json_friend_black_added_array, const void* user_data);
 
@@ -815,6 +866,84 @@ typedef void (*TIMLogCallback)(enum TIMLogLevel level, const char* log, const vo
 * 请参考 [TIMRecvNewMsgCallback]()
 */
 typedef void (*TIMMsgUpdateCallback)(const char* json_msg_array, const void* user_data);
+
+/**
+* @brief 登录用户全局消息接收选项变更通知
+*
+* @param json_receive_message_option_info 当前用户全局消息接收选项，请参考[TIMReceiveMessageOptInfo](TIMCloudDef.h)
+* @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+*/
+typedef void (*TIMMsgAllMessageReceiveOptionCallback)(const char* json_receive_message_option_info, const void* user_data);
+
+/**
+* @brief 收到邀请的回调
+*
+* @param invite_id 邀请 ID
+* @param inviter 邀请者 userID
+* @param group_id 群组 ID
+* @param json_invitee_list 被邀请者 userID 列表，json 字符串类型
+* @param data 自定义字段
+* @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+*/
+typedef void (*TIMSignalingReceiveNewInvitationCallback)(const char* invite_id, const char* inviter, const char* group_id,
+                                                         const char* json_invitee_list, const char* data, const void* user_data);
+
+/**
+* @brief 被邀请者接受邀请的回调
+*
+* @param invite_id 邀请 ID
+* @param invitee 被邀请者 userID
+* @param data 自定义字段
+* @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+*/
+typedef void (*TIMSignalingInviteeAcceptedCallback)(const char* invite_id, const char* invitee, const char* data, const void* user_data);
+
+/**
+* @brief 被邀请者拒绝邀请的回调
+*
+* @param invite_id 邀请 ID
+* @param invitee 被邀请者 userID
+* @param data 自定义字段
+* @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+*/
+typedef void (*TIMSignalingInviteeRejectedCallback)(const char* invite_id, const char* invitee, const char* data, const void* user_data);
+
+/**
+* @brief 邀请被取消的回调
+*
+* @param invite_id 邀请 ID
+* @param inviter 邀请者 userID
+* @param data 自定义字段
+* @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+*/
+typedef void (*TIMSignalingInvitationCancelledCallback)(const char* invite_id, const char* inviter, const char* data, const void* user_data);
+
+/**
+* @brief 邀请超时的回调
+*
+* @param invite_id 邀请 ID
+* @param json_invitee_list 被邀请者 userID 列表，json 字符串类型
+* @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+*/
+typedef void (*TIMSignalingInvitationTimeoutCallback)(const char* invite_id, const char* json_invitee_list, const void* user_data);
+
+/**
+* @brief 邀请被修改的回调（6.7 及其以上版本支持）
+*
+* @param invite_id 邀请 ID
+* @param data 自定义字段
+* @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+*/
+typedef void (*TIMSignalingInvitationModifiedCallback)(const char* invite_id, const char* data, const void* user_data);
+
+/**
+* @brief 实验性通知的回调（7.4 及其以上版本支持）
+*
+* @param key 通知 key
+* @param data 通知数据
+*/
+typedef void (*TIMExperimentalNotifyCallback)(const char* key, const char* data, const void* user_data);
+
 /// @}
 
 
@@ -1153,7 +1282,8 @@ typedef void (*TIMCommCallback)(int32_t code, const char* desc, const char* json
 *          "group_member_info_msg_flag" : 0,
 *          "group_member_info_msg_seq" : 0,
 *          "group_member_info_name_card" : "",
-*          "group_member_info_shutup_time" : 0
+*          "group_member_info_shutup_time" : 0,
+*          "group_member_info_is_online": 1
 *       }
 *    ],
 *    "group_get_memeber_info_list_result_next_seq" : 0

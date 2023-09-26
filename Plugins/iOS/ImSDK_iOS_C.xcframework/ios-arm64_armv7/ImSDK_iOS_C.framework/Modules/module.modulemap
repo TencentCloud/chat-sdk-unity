@@ -1,5 +1,5 @@
-framework module ImSDK {
-  umbrella header "ImSDK.h"
+framework module ImSDK_iOS_C {
+  umbrella header "ImSDK_iOS_C.h"
 
   export *
   module * { export * }

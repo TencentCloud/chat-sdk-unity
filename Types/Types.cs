@@ -1392,47 +1392,47 @@ namespace com.tencent.imsdk.unity.types
   public class GroupDetailInfo : ExtraData
   {
     /// <value>string, 只读, 群组ID (Read only, group ID)</value>
-    public string group_detial_info_group_id;
+    public string group_detail_info_group_id;
     /// <value>uint [TIMGroupType](), 只读, 群组类型 (Read only, group type)</value>
-    public TIMGroupType group_detial_info_group_type;
+    public TIMGroupType group_detail_info_group_type;
     /// <value>bool, 只读, 社群是否支持创建话题，只在群类型为 Community 时有效 (Read only, does support topic, works only when group_type is Community)</value>
-    public bool? group_detial_info_is_support_topic;
+    public bool? group_detail_info_is_support_topic;
     /// <value>string, 只读, 群组名称 (Read only, group name)</value>
-    public string group_detial_info_group_name;
+    public string group_detail_info_group_name;
     /// <value>string, 只读, 群组公告 (Read only, group notification)</value>
-    public string group_detial_info_notification;
+    public string group_detail_info_notification;
     /// <value>string, 只读, 群组简介 (Read only, group introduction)</value>
-    public string group_detial_info_introduction;
+    public string group_detail_info_introduction;
     /// <value>string, 只读, 群组头像URL (Read only, group avatar URL)</value>
-    public string group_detial_info_face_url;
+    public string group_detail_info_face_url;
     /// <value>uint, 只读, 群组创建时间 (Read only, group created time)</value>
-    public uint group_detial_info_create_time;
+    public uint group_detail_info_create_time;
     /// <value>uint, 只读, 群资料的Seq，群资料的每次变更都会增加这个字段的值 (Read only, group info sequence number, every modification will augment the sequence number)</value>
-    public uint group_detial_info_info_seq;
+    public uint group_detail_info_info_seq;
     /// <value>uint, 只读, 群组信息最后修改时间 (Read only, last modification time)</value>
-    public uint group_detial_info_last_info_time;
+    public uint group_detail_info_last_info_time;
     /// <value>uint, 只读, 群最新消息的Seq (Read only, latest group message sequence)</value>
-    public uint group_detial_info_next_msg_seq;
+    public uint group_detail_info_next_msg_seq;
     /// <value>uint, 只读, 最新群组消息时间 (Read only, latest message time)</value>
-    public uint group_detial_info_last_msg_time;
+    public uint group_detail_info_last_msg_time;
     /// <value>uint, 只读, 群组当前成员数量 (Read only, group member count)</value>
-    public uint group_detial_info_member_num;
+    public uint group_detail_info_member_num;
     /// <value>uint, 只读, 群组最大成员数量 (Read only, maximum group member count)</value>
-    public uint group_detial_info_max_member_num;
+    public uint group_detail_info_max_member_num;
     /// <value>uint [TIMGroupAddOption](), 只读, 群组加群选项 (Read only, joining group option)</value>
-    public TIMGroupAddOption group_detial_info_add_option;
+    public TIMGroupAddOption group_detail_info_add_option;
     /// <value>uint, 只读, 群组在线成员数量 (Read only, online member count)</value>
-    public uint group_detial_info_online_member_num;
+    public uint group_detail_info_online_member_num;
     /// <value>uint, 只读, 群组成员是否对外可见 (Read only, is visible to outsiders)</value>
-    public uint group_detial_info_visible;
+    public uint group_detail_info_visible;
     /// <value>uint, 只读, 群组是否能被搜索 (Read only, is searchable)</value>
-    public uint group_detial_info_searchable;
+    public uint group_detail_info_searchable;
     /// <value>bool, 只读, 群组是否被设置了全员禁言 (Read only, is set mute all)</value>
-    public bool group_detial_info_is_shutup_all;
+    public bool group_detail_info_is_shutup_all;
     /// <value>string, 只读, 群组所有者ID (Read only, group owner user ID)</value>
-    public string group_detial_info_owener_identifier;
+    public string group_detail_info_owener_identifier;
     /// <value>array [GroupInfoCustemString](), 只读, 请参考[自定义字段](https:///cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Read only, [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
-    public List<GroupInfoCustemString> group_detial_info_custom_info;
+    public List<GroupInfoCustemString> group_detail_info_custom_info;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -1459,47 +1459,47 @@ namespace com.tencent.imsdk.unity.types
     /// <value>object [GroupSelfInfo](), 只读, 用户所在群的个人信息 (Read only, user self info in that group)</value>
     public GroupSelfInfo group_base_info_self_info;
     /// <value>string, 只读, 群组ID (Read only, group ID)</value>
-    public string group_detial_info_group_id;
+    public string group_detail_info_group_id;
     /// <value>uint [TIMGroupType](), 只读, 群组类型 (Read only, group type)</value>
-    public TIMGroupType group_detial_info_group_type;
+    public TIMGroupType group_detail_info_group_type;
     /// <value>bool, 只读, 社群是否支持创建话题，只在群类型为 Community 时有效 (Read only, does support topic, works only when group_type is Community)</value>
-    public bool? group_detial_info_is_support_topic;
+    public bool? group_detail_info_is_support_topic;
     /// <value>string, 只读, 群组名称 (Read only, group name)</value>
-    public string group_detial_info_group_name;
+    public string group_detail_info_group_name;
     /// <value>string, 只读, 群组公告 (Read only, group notification)</value>
-    public string group_detial_info_notification;
+    public string group_detail_info_notification;
     /// <value>string, 只读, 群组简介 (Read only, group introduction)</value>
-    public string group_detial_info_introduction;
+    public string group_detail_info_introduction;
     /// <value>string, 只读, 群组头像URL (Read only, group avatar URL)</value>
-    public string group_detial_info_face_url;
+    public string group_detail_info_face_url;
     /// <value>uint, 只读, 群组创建时间 (Read only, group created time)</value>
-    public uint group_detial_info_create_time;
+    public uint group_detail_info_create_time;
     /// <value>uint, 只读, 群资料的Seq，群资料的每次变更都会增加这个字段的值 (Read only, group info sequence number, every modification will augment the sequence number)</value>
-    public uint group_detial_info_info_seq;
+    public uint group_detail_info_info_seq;
     /// <value>uint, 只读, 群组信息最后修改时间 (Read only, last modification time)</value>
-    public uint group_detial_info_last_info_time;
+    public uint group_detail_info_last_info_time;
     /// <value>uint, 只读, 群最新消息的Seq (Read only, latest group message sequence)</value>
-    public uint group_detial_info_next_msg_seq;
+    public uint group_detail_info_next_msg_seq;
     /// <value>uint, 只读, 最新群组消息时间 (Read only, group member count)</value>
-    public uint group_detial_info_last_msg_time;
+    public uint group_detail_info_last_msg_time;
     /// <value>uint, 只读, 群组当前成员数量 (Read only, group member count)</value>
-    public uint group_detial_info_member_num;
+    public uint group_detail_info_member_num;
     /// <value>uint, 只读, 群组最大成员数量 (Read only, maximum group member count)</value>
-    public uint group_detial_info_max_member_num;
+    public uint group_detail_info_max_member_num;
     /// <value>uint [TIMGroupAddOption](), 只读, 群组加群选项 (Read only, joining group option)</value>
-    public TIMGroupAddOption group_detial_info_add_option;
+    public TIMGroupAddOption group_detail_info_add_option;
     /// <value>uint, 只读, 群组在线成员数量 (Read only, online member count)</value>
-    public uint group_detial_info_online_member_num;
+    public uint group_detail_info_online_member_num;
     /// <value>uint, 只读, 群组成员是否对外可见 (Read only, is visible to outsiders)</value>
-    public uint group_detial_info_visible;
+    public uint group_detail_info_visible;
     /// <value>uint, 只读, 群组是否能被搜索 (Read only, is searchable)</value>
-    public uint group_detial_info_searchable;
+    public uint group_detail_info_searchable;
     /// <value>bool, 只读, 群组是否被设置了全员禁言 (Read only, is set mute all)</value>
-    public bool group_detial_info_is_shutup_all;
+    public bool group_detail_info_is_shutup_all;
     /// <value>string, 只读, 群组所有者ID (Read only, group owner user ID)</value>
-    public string group_detial_info_owener_identifier;
+    public string group_detail_info_owener_identifier;
     /// <value>array [GroupInfoCustemString](), 只读, 请参考[自定义字段](https:///cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Read only, [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
-    public List<GroupInfoCustemString> group_detial_info_custom_info;
+    public List<GroupInfoCustemString> group_detail_info_custom_info;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -1672,9 +1672,9 @@ namespace com.tencent.imsdk.unity.types
   public class GroupGetMemberInfoListResult : ExtraData
   {
     /// <value>uint64, 只读, 下一次拉取的标志,server返回0表示没有更多的数据,否则在下次获取数据时填入这个标志 (Read only, next group member seq, 0 means no more data, otherwise use this seq to search)</value>
-    public ulong group_get_memeber_info_list_result_next_seq;
+    public ulong group_get_member_info_list_result_next_seq;
     /// <value>array [GroupMemberInfo](), 只读, 成员信息列表 (Read only, group member list)</value>
-    public List<GroupMemberInfo> group_get_memeber_info_list_result_info_array;
+    public List<GroupMemberInfo> group_get_member_info_list_result_info_array;
   }
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupTopicInfoResult : ExtraData
