@@ -66,7 +66,7 @@ public class FriendshipDeletePendency : MonoBehaviour
     foreach (FriendAddPendencyInfo user in UserList)
     {
       var obj = Instantiate(Toggler, Parent.transform);
-      obj.GetComponentInChildren<Text>().text = "userID:" + user.friend_add_pendency_info_idenitifer;
+      obj.GetComponentInChildren<Text>().text = "userID:" + user.friend_add_pendency_info_identifier;
       obj.isOn = false;
       obj.onValueChanged.AddListener(delegate
     {

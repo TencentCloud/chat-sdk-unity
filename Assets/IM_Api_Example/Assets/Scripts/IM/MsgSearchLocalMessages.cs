@@ -135,7 +135,7 @@ public class MsgSearchLocalMessages : MonoBehaviour
       msg_search_param_page_index = string.IsNullOrEmpty(PageIndex.text) ? 0 : Convert.ToUInt32(PageIndex.text),
       msg_search_param_page_size = string.IsNullOrEmpty(PageSize.text) ? 0 : Convert.ToUInt32(PageSize.text),
       msg_search_param_keyword_list_match_type = (TIMKeywordListMatchType)MatchType.value,
-      msg_search_param_send_indentifier_array = string.IsNullOrEmpty(UserIDs.text) ? null : new List<string>(UserIDs.text.Split(','))
+      msg_search_param_send_identifier_array = string.IsNullOrEmpty(UserIDs.text) ? null : new List<string>(UserIDs.text.Split(','))
     };
     TIMResult res = TencentIMSDK.MsgSearchLocalMessages(param, Utils.addAsyncStringDataToScreen(GetResult));
     Result.text = Utils.SynchronizeResult(res);

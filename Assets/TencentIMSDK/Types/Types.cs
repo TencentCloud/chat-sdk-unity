@@ -66,6 +66,8 @@ namespace com.tencent.imsdk.unity.types
     public uint user_profile_role;
     /// <value>只读, 请参考[自定义资料字段](https://cloud.tencent.com/document/product/269/1500#.E8.87.AA.E5.AE.9A.E4.B9.89.E8.B5.84.E6.96.99.E5.AD.97.E6.AE.B5) (Read only, user profile's custom string key-value pair. Check [Custom Profile Fields](https://www.tencentcloud.com/document/product/1047/33520))</value>
     public List<UserProfileCustemStringInfo> user_profile_custom_string_array;
+    /// <value>只读, 用户好友备注(请注意，本字段仅在消息的发送者资料中提供)</value>
+    public string user_profile_friend_remark;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -138,9 +140,21 @@ namespace com.tencent.imsdk.unity.types
     /// <value>只写(选填), 指定群消息接收成员（定向消息）；不支持群 @ 消息设置，不支持社群（Community）和直播群（AVChatRoom）消息设置；该字段设置后，消息会不计入会话未读数。 (Read & Write (Optional), message target group member userID list, not support for group @ message, not support for Community and AVChatRoom. Once set, this message won't be counted in conversation unread count)</value>
     public List<string> message_target_group_member_array;
     /// <value>读写(选填), 消息的离线推送设置 (Read & Write (Optional), message offline push config)</value>
-    public OfflinePushConfig message_offlie_push_config;
+    public OfflinePushConfig message_offline_push_config;
     /// <value>读写 是否作为会话的 lasgMessage，true - 不作为，false - 作为 (Read & Write (Optional), message is excluded from the lastMessage)</value>
     public bool? message_excluded_from_last_message;
+    ///<value>读写 是否不过内容审核（包含【本地审核】和【云端审核】），只有在开通【本地审核】或【云端审核】功能后，该字段设置才有效，设置为 true，表明不过内容审核，设置为 false：表明过内容审核。【本地审核】开通流程请参考 [本地审核功能](https://cloud.tencent.com/document/product/269/83795#.E6.9C.AC.E5.9C.B0.E5.AE.A1.E6.A0.B8.E5.8A.9F.E8.83.BD)。 【云端审核】开通流程请参考 [云端审核功能](https://cloud.tencent.com/document/product/269/83795#.E4.BA.91.E7.AB.AF.E5.AE.A1.E6.A0.B8.E5.8A.9F.E8.83.BD)</value>
+    public bool? message_excluded_from_content_moderation;
+    ///<value>只读（选填），是否被标记为有安全风险的消息（暂时只支持语音和视频消息），只有在开通【云端审核】功能后才生效，如果您发送的语音或视频消息内容不合规，云端异步审核后会触发 SDK 的 TIMMsgMessageModifiedCallback 回调，回调里的 message 对象该字段值为 true，从 7.4 版本开始支持</value>
+    public bool? message_has_risk_content;
+    ///<value>只读(选填), 消息撤回者的 user_id, 仅当消息为撤回状态时有效，从 7.4 版本开始支持</value>
+    public string? message_revoker_user_id;
+    ///<value>只读(选填), 消息撤回者的昵称, 仅当消息为撤回状态时有效，从 7.4 版本开始支持</value>
+    public string? message_revoker_nick_name;
+    ///<value>消息撤回者的头像地址, 仅当消息为撤回状态时有效，从 7.4 版本开始支持</value>
+    public string? message_revoker_face_url;
+    ///<value>只读(选填), 消息撤回的原因, 仅当消息为撤回状态时有效，从 7.4 版本开始支持</value>
+    public string? message_revoke_reason;
   }
   [JsonObject(MemberSerialization.OptOut)]
   public class MessageExtension : ExtraData
@@ -184,6 +198,9 @@ namespace com.tencent.imsdk.unity.types
     public string ios_offline_push_config_sound; // 文本消息
     /// <value>读写, 是否忽略badge计数。若为true，在iOS接收端，这条消息不会使App的应用图标未读计数增加 (Read & Write, should offline push ignore badge count.)</value>
     public bool? ios_offline_push_config_ignore_badge; // 文本消息
+    /// <value>读写，iOS 离线推送的类型（仅对 iOS 生效），默认值是 TIMIOSOfflinePushType_APNS</value>
+    public TIMIOSOfflinePushType? ios_offline_push_config_push_type;
+
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -199,6 +216,14 @@ namespace com.tencent.imsdk.unity.types
     public int android_offline_push_config_vivo_classification = 1;
     /// <value>读写, OPPO的ChannelID (OPPO ChannelID)</value>
     public string android_offline_push_config_oppo_channel_id; // 文本消息
+    ///<value>读写, 离线推送设置 VIVO 推送消息类别，详见：https://dev.vivo.com.cn/documentCenter/doc/359。(VIVO 推送服务于 2023 年 4 月 3 日优化消息分类规则，推荐使用 kTIMAndroidOfflinePushConfigVIVOCategory 设置消息类别，不需要再关注和设置 kTIMAndroidOfflinePushConfigVIVOClassification)</value>
+    public string android_offline_push_config_vivo_category;
+    ///<value>读写, 离线推送设置小米手机 8.0 系统及以上的渠道 ID（仅对 Android 生效）。</value>
+    public string android_offline_push_config_xiaomi_channel_id;
+    ///<value>读写, 离线推送设置 FCM 通道手机 8.0 系统及以上的渠道 ID（仅对 Android 生效）。</value>
+    public string android_offline_push_config_fcm_channel_id;
+    ///<value>读写, 离线推送设置华为推送消息分类，详见：https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-classification-0000001149358835</value>
+    public string android_offline_push_config_huawei_category;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -546,8 +571,8 @@ namespace com.tencent.imsdk.unity.types
     public Message msg_getmsglist_param_last_msg;
     /// <value>只写(选填), 从指定消息往后的消息数 (Write (Optional), message count)</value>
     public uint? msg_getmsglist_param_count;
-    /// <value>只写(选填), 是否漫游消息 (Write (Optional), is remble)</value>
-    public bool? msg_getmsglist_param_is_remble;
+    /// <value>只写(选填), 是否漫游消息 (Write (Optional), is ramble)</value>
+    public bool? msg_getmsglist_param_is_ramble;
     /// <value>只写(选填), 是否向前排序 (Write (Optional), is forwarding messages)</value>
     public bool? msg_getmsglist_param_is_forward;
     /// <value>只写(选填), 指定的消息的 seq (Write (Optional), specified message sequence)</value>
@@ -556,6 +581,9 @@ namespace com.tencent.imsdk.unity.types
     public ulong? msg_getmsglist_param_time_begin;
     /// <value>只写(选填), 持续时间；单位：秒 (Write (Optional), duration, timestamp, unit: second)</value>
     public ulong? msg_getmsglist_param_time_period;
+
+    /// <value>只写(选填)，拉取的消息 seq 集合，仅针对 group 有效</value>
+    public List<ulong>? msg_getmsglist_param_message_seq_array;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -563,8 +591,8 @@ namespace com.tencent.imsdk.unity.types
   {
     /// <value>只写(选填), 要删除的消息 (Write (Optional), deleted message)</value>
     public Message msg_delete_param_msg;
-    /// <value>只写(选填), 是否删除本地/漫游所有消息。true删除漫游消息，false删除本地消息，默认值false (Write (Optional), is deleting remble message, default: false)</value>
-    public bool? msg_delete_param_is_remble;
+    /// <value>只写(选填), 是否删除本地/漫游所有消息。true删除漫游消息，false删除本地消息，默认值false (Write (Optional), is deleting ramble message, default: false)</value>
+    public bool? msg_delete_param_is_ramble;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -613,7 +641,11 @@ namespace com.tencent.imsdk.unity.types
     /// <value>关键字进行 Or 或者 And 进行搜索 (AND keywords or OR keywords)</value>
     public TIMKeywordListMatchType msg_search_param_keyword_list_match_type;
     /// <value>按照发送者的 userid 进行搜索 (Search by sender user ID list)</value>
-    public List<string> msg_search_param_send_indentifier_array;
+    public List<string> msg_search_param_send_identifier_array;
+    /// <value>只写(选填), 服务武器搜索结果数量。</value>
+    public uint? msg_search_param_search_count;
+    /// <value>只写(选填)，服务武器搜索游标。第一次填空字符串，续拉时填写 [MessageSearchResult]() 中的返回值。</value>
+    public string? msg_search_param_search_cursor;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -836,9 +868,9 @@ namespace com.tencent.imsdk.unity.types
   public class GroupAttributes : ExtraData
   {
     /// <value>群属性 map 的 key (Group attribute key)</value>
-    public string group_atrribute_key;
+    public string group_attribute_key;
     /// <value>群属性 map 的 value (Group attribute value)</value>
-    public string group_atrribute_value;
+    public string group_attribute_value;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -871,13 +903,13 @@ namespace com.tencent.imsdk.unity.types
   public class FriendResponse : ExtraData
   {
     /// <value>只写(必填), 响应好友添加的UserID (Write (Required), respondent's user ID)</value>
-    public string friend_respone_identifier;
+    public string friend_response_identifier;
     /// <value>只写(必填), 响应好友添加的动作 (Write (Required), response action)</value>
-    public TIMFriendResponseAction friend_respone_action;
+    public TIMFriendResponseAction friend_response_action;
     /// <value>只写(选填), 好友备注 (Write (Optional), friend's remark)</value>
-    public string friend_respone_remark;
+    public string friend_response_remark;
     /// <value>只写(选填), 好友分组列表 (Write (Optional), friend's group name)</value>
-    public string friend_respone_group_name;
+    public string friend_response_group_name;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -1082,6 +1114,14 @@ namespace com.tencent.imsdk.unity.types
     public string conv_show_name; // 群组系统消息元素
     /// <value>只读, 会话标记列表，取值详见 @TIMConversationMarkType（从 6.5 版本开始支持）(Read only, conversation's mark type list)</value>
     public List<ulong> conv_mark_array;
+    /// <value>只读, 会话自定义数据（从 6.5 版本开始支持）</value>
+    public string conv_custom_data;
+    /// <value>只读, 会话所属分组列表（从 6.5 版本开始支持）</value>
+    public List<string> conv_conversation_group_array;
+    /// <value>只读, 最新已读消息的 UTC 时间戳，仅对单聊会话生效（从 7.1 版本开始支持）</value>
+    public ulong conv_c2c_read_timestamp;
+    /// <value>只读, 群消息已读 Sequence（从 7.1 版本开始支持）</value>
+    public ulong conv_group_read_sequence;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -1193,7 +1233,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>只写(选填), true表示服务端要删掉已读状态 (Write only (Optional), is sync report (should server end delete the read status))</value>
     public bool? user_config_is_sync_report;
     /// <value>只写(选填), true表示群tips不计入群消息已读计数 (Write only (Optional), is ingoring group tips messages for unread count)</value>
-    public bool? user_config_is_ingore_grouptips_unread;
+    public bool? user_config_is_ignore_grouptips_unread;
     /// <value>只写(选填), 是否禁用本地数据库，true表示禁用，false表示不禁用。默认是false (Write only (Optional), is disabling local storage, default: false)</value>
     public bool? user_config_is_is_disable_storage;
     /// <value>只写(选填),获取群组信息默认选项 (Write only (Optional), get group info option)</value>
@@ -1353,7 +1393,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>uint, 只读, 群资料的Seq，群资料的每次变更都会增加这个字段的值 (Read only, group info sequence, every modification of the group will change this seq)</value>
     public uint group_base_info_info_seq;
     /// <value>uint, 只读, 群最新消息的Seq。群组内每一条消息都有一条唯一的消息Seq，且该Seq是按照发消息顺序而连续的。从1开始，群内每增加一条消息，LastestSeq就会增加1 (Read only, group message's latest seq. Every group maintains its own sequencial message seq number. Start from 1, every message occurs an augmentation of the seq number)</value>
-    public uint group_base_info_lastest_seq;
+    public uint group_base_info_latest_seq;
     /// <value>uint, 只读, 用户所在群已读的消息Seq (Read only, group message read seq)</value>
     public uint group_base_info_readed_seq;
     /// <value>uint, 只读, 消息接收选项 (Read only, group message receiving flag)</value>
@@ -1565,7 +1605,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>uint [TIMFriendPendencyType](), 只读, 好友添加请求未决类型 (Read only, friend addition pendency type)</value>
     public TIMFriendPendencyType friend_add_pendency_info_type;
     /// <value>string, 只读, 好友添加请求未决的UserID (Read only, peer's user ID)</value>
-    public string friend_add_pendency_info_idenitifer;
+    public string friend_add_pendency_info_identifier;
     /// <value>string, 只读, 好友添加请求未决的昵称 (Read only, peer's nickname)</value>
     public string friend_add_pendency_info_nick_name;
     /// <value>uint64, 只读, 发起好友申请的时间 (Read only, request time)</value>
@@ -1761,6 +1801,11 @@ namespace com.tencent.imsdk.unity.types
     public TIMConversationMarkType? conversation_list_filter_mark_type;
     /// <value>只写, 会话分组名称，注意：不是群组名称 (Write only, conversation group name)</value>
     public string conversation_list_filter_conversation_group;
+    /// <value>只写, true:返回包含未读数的会话；false:返回所有会话 (default:false)</value>
+    public bool? conversation_list_filter_has_unread_count;
+    /// <value>true:返回包含群 @ 消息的会话；false:返回所有会话 (default:false)</value>
+    public bool? conversation_list_filter_has_group_at_info;
+
   }
 
   [JsonObject(MemberSerialization.OptOut)]

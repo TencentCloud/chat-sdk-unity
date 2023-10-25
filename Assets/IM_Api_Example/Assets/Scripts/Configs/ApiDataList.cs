@@ -68,6 +68,18 @@ namespace com.tencent.im.unity.demo.config.ApiDataList
         ""scene"": ""ProfileModifySelfUserProfile""
       },
       {
+        ""apiName"": ""SubscribeUserInfo"",
+        ""apiText"": ""订阅用户资料"",
+        ""apiDesc"": ""订阅用户资料"",
+        ""scene"": ""SubscribeUserInfo""
+      },
+      {
+        ""apiName"": ""UnsubscribeUserInfo"",
+        ""apiText"": ""取消订阅用户资料"",
+        ""apiDesc"": ""取消订阅用户资料"",
+        ""scene"": ""UnsubscribeUserInfo""
+      },
+      {
         ""apiName"": ""GetUserStatus"",
         ""apiText"": ""查询用户状态"",
         ""apiDesc"": ""查询用户状态"",
@@ -120,6 +132,18 @@ namespace com.tencent.im.unity.demo.config.ApiDataList
         ""apiText"": ""删除会话"",
         ""apiDesc"": ""删除会话"",
         ""scene"": ""ConvDelete""
+      },
+      {
+        ""apiName"": ""ConvDeleteConversationList"",
+        ""apiText"": ""删除会话列表"",
+        ""apiDesc"": ""删除会话列表"",
+        ""scene"": ""ConvDeleteConversationList""
+      },
+      {
+        ""apiName"": ""ConvCleanConversationUnreadMessageCount"",
+        ""apiText"": ""清理会话的未读消息计数"",
+        ""apiDesc"": ""清理会话的未读消息计数"",
+        ""scene"": ""ConvCleanConversationUnreadMessageCount""
       },
       {
         ""apiName"": ""ConvSetDraft"",

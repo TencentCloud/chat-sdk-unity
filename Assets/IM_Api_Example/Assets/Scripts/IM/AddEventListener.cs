@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.UI;
 using com.tencent.im.unity.demo.types;
@@ -189,6 +190,11 @@ public class AddEventListener : MonoBehaviour
           TencentIMSDK.SetUserStatusChangedCallback(null);
           break;
         }
+      case "SetUserInfoChangedCallback":
+      {
+        TencentIMSDK.SetUserInfoChangedCallback(null);
+        break;
+      }
       case "SetMsgExtensionsChangedCallback":
         {
           TencentIMSDK.SetMsgExtensionsChangedCallback(null);
@@ -345,6 +351,11 @@ public class AddEventListener : MonoBehaviour
           TencentIMSDK.SetUserStatusChangedCallback(null, Utils.SetUserStatusChangedCallback(GetResult, eventInfo));
           break;
         }
+      case "SetUserInfoChangedCallback":
+      {
+        TencentIMSDK.SetUserInfoChangedCallback(null,Utils.SetUserInfoChangedCallback(GetResult,eventInfo));
+        break;
+      }
       case "SetMsgExtensionsChangedCallback":
         {
           TencentIMSDK.SetMsgExtensionsChangedCallback(null, Utils.SetMsgExtensionsChangedCallback(GetResult, eventInfo));

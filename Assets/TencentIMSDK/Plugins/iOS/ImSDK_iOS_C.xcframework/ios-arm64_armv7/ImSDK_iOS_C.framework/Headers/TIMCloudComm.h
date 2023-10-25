@@ -98,5 +98,4 @@ typedef unsigned char bool;
 
 #endif
 
-
-#endif //SRC_PLATFORM_CROSS_PLATFORM_INCLUDE_TIM_CLOUD_COMM_H_
+#endif  // SRC_PLATFORM_CROSS_PLATFORM_INCLUDE_TIM_CLOUD_COMM_H_

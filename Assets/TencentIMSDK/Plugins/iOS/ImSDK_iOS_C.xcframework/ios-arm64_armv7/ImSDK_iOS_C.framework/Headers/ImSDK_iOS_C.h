@@ -4,9 +4,16 @@
 #ifndef TIM_IM_SDK_PLUS_H_
 #define TIM_IM_SDK_PLUS_H_
 
-#import "TIMCloud.h"
-#import "TIMCloudCallback.h"
 #import "TIMCloudComm.h"
 #import "TIMCloudDef.h"
+#import "TIMConversationManager.h"
+#import "TIMErrorCode.h"
+#import "TIMExperimentalAPI.h"
+#import "TIMFriendshipManager.h"
+#import "TIMGroupManager.h"
+#import "TIMManager.h"
+#import "TIMMessageManager.h"
+#import "TIMOfflinePushManager.h"
+#import "TIMSignalingManager.h"
 
 #endif

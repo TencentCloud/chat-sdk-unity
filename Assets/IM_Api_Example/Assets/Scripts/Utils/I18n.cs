@@ -478,6 +478,11 @@ public static class I18n
       }
     },
     {
+      "SetUserInfoChangedCallback", new I18nData{
+        cn = "设置用户资料变更回调"
+      }
+    },
+    {
       "SetMsgExtensionsChangedCallback", new I18nData{
         cn = "消息扩展信息更新的回调"
       }

@@ -134,6 +134,11 @@ namespace com.tencent.im.unity.demo.config.EventListenerList
         ""eventDesc"": ""设置用户状态变更通知回调""
       },
       {
+        ""eventName"": ""SetUserInfoChangedCallback"",
+        ""eventText"": ""用户资料变更回调"",
+        ""eventDesc"": ""设置用户资料变更回调""
+      },
+      {
         ""eventName"": ""SetMsgExtensionsChangedCallback"",
         ""eventText"": ""消息扩展信息更新的回调"",
         ""eventDesc"": ""设置消息扩展信息更新的回调""

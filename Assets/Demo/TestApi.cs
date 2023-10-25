@@ -74,6 +74,9 @@ public class TestApi : MonoBehaviour
            "删除会话", "ConvDelete"
        },
        {
+           "删除会话列表", "ConvDeleteConversationList"
+       },
+       {
            "获取会话详情", "ConvGetConvInfo"
        },
        {
@@ -637,7 +640,7 @@ public class TestApi : MonoBehaviour
 
         MsgDeleteParam message_delete_param = new MsgDeleteParam();
         message_delete_param.msg_delete_param_msg = new Message(); // 需要删除的消息
-        message_delete_param.msg_delete_param_is_remble = true; // 删除漫游消息
+        message_delete_param.msg_delete_param_is_ramble = true; // 删除漫游消息
         TIMResult res = TencentIMSDK.MsgDelete(conv_id, TIMConvType.kTIMConv_C2C, message_delete_param, addAsyncDataToConsole);
 
         Utils.Log(((int)res).ToString());

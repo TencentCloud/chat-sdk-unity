@@ -392,6 +392,18 @@ namespace com.tencent.im.unity.demo.utils
     };
     }
 
+    public static UserInfoChangedStringCallback SetUserInfoChangedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo){
+      var callback = cb;
+      return (string json_user_info_array, string user_data) =>
+    {
+      string head = "\n" + user_data + "Asynchronous return:\n\n";
+      string body = @"{""json_user_info_array"":" + json_user_info_array + "}";
+      JObject json = JObject.Parse(body);
+      string formatted = SyntaxHighlightJson(json.ToString());
+      callback(eventInfo, head + formatted);
+    };
+    }
+
     public static MsgExtensionsChangedStringCallback SetMsgExtensionsChangedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
     {
       var callback = cb;

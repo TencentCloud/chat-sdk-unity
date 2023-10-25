@@ -94,8 +94,8 @@ public class GroupSetGroupAttributes : MonoBehaviour
       {
         custom_string_array.Add(new GroupAttributes
         {
-          group_atrribute_key = keys[idx],
-          group_atrribute_value = idx < vals.Length ? vals[idx] : ""
+          group_attribute_key = keys[idx],
+          group_attribute_value = idx < vals.Length ? vals[idx] : ""
         });
       }
     }

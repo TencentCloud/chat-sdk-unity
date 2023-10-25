@@ -63,15 +63,15 @@ public class FriendshipHandleFriendAddRequest : MonoBehaviour
       Dropdown.OptionData option = new Dropdown.OptionData();
       foreach (FriendAddPendencyInfo item in List)
       {
-        print(item.friend_add_pendency_info_idenitifer);
-        PendencyList.Add(item.friend_add_pendency_info_idenitifer);
+        print(item.friend_add_pendency_info_identifier);
+        PendencyList.Add(item.friend_add_pendency_info_identifier);
         option = new Dropdown.OptionData();
-        option.text = item.friend_add_pendency_info_idenitifer;
+        option.text = item.friend_add_pendency_info_identifier;
         SelectedPendency.options.Add(option);
       }
       if (List.Count > 0)
       {
-        SelectedPendency.captionText.text = List[SelectedPendency.value].friend_add_pendency_info_idenitifer;
+        SelectedPendency.captionText.text = List[SelectedPendency.value].friend_add_pendency_info_identifier;
       }
     }
     catch (Exception ex)
@@ -96,10 +96,10 @@ public class FriendshipHandleFriendAddRequest : MonoBehaviour
     print("UserId: " + PendencyList[SelectedPendency.value]);
     var param = new FriendResponse
     {
-      friend_respone_identifier = PendencyList[SelectedPendency.value],
-      friend_respone_action = (TIMFriendResponseAction)SelectedAction.value,
-      friend_respone_remark = Remark.text,
-      friend_respone_group_name = Group.text
+      friend_response_identifier = PendencyList[SelectedPendency.value],
+      friend_response_action = (TIMFriendResponseAction)SelectedAction.value,
+      friend_response_remark = Remark.text,
+      friend_response_group_name = Group.text
     };
     TIMResult res = TencentIMSDK.FriendshipHandleFriendAddRequest(param, Utils.addAsyncStringDataToScreen(GetResult));
     Result.text = Utils.SynchronizeResult(res);
