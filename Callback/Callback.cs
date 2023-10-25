@@ -61,7 +61,7 @@ namespace com.tencent.imsdk.unity.callback
   /// 会话信息回调 (Callback for conversation event)
   /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-  public delegate void ConvEventCallback(TIMConvEvent conv_event, List<ConvInfo> conv_list, string user_data);
+  public delegate void ConvEventCallback(TIMConvEvent conv_event, string conv_list, string user_data);
 
   /// <summary>
   /// 会话分组被创建 (Callback for conversation group created)
@@ -219,6 +219,8 @@ namespace com.tencent.imsdk.unity.callback
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
   public delegate void UserStatusChangedCallback(List<UserStatus> json_user_status_array, string user_data);
 
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void UserInfoChangedCallback(List<UserProfile> json_user_info_array,string user_data);
   /// <summary>
   /// 设置消息扩展信息更新的回调 (Callback for message extensions updated)
   /// </summary>
@@ -377,6 +379,9 @@ namespace com.tencent.imsdk.unity.callback
   /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
   public delegate void UserStatusChangedStringCallback(string json_user_status_array, string user_data);
+
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void UserInfoChangedStringCallback(string json_user_info_array,string user_data);
 
   /// <summary>
   /// 设置消息扩展信息更新的回调 (Callback for message extensions updated)

@@ -316,6 +316,16 @@ var ImSDKPlugin = {
           return 0;
       }
     },
+    toProfileAddPermissionType: function toProfileAddPermissionType(type) {
+      switch (status) {
+        case TIM.TYPES.ALLOW_TYPE_ALLOW_ANY:
+          return 1;
+        case TIM.TYPES.ALLOW_TYPE_NEED_CONFIRM:
+          return 2;
+        case TIM.TYPES.ALLOW_TYPE_DENY_ANY:
+          return 3;
+      }
+    },
     toLastMessage: function toLastMessage(msg, convID, convType) {
       var res = {};
       res.message_elem_array = [this.toElement(msg)];
@@ -2915,6 +2925,14 @@ var ImSDKPlugin = {
     });
   },
 
+  TIMSubscribeUserInfo: function TIMSubscribeUserInfo(json_user_id_list,cb,user_data) {
+    if (!utils.isInit) {
+      utils._handleNotLoggedIn();
+      return;
+    }
+    var param = JSON.parse(UTF8ToString(json_modify_self_user_profile_param));
+  }
+
   TIMFriendshipGetFriendProfileList: function TIMFriendshipGetFriendProfileList(cb, user_data) {
     if (!utils.isInit) {
       utils._handleNotLoggedIn();
@@ -4136,6 +4154,48 @@ var ImSDKPlugin = {
     };
     callback.onUserStatusUpdated = onUserStatusUpdated;
     tim.on(TIM.EVENT.USER_STATUS_UPDATED, callback.onUserStatusUpdated);
+  }
+
+  TIMSetUserInfoChangedCallback: function TIMSetUserInfoChangedCallback(cb,user_data){
+    if (!utils.isInit) {
+      utils._handleNotLoggedIn();
+      return;
+    }
+    if (!cb) {
+      tim.off(TIM.EVENT.USER_INFO_CHANGED, callback.onUserInfoChanged);
+      return;
+    }
+    var onUserInfoChanged = function onUserInfoChanged(event) {
+      var userInfoList = event.data ? event.data : [];
+      var res = userInfoList.map(function (item) { 
+        var resitem = {
+          user_profile_identifier: item.userID,
+          user_profile_nick_name: item.nick,
+          user_profile_gender: item.gender,
+          user_profile_face_url:item.avatar,
+          user_profile_self_signature:item.selfSignature,
+          user_profile_add_permission: converter.toProfileAddPermissionType(item.allowType),
+          user_profile_location: item.location,
+          user_profile_language: item.language,
+          user_profile_birthday: item.birthday,
+          user_profile_level: item.level,
+          user_profile_role: item.role,
+        };
+        if(item.profileCustomField){
+          resitem.user_profile_custom_string_array = item.profileCustomField.map(function(cf){
+            return {
+              user_profile_custom_string_info_key = cf.key,
+              user_profile_custom_string_info_value = cf.value
+            };
+          });
+        }
+        return resitem;
+      });
+      var buf = utils.getStrBuf(res);
+      Module['dynCall_vii'](cb, buf, user_data);
+    };
+    callback.onUserInfoChanged = onUserInfoChanged;
+    tim.on(TIM.EVENT.USER_INFO_CHANGED, callback.onUserInfoChanged);
   }
 };
 autoAddDeps(ImSDKPlugin, '$tim');

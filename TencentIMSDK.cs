@@ -60,6 +60,7 @@ namespace com.tencent.imsdk.unity
     private static GroupTopicChangedCallback GroupTopicChangedCallbackStore;
     private static SelfInfoUpdatedCallback SelfInfoUpdatedCallbackStore;
     private static UserStatusChangedCallback UserStatusChangedCallbackStore;
+    private static UserInfoChangedCallback UserInfoChangedCallbackStore;
     private static MsgExtensionsChangedCallback MsgExtensionsChangedCallbackStore;
     private static MsgExtensionsDeletedCallback MsgExtensionsDeletedCallbackStore;
 
@@ -87,6 +88,7 @@ namespace com.tencent.imsdk.unity
     private static GroupTopicChangedStringCallback GroupTopicChangedStringCallbackStore;
     private static SelfInfoUpdatedStringCallback SelfInfoUpdatedStringCallbackStore;
     private static UserStatusChangedStringCallback UserStatusChangedStringCallbackStore;
+    private static UserInfoChangedStringCallback UserInfoChangedStringCallbackStore;
     private static MsgExtensionsChangedStringCallback MsgExtensionsChangedStringCallbackStore;
     private static MsgExtensionsDeletedStringCallback MsgExtensionsDeletedStringCallbackStore;
 
@@ -448,6 +450,39 @@ namespace com.tencent.imsdk.unity
       return (TIMResult)timSucc;
     }
 
+    ///<summary>
+    ///删除会话列表
+    /// </summary>
+    ///<param name="conversation_id_array">会话 ID 列表(list of conversation id)</param>
+    ///<param name="clearMessage">是否删除会话中的消息；设置为 false 时，保留会话消息；设置为 true 时，本地和服务器的消息会一起删除，并且不可恢复(Whether to delete messages in the session; when set to false, session messages are retained; when set to true, local and server messages will be deleted together and cannot be recovered)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult ConvDeleteConversationList(List<string> conversation_id_array,bool clearMessage,NullValueCallback callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(conversation_id_array);
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<object>);
+
+      int timSucc = IMNativeSDK.TIMConvDeleteConversationList(Utils.string2intptr(param), (bool)clearMessage, ValueCallbackInstance, Utils.string2intptr(user_data));
+
+      Log(user_data, conversation_id_array.ToString(), clearMessage.ToString());
+      return (TIMResult)timSucc;
+    }
+
+    public static TIMResult ConvDeleteConversationList(List<string> conversation_id_array,bool clearMessage,ValueCallback<string> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(conversation_id_array);
+      ValuecallbackStore.Add(user_data, callback);
+
+      int timSucc = IMNativeSDK.TIMConvDeleteConversationList(Utils.string2intptr(param), (bool)clearMessage, StringValueCallbackInstance, Utils.string2intptr(user_data));
+
+      Log(user_data, conversation_id_array.ToString(), clearMessage.ToString());
+      return (TIMResult)timSucc;
+    }
     /// <summary>
     /// 获取会话信息
     /// Get conversation info
@@ -668,6 +703,30 @@ namespace com.tencent.imsdk.unity
       int timSucc = IMNativeSDK.TIMConvUnsubscribeUnreadMessageCountByFilter(filterPtr);
 
       Log(fn_name, filterStr);
+
+      return (TIMResult)timSucc;
+    }
+
+    /// <summary>
+    /// </summary>
+    public static TIMResult ConvCleanConversationUnreadMessageCount(string conversation_id,ulong clean_timestamp,ulong clean_sequence,NullValueCallback callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<object>);
+
+      int timSucc = IMNativeSDK.TIMConvCleanConversationUnreadMessageCount(Utils.string2intptr(conversation_id),clean_timestamp,clean_sequence,ValueCallbackInstance,Utils.string2intptr(user_data));
+
+      return (TIMResult)timSucc;
+    }
+    public static TIMResult ConvCleanConversationUnreadMessageCount(string conversation_id,ulong clean_timestamp,ulong clean_sequence,ValueCallback<string> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      ValuecallbackStore.Add(user_data, callback);
+
+      int timSucc = IMNativeSDK.TIMConvCleanConversationUnreadMessageCount(Utils.string2intptr(conversation_id),clean_timestamp,clean_sequence, StringValueCallbackInstance,Utils.string2intptr(user_data));
 
       return (TIMResult)timSucc;
     }
@@ -3388,6 +3447,58 @@ namespace com.tencent.imsdk.unity
       int res = IMNativeSDK.TIMProfileModifySelfUserProfile(Utils.string2intptr(param), StringValueCallbackInstance, Utils.string2intptr(user_data));
 
       Log(user_data, param);
+      return (TIMResult)res;
+    }
+
+    ///<summary>
+    /// 订阅用户资料
+    ///</summary> 
+    /// /// <param name="json_user_id_list">待订阅的用户 ID 列表</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult SubscribeUserInfo(List<string> json_user_id_list,NullValueCallback callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(json_user_id_list);
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<object>);
+      int res = IMNativeSDK.TIMSubscribeUserInfo(Utils.string2intptr(param), ValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,param);
+      return (TIMResult)res;
+    }
+    public static TIMResult SubscribeUserInfo(List<string> json_user_id_list,ValueCallback<string> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(json_user_id_list);
+      ValuecallbackStore.Add(user_data, callback);
+      int res = IMNativeSDK.TIMSubscribeUserInfo(Utils.string2intptr(param), StringValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,param);
+      return (TIMResult)res;
+    }
+
+    ///<summary>
+    /// 取消订阅用户资料
+    ///</summary> 
+    /// /// <param name="json_user_id_list">待取消订阅的用户 ID 列表</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult UnsubscribeUserInfo(List<string> json_user_id_list,NullValueCallback callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(json_user_id_list);
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<object>);
+      int res = IMNativeSDK.TIMUnsubscribeUserInfo(Utils.string2intptr(param), ValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,param);
+      return (TIMResult)res;
+    }
+    public static TIMResult UnsubscribeUserInfo(List<string> json_user_id_list,ValueCallback<string> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(json_user_id_list);
+      ValuecallbackStore.Add(user_data, callback);
+      int res = IMNativeSDK.TIMUnsubscribeUserInfo(Utils.string2intptr(param), StringValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,param);
       return (TIMResult)res;
     }
 
@@ -6262,6 +6373,65 @@ namespace com.tencent.imsdk.unity
         IMNativeSDK.TIMSetUserStatusChangedCallback(null, Utils.string2intptr(""));
       }
     }
+     /// <summary>
+    /// 订阅用户资料变更的回调
+    /// user info updated callback
+    /// </summary>
+    /// <param name="callback">回调 UserInfoChangedCallback</param>
+    /// <param name="stringCallback">回调 UserInfoChangedStringCallback</param>
+    public static void SetUserInfoChangedCallback(UserInfoChangedCallback callback = null, UserInfoChangedStringCallback stringCallback = null){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
+      {
+        UserInfoChangedCallbackStore += callback;
+      }
+
+      if (stringCallback != null)
+      {
+        UserInfoChangedStringCallbackStore += stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        RemoveUserInfoChangedCallback();
+        return;
+      }
+
+      IMNativeSDK.TIMSetUserInfoChangedCallback(TIMUserInfoChangedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+     /// <summary>
+    /// 移除订阅用户资料变更的回调
+    /// Remove user info updated callback
+    /// </summary>
+    /// <param name="callback">回调 UserInfoChangedCallback</param>
+    /// <param name="stringCallback">回调 UserInfoChangedStringCallback</param>
+    public static void RemoveUserInfoChangedCallback(UserInfoChangedCallback callback = null, UserInfoChangedStringCallback stringCallback = null)
+    {
+      if (callback != null && UserInfoChangedCallbackStore != null)
+      {
+        UserInfoChangedCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && UserInfoChangedStringCallbackStore != null)
+      {
+        UserInfoChangedStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        UserInfoChangedCallbackStore = null;
+        UserInfoChangedStringCallbackStore = null;
+      }
+
+      if (UserInfoChangedCallbackStore == null && UserInfoChangedStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetUserInfoChangedCallback(null, Utils.string2intptr(""));
+      }
+    }
 
     /// <summary>
     /// 设置消息扩展信息更新的回调
@@ -6532,7 +6702,8 @@ namespace com.tencent.imsdk.unity
           case "TIMConvEventCallback":
             if (ConvEventCallbackStore != null)
             {
-              ConvEventCallbackStore((TIMConvEvent)data.conv_event, Utils.FromJson<List<ConvInfo>>(data.data), data.user_data);
+              ConvEventCallbackStore((TIMConvEvent)data.conv_event, data.data.ToString(), data.user_data);
+
             }
 
             if (ConvEventStringCallbackStore != null)
@@ -6854,7 +7025,14 @@ namespace com.tencent.imsdk.unity
             }
 
             break;
-
+          case "TIMUserInfoChangedCallback":
+            if(UserInfoChangedCallbackStore != null){
+              UserInfoChangedCallbackStore(Utils.FromJson<List<UserProfile>>(data.data),data.user_data);
+            }
+            if(UserInfoChangedStringCallbackStore != null){
+              UserInfoChangedStringCallbackStore(data.data,data.user_data);
+            }
+            break;
           case "TIMMsgExtensionsChangedCallback":
             if (MsgExtensionsChangedCallbackStore != null)
             {
@@ -7291,6 +7469,17 @@ namespace com.tencent.imsdk.unity
       string json_user_status_array_string = Utils.intptr2string(json_user_status_array);
 
       CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMUserStatusChangedCallback", data = json_user_status_array_string, user_data = user_data_string };
+
+      mainSyncContext.Post(threadOperation<object>, cc);
+    }
+
+    [MonoPInvokeCallback(typeof(IMNativeSDK.TIMUserInfoChangedCallback))]
+    public static void TIMUserInfoChangedCallbackInstance(IntPtr json_user_info_array, IntPtr user_data)
+    {
+      string user_data_string = Utils.intptr2string(user_data);
+      string json_user_info_array_string = Utils.intptr2string(json_user_info_array);
+
+      CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMUserInfoChangedCallback", data = json_user_info_array_string, user_data = user_data_string };
 
       mainSyncContext.Post(threadOperation<object>, cc);
     }

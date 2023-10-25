@@ -75,6 +75,9 @@ namespace com.tencent.imsdk.unity.native
     public static extern int TIMConvDelete(IntPtr conv_id, int conv_type, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvDeleteConversationList(IntPtr conversation_id_array,bool clearMessage,CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMConvGetConvInfo(IntPtr json_get_conv_list_param, CommonValueCallback cb, IntPtr user_data);
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMConvSetDraft(string conv_id, int conv_type, IntPtr draft_param);
@@ -96,6 +99,9 @@ namespace com.tencent.imsdk.unity.native
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMConvUnsubscribeUnreadMessageCountByFilter(IntPtr filter);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMConvCleanConversationUnreadMessageCount(IntPtr conversation_id,ulong clean_timestamp,ulong clean_sequence, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMConvAddConversationsToGroup(IntPtr group_name, IntPtr conversation_id_array, CommonValueCallback cb, IntPtr user_data);
@@ -300,6 +306,12 @@ namespace com.tencent.imsdk.unity.native
     public static extern int TIMProfileModifySelfUserProfile(IntPtr json_modify_self_user_profile_param, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMSubscribeUserInfo(IntPtr json_user_id_list, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMUnsubscribeUserInfo(IntPtr json_user_id_list, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMFriendshipGetFriendProfileList(CommonValueCallback cb, IntPtr user_data);
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMFriendshipAddFriend(IntPtr json_add_friend_param, CommonValueCallback cb, IntPtr user_data);
@@ -475,10 +487,8 @@ namespace com.tencent.imsdk.unity.native
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMSetUserStatusChangedCallback(TIMUserStatusChangedCallback cb, IntPtr user_data);
 
-
-
-
-
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMSetUserInfoChangedCallback(TIMUserInfoChangedCallback cb,IntPtr user_data);
 
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -583,6 +593,7 @@ namespace com.tencent.imsdk.unity.native
     public delegate void TIMSelfInfoUpdatedCallback(IntPtr json_user_profile, IntPtr user_data);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void TIMUserStatusChangedCallback(IntPtr json_user_status_array, IntPtr user_data);
-
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void TIMUserInfoChangedCallback(IntPtr json_user_info_array, IntPtr user_data);
   }
 }

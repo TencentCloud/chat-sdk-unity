@@ -460,6 +460,18 @@ namespace com.tencent.imsdk.unity.enums
     /// </summary>
     kTIMOfflinePushFlag_NoPush,    // 不进行推送
   };
+
+  public enum TIMIOSOfflinePushType{
+    /// <summary>
+    /// 普通的 APNs 推送
+    /// </summary>
+    TIMIOSOfflinePushType_APNS = 0,
+    /// <summary>
+    /// VoIP 推送
+    /// </summary>
+    TIMIOSOfflinePushType_VOIP = 1,
+  };
+
   public enum TIMAndroidOfflinePushNotifyMode
   {
     /// <summary>
