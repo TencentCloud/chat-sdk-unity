@@ -237,10 +237,10 @@ public class TestApi : MonoBehaviour
     {
         addStringDataToConsole("SetMsgElemUploadProgressCallback called " + cur_size.ToString() + "/" + total_size.ToString());
     }
-    public static void MsgRevokeCallback(string msg_locator, string user_data)
-    {
-        addStringDataToConsole("SetMsgRevokeCallback called " + msg_locator);
-    }
+    // public static void MsgRevokeCallback(string msg_locator, string user_data)
+    // {
+    //     addStringDataToConsole("SetMsgRevokeCallback called " + msg_locator);
+    // }
     public static void MsgReadedReceiptCallback(string message_receipt, string user_data)
     {
         addStringDataToConsole("SetMsgReadedReceiptCallback called " + message_receipt);
