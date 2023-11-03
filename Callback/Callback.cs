@@ -21,6 +21,10 @@ namespace com.tencent.imsdk.unity.callback
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
   public delegate void RecvNewMsgCallback(List<Message> message, string user_data);
 
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgReactionsChangedCallback(List<MessageReactionChangeInfo> message_reaction_change_info_array,string user_data);
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgAllMessageReceiveOptionCallback(ReceiveMessageOptInfo json_receive_message_option_info,string user_data);
   /// <summary>
   /// 消息已读回调 (Callback for message read receipt)
   /// </summary>
@@ -241,6 +245,11 @@ namespace com.tencent.imsdk.unity.callback
   /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
   public delegate void RecvNewMsgStringCallback(string message, string user_data);
+
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgReactionsChangedStringCallback(string message_reaction_change_info_array,string user_data);
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgAllMessageReceiveOptionStringCallback(string json_receive_message_option_info,string user_data);
 
   /// <summary>
   /// 消息已读回调 (Callback for message read receipt)

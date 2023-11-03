@@ -191,6 +191,15 @@ namespace com.tencent.imsdk.unity.native
     public static extern int TIMMsgSetGroupReceiveMessageOpt(IntPtr group_id, int opt, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMMsgSetAllReceiveMessageOpt(int opt,int start_hour,int start_minute,int start_second,int duration,CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMMsgSetAllReceiveMessageOpt2(int opt,int start_time_stamp,int duration,CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMMsgGetAllReceiveMessageOpt(CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMMsgDownloadElemToPath(IntPtr json_download_elem_param, IntPtr path, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
@@ -201,6 +210,8 @@ namespace com.tencent.imsdk.unity.native
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMMsgSearchLocalMessages(IntPtr json_search_message_param, CommonValueCallback cb, IntPtr user_data);
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMMsgSearchCloudMessages(IntPtr json_search_message_param, CommonValueCallback cb, IntPtr user_data);
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMMsgSetLocalCustomData(IntPtr json_msg_param, CommonValueCallback cb, IntPtr user_data);
 
@@ -375,6 +386,11 @@ namespace com.tencent.imsdk.unity.native
     public static extern void TIMRemoveRecvNewMsgCallback(TIMRecvNewMsgCallback cb);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void TIMSetMsgReactionsChangedCallback(TIMMsgReactionsChangedCallback cb,IntPtr user_data);
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void TIMSetMsgAllMessageReceiveOptionCallback(TIMMsgAllMessageReceiveOptionCallback cb,IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void TIMSetMsgExtensionsChangedCallback(TIMMsgExtensionsChangedCallback cb, IntPtr user_data);
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void TIMSetMsgExtensionsDeletedCallback(TIMMsgExtensionsDeletedCallback cb, IntPtr user_data);
@@ -469,6 +485,21 @@ namespace com.tencent.imsdk.unity.native
     public static extern int TIMMsgDeleteMessageExtensions(IntPtr json_msg, IntPtr json_extension_key_array, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMMsgAddMessageReaction(IntPtr json_msg,IntPtr reaction_id,CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMMsgRemoveMessageReaction(IntPtr json_msg,IntPtr reaction_id,CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMMsgGetMessageReactions(IntPtr json_msg_array,int max_user_count_per_reaction,CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMMsgGetAllUserListOfMessageReaction(IntPtr json_msg,IntPtr reaction_id,ulong next_seq,int count,CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMMsgConvertVoiceToText(IntPtr url,IntPtr language,CommonValueCallback cb, IntPtr user_data);
+    
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMMsgTranslateText(IntPtr json_source_text_array, IntPtr source_language, IntPtr target_language, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
@@ -496,6 +527,14 @@ namespace com.tencent.imsdk.unity.native
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void TIMRecvNewMsgCallback(IntPtr json_msg_array, IntPtr user_data);
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+
+    public delegate void TIMMsgReactionsChangedCallback(IntPtr message_reaction_change_info_array,IntPtr user_data);
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+
+    public delegate void TIMMsgAllMessageReceiveOptionCallback(IntPtr json_receive_message_option_info,IntPtr user_data);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void TIMMsgReadedReceiptCallback(IntPtr json_msg_readed_receipt_array, IntPtr user_data);

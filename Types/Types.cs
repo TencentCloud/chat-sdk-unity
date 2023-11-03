@@ -174,6 +174,51 @@ namespace com.tencent.imsdk.unity.types
     /// <value>string, 只读, 消息扩展操作的返回信息提示 (Read only, result infomation)</value>
     public string message_extension_result_info;
   }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class MessageReaction : ExtraData
+  {
+    ///<value>只读, 消息回应 ID</value>
+    public string message_reaction_id;
+    ///<value>只读，消息回应总用户个数</value>
+    public int message_reaction_total_user_count;
+    ///<value>只读, 使用同一个 reaction_id 回应消息的部分用户列表（用户列表数量取决于调用 TIMMsgGetMessageReactions 接口时设置的 max_user_count_per_reaction 值）</value>
+    public List<UserInfo> message_reaction_partial_user_info_array;
+    ///<value>只读，自己是否使用了该 reaction</value>
+    public bool message_reaction_reacted_by_myself;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class MessageReactionResult : ExtraData
+  {
+    ///<value>只读, 消息扩展操作的返回码</value>
+    public int message_reaction_result_code;
+    ///<value>只读, 消息扩展操作的返回信息提示</value>
+    public string message_reaction_result_info;
+    ///<value>只读, 消息 ID</value>
+    public string message_reaction_result_msg_id;
+    ///<value>只读, 消息回应列表</value>
+    public List<MessageReaction> message_reaction_result_reaction_list;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class MessageReactionUserResult : ExtraData
+  {
+    /// <value>只读, 消息回应用户列表</value>
+    public List<UserInfo> message_reaction_user_result_user_info_array;
+    /// <value>只读, 消息回应用户列表下次拉取 seq</value>
+    public ulong message_reaction_user_result_next_seq;
+    /// <value>只读, true : 已拉取完所有消息回应用户列表，false: 未拉取完所有消息回应用户列表</value>
+    public bool message_reaction_user_result_is_finished;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class MessageReactionChangeInfo : ExtraData
+  {
+    public string message_reaction_change_info_msg_id;
+    public List<MessageReaction> message_reaction_change_info_reaction_list;
+  }
+
   [JsonObject(MemberSerialization.OptOut)]
   public class OfflinePushConfig : ExtraData
   {
@@ -442,7 +487,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>只读, 资料变更类型 (Read only, profile change elem changed type)</value>
     public TIMProfileChangeType profile_change_elem_change_type; // GroupMemberInfo
     /// <value>只读, 资料变更用户的UserID (Read only, profile change elem changed user ID)</value>
-    public string profile_change_elem_from_identifer; // GroupMemberInfo
+    public string profile_change_elem_from_identifier; // GroupMemberInfo
     /// <value>只读, 具体的变更信息，只有当 change_type 为 kTIMProfileChange_Profile 时有效 (Read only, profile change elem user profile item, works only when change_type is kTIMProfileChange_Profile)</value>
     public UserProfileItem profile_change_elem_user_profile_item; // GroupMemberInfo
   }
@@ -721,7 +766,7 @@ namespace com.tencent.imsdk.unity.types
     public string group_modify_info_param_face_url;
     /// <value>只写(选填), 修改加群方式, 当 modify_flag 包含 kTIMGroupModifyInfoFlag_AddOption 时必填,其他情况不用填 (Write (Optional), modified join group option, required when modify_flag contains kTIMGroupModifyInfoFlag_AddOption)</value>
     public TIMGroupAddOption? group_modify_info_param_add_option;
-    /// <value>只写(选填), 修改群最大成员数,当 modify_flag 包含 kTIMGroupModifyInfoFlag_MaxMmeberNum 时必填,其他情况不用填 (Write (Optional), modified group maxmium member number, required when modify_flag contains kTIMGroupModifyInfoFlag_MaxMmeberNum)</value>
+    /// <value>只写(选填), 修改群最大成员数,当 modify_flag 包含 kTIMGroupModifyInfoFlag_MaxMemberNum 时必填,其他情况不用填 (Write (Optional), modified group maxmium member number, required when modify_flag contains kTIMGroupModifyInfoFlag_MaxMemberNum)</value>
     public uint? group_modify_info_param_max_member_num;
     /// <value>只写(选填), 修改群是否可见,当 modify_flag 包含 kTIMGroupModifyInfoFlag_Visible 时必填,其他情况不用填 (Write (Optional), modified group is visible, required when modify_flag contains kTIMGroupModifyInfoFlag_Visible)</value>
     public uint? group_modify_info_param_visible;
@@ -1356,6 +1401,23 @@ namespace com.tencent.imsdk.unity.types
   }
 
   [JsonObject(MemberSerialization.OptOut)]
+  public class ReceiveMessageOptInfo : ExtraData
+  {
+    ///<value>只读，获取消息免打扰开始时间：小时 (read-only, get message do not disturb start time: hours)</value>
+    public int msg_all_recv_msg_opt_start_hour;
+    ///<value>只读，获取消息免打扰开始时间：分钟 (Read only, get messages without disturbing start time: minutes)</value>
+    public int msg_all_recv_msg_opt_start_minute;
+    ///<value>只读，获取消息免打扰开始时间：秒 (Read only, get message do not disturb start time: seconds)</value>
+    public int msg_all_recv_msg_opt_start_second;
+    ///<value>只读，获取消息免打扰开始的 UTC 时间戳，如果返回的 startTimeStamp 大于 0，您可以直接使用；如果返回的 startTimeStamp 等于 0，您需要调用 getStartHour()、getStartMinute()、getStartSecond() 来获取免打扰的相对开始时间 (Read-only, get the UTC timestamp of message DND start. If the returned startTimeStamp is greater than 0, you can use it directly; if the returned startTimeStamp is equal to 0, you need to call getStartHour(), getStartMinute(), getStartSecond() to get DND relative start time of)</value>
+    public int msg_all_recv_msg_opt_start_time_stamp;
+    ///<value>只读，获取免打扰持续时长，单位：秒 (Read only, get the duration of DND, unit: seconds)</value>
+    public int msg_all_recv_msg_duration;
+    ///<value>[TIMReceiveMessageOpt](), 只读，消息接收选项 (Read only, message receiving option)</value>
+    public TIMReceiveMessageOpt msg_all_recv_msg_opt_level;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
   public class CreateGroupResult : ExtraData
   {
     /// <value>string, 只读, 创建的群ID (Read only, created group ID)</value>
@@ -1489,7 +1551,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>uint, 只读, 群资料的Seq，群资料的每次变更都会增加这个字段的值 (Read only,  group info sequence, every modification of the group will change this seq)</value>
     public uint group_base_info_info_seq;
     /// <value>uint, 只读, 群最新消息的Seq。群组内每一条消息都有一条唯一的消息Seq，且该Seq是按照发消息顺序而连续的。从1开始，群内每增加一条消息，LastestSeq就会增加1 (Read only, group message's latest seq. Every group maintains its own sequencial message seq number. Start from 1, every message occurs an augmentation of the seq number)</value>
-    public uint group_base_info_lastest_seq;
+    public uint group_base_info_latest_seq;
     /// <value>uint, 只读, 用户所在群已读的消息Seq (Read only, group message read seq)</value>
     public uint group_base_info_readed_seq;
     /// <value>uint, 只读, 消息接收选项 (Read only, group message receiving flag)</value>

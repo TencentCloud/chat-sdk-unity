@@ -82,6 +82,11 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureType<ExperimentalAPIReqeustParam>();
     AotHelper.EnsureType<GetTotalUnreadNumberResult>();
     AotHelper.EnsureType<GetC2CRecvMsgOptResult>();
+    AotHelper.EnsureType<ReceiveMessageOptInfo>();
+    AotHelper.EnsureType<MessageReaction>();
+    AotHelper.EnsureType<MessageReactionResult>();
+    AotHelper.EnsureType<MessageReactionUserResult>();
+    AotHelper.EnsureType<MessageReactionChangeInfo>();
     AotHelper.EnsureType<CreateGroupResult>();
     AotHelper.EnsureType<GroupInviteMemberResult>();
     AotHelper.EnsureType<GroupDeleteMemberResult>();
@@ -181,6 +186,11 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureList<ExperimentalAPIReqeustParam>();
     AotHelper.EnsureList<GetTotalUnreadNumberResult>();
     AotHelper.EnsureList<GetC2CRecvMsgOptResult>();
+    AotHelper.EnsureList<ReceiveMessageOptInfo>();
+    AotHelper.EnsureList<MessageReaction>();
+    AotHelper.EnsureList<MessageReactionResult>();
+    AotHelper.EnsureList<MessageReactionUserResult>();
+    AotHelper.EnsureList<MessageReactionChangeInfo>();
     AotHelper.EnsureList<CreateGroupResult>();
     AotHelper.EnsureList<GroupInviteMemberResult>();
     AotHelper.EnsureList<GroupDeleteMemberResult>();

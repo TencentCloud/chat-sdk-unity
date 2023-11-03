@@ -177,7 +177,7 @@ namespace com.tencent.imsdk.unity.enums
     /// <summary>
     /// <description>未知性别 (Unknown gender)</description>
     /// </summary>
-    kTIMGenderType_Unkown, // 未知性别
+    kTIMGenderType_Unknown, // 未知性别
     /// <summary>
     /// <description>性别男 (Male)</description>
     /// </summary>
@@ -604,7 +604,7 @@ namespace com.tencent.imsdk.unity.enums
     /// <summary>
     /// <description>修改群最大成员数 (Modify maximum group member)</description>
     /// </summary>
-    kTIMGroupModifyInfoFlag_MaxMmeberNum = 0x01 << 5,  // 修改群最大成员数
+    kTIMGroupModifyInfoFlag_MaxMemberNum = 0x01 << 5,  // 修改群最大成员数
     /// <summary>
     /// <description>修改群是否可见 (modify is group visible)</description>
     /// </summary>
@@ -772,7 +772,7 @@ namespace com.tencent.imsdk.unity.enums
     /// <summary>
     /// <description>昵称 (Nickname)</description>
     /// </summary>
-    kTIMGroupMemberSearchFieldKey_NikeName = 0x01 << 1, // 昵称
+    kTIMGroupMemberSearchFieldKey_NickName = 0x01 << 1, // 昵称
     /// <summary>
     /// <description>备注 (Remark)</description>
     /// </summary>
@@ -787,7 +787,7 @@ namespace com.tencent.imsdk.unity.enums
     /// <summary>
     /// <description>单向好友：用户A的好友表中有用户B，但B的好友表中却没有A (Single friend: B's in A's friend list but not vice versa)</description>
     /// </summary>
-    FriendTypeSignle,  // 单向好友：用户A的好友表中有用户B，但B的好友表中却没有A
+    FriendTypeSingle,  // 单向好友：用户A的好友表中有用户B，但B的好友表中却没有A
     /// <summary>
     /// <description>双向好友：用户A的好友表中有用户B，B的好友表中也有A (Both friend: A is friend of B and vice versa)</description>
     /// </summary>
@@ -851,7 +851,7 @@ namespace com.tencent.imsdk.unity.enums
     /// <summary>
     /// <description>昵称 (Search nickname)</description>
     /// </summary>
-    kTIMFriendshipSearchFieldKey_NikeName = 0x01 << 1, // 昵称
+    kTIMFriendshipSearchFieldKey_NickName = 0x01 << 1, // 昵称
     /// <summary>
     /// <description>备注 (Search remark)</description>
     /// </summary>
@@ -1013,7 +1013,7 @@ namespace com.tencent.imsdk.unity.enums
     /// <summary>
     /// <description>加群选项 (Group add option)</description>
     /// </summary>
-    kTIMGroupInfoFlag_AddOpton = 0x01 << 13, // 加群选项
+    kTIMGroupInfoFlag_AddOption = 0x01 << 13, // 加群选项
     /// <summary>
     /// <description>群类型 (Group type)</description>
     /// </summary>
