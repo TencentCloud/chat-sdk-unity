@@ -353,6 +353,16 @@ public static class I18n
       }
     },
     {
+      "SetMsgReactionsChangedCallback", new I18nData{
+        cn = "设置消息回应信息更新的回调"
+      }
+    },
+    {
+      "SetMsgAllMessageReceiveOptionCallback", new I18nData{
+        cn = "设置全局消息接收选项的回调"
+      }
+    },
+    {
       "SetMsgReadedReceiptCallback", new I18nData{
         cn = "消息已读回执回调"
       }

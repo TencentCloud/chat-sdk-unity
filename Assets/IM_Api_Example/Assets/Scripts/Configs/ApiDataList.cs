@@ -386,6 +386,30 @@ namespace com.tencent.im.unity.demo.config.ApiDataList
         ""scene"": ""MsgSetGroupReceiveMessageOpt""
       },
       {
+        ""apiName"": ""MsgSetAllReceiveMessageOpt"",
+        ""apiText"": ""设置all收消息选项"",
+        ""apiDesc"": ""设置all收消息选项"",
+        ""scene"": ""MsgSetAllReceiveMessageOpt""
+      },
+      {
+        ""apiName"": ""MsgGetAllReceiveMessageOpt"",
+        ""apiText"": ""批量拉取消息回应列表"",
+        ""apiDesc"": ""批量拉取消息回应列表"",
+        ""scene"": ""MsgGetAllReceiveMessageOpt""
+      },
+      {
+        ""apiName"": ""MsgGetMessageReactions"",
+        ""apiText"": ""设置all收消息选项"",
+        ""apiDesc"": ""设置all收消息选项"",
+        ""scene"": ""MsgGetMessageReactions""
+      },
+      {
+        ""apiName"": ""MsgAddMessageReaction"",
+        ""apiText"": ""添加消息回应"",
+        ""apiDesc"": ""添加消息回应"",
+        ""scene"": ""MsgAddMessageReaction""
+      },
+      {
         ""apiName"": ""MsgDownloadElemToPath"",
         ""apiText"": ""下载多媒体消息"",
         ""apiDesc"": ""下载多媒体消息"",

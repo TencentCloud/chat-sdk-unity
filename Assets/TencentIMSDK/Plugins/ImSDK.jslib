@@ -441,7 +441,7 @@ var ImSDKPlugin = {
       res.group_base_info_group_type = this.toGroupType(group.type);
       res.group_base_info_face_url = group.avatar;
       res.group_base_info_info_seq = Number(group.infoSequence);
-      res.group_base_info_lastest_seq = Number(group.nextMessageSeq);
+      res.group_base_info_latest_seq = Number(group.nextMessageSeq);
       if (group.selfInfo) {
         res.group_base_info_readed_seq = group.selfInfo.readedSequence;
         res.group_base_info_msg_flag = this.toMsgFlag(group.selfInfo.messageRemindType);
@@ -1453,8 +1453,8 @@ var ImSDKPlugin = {
         };
       }
     }
-    if (messageParam.message_offlie_push_config) {
-      var config = messageParam.message_offlie_push_config;
+    if (messageParam.message_offline_push_config) {
+      var config = messageParam.message_offline_push_config;
       var offlinePushInfo = {};
       offlinePushInfo.disablePush = config.offline_push_config_flag !== 0;
       offlinePushInfo.description = config.offline_push_config_desc;
@@ -2448,7 +2448,7 @@ var ImSDKPlugin = {
       groupAttributes: {}
     };
     attrs.forEach(function (attr) {
-      opt.groupAttributes[attr.group_atrribute_key] = attr.group_atrribute_value;
+      opt.groupAttributes[attr.group_attribute_key] = attr.group_attribute_value;
     });
     var promise = tim.initGroupAttributes(opt);
     promise.then(function (imResponse) {
@@ -2471,7 +2471,7 @@ var ImSDKPlugin = {
     var promise = tim.setGroupAttributes({
       groupID: groupID,
       groupAttributes: attrs.map(function (attr) {
-        return _defineProperty({}, attr.group_atrribute_key, attr.group_atrribute_value);
+        return _defineProperty({}, attr.group_attribute_key, attr.group_attribute_value);
       })
     });
     promise.then(function (imResponse) {
@@ -2522,8 +2522,8 @@ var ImSDKPlugin = {
       console.log(imResponse.data.groupAttributes); // 指定 key 的群属性
       var res = Object.keys(imResponse.data.groupAttributes).map(function (key) {
         return {
-          group_atrribute_key: key,
-          group_atrribute_value: imResponse.data.groupAttributes[key]
+          group_attribute_key: key,
+          group_attribute_value: imResponse.data.groupAttributes[key]
         };
       });
       var buf = utils.getStrBuf(res);
@@ -3007,16 +3007,16 @@ var ImSDKPlugin = {
     // FriendResult
     var param = JSON.parse(UTF8ToString(json_handle_friend_add_param));
     var opt = {
-      userID: param.friend_respone_identifier
+      userID: param.friend_response_identifier
     };
-    // TODO friend_respone_group_name 分组
-    if (param.friend_respone_action === 2) {
+    // TODO friend_response_group_name 分组
+    if (param.friend_response_action === 2) {
       // Reject
       var promise = tim.refuseFriendApplication(opt);
       promise.then(function (imResponse) {
         // 拒绝成功后，SDK 会触发 TIM.EVENT.FRIEND_APPLICATION_LIST_UPDATED 事件
         var res = {
-          friend_result_identifier: param.friend_respone_identifier,
+          friend_result_identifier: param.friend_response_identifier,
           friend_result_code: 0,
           friend_result_desc: 'success'
         };
@@ -3026,19 +3026,19 @@ var ImSDKPlugin = {
         console.warn('refuseFriendApplication error:', imError);
       });
     } else {
-      if (param.friend_respone_action === 0) {
+      if (param.friend_response_action === 0) {
         opt.type = TIM.TYPES.SNS_APPLICATION_AGREE;
       } else {
         opt.type = TIM.TYPES.SNS_APPLICATION_AGREE_AND_ADD;
       }
-      if (param.friend_respone_remark) {
-        opt.remark = param.friend_respone_remark;
+      if (param.friend_response_remark) {
+        opt.remark = param.friend_response_remark;
       }
       var _promise7 = tim.acceptFriendApplication(opt);
       _promise7.then(function (imResponse) {
         // 同意好友成功后，SDK 会触发 TIM.EVENT.FRIEND_APPLICATION_LIST_UPDATED 事件
         var res = {
-          friend_result_identifier: param.friend_respone_identifier,
+          friend_result_identifier: param.friend_response_identifier,
           friend_result_code: 0,
           friend_result_desc: 'success'
         };
@@ -3738,8 +3738,8 @@ var ImSDKPlugin = {
       var group_id = utils.genStrBuf(groupID);
       var res = Object.keys(groupAttributes).map(function (key) {
         return {
-          group_atrribute_key: key,
-          group_atrribute_value: groupAttributes[key]
+          group_attribute_key: key,
+          group_attribute_value: groupAttributes[key]
         };
       });
       var buf = utils.getStrBuf(res);

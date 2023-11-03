@@ -26,6 +26,8 @@ namespace com.tencent.imsdk.unity
     // private static Dictionary<string, StringBuilder> StrBuilderStore = new Dictionary<string, StringBuilder>();
 
     private static RecvNewMsgCallback RecvNewMsgCallbackStore;
+    private static MsgReactionsChangedCallback MsgReactionsChangedCallbackStore;
+    private static MsgAllMessageReceiveOptionCallback MsgAllMessageReceiveOptionCallbackStore;
     private static MsgReadedReceiptCallback MsgReadedReceiptCallbackStore;
     private static MsgRevokeCallback MsgRevokeCallbackStore;
     private static MsgElemUploadProgressCallback MsgElemUploadProgressCallbackStore;
@@ -65,6 +67,9 @@ namespace com.tencent.imsdk.unity
     private static MsgExtensionsDeletedCallback MsgExtensionsDeletedCallbackStore;
 
     private static RecvNewMsgStringCallback RecvNewMsgStringCallbackStore;
+    private static MsgReactionsChangedStringCallback MsgReactionsChangedStringCallbackStore;
+
+    private static MsgAllMessageReceiveOptionStringCallback MsgAllMessageReceiveOptionStringCallbackStore;
     private static MsgReadedReceiptStringCallback MsgReadedReceiptStringCallbackStore;
     private static MsgRevokeStringCallback MsgRevokeStringCallbackStore;
     private static MsgElemUploadProgressStringCallback MsgElemUploadProgressStringCallbackStore;
@@ -200,6 +205,8 @@ namespace com.tencent.imsdk.unity
       SetMsgElemUploadProgressCallback(null);
 
       SetMsgReadedReceiptCallback(null);
+      SetMsgReactionsChangedCallback(null);
+      SetMsgAllMessageReceiveOptionCallback(null);
 
       SetMsgRevokeCallback(null);
 
@@ -717,7 +724,7 @@ namespace com.tencent.imsdk.unity
       ValuecallbackDeleStore.Add(user_data, threadOperation<object>);
 
       int timSucc = IMNativeSDK.TIMConvCleanConversationUnreadMessageCount(Utils.string2intptr(conversation_id),clean_timestamp,clean_sequence,ValueCallbackInstance,Utils.string2intptr(user_data));
-
+      Log(user_data,conversation_id,clean_timestamp,clean_sequence);
       return (TIMResult)timSucc;
     }
     public static TIMResult ConvCleanConversationUnreadMessageCount(string conversation_id,ulong clean_timestamp,ulong clean_sequence,ValueCallback<string> callback){
@@ -727,7 +734,7 @@ namespace com.tencent.imsdk.unity
       ValuecallbackStore.Add(user_data, callback);
 
       int timSucc = IMNativeSDK.TIMConvCleanConversationUnreadMessageCount(Utils.string2intptr(conversation_id),clean_timestamp,clean_sequence, StringValueCallbackInstance,Utils.string2intptr(user_data));
-
+      Log(user_data,conversation_id,clean_timestamp,clean_sequence);
       return (TIMResult)timSucc;
     }
 
@@ -1770,6 +1777,93 @@ namespace com.tencent.imsdk.unity
     }
 
     /// <summary>
+    /// 设置登录用户全局消息接收选项
+    /// Set receiving message option
+    /// </summary>
+    /// <param name="opt">全局消息接收选项设置TIMReceiveMessageOpt (Receiving message option)</param>
+    /// <param name="start_hour">免打扰开始时间：小时，取值范围[0 - 23](Do not disturb start time: hours)</param>
+    /// <param name="start_minute">免打扰开始时间：分钟，取值范围[0 - 59](Do not disturb start time: minute)</param>
+    /// <param name="start_second">免打扰开始时间：秒，取值范围[0 - 59](Do not disturb start time: second)</param>
+    /// <param name="duration">免打扰持续时长：单位：秒，取值范围 [0 - 24*60*60](DND duration: unit: seconds)</param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public static TIMResult MsgSetAllReceiveMessageOpt(TIMReceiveMessageOpt opt,int start_hour,int start_minute,int start_second,int duration,NullValueCallback callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<object>);
+      int timSucc = IMNativeSDK.TIMMsgSetAllReceiveMessageOpt((int)opt,start_hour,start_minute,start_second,duration,ValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,opt.ToString());
+      return (TIMResult)timSucc;
+    }
+
+    public static TIMResult MsgSetAllReceiveMessageOpt(TIMReceiveMessageOpt opt,int start_hour,int start_minute,int start_second,int duration,ValueCallback<string> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      ValuecallbackStore.Add(user_data, callback);
+      int timSucc = IMNativeSDK.TIMMsgSetAllReceiveMessageOpt((int)opt,start_hour,start_minute,start_second,duration,StringValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,opt.ToString());
+      return (TIMResult)timSucc;
+    }
+    /// <summary>
+    /// 设置登录用户全局消息接收选项
+    /// Set receiving message option
+    /// </summary>
+    /// <param name="opt">全局消息接收选项设置TIMReceiveMessageOpt (Receiving message option)</param>
+    /// <param name="start_time_stamp">免打扰开始时间，UTC 时间戳，单位：秒(DND start time, UTC timestamp, unit: seconds)</param>
+    /// <param name="duration">免打扰持续时长：单位：秒(Do not disturb duration: unit: seconds)</param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public static TIMResult MsgSetAllReceiveMessageOpt2(TIMReceiveMessageOpt opt,int start_time_stamp,int duration,NullValueCallback callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<object>);
+      int timSucc = IMNativeSDK.TIMMsgSetAllReceiveMessageOpt2((int)opt,start_time_stamp,duration,ValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,opt.ToString());
+      return (TIMResult)timSucc;
+    }
+
+    public static TIMResult MsgSetAllReceiveMessageOpt2(TIMReceiveMessageOpt opt,int start_time_stamp,int duration,ValueCallback<string> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      ValuecallbackStore.Add(user_data, callback);
+      int timSucc = IMNativeSDK.TIMMsgSetAllReceiveMessageOpt2((int)opt,start_time_stamp,duration,StringValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,opt.ToString());
+      return (TIMResult)timSucc;
+    }
+
+    public static TIMResult MsgGetAllReceiveMessageOpt(ValueCallback<List<ReceiveMessageOptInfo>> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<List<ReceiveMessageOptInfo>>);
+      int timSucc = IMNativeSDK.TIMMsgGetAllReceiveMessageOpt(ValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,fn_name);
+      return (TIMResult)timSucc;
+    }
+    public static TIMResult MsgGetAllReceiveMessageOpt(ValueCallback<string> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      ValuecallbackStore.Add(user_data, callback);
+      int timSucc = IMNativeSDK.TIMMsgGetAllReceiveMessageOpt(StringValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,fn_name);
+      return (TIMResult)timSucc;
+    }
+
+    /// <summary>
     /// 设置离线推送配置信息（iOS 和 Android 平台专用）
     /// Set offline push token (Only for iOS and Android)
     /// </summary>
@@ -2016,6 +2110,41 @@ namespace com.tencent.imsdk.unity
       ValuecallbackStore.Add(user_data, callback);
 
       int timSucc = IMNativeSDK.TIMMsgSearchLocalMessages(Utils.string2intptr(param), StringValueCallbackInstance, Utils.string2intptr(user_data));
+
+      Log(user_data, param);
+      return (TIMResult)timSucc;
+    }
+    /// <summary>
+    /// 搜索云端消息
+    /// Search cloud message
+    /// </summary>
+    /// <param name="message_search_param">搜索消息参数 MessageSearchParam (Search message param)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult MsgSearchCloudMessages(MessageSearchParam message_search_param, ValueCallback<MessageSearchResult> callback){
+        string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(message_search_param);
+
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<MessageSearchResult>);
+
+      int timSucc = IMNativeSDK.TIMMsgSearchCloudMessages(Utils.string2intptr(param), ValueCallbackInstance, Utils.string2intptr(user_data));
+
+      Log(user_data, param);
+      return (TIMResult)timSucc;
+    }
+    public static TIMResult MsgSearchCloudMessages(MessageSearchParam message_search_param, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(message_search_param);
+
+      ValuecallbackStore.Add(user_data, callback);
+
+      int timSucc = IMNativeSDK.TIMMsgSearchCloudMessages(Utils.string2intptr(param), StringValueCallbackInstance, Utils.string2intptr(user_data));
 
       Log(user_data, param);
       return (TIMResult)timSucc;
@@ -4374,6 +4503,145 @@ namespace com.tencent.imsdk.unity
     }
 
     /// <summary>
+    /// 添加消息回应 (add message reaction)
+    /// </summary>
+    /// <param name="message">消息 json 字符串 (message json)</param>
+    /// <param name="reaction_id">消息回应 ID，在表情回应场景，reaction_id 为表情 ID，单条消息最大支持 10 个 Reaction，单个 Reaction 最大支持 100 个用户。(Message response ID. In the emoticon response scenario, reaction_id is the emoticon ID. A single message supports a maximum of 10 reactions, and a single reaction supports a maximum of 100 users.)</param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public static TIMResult MsgAddMessageReaction(Message message,string reaction_id,NullValueCallback callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<object>);
+      int res = IMNativeSDK.TIMMsgAddMessageReaction(Utils.string2intptr(msg),Utils.string2intptr(reaction_id),ValueCallbackInstance,Utils.string2intptr(user_data));
+      Log(user_data, msg, reaction_id);
+      return (TIMResult)res;
+    }
+
+    public static TIMResult MsgAddMessageReaction(Message message,string reaction_id,ValueCallback<string> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+      ValuecallbackStore.Add(user_data, callback);
+      int res = IMNativeSDK.TIMMsgAddMessageReaction(Utils.string2intptr(msg),Utils.string2intptr(reaction_id),StringValueCallbackInstance,Utils.string2intptr(user_data));
+      Log(user_data, msg, reaction_id);
+      return (TIMResult)res;
+    }
+/// <summary>
+/// 删除消息回应 (remove message reaction)
+/// </summary>
+/// <param name="message">消息 json 字符串 (message json)</param>
+/// <param name="reaction_id">消息回应 ID，在表情回应场景，reaction_id 为表情 ID，单条消息最大支持 10 个 Reaction，单个 Reaction 最大支持 100 个用户。(Message response ID. In the emoticon response scenario, reaction_id is the emoticon ID. A single message supports a maximum of 10 reactions, and a single reaction supports a maximum of 100 users.)</param>
+/// <param name="callback"></param>
+/// <returns></returns> 
+    public static TIMResult MsgRemoveMessageReaction(Message message,string reaction_id,NullValueCallback callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<object>);
+      int res = IMNativeSDK.TIMMsgRemoveMessageReaction(Utils.string2intptr(msg),Utils.string2intptr(reaction_id),ValueCallbackInstance,Utils.string2intptr(user_data));
+      Log(user_data, msg, reaction_id);
+      return (TIMResult)res;
+    }
+
+    public static TIMResult MsgRemoveMessageReaction(Message message,string reaction_id,ValueCallback<string> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+      ValuecallbackStore.Add(user_data, callback);
+      int res = IMNativeSDK.TIMMsgRemoveMessageReaction(Utils.string2intptr(msg),Utils.string2intptr(reaction_id),StringValueCallbackInstance,Utils.string2intptr(user_data));
+      Log(user_data, msg, reaction_id);
+      return (TIMResult)res;
+    }
+    /// <summary>
+    /// 批量拉取多条消息回应信息
+    /// Get message reactions 
+    /// </summary>
+    /// <param name="message">消息列表，一次最大支持 20 条消息，消息必须属于同一个会话。(Message list supports up to 20 messages at a time, and the messages must belong to the same conversation.)</param>
+    /// <param name="max_user_count_per_reaction">取值范围 【0,10】，每个 Reaction 最多只返回前 10 个用户信息，如需更多用户信息，可以按需调用 TIMMsgGetMessageReactionUserList 接口分页拉取。(The value range is [0,10]. Each Reaction only returns the first 10 user information at most. If you need more user information, you can call the TIMMsgGetMessageReactionUserList interface to pull it in pages as needed.)</param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+
+    public static TIMResult MsgGetMessageReactions(List<Message> message,int max_user_count_per_reaction,ValueCallback<List<MessageReactionResult>> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<List<MessageReactionResult>>);
+      int timSucc = IMNativeSDK.TIMMsgGetMessageReactions(Utils.string2intptr(msg),max_user_count_per_reaction,ValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,fn_name);
+      return (TIMResult)timSucc;
+    }
+    public static TIMResult MsgGetMessageReactions(List<Message> message,int max_user_count_per_reaction,ValueCallback<string> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+      ValuecallbackStore.Add(user_data, callback);
+      int timSucc = IMNativeSDK.TIMMsgGetMessageReactions(Utils.string2intptr(msg),max_user_count_per_reaction,StringValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,fn_name);
+      return (TIMResult)timSucc;
+    }
+
+    /// <summary>
+    /// 分页拉取使用指定消息回应用户信息
+    /// Get all user list of message reaction
+    /// </summary>
+    /// <param name="message">消息 json 字符串 (message object)</param>
+    /// <param name="reaction_id">消息回应 ID，在表情回复场景，reaction_id 为表情 ID。(Message reaction ID)</param>
+    /// <param name="next_seq">分页拉取的游标，第一次传 0，后续分页传 succ 返回的 nextSeq。(	The next pulling-by-page cursor, pass 0 for the first time, and pass the nextSeq returned by succ for subsequent pagination.)</param>
+    /// <param name="count">一次分页最大拉取个数，最大支持 100 个。(The maximum count of users fetched per page, up to 100.)</param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public static TIMResult MsgGetAllUserListOfMessageReaction(Message message,string reaction_id,ulong next_seq,int count,ValueCallback<MessageReactionUserResult> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<MessageReactionUserResult>);
+      int timSucc = IMNativeSDK.TIMMsgGetAllUserListOfMessageReaction(Utils.string2intptr(msg),Utils.string2intptr(reaction_id),next_seq,count,ValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,fn_name);
+      return (TIMResult)timSucc;
+    }
+    public static TIMResult MsgGetAllUserListOfMessageReaction(Message message,string reaction_id,ulong next_seq,int count,ValueCallback<string> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var msg = Utils.ToJson(message);
+      ValuecallbackStore.Add(user_data, callback);
+      int timSucc = IMNativeSDK.TIMMsgGetAllUserListOfMessageReaction(Utils.string2intptr(msg),Utils.string2intptr(reaction_id),next_seq,count,StringValueCallbackInstance, Utils.string2intptr(user_data));
+      Log(user_data,fn_name);
+      return (TIMResult)timSucc;
+    }
+    public static TIMResult MsgConvertVoiceToText(string url, string language,ValueCallback<string> callback){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<string>);
+      int res = IMNativeSDK.TIMMsgConvertVoiceToText(Utils.string2intptr(url),Utils.string2intptr(language),ValueCallbackInstance,Utils.string2intptr(user_data));
+      Log(user_data, url,language);
+      return (TIMResult)res;
+    }
+    // public static TIMResult MsgConvertVoiceToText(string url,string language,ValueCallback<string> callback){
+    //   string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+    //   string user_data = fn_name + "_" + Utils.getRandomStr();
+    //   ValuecallbackStore.Add(user_data, callback);
+    //   int res = IMNativeSDK.TIMMsgConvertVoiceToText(url,language,StringValueCallbackInstance,Utils.string2intptr(user_data));
+    //   Log(user_data, msg, reaction_id);
+    //   return (TIMResult)res;
+    // }
+
+
+    /// <summary>
     /// 翻译文本消息
     /// Translate text
     /// </summary>
@@ -4538,6 +4806,97 @@ namespace com.tencent.imsdk.unity
       }
     }
 
+    public static void SetMsgReactionsChangedCallback(MsgReactionsChangedCallback callback = null,MsgReactionsChangedStringCallback stringCallback = null){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
+      {
+          MsgReactionsChangedCallbackStore += callback;
+      }
+
+      if (stringCallback != null)
+      {
+        MsgReactionsChangedStringCallbackStore += stringCallback;
+      }
+      if (callback == null && stringCallback == null)
+      {
+        RemoveMsgReactionsChangedCallback();
+        return;
+      }
+      IMNativeSDK.TIMSetMsgReactionsChangedCallback(TIMMsgReactionsChangedCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    public static void RemoveMsgReactionsChangedCallback(MsgReactionsChangedCallback callback = null,MsgReactionsChangedStringCallback stringCallback = null)
+    {
+      if (callback != null && MsgReactionsChangedCallbackStore != null)
+      {
+        MsgReactionsChangedCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && MsgReactionsChangedStringCallbackStore != null)
+      {
+        MsgReactionsChangedStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        MsgReactionsChangedCallbackStore = null;
+        MsgReactionsChangedStringCallbackStore = null;
+      }
+
+      if (MsgReactionsChangedCallbackStore == null && MsgReactionsChangedStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetMsgReactionsChangedCallback(null, Utils.string2intptr(""));
+      }
+    }
+
+    public static void SetMsgAllMessageReceiveOptionCallback(MsgAllMessageReceiveOptionCallback callback = null,MsgAllMessageReceiveOptionStringCallback stringCallback = null){
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+
+      if (callback != null)
+      {
+        MsgAllMessageReceiveOptionCallbackStore += callback;
+      }
+
+      if (stringCallback != null)
+      {
+        MsgAllMessageReceiveOptionStringCallbackStore += stringCallback;
+      }
+      if (callback == null && stringCallback == null)
+      {
+        RemoveMsgAllMessageReceiveOptionCallback();
+        return;
+      }
+      IMNativeSDK.TIMSetMsgAllMessageReceiveOptionCallback(TIMMsgAllMessageReceiveOptionCallbackInstance, Utils.string2intptr(user_data));
+    }
+
+    public static void RemoveMsgAllMessageReceiveOptionCallback(MsgAllMessageReceiveOptionCallback callback = null, MsgAllMessageReceiveOptionStringCallback stringCallback = null)
+    {
+      if (callback != null && MsgAllMessageReceiveOptionCallbackStore != null)
+      {
+        MsgAllMessageReceiveOptionCallbackStore -= callback;
+      }
+
+      if (stringCallback != null && MsgAllMessageReceiveOptionStringCallbackStore != null)
+      {
+        MsgAllMessageReceiveOptionStringCallbackStore -= stringCallback;
+      }
+
+      if (callback == null && stringCallback == null)
+      {
+        MsgAllMessageReceiveOptionCallbackStore = null;
+        MsgAllMessageReceiveOptionStringCallbackStore = null;
+      }
+
+      if (MsgAllMessageReceiveOptionCallbackStore == null && MsgAllMessageReceiveOptionStringCallbackStore == null)
+      {
+        IMNativeSDK.TIMSetMsgAllMessageReceiveOptionCallback(null, Utils.string2intptr(""));
+      }
+    }
     /// <summary>
     /// 设置消息已读回执回调
     /// Set message read receipt callback
@@ -6625,7 +6984,22 @@ namespace com.tencent.imsdk.unity
             }
 
             break;
-
+          case "TIMMsgReactionsChangedCallback":
+            if(MsgReactionsChangedCallbackStore != null){
+              MsgReactionsChangedCallbackStore(Utils.FromJson<List<MessageReactionChangeInfo>>(data.data),data.user_data);
+            }
+            if(MsgReactionsChangedStringCallbackStore != null){
+              MsgReactionsChangedStringCallbackStore(data.data,data.user_data);
+            }
+            break;
+          case "TIMMsgAllMessageReceiveOptionCallback":
+            if(MsgAllMessageReceiveOptionCallbackStore != null){
+              MsgAllMessageReceiveOptionCallbackStore(Utils.FromJson<ReceiveMessageOptInfo>(data.data),data.user_data);
+            }
+            if(MsgAllMessageReceiveOptionStringCallbackStore != null){
+              MsgAllMessageReceiveOptionStringCallbackStore(data.data,data.user_data);
+            }
+            break;
           case "TIMMsgReadedReceiptCallback":
             if (MsgReadedReceiptCallbackStore != null)
             {
@@ -7090,6 +7464,34 @@ namespace com.tencent.imsdk.unity
 
     }
 
+    [MonoPInvokeCallback(typeof(IMNativeSDK.TIMMsgReactionsChangedCallback))]
+    private static void TIMMsgReactionsChangedCallbackInstance(IntPtr message_reaction_change_info_array,IntPtr user_data){
+      try{
+        string message_reaction_change_info_array_string = Utils.intptr2string(message_reaction_change_info_array);
+        string user_data_string = Utils.intptr2string(user_data);
+        CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMMsgReactionsChangedCallback", data = message_reaction_change_info_array_string, user_data = user_data_string, desc = "" };
+        mainSyncContext.Post(threadOperation<object>, cc);
+        Utils.Log("TIMMsgReactionsChangedCallbackInstance");
+      }
+      catch (Exception e)
+      {
+        Utils.Log("重点关注，回调解析失败" + e.ToString());
+      }
+    }
+
+    [MonoPInvokeCallback(typeof(IMNativeSDK.TIMMsgAllMessageReceiveOptionCallback))]
+    private static void TIMMsgAllMessageReceiveOptionCallbackInstance(IntPtr json_receive_message_option_info,IntPtr user_data){
+      try{
+        string json_receive_message_option_info_string = Utils.intptr2string(json_receive_message_option_info);
+        string user_data_string = Utils.intptr2string(user_data);
+        CallbackConvert cc = new CallbackConvert { code = 0, type = "TIMMsgAllMessageReceiveOptionCallback", data = json_receive_message_option_info_string, user_data = user_data_string, desc = "" };
+        mainSyncContext.Post(threadOperation<object>, cc);
+      }
+      catch (Exception e)
+      {
+        Utils.Log("重点关注，回调解析失败" + e.ToString());
+      }
+    }
 
     [MonoPInvokeCallback(typeof(IMNativeSDK.TIMMsgReadedReceiptCallback))]
     private static void TIMMsgReadedReceiptCallbackInstance(IntPtr json_msg_readed_receipt_array, IntPtr user_data)

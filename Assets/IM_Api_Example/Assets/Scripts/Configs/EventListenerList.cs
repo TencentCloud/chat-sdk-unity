@@ -9,6 +9,16 @@ namespace com.tencent.im.unity.demo.config.EventListenerList
         ""eventDesc"": ""注册收到新消息回调""
       },
       {
+        ""eventName"": ""SetMsgReactionsChangedCallback"",
+        ""eventText"": ""设置消息回应信息更新的回调"",
+        ""eventDesc"": ""设置消息回应信息更新的回调""
+      },
+      {
+        ""eventName"": ""SetMsgAllMessageReceiveOptionCallback"",
+        ""eventText"": ""设置全局消息接收选项的回调"",
+        ""eventDesc"": ""设置全局消息接收选项的回调""
+      },
+      {
         ""eventName"": ""SetMsgReadedReceiptCallback"",
         ""eventText"": ""消息已读回执回调"",
         ""eventDesc"": ""设置消息已读回执回调""

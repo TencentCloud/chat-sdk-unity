@@ -93,6 +93,30 @@ namespace com.tencent.im.unity.demo.utils
     };
     }
 
+    public static MsgReactionsChangedStringCallback setMsgReactionsChangedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo){
+      var callback = cb;
+      return (string message_reaction_change_info_array, string user_data) =>
+    {
+      string head = "\n" + user_data + "Asynchronous return:\n\n";
+      string body = @"{""message_reaction_change_info_array"":" + (string.IsNullOrEmpty(message_reaction_change_info_array) ? "null" : message_reaction_change_info_array) + "}";
+      JObject json = JObject.Parse(body);
+      string formatted = SyntaxHighlightJson(json.ToString());
+      callback(eventInfo, head + formatted, message_reaction_change_info_array);
+    };
+    }
+
+    public static MsgAllMessageReceiveOptionStringCallback setMsgAllMessageReceiveOptionCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo){
+      var callback = cb;
+      return (string json_receive_message_option_info, string user_data) =>
+    {
+      string head = "\n" + user_data + "Asynchronous return:\n\n";
+      string body = @"{""json_receive_message_option_info"":" + (string.IsNullOrEmpty(json_receive_message_option_info) ? "null" : json_receive_message_option_info) + "}";
+      JObject json = JObject.Parse(body);
+      string formatted = SyntaxHighlightJson(json.ToString());
+      callback(eventInfo, head + formatted, json_receive_message_option_info);
+    };
+    }
+
     public static MsgReadedReceiptStringCallback SetMsgReadedReceiptCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
     {
       var callback = cb;

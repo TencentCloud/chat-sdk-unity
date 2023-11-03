@@ -115,7 +115,7 @@ public class GroupSearchGroupMembers : MonoBehaviour
     }
     if (IsSearchNickName.isOn)
     {
-      fieldList.Add(TIMGroupMemberSearchFieldKey.kTIMGroupMemberSearchFieldKey_NikeName);
+      fieldList.Add(TIMGroupMemberSearchFieldKey.kTIMGroupMemberSearchFieldKey_NickName);
     }
     if (IsSearchRemark.isOn)
     {

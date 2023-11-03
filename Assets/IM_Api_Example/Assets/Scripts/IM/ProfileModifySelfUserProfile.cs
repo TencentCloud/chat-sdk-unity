@@ -85,7 +85,7 @@ public class ProfileModifySelfUserProfile : MonoBehaviour
 
     var param = new UserProfileItem();
 
-    if (gender != TIMGenderType.kTIMGenderType_Unkown)
+    if (gender != TIMGenderType.kTIMGenderType_Unknown)
     {
       param.user_profile_item_gender = gender;
     }

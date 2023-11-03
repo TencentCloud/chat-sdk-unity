@@ -70,6 +70,16 @@ public class AddEventListener : MonoBehaviour
           TencentIMSDK.SetMsgReadedReceiptCallback();
           break;
         }
+      case "SetMsgReactionsChangedCallback":
+      {
+        TencentIMSDK.SetMsgReactionsChangedCallback();
+        break;
+      }
+      case "SetMsgAllMessageReceiveOptionCallback":
+      {
+        TencentIMSDK.SetMsgAllMessageReceiveOptionCallback();
+        break;
+      }
       case "SetMsgRevokeCallback":
         {
           TencentIMSDK.SetMsgRevokeCallback();
@@ -224,6 +234,16 @@ public class AddEventListener : MonoBehaviour
       case "AddRecvNewMsgCallback":
         {
           TencentIMSDK.AddRecvNewMsgCallback(null, Utils.RecvNewMsgCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetMsgReactionsChangedCallback":
+        {
+          TencentIMSDK.SetMsgReactionsChangedCallback(null, Utils.setMsgReactionsChangedCallback(GetResult, eventInfo));
+          break;
+        }
+        case "SetMsgAllMessageReceiveOptionCallback":
+        {
+          TencentIMSDK.SetMsgAllMessageReceiveOptionCallback(null, Utils.setMsgAllMessageReceiveOptionCallback(GetResult, eventInfo));
           break;
         }
       case "SetMsgReadedReceiptCallback":

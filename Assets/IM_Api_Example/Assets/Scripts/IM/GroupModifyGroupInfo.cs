@@ -167,7 +167,7 @@ public class GroupModifyGroupInfo : MonoBehaviour
         return;
       }
       param.group_modify_info_param_max_member_num = (uint)(maxMember);
-      flag |= TIMGroupModifyInfoFlag.kTIMGroupModifyInfoFlag_MaxMmeberNum;
+      flag |= TIMGroupModifyInfoFlag.kTIMGroupModifyInfoFlag_MaxMemberNum;
     }
     if (custom_string_array.Count > 0)
     {
