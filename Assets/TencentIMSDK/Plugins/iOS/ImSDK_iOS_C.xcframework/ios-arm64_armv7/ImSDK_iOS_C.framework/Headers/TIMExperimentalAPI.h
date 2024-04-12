@@ -21,8 +21,8 @@ extern "C" {
 //   - 调用 API 时传入的 TIMCommCallback 回调，用于异步返回 API 的调用结果
 //   - 调用 TIMSetXXXCallback 设置的全局回调，用于接收后台推送的通知
 //  2. 回调触发的线程：
-//   - 对于 Windows 平台，当在主线程中调用 [TIMInit](TIMManager.h) 接口时，SDK 会将所有回调抛到主线程，请确保主线程已创建消息循环；否则，回调将在 SDK 内部的逻辑线程触发
-//   - 对于 Android 平台，当调用 [TIMInit](TIMManager.h) 接口的线程支持消息循环时，SDK 会将所有回调抛到该线程；否则，回调将在 SDK 内部的逻辑线程触发
+//   - 对于 Windows 平台，当在主线程中调用 @ref TIMInit 接口时，SDK 会将所有回调抛到主线程，请确保主线程已创建消息循环；否则，回调将在 SDK 内部的逻辑线程触发
+//   - 对于 Android 平台，当调用 @ref TIMInit 接口的线程支持消息循环时，SDK 会将所有回调抛到该线程；否则，回调将在 SDK 内部的逻辑线程触发
 //   - 对于 iOS 和 MAC 平台，SDK 默认将所有回调抛到主线程
 //   - 对于 Linux 平台，暂不支持将回调抛到主线程，回调将在 SDK 内部的逻辑线程触发
 
@@ -48,10 +48,10 @@ typedef void (*TIMExperimentalNotifyCallback)(const char* key, const char* data,
 /////////////////////////////////////////////////////////////////////////////////
 /**
  * 2.1 实验性通知的回调
- * @param cb 实验性通知的回调，请参考[TIMExperimentalNotifyCallback]()
+ * @param cb 实验性通知的回调，请参考 @ref TIMExperimentalNotifyCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  */
-TIM_DECL void TIMSetExperimentalNotifyCallback(TIMExperimentalNotifyCallback cb, const void *user_data);
+TIM_API void TIMSetExperimentalNotifyCallback(TIMExperimentalNotifyCallback cb, const void *user_data);
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -64,7 +64,7 @@ TIM_DECL void TIMSetExperimentalNotifyCallback(TIMExperimentalNotifyCallback cb,
  *
  * @note 该接口提供一些实验性功能
  */
-TIM_DECL int callExperimentalAPI(const char* json_param, TIMCommCallback cb, const void* user_data);
+TIM_API int callExperimentalAPI(const char* json_param, TIMCommCallback cb, const void* user_data);
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +83,7 @@ static const char* kTIMInternalOperationSetIPv6Prior = "internal_operation_set_i
 static const char* kTIMInternalOperationSetMaxRetryCount = "internal_operation_set_max_retry_count";
 static const char* kTIMInternalOperationSetPacketRequestTimeout = "internal_operation_set_packet_request_timeout";
 static const char* kTIMInternalOperationSetCustomServerInfo = "internal_operation_set_custom_server_info";
-static const char* kTIMInternalOperationSetQuicChannelInfo = "internal_operation_set_quic_channel_info";
+static const char* kTIMInternalOperationEnableQuicChannel = "internal_operation_enable_quic_channel";
 static const char* kTIMInternalOperationSetSM4GCMCallback = "internal_operation_set_sm4_gcm_callback";
 static const char* kTIMInternalOperationInitLocalStorage = "internal_operation_init_local_storage";
 static const char* kTIMInternalOperationSetCosSaveRegionForConversation = "internal_operation_set_cos_save_region_for_conversation";
@@ -98,6 +98,14 @@ static const char* kTIMInternalOperationClearLocalHistoryMessage = "internal_ope
 static const char* kTIMInternalOperationUpdateProxyInfo = "internal_operation_update_proxy_info";
 static const char* kTIMInternalOperationReportTUIComponentUsage = "internal_operation_report_tuicomponent_usage";
 static const char* kTIMInternalOperationSendTRTCCustomData = "internal_operation_send_trtc_custom_data";
+static const char* kTIMInternalOperationSendRoomCustomData = "internal_operation_send_room_custom_data";
+static const char* kTIMInternalOperationSetApplicationID = "internal_operation_set_application_id";
+static const char* kTIMInternalOperationGetServerConfig = "internal_operation_get_server_config";
+static const char* kTIMInternalOperationSetIgnoreRepeatLogin = "internal_operation_set_ignore_repeat_login";
+static const char* kTIMInternalOperationStartMessageLongPolling = "internal_operation_start_message_long_polling";
+static const char* kTIMInternalOperationStopMessageLongPolling = "internal_operation_stop_message_long_polling";
+static const char* kTIMInternalOperationFindMergerMessages = "internal_operation_find_merger_messages";
+static const char* kTIMInternalOperationGetBriefGroupMemberList = "internal_operation_get_brief_group_member_list";
 
 //------------------------------------------------------------------------------
 // 4.2 SSODataParam(发送 sso data 的参数)
@@ -133,17 +141,17 @@ static const char* kTIMServerAddressIsQuic = "server_address_is_quic";
 
 //------------------------------------------------------------------------------
 // 4.6 CustomServerInfo(自定义服务器信息)
-// array [ServerAddress](), 只写(必填), 长连接服务器地址列表
+// array @ref ServerAddress, 只写(必填), 长连接服务器地址列表
 static const char* kTIMCustomServerInfoLongConnectionAddressArray = "longconnection_address_array";
-// array [ServerAddress](), 只写(选填), 短连接服务器地址列表
+// array @ref ServerAddress, 只写(选填), 短连接服务器地址列表
 static const char* kTIMCustomServerInfoShortConnectionAddressArray = "shortconnection_address_array";
 // string, 只写(必填), 服务器公钥
 static const char* kTIMCustomServerInfoServerPublicKey = "server_public_key";
 
 //------------------------------------------------------------------------------
 // 4.7 QuicChannelInfo(Quic 通道信息)
-// bool, 只写(必填), 是否强制打开 Quic 通道，true：打开，false：不打开
-static const char* kTIMQuicChannelInfoForceUseQuicChannel = "quic_channel_info_force_use_quic_channel";
+// bool, 只写(必填), 是否启用 Quic 通道，true：打开，false：不打开
+static const char* kTIMQuicChannelInfoEnableQuic = "quic_channel_info_enable_quic";
 
 //------------------------------------------------------------------------------
 // 4.8 SM4GCMCallbackParam(国密 SM4 GCM 回调函数地址的参数)
@@ -173,9 +181,9 @@ static const char* kTIMCommercialAbilityResultEnabled = "commercial_ability_resu
 
 //------------------------------------------------------------------------------
 // 4.12 RequestParam(callExperimentalAPI 接口请求的参数)
-// string [TIMInternalOperation](), 只写(必填), 内部接口的操作类型
+// string @ref TIMInternalOperation, 只写(必填), 内部接口的操作类型
 static const char* kTIMRequestInternalOperation = "request_internal_operation";
-// object [SSODataParam](), 只写(选填), sso发包请求, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSSOData 时需要设置
+// object @ref SSODataParam, 只写(选填), sso发包请求, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSSOData 时需要设置
 static const char* kTIMRequestSSODataParam = "request_sso_data_param";
 // array string, 只写(选填), 请求需要转换成tinyid的userid列表, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationUserId2TinyId 时需要设置
 static const char* kTIMRequestUserId2TinyIdParam = "request_userid_tinyid_param";
@@ -189,19 +197,19 @@ static const char* kTIMRequestSetIPv6PriorParam = "request_set_ipv6_prior_param"
 static const char* kTIMRequestSetMaxRetryCountParam = "request_set_max_retry_count_param";
 // int64, 只写(选填), 设置登录、发消息请求的超时时间, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetPacketRequestTimeout 时需要设置
 static const char* kTIMRequestSetPacketRequestTimeoutParam = "request_set_packet_request_timeout_param";
-// object [CustomServerInfo](), 只写(选填), 自定义服务器信息, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetCustomServerInfo 时需要设置
+// object @ref CustomServerInfo, 只写(选填), 自定义服务器信息, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetCustomServerInfo 时需要设置
 static const char* kTIMRequestSetCustomServerInfoParam = "request_set_custom_server_info_param";
-// bool, 只写(选填), true 表示设置 Quic 通道信息, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetQuicChannelInfo 时需要设置
-static const char* kTIMRequestSetQuicChannelInfoParam = "request_set_quic_channel_info_param";
-// object [SM4GCMCallbackParam](), 只写(选填), 国密 SM4 GCM 回调函数地址的参数, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetSM4GCMCallback 时需要设置
+// bool, 只写(选填), true 表示设置 Quic 通道信息, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationEnableQuicChannel 时需要设置
+static const char* kTIMRequestEnableQuicChannelParam = "request_enable_quic_channel_param";
+// object @ref SM4GCMCallbackParam, 只写(选填), 国密 SM4 GCM 回调函数地址的参数, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetSM4GCMCallback 时需要设置
 static const char* kTIMRequestSetSM4GCMCallbackParam = "request_set_sm4_gcm_callback_param";
 // string, 只写(选填), 初始化 Database 的用户 ID, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationInitLocalStorage 时需要设置
 static const char* kTIMRequestInitLocalStorageParam = "request_init_local_storage_user_id_param";
-// object [CosSaveRegionForConversationParam](), 只写(选填), 设置 cos 存储区域的参数, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetCosSaveRegionForConversation 时需要设置
+// object @ref CosSaveRegionForConversationParam, 只写(选填), 设置 cos 存储区域的参数, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetCosSaveRegionForConversation 时需要设置
 static const char* kTIMRequestSetCosSaveRegionForConversationParam = "request_set_cos_save_region_for_conversation_param";
 // uint32, 只写(选填), 设置 UI 平台，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetUIPlatform 时需要设置
 static const char* kTIMRequestSetUIPlatformParam = "request_set_ui_platform_param";
-// object [DatabaseEncryptInfo](), 只写(选填), 设置数据库加密信息, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetDatabaseEncryptInfo 时需要设置
+// object @ref DatabaseEncryptInfo, 只写(选填), 设置数据库加密信息, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetDatabaseEncryptInfo 时需要设置
 static const char* kTIMRequestSetDatabaseEncryptInfoParam = "request_set_database_encrypt_info_param";
 // uint64, 只写(选填), 商业化能力项枚举的组合值, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationIsCommercialAbilityEnabled 时需要设置
 static const char* kTIMRequestIsCommercialAbilityEnabledParam = "request_is_commercial_ability_enabled_param";
@@ -229,16 +237,43 @@ static const char* kTIMRequestReportTUIComponentUsageUIComponentTypeParam = "rep
 static const char* kTIMRequestReportTUIComponentUsageUIStyleTypeParam = "report_tuicomponent_usage_uistyle_type_param";
 // string, 只写(必填)，长连接透传发送的数据，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSendTRTCCustomData 时需要设置
 static const char* kTIMRequestSendTRTCCustomDataParam = "request_send_trtc_custom_data_param";
+// string, 只写(必填)，长连接透传发送的数据，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSendRoomCustomData 时需要设置
+static const char* kTIMRequestSendRoomCustomDataServiceCommandParam = "request_send_room_custom_data_service_command_param";
+// string, 只写(必填)，长连接透传发送的数据，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSendRoomCustomData 时需要设置
+static const char* kTIMRequestSendRoomCustomDataRequestContentParam = "request_send_room_custom_data_request_content_param";
+// uint8, 只写(选填), 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetApplicationID 时需要设置
+static const char* kTIMRequestSetApplicationIDParam = "request_set_application_id_param";
+// string, 只写(必填), 当 kTIMRequestInternalOperation 为 kTIMInternalOperationGetServerConfig 时需要设置
+static const char* kTIMRequestGetServerConfigKeyParam = "request_get_server_config_key_param";
+// string, 只写(必填), 当 kTIMRequestInternalOperation 为 kTIMInternalOperationGetServerConfig 时需要设置
+// 0或不填: 无效， 1:数值类型  2:字符串类型
+static const char* kTIMRequestGetServerConfigValueTypeParam = "request_get_server_config_value_type_param";
+// bool, 只写(选填), 设置「SDK 是否忽略重复登录请求」, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetIgnoreRepeatLogin 时有效
+static const char* kTIMRequestSetIgnoreRepeatLoginParam = "request_set_ignore_repeat_login_param";
+// string, 只写(必填)，直播群 ID, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationStartMessageLongPolling 时需要设置
+static const char* kTIMRequestStartMessageLongPollingIDParam = "request_start_message_long_polling_id_param";
+// string, 只写(必填)，直播群长轮询的 key, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationStartMessageLongPolling 时需要设置
+static const char* kTIMRequestStartMessageLongPollingKeyParam = "request_start_message_long_polling_key_param";
+// string, 只写(必填)，长轮询起始的 sequence, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationStartMessageLongPolling 时需要设置
+static const char* kTIMRequestStartMessageLongPollingSequenceParam = "request_start_message_long_polling_sequence_param";
+// string, 只写(必填)，直播群 ID, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationStopMessageLongPolling 时需要设置
+static const char* kTIMRequestStopMessageLongPollingIDParam = "request_stop_message_long_polling_id_param";
+// string, 只写(必填)，消息 ID，当 kTIMRequestInternalOperation 为 kTIMInternalOperationFindMergerMessages 时需要设置
+static const char* kTIMRequestFindMergerMessagesMessageIDParam = "request_find_merger_messages_message_id_param";
+// array, 只写(必填)，合并消息 ID 列表，当 kTIMRequestInternalOperation 为 kTIMInternalOperationFindMergerMessages 时需要设置
+static const char* kTIMRequestFindMergerMessagesMergerMessageIDListParam = "request_find_merger_messages_merger_message_id_list_param";
+// string, 只写(选填)，群 ID, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationGetBriefGroupMemberList 时需要设置
+static const char* kTIMRequestGetBriefGroupMemberListGroupIDParam = "request_get_brief_group_member_list_group_id_param";
 
 //------------------------------------------------------------------------------
 // 4.13 ResponseInfo(callExperimentalAPI 接口回调返回的数据)
-// string [TIMInternalOperation](), 只读(必填), 响应的内部操作
+// string @ref TIMInternalOperation, 只读(必填), 响应的内部操作
 static const char* kTIMResponseInternalOperation = "response_internal_operation";
-// object [SSODataRes](), 只读(选填), sso发包请求的响应, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationSSOData 时有值
+// object @ref SSODataRes, 只读(选填), sso发包请求的响应, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationSSOData 时有值
 static const char* kTIMResponseSSODataRes = "response_sso_data_res";
-// array [UserInfo](), 只读(选填), 响应的tinyid列表, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationUserId2TinyId 时有值
+// array @ref UserInfo, 只读(选填), 响应的tinyid列表, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationUserId2TinyId 时有值
 static const char* kTIMResponseUserId2TinyIdRes = "response_userid_tinyid_res";
-// array [UserInfo](), 只读(选填), 响应的tinyid列表, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationTinyId2UserId 时有值
+// array @ref UserInfo, 只读(选填), 响应的tinyid列表, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationTinyId2UserId 时有值
 static const char* kTIMResponseTinyId2UserIdRes = "response_tinyid_userid_res";
 // bool, 只读(选填), true 表示当前环境为测试环境，false表示当前环境是正式环境, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationSetEnv 时有值
 static const char* kTIMResponseSetEvnRes = "response_set_env_res";
