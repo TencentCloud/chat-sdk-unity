@@ -83,19 +83,21 @@ typedef unsigned char bool;
 
 #ifdef _WIN32
 #if defined(ENABLE_STATIC_LIB)
-#define TIM_DECL
+#define TIM_API
 #else
 #if defined(TIM_EXPORTS) 
-#define TIM_DECL __declspec(dllexport)
+#define TIM_API __declspec(dllexport)
 #else
-#define TIM_DECL __declspec(dllimport)
+#define TIM_API __declspec(dllimport)
 #endif
 #endif
 
 #else 
 
-#define TIM_DECL __attribute__ ((visibility ("default")))
+#define TIM_API __attribute__ ((visibility ("default")))
 
 #endif
+
+#define TIM_DECL TIM_API
 
 #endif  // SRC_PLATFORM_CROSS_PLATFORM_INCLUDE_TIM_CLOUD_COMM_H_
