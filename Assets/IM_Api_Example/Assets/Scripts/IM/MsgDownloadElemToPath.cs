@@ -112,6 +112,7 @@ public class MsgDownloadElemToPath : MonoBehaviour
   }
   void GetResult(params object[] parameters)
   {
+    print("GetResult: " + parameters[0]);
     Result.text += (string)parameters[0];
   }
 
