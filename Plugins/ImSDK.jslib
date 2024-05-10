@@ -65,53 +65,53 @@ var ImSDKPlugin = {
     // Generate Js From C#
     // from----------------------------------------------------------------
     fromFriendPendencyType: function fromFriendPendencyType(type) {
-      var list = [TIM.TYPES.SNS_APPLICATION_SENT_TO_ME, TIM.TYPES.SNS_APPLICATION_SENT_BY_ME, TIM.TYPES.SNS_APPLICATION_TYPE_BOTH];
+      var list = [TencentCloudChat.TYPES.SNS_APPLICATION_SENT_TO_ME, TencentCloudChat.TYPES.SNS_APPLICATION_SENT_BY_ME, ''];
       return list[type];
     },
     fromFriendType: function fromFriendType(type) {
-      var list = [TIM.TYPES.SNS_ADD_TYPE_SINGLE, TIM.TYPES.SNS_ADD_TYPE_BOTH];
+      var list = [TencentCloudChat.TYPES.SNS_ADD_TYPE_SINGLE, TencentCloudChat.TYPES.SNS_ADD_TYPE_BOTH];
       return list[type];
     },
     fromConvType: function fromConvType(type) {
-      var convType = ['', TIM.TYPES.CONV_C2C, TIM.TYPES.CONV_GROUP, TIM.TYPES.CONV_SYSTEM];
+      var convType = ['', TencentCloudChat.TYPES.CONV_C2C, TencentCloudChat.TYPES.CONV_GROUP, ''];
       return convType[type];
     },
     fromGender: function fromGender(type) {
-      var genderType = [TIM.TYPES.GENDER_UNKNOWN, TIM.TYPES.GENDER_MALE, TIM.TYPES.GENDER_FEMALE];
+      var genderType = [TencentCloudChat.TYPES.GENDER_UNKNOWN, TencentCloudChat.TYPES.GENDER_MALE, TencentCloudChat.TYPES.GENDER_FEMALE];
       return genderType[type];
     },
     fromAddPermission: function fromAddPermission(type) {
-      var addType = ['', TIM.TYPES.ALLOW_TYPE_ALLOW_ANY, TIM.TYPES.ALLOW_TYPE_NEED_CONFIRM, TIM.TYPES.ALLOW_TYPE_DENY_ANY];
+      var addType = ['', TencentCloudChat.TYPES.ALLOW_TYPE_ALLOW_ANY, TencentCloudChat.TYPES.ALLOW_TYPE_NEED_CONFIRM, TencentCloudChat.TYPES.ALLOW_TYPE_DENY_ANY];
       return addType[type];
     },
     fromPriority: function fromPriority(priority) {
-      var priorityList = [TIM.TYPES.MSG_PRIORITY_HIGH, TIM.TYPES.MSG_PRIORITY_NORMAL, TIM.TYPES.MSG_PRIORITY_LOW, TIM.TYPES.MSG_PRIORITY_LOWEST];
+      var priorityList = [TencentCloudChat.TYPES.MSG_PRIORITY_HIGH, TencentCloudChat.TYPES.MSG_PRIORITY_NORMAL, TencentCloudChat.TYPES.MSG_PRIORITY_LOW, TencentCloudChat.TYPES.MSG_PRIORITY_LOWEST];
       return priorityList[priority];
     },
     fromReceiveMsgOpt: function fromReceiveMsgOpt(opt) {
-      var optList = [TIM.TYPES.MSG_REMIND_ACPT_AND_NOTE, TIM.TYPES.MSG_REMIND_DISCARD, TIM.TYPES.MSG_REMIND_ACPT_NOT_NOTE];
+      var optList = [TencentCloudChat.TYPES.MSG_REMIND_ACPT_AND_NOTE, TencentCloudChat.TYPES.TencentCloudChat.TYPES.MSG_REMIND_DISCARD, TencentCloudChat.TYPES.MSG_REMIND_ACPT_NOT_NOTE];
       return optList[opt];
     },
     fromGroupType: function fromGroupType(type) {
-      var optList = [TIM.TYPES.GRP_PUBLIC, TIM.TYPES.GRP_WORK, TIM.TYPES.GRP_MEETING, TIM.TYPES.GRP_AVCHATROOM, TIM.TYPES.GRP_AVCHATROOM, TIM.TYPES.GRP_COMMUNITY];
+      var optList = [TencentCloudChat.TYPES.GRP_PUBLIC, TencentCloudChat.TYPES.GRP_WORK, TencentCloudChat.TYPES.GRP_MEETING, TencentCloudChat.TYPES.GRP_AVCHATROOM, TencentCloudChat.TYPES.GRP_AVCHATROOM, TencentCloudChat.TYPES.GRP_COMMUNITY];
       return optList[type];
     },
     fromRole: function fromRole(role) {
       switch (role) {
         case 400:
-          return TIM.TYPES.GRP_MBR_ROLE_OWNER;
+          return TencentCloudChat.TYPES.GRP_MBR_ROLE_OWNER;
         case 300:
-          return TIM.TYPES.GRP_MBR_ROLE_ADMIN;
+          return TencentCloudChat.TYPES.GRP_MBR_ROLE_ADMIN;
         default:
-          return TIM.TYPES.GRP_MBR_ROLE_MEMBER;
+          return TencentCloudChat.TYPES.GRP_MBR_ROLE_MEMBER;
       }
     },
     fromJoinOption: function fromJoinOption(type) {
-      var optList = [TIM.TYPES.JOIN_OPTIONS_DISABLE_APPLY, TIM.TYPES.JOIN_OPTIONS_NEED_PERMISSION, TIM.TYPES.JOIN_OPTIONS_FREE_ACCESS];
+      var optList = [TencentCloudChat.TYPES.JOIN_OPTIONS_DISABLE_APPLY, TencentCloudChat.TYPES.JOIN_OPTIONS_NEED_PERMISSION, TencentCloudChat.TYPES.JOIN_OPTIONS_FREE_ACCESS];
       return optList[type];
     },
     fromGroupAddOption: function fromGroupAddOption(type) {
-      var optList = [TIM.TYPES.JOIN_OPTIONS_DISABLE_APPLY, TIM.TYPES.JOIN_OPTIONS_NEED_PERMISSION, TIM.TYPES.JOIN_OPTIONS_FREE_ACCESS];
+      var optList = [TencentCloudChat.TYPES.JOIN_OPTIONS_DISABLE_APPLY, TencentCloudChat.TYPES.JOIN_OPTIONS_NEED_PERMISSION, TencentCloudChat.TYPES.JOIN_OPTIONS_FREE_ACCESS];
       return optList[type];
     },
     fromCreateGroup: function fromCreateGroup(param) {
@@ -210,11 +210,11 @@ var ImSDKPlugin = {
     },
     toNetworkStatus: function toNetworkStatus(status) {
       switch (status) {
-        case TIM.TYPES.NET_STATE_CONNECTED:
+        case TencentCloudChat.TYPES.NET_STATE_CONNECTED:
           return 0;
-        case TIM.TYPES.NET_STATE_DISCONNECTED:
+        case TencentCloudChat.TYPES.NET_STATE_DISCONNECTED:
           return 1;
-        case TIM.TYPES.NET_STATE_CONNECTING:
+        case TencentCloudChat.TYPES.NET_STATE_CONNECTING :
           return 2;
         default:
           return 3;
@@ -232,9 +232,9 @@ var ImSDKPlugin = {
     },
     toFriendPendencyType: function toFriendPendencyType(type) {
       switch (type) {
-        case TIM.TYPES.SNS_APPLICATION_SENT_TO_ME:
+        case TencentCloudChat.TYPES.SNS_APPLICATION_SENT_TO_ME:
           return 0;
-        case TIM.TYPES.SNS_APPLICATION_SENT_BY_ME:
+        case TencentCloudChat.TYPES.SNS_APPLICATION_SENT_BY_ME:
           return 1;
         default:
           return 2;
@@ -252,11 +252,11 @@ var ImSDKPlugin = {
     },
     toCheckRelation: function toCheckRelation(relation) {
       switch (relation) {
-        case TIM.TYPES.SNS_TYPE_BOTH_WAY:
+        case TencentCloudChat.TYPES.SNS_TYPE_BOTH_WAY:
           return 3;
-        case TIM.TYPES.SNS_TYPE_B_WITH_A:
+        case TencentCloudChat.TYPES.SNS_TYPE_B_WITH_A:
           return 2;
-        case TIM.TYPES.SNS_TYPE_A_WITH_B:
+        case TencentCloudChat.TYPES.SNS_TYPE_A_WITH_B:
           return 1;
         default:
           return 0;
@@ -282,35 +282,33 @@ var ImSDKPlugin = {
     },
     toConvType: function toConvType(type) {
       switch (type) {
-        case TIM.TYPES.CONV_C2C:
+        case TencentCloudChat.TYPES.CONV_C2C:
           return 1;
-        case TIM.TYPES.CONV_GROUP:
+        case TencentCloudChat.TYPES.CONV_GROUP:
           return 2;
-        case TIM.TYPES.CONV_SYSTEM:
-          return 3;
         default:
           return 0;
       }
     },
     toPriority: function toPriority(priority) {
       switch (priority) {
-        case TIM.TYPES.MSG_PRIORITY_HIGH:
+        case TencentCloudChat.TYPES.MSG_PRIORITY_HIGH:
           return 0;
-        case TIM.TYPES.MSG_PRIORITY_NORMAL:
+        case TencentCloudChat.TYPES.MSG_PRIORITY_NORMAL:
           return 1;
-        case TIM.TYPES.MSG_PRIORITY_LOW:
+        case TencentCloudChat.TYPES.MSG_PRIORITY_LOW:
           return 2;
-        case TIM.TYPES.MSG_PRIORITY_LOWEST:
+        case TencentCloudChat.TYPES.MSG_PRIORITY_LOWEST:
           return 3;
       }
     },
     toUserStatusType: function toUserStatusType(status) {
       switch (status) {
-        case TIM.TYPES.USER_STATUS_UNLOGINED:
+        case TencentCloudChat.TYPES.USER_STATUS_UNLOGINED:
           return 3;
-        case TIM.TYPES.USER_STATUS_OFFLINE:
+        case TencentCloudChat.TYPES.USER_STATUS_OFFLINE:
           return 2;
-        case TIM.TYPES.USER_STATUS_ONLINE:
+        case TencentCloudChat.TYPES.USER_STATUS_ONLINE:
           return 1;
         default:
           return 0;
@@ -318,11 +316,11 @@ var ImSDKPlugin = {
     },
     toProfileAddPermissionType: function toProfileAddPermissionType(type) {
       switch (status) {
-        case TIM.TYPES.ALLOW_TYPE_ALLOW_ANY:
+        case TencentCloudChat.TYPES.ALLOW_TYPE_ALLOW_ANY:
           return 1;
-        case TIM.TYPES.ALLOW_TYPE_NEED_CONFIRM:
+        case TencentCloudChat.TYPES.ALLOW_TYPE_NEED_CONFIRM:
           return 2;
-        case TIM.TYPES.ALLOW_TYPE_DENY_ANY:
+        case TencentCloudChat.TYPES.ALLOW_TYPE_DENY_ANY:
           return 3;
       }
     },
@@ -358,15 +356,15 @@ var ImSDKPlugin = {
     },
     toGroupType: function toGroupType(type) {
       switch (type) {
-        case TIM.TYPES.GRP_PUBLIC:
+        case TencentCloudChat.TYPES.GRP_PUBLIC:
           return 0;
-        case TIM.TYPES.GRP_WORK:
+        case TencentCloudChat.TYPES.GRP_WORK:
           return 1;
-        case TIM.TYPES.GRP_MEETING:
+        case TencentCloudChat.TYPES.GRP_MEETING:
           return 2;
-        case TIM.TYPES.GRP_AVCHATROOM:
+        case TencentCloudChat.TYPES.GRP_AVCHATROOM:
           return 4;
-        case TIM.TYPES.GRP_COMMUNITY:
+        case TencentCloudChat.TYPES.GRP_COMMUNITY:
           return 5;
         default:
           return 0;
@@ -374,21 +372,21 @@ var ImSDKPlugin = {
     },
     toMsgFlag: function toMsgFlag(type) {
       switch (type) {
-        case TIM.TYPES.MSG_REMIND_ACPT_AND_NOTE:
+        case TencentCloudChat.TYPES.MSG_REMIND_ACPT_AND_NOTE:
           return 0;
-        case TIM.TYPES.MSG_REMIND_DISCARD:
+        case TencentCloudChat.TYPES.TencentCloudChat.TYPES.MSG_REMIND_DISCARD:
           return 1;
-        case TIM.TYPES.MSG_REMIND_ACPT_NOT_NOTE:
+        case TencentCloudChat.TYPES.MSG_REMIND_ACPT_NOT_NOTE:
           return 2;
       }
     },
     toRole: function toRole(type) {
       switch (type) {
-        case TIM.TYPES.GRP_MBR_ROLE_ADMIN:
+        case TencentCloudChat.TYPES.GRP_MBR_ROLE_ADMIN:
           return 300;
-        case TIM.TYPES.GRP_MBR_ROLE_MEMBER:
+        case TencentCloudChat.TYPES.GRP_MBR_ROLE_MEMBER:
           return 200;
-        case TIM.TYPES.GRP_MBR_ROLE_OWNER:
+        case TencentCloudChat.TYPES.GRP_MBR_ROLE_OWNER:
           return 400;
         default:
           return 0;
@@ -396,20 +394,20 @@ var ImSDKPlugin = {
     },
     toGroupAddOption: function toGroupAddOption(type) {
       switch (type) {
-        case TIM.TYPES.JOIN_OPTIONS_FREE_ACCESS:
+        case TencentCloudChat.TYPES.JOIN_OPTIONS_FREE_ACCESS:
           return 2;
-        case TIM.TYPES.JOIN_OPTIONS_NEED_PERMISSION:
+        case TencentCloudChat.TYPES.JOIN_OPTIONS_NEED_PERMISSION:
           return 1;
-        case TIM.TYPES.JOIN_OPTIONS_DISABLE_APPLY:
+        case TencentCloudChat.TYPES.JOIN_OPTIONS_DISABLE_APPLY:
         default:
           return 0;
       }
     },
     toGender: function toGender(gender) {
       switch (gender) {
-        case TIM.TYPES.GENDER_FEMALE:
+        case TencentCloudChat.TYPES.GENDER_FEMALE:
           return 2;
-        case TIM.TYPES.GENDER_MALE:
+        case TencentCloudChat.TYPES.GENDER_MALE:
           return 1;
         default:
           return 0;
@@ -417,11 +415,11 @@ var ImSDKPlugin = {
     },
     toAddPermission: function toAddPermission(type) {
       switch (type) {
-        case TIM.TYPES.ALLOW_TYPE_DENY_ANY:
+        case TencentCloudChat.TYPES.ALLOW_TYPE_DENY_ANY:
           return 3;
-        case TIM.TYPES.ALLOW_TYPE_NEED_CONFIRM:
+        case TencentCloudChat.TYPES.ALLOW_TYPE_NEED_CONFIRM:
           return 2;
-        case TIM.TYPES.ALLOW_TYPE_ALLOW_ANY:
+        case TencentCloudChat.TYPES.ALLOW_TYPE_ALLOW_ANY:
           return 1;
         default:
           return 0;
@@ -625,13 +623,13 @@ var ImSDKPlugin = {
       var elem = {};
       var payload = msg.payload;
       switch (msg.type) {
-        case TIM.TYPES.MSG_TEXT:
+        case TencentCloudChat.TYPES.MSG_TEXT:
           {
             elem.elem_type = 0;
             elem.text_elem_content = payload.text;
             break;
           }
-        case TIM.TYPES.MSG_IMAGE:
+        case TencentCloudChat.TYPES.MSG_IMAGE:
           {
             elem.elem_type = 1;
             elem.image_elem_format = payload.imageFormat;
@@ -664,7 +662,7 @@ var ImSDKPlugin = {
             }
             break;
           }
-        case TIM.TYPES.MSG_AUDIO:
+        case TencentCloudChat.TYPES.MSG_AUDIO:
           {
             elem.elem_type = 2;
             elem.sound_elem_file_path = payload.uuid;
@@ -673,7 +671,7 @@ var ImSDKPlugin = {
             elem.sound_elem_url = payload.url;
             break;
           }
-        case TIM.TYPES.MSG_CUSTOM:
+        case TencentCloudChat.TYPES.MSG_CUSTOM:
           {
             elem.elem_type = 3;
             elem.custom_elem_data = payload.data;
@@ -681,7 +679,7 @@ var ImSDKPlugin = {
             elem.custom_elem_ext = payload.extension;
             break;
           }
-        case TIM.TYPES.MSG_FILE:
+        case TencentCloudChat.TYPES.MSG_FILE:
           {
             elem.elem_type = 4;
             elem.file_elem_file_path = payload.uuid;
@@ -690,7 +688,7 @@ var ImSDKPlugin = {
             elem.file_elem_url = payload.fileUrl;
             break;
           }
-        case TIM.TYPES.MSG_GRP_TIP:
+        case TencentCloudChat.TYPES.MSG_GRP_TIP:
           {
             elem.elem_type = 5;
             elem.group_tips_elem_tip_type = payload.operationType;
@@ -703,14 +701,14 @@ var ImSDKPlugin = {
             }
             break;
           }
-        case TIM.TYPES.MSG_FACE:
+        case TencentCloudChat.TYPES.MSG_FACE:
           {
             elem.elem_type = 6;
             elem.face_elem_index = payload.index;
             elem.face_elem_buf = payload.data;
             break;
           }
-        case TIM.TYPES.MSG_LOCATION:
+        case TencentCloudChat.TYPES.MSG_LOCATION:
           {
             elem.elem_type = 7;
             elem.location_elem_desc = payload.description;
@@ -718,12 +716,12 @@ var ImSDKPlugin = {
             elem.location_elem_latitude = payload.latitude;
             break;
           }
-        case TIM.TYPES.MSG_GRP_SYS_NOTICE:
+        case TencentCloudChat.TYPES.MSG_GRP_SYS_NOTICE:
           {
             elem.elem_type = 8;
             break;
           }
-        case TIM.TYPES.MSG_VIDEO:
+        case TencentCloudChat.TYPES.MSG_VIDEO:
           {
             elem.elem_type = 9;
             elem.video_elem_video_type = payload.videoFormat;
@@ -736,7 +734,7 @@ var ImSDKPlugin = {
             elem.video_elem_image_url = payload.snapshotUrl ? payload.snapshotUrl : payload.thumbUrl;
             break;
           }
-        case TIM.TYPES.MSG_MERGER:
+        case TencentCloudChat.TYPES.MSG_MERGER:
           {
             elem.elem_type = 12;
             elem.merge_elem_title = payload.title;
@@ -836,13 +834,13 @@ var ImSDKPlugin = {
         var body = {};
         if (elem.elem_type === 0) {
           // Text
-          body.type = TIM.TYPES.MSG_TEXT;
+          body.type = TencentCloudChat.TYPES.MSG_TEXT;
           body.payload = {
             text: elem.text_elem_content
           };
         } else if (elem.elem_type === 1) {
           // Image
-          body.type = TIM.TYPES.MSG_IMAGE;
+          body.type = TencentCloudChat.TYPES.MSG_IMAGE;
           body.payload = {
             uuid: elem.image_elem_orig_path,
             imageFormat: elem.image_elem_format,
@@ -880,7 +878,7 @@ var ImSDKPlugin = {
           }
         } else if (elem.elem_type === 2) {
           // Sound
-          body.type = TIM.TYPES.MSG_AUDIO;
+          body.type = TencentCloudChat.TYPES.MSG_AUDIO;
           body.payload = {
             uuid: elem.sound_elem_file_path,
             url: elem.sound_elem_url,
@@ -889,7 +887,7 @@ var ImSDKPlugin = {
           };
         } else if (elem.elem_type === 3) {
           // Custom
-          body.type = TIM.TYPES.MSG_CUSTOM;
+          body.type = TencentCloudChat.TYPES.MSG_CUSTOM;
           body.payload = {
             data: elem.custom_elem_data,
             description: elem.custom_elem_desc,
@@ -897,7 +895,7 @@ var ImSDKPlugin = {
           };
         } else if (elem.elem_type === 4) {
           // File
-          body.type = TIM.TYPES.MSG_FILE;
+          body.type = TencentCloudChat.TYPES.MSG_FILE;
           body.payload = {
             uuid: elem.file_elem_file_path,
             fileName: elem.file_elem_file_name,
@@ -906,14 +904,14 @@ var ImSDKPlugin = {
           };
         } else if (elem.elem_type === 6) {
           // Face
-          body.type = TIM.TYPES.MSG_FACE;
+          body.type = TencentCloudChat.TYPES.MSG_FACE;
           body.payload = {
             index: elem.face_elem_index,
             data: elem.face_elem_buf
           };
         } else if (elem.elem_type === 7) {
           // Location
-          body.type = TIM.TYPES.MSG_LOCATION;
+          body.type = TencentCloudChat.TYPES.MSG_LOCATION;
           body.payload = {
             description: elem.location_elem_desc,
             longitude: elem.location_elem_longitude,
@@ -921,7 +919,7 @@ var ImSDKPlugin = {
           };
         } else if (elem.elem_type === 9) {
           // Video
-          body.type = TIM.TYPES.MSG_VIDEO;
+          body.type = TencentCloudChat.TYPES.MSG_VIDEO;
           body.payload = {
             videoFormat: elem.video_elem_video_type,
             videoSecond: elem.video_elem_video_duration,
@@ -934,7 +932,7 @@ var ImSDKPlugin = {
           };
         } else if (elem.elem_type === 12) {
           // Merger
-          body.type = TIM.TYPES.MSG_MERGER;
+          body.type = TencentCloudChat.TYPES.MSG_MERGER;
           body.payload = {
             downloadKey: elem.merge_elem_relay_json_key,
             messageList: elem.merge_elem_message_array.map(function (msg) {
@@ -1160,8 +1158,8 @@ var ImSDKPlugin = {
     }
   },
   TIMInit: function TIMInit(sdk_app_id, json_sdk_config) {
-    if (TIM && TIM.create) {
-      tim = TIM.create({
+    if (TencentCloudChat && TencentCloudChat.create) {
+      tim = TencentCloudChat.create({
         SDKAppID: sdk_app_id
       });
       if (TIMUploadPlugin) {
@@ -1193,7 +1191,7 @@ var ImSDKPlugin = {
         });
       };
 
-      tim.on(TIM.EVENT.SDK_READY, onSdkReady);
+      tim.on(TencentCloudChat.EVENT.SDK_READY, onSdkReady);
     } else {
       utils._handleNoTIM();
     }
@@ -1227,12 +1225,12 @@ var ImSDKPlugin = {
     utils.isInit = false;
   },
   TIMGetSDKVersion: function TIMGetSDKVersion() {
-    if (TIM && TIM.VERSION) {
-      var ver = utils.getStrBuf(TIM.VERSION);
-      return ver;
-    } else {
-      utils._handleNoTIM();
-    }
+   if (TencentCloudChat && TencentCloudChat.VERSION) {
+     var ver = utils.getStrBuf(TencentCloudChat.VERSION);
+     return ver;
+   } else {
+     utils._handleNoTIM();
+   }
   },
   TIMSetConfig: function TIMSetConfig() {
     utils._handleNotImplemented();
@@ -1761,7 +1759,7 @@ var ImSDKPlugin = {
       return;
     }
     // 将所有会话的未读消息全部设置为已读
-    var promise = tim.setAllMessageRead(); // 等同于 tim.setAllMessageRead({scope: TIM.TYPES.READ_ALL_MSG})
+    var promise = tim.setAllMessageRead(); // 等同于 tim.setAllMessageRead({scope: TencentCloudChat.TYPES.READ_ALL_MSG})
     promise.then(function (imResponse) {
       // 已读上报成功，所有会话的 unreadCount 属性值被置为0
       Module['dynCall_viiii'](cb, imResponse.code, '', '', user_data);
@@ -1967,7 +1965,7 @@ var ImSDKPlugin = {
     var messageID = message.message_msg_id;
     var foundMessage = tim.findMessage(messageID);
     // downloadKey 存在说明收到的合并消息存储在云端，需要先下载
-    if (foundMessage.type === TIM.TYPES.MSG_MERGER && foundMessage.payload.downloadKey !== '') {
+    if (foundMessage.type === TencentCloudChat.TYPES.MSG_MERGER && foundMessage.payload.downloadKey !== '') {
       var promise = tim.downloadMergerMessage(foundMessage);
       promise.then(function (imResponse) {
         // 下载成功后，SDK会更新 message.payload.messageList 等信息
@@ -2034,21 +2032,21 @@ var ImSDKPlugin = {
       utils._handleNotLoggedIn();
       return;
     }
-    // TODO: type 加入直播群时该字段必填 TIM.TYPES.GRP_AVCHATROOM
+    // TODO: type 加入直播群时该字段必填 TencentCloudChat.TYPES.GRP_AVCHATROOM
     var promise = tim.joinGroup({
       groupID: UTF8ToString(group_id),
       applyMessage: UTF8ToString(hello_message)
     });
     promise.then(function (imResponse) {
       switch (imResponse.data.status) {
-        case TIM.TYPES.JOIN_STATUS_WAIT_APPROVAL:
+        case TencentCloudChat.TYPES.JOIN_STATUS_WAIT_APPROVAL:
           // 等待管理员同意
           break;
-        case TIM.TYPES.JOIN_STATUS_SUCCESS:
+        case TencentCloudChat.TYPES.JOIN_STATUS_SUCCESS:
           // 加群成功
           console.log(imResponse.data.group); // 加入的群组资料
           break;
-        case TIM.TYPES.JOIN_STATUS_ALREADY_IN_GROUP:
+        case TencentCloudChat.TYPES.JOIN_STATUS_ALREADY_IN_GROUP:
           // 已经在群中
           break;
         default:
@@ -3027,9 +3025,9 @@ var ImSDKPlugin = {
       });
     } else {
       if (param.friend_response_action === 0) {
-        opt.type = TIM.TYPES.SNS_APPLICATION_AGREE;
+        opt.type = TencentCloudChat.TYPES.SNS_APPLICATION_AGREE;
       } else {
-        opt.type = TIM.TYPES.SNS_APPLICATION_AGREE_AND_ADD;
+        opt.type = TencentCloudChat.TYPES.SNS_APPLICATION_AGREE_AND_ADD;
       }
       if (param.friend_response_remark) {
         opt.remark = param.friend_response_remark;
@@ -3636,7 +3634,7 @@ var ImSDKPlugin = {
       return;
     }
     if (!cb) {
-      tim.off(TIM.EVENT.MESSAGE_RECEIVED, callback.onMessageReceived);
+      tim.off(TencentCloudChat.EVENT.MESSAGE_RECEIVED, callback.onMessageReceived);
       return;
     }
     var onMessageReceived = function onMessageReceived(event) {
@@ -3648,14 +3646,14 @@ var ImSDKPlugin = {
       Module['dynCall_vii'](cb, buf, user_data);
     };
     callback.onMessageReceived = onMessageReceived;
-    tim.on(TIM.EVENT.MESSAGE_RECEIVED, callback.onMessageReceived);
+    tim.on(TencentCloudChat.EVENT.MESSAGE_RECEIVED, callback.onMessageReceived);
   },
   TIMRemoveRecvNewMsgCallback: function TIMRemoveRecvNewMsgCallback() {
     if (!utils.isInit) {
       utils._handleNotLoggedIn();
       return;
     }
-    tim.off(TIM.EVENT.MESSAGE_RECEIVED, callback.onMessageReceived);
+    tim.off(TencentCloudChat.EVENT.MESSAGE_RECEIVED, callback.onMessageReceived);
   },
   TIMSetMsgExtensionsChangedCallback: function TIMSetMsgExtensionsChangedCallback () {
     utils._handleNotImplemented();
@@ -3669,7 +3667,7 @@ var ImSDKPlugin = {
       return;
     }
     if (!cb) {
-      tim.off(TIM.EVENT.MESSAGE_READ_RECEIPT_RECEIVED, callback.onMessageReadReceiptReceived);
+      tim.off(TencentCloudChat.EVENT.MESSAGE_READ_RECEIPT_RECEIVED, callback.onMessageReadReceiptReceived);
       return;
     }
     var onMessageReadReceiptReceived = function onMessageReadReceiptReceived(event) {
@@ -3694,7 +3692,7 @@ var ImSDKPlugin = {
       Module['dynCall_vii'](cb, buf, user_data);
     };
     callback.onMessageReadReceiptReceived = onMessageReadReceiptReceived;
-    tim.on(TIM.EVENT.MESSAGE_READ_RECEIPT_RECEIVED, callback.onMessageReadReceiptReceived);
+    tim.on(TencentCloudChat.EVENT.MESSAGE_READ_RECEIPT_RECEIVED, callback.onMessageReadReceiptReceived);
   },
   TIMSetMsgRevokeCallback: function TIMSetMsgRevokeCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -3702,7 +3700,7 @@ var ImSDKPlugin = {
       return;
     }
     if (!cb) {
-      tim.off(TIM.EVENT.MESSAGE_REVOKED, callback.onMessageRevoked);
+      tim.off(TencentCloudChat.EVENT.MESSAGE_REVOKED, callback.onMessageRevoked);
       return;
     }
     var onMessageRevoked = function onMessageRevoked(event) {
@@ -3715,7 +3713,7 @@ var ImSDKPlugin = {
       Module['dynCall_vii'](cb, buf, user_data);
     };
     callback.onMessageRevoked = onMessageRevoked;
-    tim.on(TIM.EVENT.MESSAGE_REVOKED, callback.onMessageRevoked);
+    tim.on(TencentCloudChat.EVENT.MESSAGE_REVOKED, callback.onMessageRevoked);
   },
   TIMSetMsgElemUploadProgressCallback: function TIMSetMsgElemUploadProgressCallback(cb, user_data) {
     utils._handleNotImplemented();
@@ -3729,7 +3727,7 @@ var ImSDKPlugin = {
       return;
     }
     if (!cb) {
-      tim.off(TIM.EVENT.GROUP_ATTRIBUTES_UPDATED, callback.onGroupAttributesUpdated);
+      tim.off(TencentCloudChat.EVENT.GROUP_ATTRIBUTES_UPDATED, callback.onGroupAttributesUpdated);
       return;
     }
     var onGroupAttributesUpdated = function onGroupAttributesUpdated(event) {
@@ -3746,7 +3744,7 @@ var ImSDKPlugin = {
       Module['dynCall_viii'](cb, group_id, buf, user_data);
     };
     callback.onGroupAttributesUpdated = onGroupAttributesUpdated;
-    tim.on(TIM.EVENT.GROUP_ATTRIBUTES_UPDATED, callback.onGroupAttributesUpdated);
+    tim.on(TencentCloudChat.EVENT.GROUP_ATTRIBUTES_UPDATED, callback.onGroupAttributesUpdated);
   },
   TIMSetConvEventCallback: function TIMSetConvEventCallback(cb, user_data) {
     utils._handleNotImplemented();
@@ -3771,11 +3769,11 @@ var ImSDKPlugin = {
       utils._handleNotLoggedIn();
       return;
     }
-    if (!TIM.EVENT.TOTAL_UNREAD_MESSAGE_COUNT_UPDATED) {
+    if (!TencentCloudChat.EVENT.TOTAL_UNREAD_MESSAGE_COUNT_UPDATED) {
       return;
     }
     if (!cb) {
-      tim.off(TIM.EVENT.TOTAL_UNREAD_MESSAGE_COUNT_UPDATED, callback.onTotalUnreadMessageCountUpdated);
+      tim.off(TencentCloudChat.EVENT.TOTAL_UNREAD_MESSAGE_COUNT_UPDATED, callback.onTotalUnreadMessageCountUpdated);
       return;
     }
     var onTotalUnreadMessageCountUpdated = function onTotalUnreadMessageCountUpdated(event) {
@@ -3783,7 +3781,7 @@ var ImSDKPlugin = {
       Module['dynCall_vii'](cb, Number(event.data), user_data);
     };
     callback.onTotalUnreadMessageCountUpdated = onTotalUnreadMessageCountUpdated;
-    tim.on(TIM.EVENT.TOTAL_UNREAD_MESSAGE_COUNT_UPDATED, callback.onTotalUnreadMessageCountUpdated);
+    tim.on(TencentCloudChat.EVENT.TOTAL_UNREAD_MESSAGE_COUNT_UPDATED, callback.onTotalUnreadMessageCountUpdated);
   },
   TIMSetNetworkStatusListenerCallback: function TIMSetNetworkStatusListenerCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -3791,19 +3789,19 @@ var ImSDKPlugin = {
       return;
     }
     if (!cb) {
-      tim.off(TIM.EVENT.NET_STATE_CHANGE, callback.onNetStateChange);
+      tim.off(TencentCloudChat.EVENT.NET_STATE_CHANGE, callback.onNetStateChange);
       return;
     }
     var onNetStateChange = function onNetStateChange(event) {
       var state = converter.toNetworkStatus(event.data.state);
       // event.data.state 当前网络状态，枚举值及说明如下：
-      // TIM.TYPES.NET_STATE_CONNECTED - 已接入网络
-      // TIM.TYPES.NET_STATE_CONNECTING - 连接中。很可能遇到网络抖动，SDK 在重试。接入侧可根据此状态提示“当前网络不稳定”或“连接中”
-      // TIM.TYPES.NET_STATE_DISCONNECTED - 未接入网络。接入侧可根据此状态提示“当前网络不可用”。SDK 仍会继续重试，若用户网络恢复，SDK 会自动同步消息
+      // TencentCloudChat.TYPES.NET_STATE_CONNECTED - 已接入网络
+      // TencentCloudChat.TYPES.NET_STATE_CONNECTING  - 连接中。很可能遇到网络抖动，SDK 在重试。接入侧可根据此状态提示“当前网络不稳定”或“连接中”
+      // TencentCloudChat.TYPES.NET_STATE_DISCONNECTED - 未接入网络。接入侧可根据此状态提示“当前网络不可用”。SDK 仍会继续重试，若用户网络恢复，SDK 会自动同步消息
       Module['dynCall_viiii'](cb, state, 0, '', user_data);
     };
     callback.onNetStateChange = onNetStateChange;
-    tim.on(TIM.EVENT.NET_STATE_CHANGE, callback.onNetStateChange);
+    tim.on(TencentCloudChat.EVENT.NET_STATE_CHANGE, callback.onNetStateChange);
   },
   TIMSetKickedOfflineCallback: function TIMSetKickedOfflineCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -3813,7 +3811,7 @@ var ImSDKPlugin = {
     if (!cb) {
       callback._onKickedOut = null;
       if (!callback._onSigExpired) {
-        tim.off(TIM.EVENT.KICKED_OUT, callback.onKicked);
+        tim.off(TencentCloudChat.EVENT.KICKED_OUT, callback.onKicked);
       }
       return;
     }
@@ -3823,12 +3821,12 @@ var ImSDKPlugin = {
       // TIM.TYPES.KICKED_OUT_MULT_DEVICE(同一帐号，多端登录被踢)
       // TIM.TYPES.KICKED_OUT_USERSIG_EXPIRED(签名过期。使用前需要将SDK版本升级至v2.4.0或以上)
       // TIM.TYPES.KICKED_OUT_REST_API(REST API kick 接口踢出。使用前需要将SDK版本升级至v2.20.0或以上)
-      if (event.data.type !== TIM.TYPES.KICKED_OUT_USERSIG_EXPIRED) {
+      if (event.data.type !== TencentCloudChat.TYPES.KICKED_OUT_USERSIG_EXPIRED) {
         Module['dynCall_vi'](cb, user_data);
       }
     };
     callback._onKickedOut = _onKickedOut;
-    tim.on(TIM.EVENT.KICKED_OUT, callback.onKicked);
+    tim.on(TencentCloudChat.EVENT.KICKED_OUT, callback.onKicked);
   },
   TIMSetUserSigExpiredCallback: function TIMSetUserSigExpiredCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -3838,7 +3836,7 @@ var ImSDKPlugin = {
     if (!cb) {
       callback._onSigExpired = null;
       if (!callback._onKickedOut) {
-        tim.off(TIM.EVENT.KICKED_OUT, callback.onKicked);
+        tim.off(TencentCloudChat.EVENT.KICKED_OUT, callback.onKicked);
       }
       return;
     }
@@ -3848,12 +3846,12 @@ var ImSDKPlugin = {
       // TIM.TYPES.KICKED_OUT_MULT_DEVICE(同一帐号，多端登录被踢)
       // TIM.TYPES.KICKED_OUT_USERSIG_EXPIRED(签名过期。使用前需要将SDK版本升级至v2.4.0或以上)
       // TIM.TYPES.KICKED_OUT_REST_API(REST API kick 接口踢出。使用前需要将SDK版本升级至v2.20.0或以上)
-      if (event.data.type === TIM.TYPES.KICKED_OUT_USERSIG_EXPIRED) {
+      if (event.data.type === TencentCloudChat.TYPES.KICKED_OUT_USERSIG_EXPIRED) {
         Module['dynCall_vi'](cb, user_data);
       }
     };
     callback._onSigExpired = _onSigExpired;
-    tim.on(TIM.EVENT.KICKED_OUT, callback.onKicked);
+    tim.on(TencentCloudChat.EVENT.KICKED_OUT, callback.onKicked);
   },
   TIMSetOnAddFriendCallback: function TIMSetOnAddFriendCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -3863,7 +3861,7 @@ var ImSDKPlugin = {
     if (!cb) {
       callback._onAddFriend = null;
       if (!callback._onDeleteFriend) {
-        tim.off(TIM.EVENT.FRIEND_LIST_UPDATED, callback.onFriendListUpdated);
+        tim.off(TencentCloudChat.EVENT.FRIEND_LIST_UPDATED, callback.onFriendListUpdated);
       }
       return;
     }
@@ -3872,7 +3870,7 @@ var ImSDKPlugin = {
       Module['dynCall_vii'](cb, buf, user_data);
     };
     callback._onAddFriend = _onAddFriend;
-    tim.on(TIM.EVENT.FRIEND_LIST_UPDATED, callback.onFriendListUpdated);
+    tim.on(TencentCloudChat.EVENT.FRIEND_LIST_UPDATED, callback.onFriendListUpdated);
   },
   TIMSetOnDeleteFriendCallback: function TIMSetOnDeleteFriendCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -3882,7 +3880,7 @@ var ImSDKPlugin = {
     if (!cb) {
       callback._onDeleteFriend = null;
       if (!callback._onAddFriend) {
-        tim.off(TIM.EVENT.FRIEND_LIST_UPDATED, callback.onFriendListUpdated);
+        tim.off(TencentCloudChat.EVENT.FRIEND_LIST_UPDATED, callback.onFriendListUpdated);
       }
       return;
     }
@@ -3891,7 +3889,7 @@ var ImSDKPlugin = {
       Module['dynCall_vii'](cb, buf, user_data);
     };
     callback._onDeleteFriend = _onDeleteFriend;
-    tim.on(TIM.EVENT.FRIEND_LIST_UPDATED, callback.onFriendListUpdated);
+    tim.on(TencentCloudChat.EVENT.FRIEND_LIST_UPDATED, callback.onFriendListUpdated);
   },
   TIMSetUpdateFriendProfileCallback: function TIMSetUpdateFriendProfileCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -3902,7 +3900,7 @@ var ImSDKPlugin = {
     if (!cb) {
       callback._onFriendProfileUpdated = null;
       if (!callback._onSelfInfoUpdated) {
-        tim.off(TIM.EVENT.PROFILE_UPDATED, callback.onProfileUpdated);
+        tim.off(TencentCloudChat.EVENT.PROFILE_UPDATED, callback.onProfileUpdated);
       }
       return;
     }
@@ -3927,7 +3925,7 @@ var ImSDKPlugin = {
     };
 
     callback._onFriendProfileUpdated = _onFriendProfileUpdated;
-    tim.on(TIM.EVENT.PROFILE_UPDATED, callback.onProfileUpdated);
+    tim.on(TencentCloudChat.EVENT.PROFILE_UPDATED, callback.onProfileUpdated);
   },
   TIMSetFriendAddRequestCallback: function TIMSetFriendAddRequestCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -3938,7 +3936,7 @@ var ImSDKPlugin = {
     if (!cb) {
       callback._onFriendAddRequest = null;
       if (!callback._onFriendApplicationListDeleted) {
-        tim.off(TIM.EVENT.FRIEND_APPLICATION_LIST_UPDATED, callback.onFriendApplicationListUpdated);
+        tim.off(TencentCloudChat.EVENT.FRIEND_APPLICATION_LIST_UPDATED, callback.onFriendApplicationListUpdated);
       }
       return;
     }
@@ -3947,7 +3945,7 @@ var ImSDKPlugin = {
       Module['dynCall_vii'](cb, buf, user_data);
     };
     callback._onFriendAddRequest = _onFriendAddRequest;
-    tim.on(TIM.EVENT.FRIEND_APPLICATION_LIST_UPDATED, callback.onFriendApplicationListUpdated);
+    tim.on(TencentCloudChat.EVENT.FRIEND_APPLICATION_LIST_UPDATED, callback.onFriendApplicationListUpdated);
   },
   TIMSetFriendApplicationListDeletedCallback: function TIMSetFriendApplicationListDeletedCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -3958,7 +3956,7 @@ var ImSDKPlugin = {
     if (!cb) {
       callback._onFriendApplicationListDeleted = null;
       if (!callback._onFriendAddRequest) {
-        tim.off(TIM.EVENT.FRIEND_APPLICATION_LIST_UPDATED, callback.onFriendApplicationListUpdated);
+        tim.off(TencentCloudChat.EVENT.FRIEND_APPLICATION_LIST_UPDATED, callback.onFriendApplicationListUpdated);
       }
       return;
     }
@@ -3967,7 +3965,7 @@ var ImSDKPlugin = {
       Module['dynCall_vii'](cb, buf, user_data);
     };
     callback._onFriendApplicationListDeleted = _onFriendApplicationListDeleted;
-    tim.on(TIM.EVENT.FRIEND_APPLICATION_LIST_UPDATED, callback.onFriendApplicationListUpdated);
+    tim.on(TencentCloudChat.EVENT.FRIEND_APPLICATION_LIST_UPDATED, callback.onFriendApplicationListUpdated);
   },
   TIMSetFriendApplicationListReadCallback: function TIMSetFriendApplicationListReadCallback(cb, user_data) {
     utils._handleNotImplemented();
@@ -3980,7 +3978,7 @@ var ImSDKPlugin = {
     if (!cb) {
       callback._onFriendBlackListAdded = null;
       if (!callback._onFriendBlackListDeleted) {
-        tim.off(TIM.EVENT.BLACKLIST_UPDATED, callback.onBlacklistUpdated);
+        tim.off(TencentCloudChat.EVENT.BLACKLIST_UPDATED, callback.onBlacklistUpdated);
       }
       return;
     }
@@ -3989,7 +3987,7 @@ var ImSDKPlugin = {
       Module['dynCall_vii'](cb, buf, user_data);
     };
     callback._onFriendBlackListAdded = _onFriendBlackListAdded;
-    tim.on(TIM.EVENT.BLACKLIST_UPDATED, callback.onBlacklistUpdated);
+    tim.on(TencentCloudChat.EVENT.BLACKLIST_UPDATED, callback.onBlacklistUpdated);
   },
   TIMSetFriendBlackListDeletedCallback: function TIMSetFriendBlackListDeletedCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -3999,7 +3997,7 @@ var ImSDKPlugin = {
     if (!cb) {
       callback._onFriendBlackListDeleted = null;
       if (!callback._onFriendBlackListAdded) {
-        tim.off(TIM.EVENT.BLACKLIST_UPDATED, callback.onBlacklistUpdated);
+        tim.off(TencentCloudChat.EVENT.BLACKLIST_UPDATED, callback.onBlacklistUpdated);
       }
       return;
     }
@@ -4008,7 +4006,7 @@ var ImSDKPlugin = {
       Module['dynCall_vii'](cb, buf, user_data);
     };
     callback._onFriendBlackListDeleted = _onFriendBlackListDeleted;
-    tim.on(TIM.EVENT.BLACKLIST_UPDATED, callback.onBlacklistUpdated);
+    tim.on(TencentCloudChat.EVENT.BLACKLIST_UPDATED, callback.onBlacklistUpdated);
   },
   TIMSetLogCallback: function TIMSetLogCallback(cb, user_data) {
     utils._handleNotImplemented();
@@ -4019,7 +4017,7 @@ var ImSDKPlugin = {
       return;
     }
     if (!cb) {
-      tim.off(TIM.EVENT.MESSAGE_MODIFIED, callback.onMessageModified);
+      tim.off(TencentCloudChat.EVENT.MESSAGE_MODIFIED, callback.onMessageModified);
       return;
     }
     var onMessageModified = function onMessageModified(event) {
@@ -4031,7 +4029,7 @@ var ImSDKPlugin = {
       Module['dynCall_vii'](cb, buf, user_data);
     };
     callback.onMessageModified = onMessageModified;
-    tim.on(TIM.EVENT.MESSAGE_MODIFIED, callback.onMessageModified);
+    tim.on(TencentCloudChat.EVENT.MESSAGE_MODIFIED, callback.onMessageModified);
   },
   TIMSetGroupTopicCreatedCallback: function TIMSetGroupTopicCreatedCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -4039,7 +4037,7 @@ var ImSDKPlugin = {
       return;
     }
     if (!cb) {
-      tim.off(TIM.EVENT.TOPIC_CREATED, callback.onTopicCreated);
+      tim.off(TencentCloudChat.EVENT.TOPIC_CREATED, callback.onTopicCreated);
       return;
     }
     var onTopicCreated = function onTopicCreated(event) {
@@ -4050,7 +4048,7 @@ var ImSDKPlugin = {
       Module['dynCall_viii'](cb, groupIDBuf, topicIDBuf, user_data);
     };
     callback.onTopicCreated = onTopicCreated;
-    tim.on(TIM.EVENT.TOPIC_CREATED, callback.onTopicCreated);
+    tim.on(TencentCloudChat.EVENT.TOPIC_CREATED, callback.onTopicCreated);
   },
   TIMSetGroupTopicDeletedCallback: function TIMSetGroupTopicDeletedCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -4058,7 +4056,7 @@ var ImSDKPlugin = {
       return;
     }
     if (!cb) {
-      tim.off(TIM.EVENT.TOPIC_DELETED, callback.onTopicDeleted);
+      tim.off(TencentCloudChat.EVENT.TOPIC_DELETED, callback.onTopicDeleted);
       return;
     }
     var onTopicDeleted = function onTopicDeleted(event) {
@@ -4069,7 +4067,7 @@ var ImSDKPlugin = {
       Module['dynCall_viii'](cb, groupIDBuf, topicIDListBuf, user_data);
     };
     callback.onTopicDeleted = onTopicDeleted;
-    tim.on(TIM.EVENT.TOPIC_DELETED, callback.onTopicDeleted);
+    tim.on(TencentCloudChat.EVENT.TOPIC_DELETED, callback.onTopicDeleted);
   },
   TIMSetGroupTopicChangedCallback: function TIMSetGroupTopicChangedCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -4077,7 +4075,7 @@ var ImSDKPlugin = {
       return;
     }
     if (!cb) {
-      tim.off(TIM.EVENT.TOPIC_UPDATED, callback.onTopicUpdated);
+      tim.off(TencentCloudChat.EVENT.TOPIC_UPDATED, callback.onTopicUpdated);
       return;
     }
     var onTopicUpdated = function onTopicUpdated(event) {
@@ -4088,7 +4086,7 @@ var ImSDKPlugin = {
       Module['dynCall_viii'](cb, groupIDBuf, topicBuf, user_data);
     };
     callback.onTopicUpdated = onTopicUpdated;
-    tim.on(TIM.EVENT.TOPIC_UPDATED, callback.onTopicUpdated);
+    tim.on(TencentCloudChat.EVENT.TOPIC_UPDATED, callback.onTopicUpdated);
   },
   TIMSetSelfInfoUpdatedCallback: function TIMSetSelfInfoUpdatedCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -4098,7 +4096,7 @@ var ImSDKPlugin = {
     if (!cb) {
       callback._onSelfInfoUpdated = null;
       if (!callback._onFriendProfileUpdated) {
-        tim.off(TIM.EVENT.PROFILE_UPDATED, callback.onProfileUpdated);
+        tim.off(TencentCloudChat.EVENT.PROFILE_UPDATED, callback.onProfileUpdated);
       }
       return;
     }
@@ -4122,7 +4120,7 @@ var ImSDKPlugin = {
     };
 
     callback._onSelfInfoUpdated = _onSelfInfoUpdated;
-    tim.on(TIM.EVENT.PROFILE_UPDATED, callback.onProfileUpdated);
+    tim.on(TencentCloudChat.EVENT.PROFILE_UPDATED, callback.onProfileUpdated);
   },
   TIMSetUserStatusChangedCallback: function TIMSetUserStatusChangedCallback(cb, user_data) {
     if (!utils.isInit) {
@@ -4130,7 +4128,7 @@ var ImSDKPlugin = {
       return;
     }
     if (!cb) {
-      tim.off(TIM.EVENT.USER_STATUS_UPDATED, callback.onUserStatusUpdated);
+      tim.off(TencentCloudChat.EVENT.USER_STATUS_UPDATED, callback.onUserStatusUpdated);
       return;
     }
     var onUserStatusUpdated = function onUserStatusUpdated(event) {
@@ -4153,7 +4151,7 @@ var ImSDKPlugin = {
       Module['dynCall_vii'](cb, buf, user_data);
     };
     callback.onUserStatusUpdated = onUserStatusUpdated;
-    tim.on(TIM.EVENT.USER_STATUS_UPDATED, callback.onUserStatusUpdated);
+    tim.on(TencentCloudChat.EVENT.USER_STATUS_UPDATED, callback.onUserStatusUpdated);
   },
   TIMSetUserInfoChangedCallback: function TIMSetUserInfoChangedCallback(cb,user_data){
     if (!utils.isInit) {
@@ -4161,7 +4159,7 @@ var ImSDKPlugin = {
       return;
     }
     if (!cb) {
-      tim.off(TIM.EVENT.USER_INFO_CHANGED, callback.onUserInfoChanged);
+      tim.off(TencentCloudChat.EVENT.USER_INFO_CHANGED, callback.onUserInfoChanged);
       return;
     }
     var onUserInfoChanged = function onUserInfoChanged(event) {
@@ -4194,7 +4192,7 @@ var ImSDKPlugin = {
       Module['dynCall_vii'](cb, buf, user_data);
     };
     callback.onUserInfoChanged = onUserInfoChanged;
-    tim.on(TIM.EVENT.USER_INFO_CHANGED, callback.onUserInfoChanged);
+    tim.on(TencentCloudChat.EVENT.USER_INFO_CHANGED, callback.onUserInfoChanged);
   },
   TIMConvCleanConversationUnreadMessageCount:function TIMConvCleanConversationUnreadMessageCount(){
 

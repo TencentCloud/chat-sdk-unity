@@ -24,7 +24,6 @@ namespace com.tencent.imsdk.unity
     private static Dictionary<string, Delegate> ValuecallbackStore = new Dictionary<string, Delegate>();
     private static Dictionary<string, SendOrPostCallback> ValuecallbackDeleStore = new Dictionary<string, SendOrPostCallback>();
     // private static Dictionary<string, StringBuilder> StrBuilderStore = new Dictionary<string, StringBuilder>();
-
     private static RecvNewMsgCallback RecvNewMsgCallbackStore;
     private static MsgReactionsChangedCallback MsgReactionsChangedCallbackStore;
     private static MsgAllMessageReceiveOptionCallback MsgAllMessageReceiveOptionCallbackStore;
@@ -178,8 +177,9 @@ namespace com.tencent.imsdk.unity
     /// <returns><see cref="TIMResult"/></returns>
     public static TIMResult Uninit()
     {
-      RemoveRecvNewMsgCallback();
 
+
+      RemoveRecvNewMsgCallback();
       SetConvEventCallback(null);
 
       SetConvTotalUnreadMessageCountChangedCallback(null);
@@ -1965,7 +1965,6 @@ namespace com.tencent.imsdk.unity
 
       return (TIMResult)timSucc;
     }
-
     /// <summary>
     /// 下载多媒体消息
     /// Download message elements
@@ -1978,12 +1977,11 @@ namespace com.tencent.imsdk.unity
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
-      string user_data = fn_name + "_" + Utils.getRandomStr();
+      string user_data = fn_name + "_" + Utils.getRandomStr()+"_downloadElem";
       var param = Utils.ToJson(download_param);
 
       ValuecallbackStore.Add(user_data, callback);
       ValuecallbackDeleStore.Add(user_data, threadOperation<MsgDownloadElemResult>);
-
       int timSucc = IMNativeSDK.TIMMsgDownloadElemToPath(Utils.string2intptr(param), Utils.string2intptr(path), ValueCallbackInstance, Utils.string2intptr(user_data));
 
       Log(user_data, param, path);
@@ -1993,11 +1991,9 @@ namespace com.tencent.imsdk.unity
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
-      string user_data = fn_name + "_" + Utils.getRandomStr();
+      string user_data = fn_name + "_" + Utils.getRandomStr()+"_downloadElem";
       var param = Utils.ToJson(download_param);
-
       ValuecallbackStore.Add(user_data, callback);
-
       int timSucc = IMNativeSDK.TIMMsgDownloadElemToPath(Utils.string2intptr(param), Utils.string2intptr(path), StringValueCallbackInstance, Utils.string2intptr(user_data));
 
       Log(user_data, param, path);
@@ -6945,6 +6941,13 @@ namespace com.tencent.imsdk.unity
           case "ValueCallback":
             if (ValuecallbackStore.ContainsKey(data.user_data))
             {
+              // UnityEngine.Debug.Log("string value callback contains key "+data.user_data);
+                bool downloadElemFlag = false;
+                int index = data.user_data.LastIndexOf("_downloadElem");
+                if (index != -1)
+                {
+                  downloadElemFlag = true;
+                }
               if (ValuecallbackStore.TryGetValue(data.user_data, out Delegate callbackDele))
               {
                 // 3 means no need for callback data
@@ -6965,13 +6968,15 @@ namespace com.tencent.imsdk.unity
                     callbackDele.DynamicInvoke(data.code, data.desc, data.data, data.user_data);
                   }
                 }
-                ValuecallbackStore.Remove(data.user_data);
+                if(!(downloadElemFlag && data.desc == "downloading")){
+                  ValuecallbackStore.Remove(data.user_data);
+                }
+                
               }
 
             }
 
             break;
-
           case "TIMRecvNewMsgCallback":
             if (RecvNewMsgCallbackStore != null)
             {
