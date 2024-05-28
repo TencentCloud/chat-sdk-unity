@@ -96,7 +96,10 @@ public class MsgDownloadElemToPath : MonoBehaviour
     {
       return;
     }
-    TIMResult res = TencentIMSDK.MsgDownloadElemToPath(param, path, Utils.addAsyncStringDataToScreen(GetResult));
+    TIMResult res = TencentIMSDK.MsgDownloadElemToPath(param, path,  (int code, string desc, string callbackData, string user_data) =>{
+      print( callbackData);
+      Result.text+=code+"desc" + desc;
+    });
     Result.text = Utils.SynchronizeResult(res);
   }
 

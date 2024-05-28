@@ -1526,27 +1526,88 @@ namespace com.tencent.imsdk.unity
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      var param = Utils.ToJson(get_message_list_param);
+      string user_data_getMsgList = fn_name + "_" + Utils.getRandomStr();
+      
+      if(get_message_list_param.msg_last_msg_id == null || get_message_list_param.msg_last_msg_id == ""){
+        var param = Utils.ToJson(get_message_list_param);
+        Log(user_data_getMsgList,"get_message_list_param",param);
+        // UnityEngine.Debug.Log("List param in MsgGetMsgList here: "+ param);
+        ValuecallbackStore.Add(user_data_getMsgList, callback);
+        ValuecallbackDeleStore.Add(user_data_getMsgList, threadOperation<List<Message>>);
+        int timSucc = IMNativeSDK.TIMMsgGetMsgList(conv_id, (int)conv_type, Utils.string2intptr(param), ValueCallbackInstance, Utils.string2intptr(user_data_getMsgList));
 
-      ValuecallbackStore.Add(user_data, callback);
-      ValuecallbackDeleStore.Add(user_data, threadOperation<List<Message>>);
-      int timSucc = IMNativeSDK.TIMMsgGetMsgList(conv_id, (int)conv_type, Utils.string2intptr(param), ValueCallbackInstance, Utils.string2intptr(user_data));
+        Log(user_data_getMsgList, conv_id, conv_type.ToString(), param);
+        return (TIMResult)timSucc;
+      }
+      List<string> messageID = new List<string>();
+      messageID.Add(get_message_list_param.msg_last_msg_id);
+      // UnityEngine.Debug.Log("List last message ID "+ get_message_list_param.msg_last_msg_id);
+      Log(user_data_getMsgList,"last_message_id",get_message_list_param.msg_last_msg_id);
+      TIMResult res = TencentIMSDK.MsgFindMessages(messageID, (int code, string desc, List<Message> callbackData, string user_data) =>{
+        ValuecallbackStore.Add(user_data_getMsgList, callback);
+        ValuecallbackDeleStore.Add(user_data_getMsgList, threadOperation<List<Message>>);
+        if(callbackData.Count > 0){
+          UnityEngine.Debug.Log("List callbackData "+ code);
+          
+          get_message_list_param.msg_getmsglist_param_last_msg = callbackData[0];
+          Log(user_data_getMsgList,"last_message",callbackData[0]);
+          var param = Utils.ToJson(get_message_list_param);
+          Log(user_data_getMsgList,"get_message_list_param",param);
+          
+        int timSucc = IMNativeSDK.TIMMsgGetMsgList(conv_id, (int)conv_type, Utils.string2intptr(param), ValueCallbackInstance, Utils.string2intptr(user_data_getMsgList));
 
-      Log(user_data, conv_id, conv_type.ToString(), param);
-      return (TIMResult)timSucc;
+        Log(user_data_getMsgList, conv_id, conv_type.ToString(), param);
+        }else {
+          // UnityEngine.Debug.Log("List no found "+ code);
+          if (ValuecallbackDeleStore.TryGetValue(user_data_getMsgList, out SendOrPostCallback dele))
+          {
+            mainSyncContext.Post(dele, new CallbackConvert { code = code, type = "ValueCallback", data = "", user_data = user_data_getMsgList, desc = "message not found"});
+          }
+          Log(user_data_getMsgList,"message not found",code,desc,get_message_list_param.msg_last_msg_id);
+        }
+        
+      });
+      return (TIMResult)res;
+      
     }
     public static TIMResult MsgGetMsgList(string conv_id, TIMConvType conv_type, MsgGetMsgListParam get_message_list_param, ValueCallback<string> callback)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      string user_data_getMsgList = fn_name + "_" + Utils.getRandomStr();
+      if(get_message_list_param.msg_last_msg_id == null || get_message_list_param.msg_last_msg_id == ""){
+        var param = Utils.ToJson(get_message_list_param);
+        ValuecallbackStore.Add(user_data_getMsgList, callback);
+        Log(user_data_getMsgList,"get_message_list_param",param);
+        // UnityEngine.Debug.Log("param in MsgGetMsgList "+ param);
+        int timSucc = IMNativeSDK.TIMMsgGetMsgList(conv_id, (int)conv_type, Utils.string2intptr(param), StringValueCallbackInstance, Utils.string2intptr(user_data_getMsgList));
 
-      string user_data = fn_name + "_" + Utils.getRandomStr();
-      var param = Utils.ToJson(get_message_list_param);
-      ValuecallbackStore.Add(user_data, callback);
-      int timSucc = IMNativeSDK.TIMMsgGetMsgList(conv_id, (int)conv_type, Utils.string2intptr(param), StringValueCallbackInstance, Utils.string2intptr(user_data));
+        Log(user_data_getMsgList, conv_id, conv_type.ToString(), param);
+        return (TIMResult)timSucc;
+      }
+      List<string> messageID = new List<string>();
+      messageID.Add(get_message_list_param.msg_last_msg_id);
+      // UnityEngine.Debug.Log("last message ID "+ get_message_list_param.msg_last_msg_id);
+      Log(user_data_getMsgList,"last_message_id",get_message_list_param.msg_last_msg_id);
+      TIMResult res = TencentIMSDK.MsgFindMessages(messageID, (int code, string desc, List<Message> callbackData, string user_data) =>{
+        ValuecallbackStore.Add(user_data_getMsgList, callback);
+        if(callbackData.Count > 0){
+          // UnityEngine.Debug.Log("callbackData "+ callbackData[0]);
+          get_message_list_param.msg_getmsglist_param_last_msg = callbackData[0];
+          Log(user_data_getMsgList,"last_message",callbackData[0]);
+          var param = Utils.ToJson(get_message_list_param);
+          Log(user_data_getMsgList,"get_message_list_param",param);
+          
+          // UnityEngine.Debug.Log("param in MsgGetMsgList(haslastmessage) "+ param);
+          int timSucc = IMNativeSDK.TIMMsgGetMsgList(conv_id, (int)conv_type, Utils.string2intptr(param), StringValueCallbackInstance, Utils.string2intptr(user_data_getMsgList));
 
-      Log(user_data, conv_id, conv_type.ToString(), param);
-      return (TIMResult)timSucc;
+          Log(user_data_getMsgList, conv_id, conv_type.ToString(), param);
+        } else {
+           mainSyncContext.Post(threadOperation<string>, new CallbackConvert { code = code, type = "ValueCallback", data = "", user_data = user_data_getMsgList, desc = "message not found" });
+          Log(user_data_getMsgList,"message not found",code,desc,get_message_list_param.msg_last_msg_id);
+        }
+        
+      });
+      return (TIMResult)res;
     }
 
     /// <summary>
@@ -6941,7 +7002,7 @@ namespace com.tencent.imsdk.unity
           case "ValueCallback":
             if (ValuecallbackStore.ContainsKey(data.user_data))
             {
-              // UnityEngine.Debug.Log("string value callback contains key "+data.user_data);
+              UnityEngine.Debug.Log("string value callback contains key "+data.user_data);
                 bool downloadElemFlag = false;
                 int index = data.user_data.LastIndexOf("_downloadElem");
                 if (index != -1)
@@ -6950,6 +7011,7 @@ namespace com.tencent.imsdk.unity
                 }
               if (ValuecallbackStore.TryGetValue(data.user_data, out Delegate callbackDele))
               {
+                UnityEngine.Debug.Log("try get value "+downloadElemFlag);
                 // 3 means no need for callback data
                 if (callbackDele.GetMethodInfo().GetParameters().Length == 3)
                 {
@@ -6957,8 +7019,15 @@ namespace com.tencent.imsdk.unity
                 }
                 else
                 {
-                  var isFoundDele = ValuecallbackDeleStore.Remove(data.user_data);
+                  var isFoundDele = false;
+                  if(!(downloadElemFlag && data.desc == "downloading")){
+                    isFoundDele = ValuecallbackDeleStore.Remove(data.user_data);
+                  } else{
+                    isFoundDele = ValuecallbackDeleStore.ContainsKey(data.user_data);
+                  }
+                  
                   // Debug.Log($"data.user_data: {data.user_data} typeof(T): {typeof(T).Name} FoundDele: {isFoundDele}");
+                  UnityEngine.Debug.Log("isfounddel "+isFoundDele+" "+data.user_data);
                   if (isFoundDele)
                   {
                     callbackDele.DynamicInvoke(data.code, data.desc, Utils.FromJson<T>(data.data), data.user_data);

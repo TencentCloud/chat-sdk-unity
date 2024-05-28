@@ -11,6 +11,8 @@ using EasyUI.Toast;
 using System.Collections;
 using System.Text;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using com.tencent.imsdk.unity.callback;
 public class MsgGetMsgList : MonoBehaviour
 {
   public Text Header;
@@ -154,11 +156,15 @@ public class MsgGetMsgList : MonoBehaviour
   {
     var get_message_list_param = new MsgGetMsgListParam
     {
-      msg_getmsglist_param_count = 20
+      msg_getmsglist_param_count = 20,
+      msg_getmsglist_param_is_ramble = true
     };
     if (LastMessage != null)
     {
+      print("lastmessage not null");
+      print("notnull " + JsonUtility.ToJson(LastMessage));
       get_message_list_param.msg_getmsglist_param_last_msg = LastMessage;
+      
     }
     var Parent = GameObject.Find("ResultPanel");
     foreach (Transform child in Parent.transform)
@@ -170,13 +176,34 @@ public class MsgGetMsgList : MonoBehaviour
     if (SelectedGroup.value > 0)
     {
       print(GroupList[SelectedGroup.value]);
-      TIMResult res = TencentIMSDK.MsgGetMsgList(GroupList[SelectedGroup.value], TIMConvType.kTIMConv_Group, get_message_list_param, Utils.addAsyncStringDataToScreen(GetResult));
+      get_message_list_param.msg_last_msg_id = "123123";
+      // TIMResult res = TencentIMSDK.MsgGetMsgList(GroupList[SelectedGroup.value], TIMConvType.kTIMConv_Group, get_message_list_param, Utils.addAsyncStringDataToScreen(GetResult));
+      TIMResult res = TencentIMSDK.MsgGetMsgList(GroupList[SelectedGroup.value], TIMConvType.kTIMConv_Group, get_message_list_param,(int code, string desc, List<Message> callbackData, string user_data) =>{
+        print("code "+ code + desc);
+        print("callbackdata "+ callbackData);
+        print("data "+ JsonConvert.SerializeObject(callbackData));
+        print("lenth "+ callbackData.Count);
+        LastMessage = callbackData[callbackData.Count - 1];
+        LastMessageID.text = callbackData[callbackData.Count - 1].message_msg_id;
+        // Result.text+=code+"data" + JsonConvert.SerializeObject(callbackData);
+      });
       Result.text = Utils.SynchronizeResult(res);
     }
     else if (SelectedFriend.value > 0)
     {
       print(FriendList[SelectedFriend.value]);
+      print("lastmessage "+ get_message_list_param);
+      print("lastmessage json "+ JsonConvert.SerializeObject(get_message_list_param));
+      
       TIMResult res = TencentIMSDK.MsgGetMsgList(FriendList[SelectedFriend.value], TIMConvType.kTIMConv_C2C, get_message_list_param, Utils.addAsyncStringDataToScreen(GetResult));
+    //   TIMResult res = TencentIMSDK.MsgGetMsgList(FriendList[SelectedFriend.value], TIMConvType.kTIMConv_C2C, get_message_list_param,(int code, string desc, List<Message> callbackData, string user_data) =>{
+    //   print("callbackdata "+ callbackData);
+    //   print("data "+ JsonConvert.SerializeObject(callbackData));
+    //   print("lenth "+ callbackData.Count);
+    //   LastMessage = callbackData[callbackData.Count - 1];
+    //   LastMessageID.text = callbackData[callbackData.Count - 1].message_msg_id;
+    //   // Result.text+=code+"data" + JsonConvert.SerializeObject(callbackData);
+    // });
       Result.text = Utils.SynchronizeResult(res);
     }
   }
@@ -198,7 +225,7 @@ public class MsgGetMsgList : MonoBehaviour
     {
       LastMessage = messages[messages.Count - 1];
       LastMessageID.text = messages[messages.Count - 1].message_msg_id;
-      print("有lastMsg");
+      print("有lastMsg "+ LastMessage.message_msg_id);
     }
     else
     {

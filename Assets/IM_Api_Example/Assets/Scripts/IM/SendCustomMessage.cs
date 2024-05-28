@@ -162,8 +162,8 @@ public class SendCustomMessage : MonoBehaviour
       message_elem_array = new List<Elem>{new Elem
       {
         elem_type = TIMElemType.kTIMElem_Custom,
-        custom_elem_data = InputData.text,
-        custom_elem_desc = InputDesc.text,
+        custom_elem_data = "{\"$type\":\"IW_Protocol.Type.TextChat.Message, InspixWorld_API\",\"ChlType\":3,\"MsgType\":4,\"MsgData\":{\"$type\":\"IW_Protocol.Type.TextChat.SystemMessageData, InspixWorld_API\",\"NoticeType\":16,\"SenderId\":\"\",\"ReceiverId\":\"5\",\"SubGroupNumber\":0,\"Mention\":null,\"Body\":\"{\\n  \\\"ActivityType\\\": 7,\\n  \\\"CharacterId\\\": 307,\\n  \\\"CharacterName\\\": \\\"はらアイオス\\\",\\n  \\\"ActivityValue\\\": \\\"\\\",\\n  \\\"EffectType\\\": 0,\\n  \\\"CharacterUuid\\\": \\\"chr_b0d60af3-8f77-43f0-90ce-b43d88b57e8f\\\"\\n}\"}}",
+        custom_elem_desc = "INSPIX WORLD",
         custom_elem_ext = InputExtension.text,
       }},
       message_need_read_receipt = false,

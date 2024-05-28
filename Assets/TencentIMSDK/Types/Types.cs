@@ -629,6 +629,8 @@ namespace com.tencent.imsdk.unity.types
 
     /// <value>只写(选填)，拉取的消息 seq 集合，仅针对 group 有效</value>
     public List<ulong>? msg_getmsglist_param_message_seq_array;
+    /// <value>只写(选填)，last message id</value>
+    public string? msg_last_msg_id;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
