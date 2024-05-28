@@ -13,6 +13,7 @@ namespace com.tencent.imsdk.unity.native
 {
   public class IMNativeSDK
   {
+
     #region DllImport
 #if UNITY_EDITOR
 #if UNITY_EDITOR_OSX
@@ -25,10 +26,12 @@ namespace com.tencent.imsdk.unity.native
                     public const string MyLibName = "__Internal";
 #elif UNITY_ANDROID
                     public const string MyLibName = "ImSDK";
+                   
 #elif UNITY_STANDALONE_WIN
                     public const string MyLibName = "ImSDK";
 #elif UNITY_STANDALONE_OSX
                     public const string MyLibName = "libImSDKForMac_C";
+                  
 #elif UNITY_WEBGL
                     public const string MyLibName = "__Internal";
 #else
@@ -37,7 +40,6 @@ namespace com.tencent.imsdk.unity.native
 #endif
 
     #endregion
-
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMLogin(IntPtr user_id, IntPtr user_sig, CommonValueCallback cb, IntPtr user_data);
