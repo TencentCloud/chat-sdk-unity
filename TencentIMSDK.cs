@@ -1597,7 +1597,7 @@ namespace com.tencent.imsdk.unity
       Log(user_data_getMsgList,"last_message_id",get_message_list_param.msg_last_msg_id);
       TIMResult res = TencentIMSDK.MsgFindMessages(messageID, (int code, string desc, string callbackData, string user_data) =>{
         ValuecallbackStore.Add(user_data_getMsgList, callback);
-        if(callbackData.Count > 0){
+        if(callbackData != "[]"){
           // UnityEngine.Debug.Log("callbackData "+ callbackData[0]);
           Log(user_data_getMsgList,"last_message",callbackData);
           var param = Utils.ToJson(get_message_list_param);
