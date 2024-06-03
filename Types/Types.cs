@@ -545,7 +545,9 @@ namespace com.tencent.imsdk.unity.types
     /// <value>只读, 好友头像 (Read only, member's avatar URL)</value>
     public string group_member_info_face_url; // GroupMemberInfo
     /// <value>只读, 请参考[自定义字段](https://cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Read only, custom key-value pair. Check [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
-    public List<GroupMemberInfoCustemString> group_member_info_custom_info; // GroupMemberInfo
+    public List<GroupMemberInfoCustomString> group_member_info_custom_info; // GroupMemberInfo
+    public List<string> group_member_info_online_devices;
+    public string group_member_info_is_online;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -560,12 +562,12 @@ namespace com.tencent.imsdk.unity.types
   }
 
   [JsonObject(MemberSerialization.OptOut)]
-  public class GroupMemberInfoCustemString : ExtraData
+  public class GroupMemberInfoCustomString : ExtraData
   {
     /// <value>只写, 自定义字段的key (Write only, custom string info key)</value>
-    public string group_member_info_custom_string_info_key; // GroupMemberInfoCustemString
+    public string group_member_info_custom_string_info_key; // GroupMemberInfoCustomString
     /// <value>只写, 自定义字段的value (Write only, custom string info value)</value>
-    public string group_member_info_custom_string_info_value; // GroupMemberInfoCustemString
+    public string group_member_info_custom_string_info_value; // GroupMemberInfoCustomString
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -835,7 +837,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>只写(选填), 修改群名片,当 modify_flag 包含 kTIMGroupMemberModifyFlag_NameCard 时必填,其他情况不用填 (Write (Optional), modified member name card, required when modify_flag contains kTIMGroupMemberModifyFlag_NameCard)</value>
     public string group_modify_member_info_name_card;
     /// <value>只写(选填), 请参考[自定义字段](https://cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Write (Optional), Check [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
-    public List<GroupMemberInfoCustemString> group_modify_member_info_custom_info;
+    public List<GroupMemberInfoCustomString> group_modify_member_info_custom_info;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
