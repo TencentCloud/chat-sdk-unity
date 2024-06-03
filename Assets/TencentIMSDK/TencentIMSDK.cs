@@ -1525,7 +1525,6 @@ namespace com.tencent.imsdk.unity
     public static TIMResult MsgGetMsgList(string conv_id, TIMConvType conv_type, MsgGetMsgListParam get_message_list_param, ValueCallback<List<Message>> callback)
     {
       string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-
       string user_data_getMsgList = fn_name + "_" + Utils.getRandomStr();
       
       if(get_message_list_param.msg_last_msg_id == null || get_message_list_param.msg_last_msg_id == ""){
@@ -1543,17 +1542,25 @@ namespace com.tencent.imsdk.unity
       messageID.Add(get_message_list_param.msg_last_msg_id);
       // UnityEngine.Debug.Log("List last message ID "+ get_message_list_param.msg_last_msg_id);
       Log(user_data_getMsgList,"last_message_id",get_message_list_param.msg_last_msg_id);
-      TIMResult res = TencentIMSDK.MsgFindMessages(messageID, (int code, string desc, List<Message> callbackData, string user_data) =>{
+      TIMResult res = TencentIMSDK.MsgFindMessages(messageID, (int code, string desc, string callbackData, string user_data) =>{
         ValuecallbackStore.Add(user_data_getMsgList, callback);
         ValuecallbackDeleStore.Add(user_data_getMsgList, threadOperation<List<Message>>);
-        if(callbackData.Count > 0){
-          UnityEngine.Debug.Log("List callbackData "+ code);
+        if(callbackData != "[]"){
           
-          get_message_list_param.msg_getmsglist_param_last_msg = callbackData[0];
-          Log(user_data_getMsgList,"last_message",callbackData[0]);
+          // test.message_sender = "callback_here";
+          // get_message_list_param.msg_getmsglist_param_last_msg = null;
           var param = Utils.ToJson(get_message_list_param);
           Log(user_data_getMsgList,"get_message_list_param",param);
-          
+          //  UnityEngine.Debug.Log("param1 "+param);
+          string output = callbackData.Substring(1, callbackData.Length - 2);
+          // UnityEngine.Debug.Log("output "+output);
+          Log(user_data_getMsgList,"find_callbackData",callbackData);
+          param = param.Substring(0,param.Length-1);
+          // UnityEngine.Debug.Log("substring "+param);
+          param = param + ",\"msg_getmsglist_param_last_msg\":"+output+"}";
+          // UnityEngine.Debug.Log("param2 "+param);
+          Log(user_data_getMsgList,"getMsgList param with lastMessage",param);
+          // UnityEngine.Debug.Log("List param in MsgGetMsgList here: "+ param);
         int timSucc = IMNativeSDK.TIMMsgGetMsgList(conv_id, (int)conv_type, Utils.string2intptr(param), ValueCallbackInstance, Utils.string2intptr(user_data_getMsgList));
 
         Log(user_data_getMsgList, conv_id, conv_type.ToString(), param);
@@ -1588,14 +1595,17 @@ namespace com.tencent.imsdk.unity
       messageID.Add(get_message_list_param.msg_last_msg_id);
       // UnityEngine.Debug.Log("last message ID "+ get_message_list_param.msg_last_msg_id);
       Log(user_data_getMsgList,"last_message_id",get_message_list_param.msg_last_msg_id);
-      TIMResult res = TencentIMSDK.MsgFindMessages(messageID, (int code, string desc, List<Message> callbackData, string user_data) =>{
+      TIMResult res = TencentIMSDK.MsgFindMessages(messageID, (int code, string desc, string callbackData, string user_data) =>{
         ValuecallbackStore.Add(user_data_getMsgList, callback);
         if(callbackData.Count > 0){
           // UnityEngine.Debug.Log("callbackData "+ callbackData[0]);
-          get_message_list_param.msg_getmsglist_param_last_msg = callbackData[0];
-          Log(user_data_getMsgList,"last_message",callbackData[0]);
+          Log(user_data_getMsgList,"last_message",callbackData);
           var param = Utils.ToJson(get_message_list_param);
           Log(user_data_getMsgList,"get_message_list_param",param);
+          string output = callbackData.Substring(1, callbackData.Length - 2);
+          param = param.Substring(0,param.Length-1);
+          param = param + ",\"msg_getmsglist_param_last_msg\":"+output+"}";
+          Log(user_data_getMsgList,"getMsgList param with lastMessage",param);
           
           // UnityEngine.Debug.Log("param in MsgGetMsgList(haslastmessage) "+ param);
           int timSucc = IMNativeSDK.TIMMsgGetMsgList(conv_id, (int)conv_type, Utils.string2intptr(param), StringValueCallbackInstance, Utils.string2intptr(user_data_getMsgList));

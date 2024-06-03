@@ -24,7 +24,7 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureType<UserProfileItem>();
     AotHelper.EnsureType<GroupMemberInfo>();
     AotHelper.EnsureType<GroupTipGroupChangeInfo>();
-    AotHelper.EnsureType<GroupMemberInfoCustemString>();
+    AotHelper.EnsureType<GroupMemberInfoCustomString>();
     AotHelper.EnsureType<GroupTipMemberChangeInfo>();
     AotHelper.EnsureType<DraftParam>();
     AotHelper.EnsureType<MsgLocator>();
@@ -128,7 +128,7 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureList<UserProfileItem>();
     AotHelper.EnsureList<GroupMemberInfo>();
     AotHelper.EnsureList<GroupTipGroupChangeInfo>();
-    AotHelper.EnsureList<GroupMemberInfoCustemString>();
+    AotHelper.EnsureList<GroupMemberInfoCustomString>();
     AotHelper.EnsureList<GroupTipMemberChangeInfo>();
     AotHelper.EnsureList<DraftParam>();
     AotHelper.EnsureList<MsgLocator>();
