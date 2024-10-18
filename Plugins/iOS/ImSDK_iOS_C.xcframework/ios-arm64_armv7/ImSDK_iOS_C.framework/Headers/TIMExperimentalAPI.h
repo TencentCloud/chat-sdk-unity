@@ -106,6 +106,8 @@ static const char* kTIMInternalOperationStartMessageLongPolling = "internal_oper
 static const char* kTIMInternalOperationStopMessageLongPolling = "internal_operation_stop_message_long_polling";
 static const char* kTIMInternalOperationFindMergerMessages = "internal_operation_find_merger_messages";
 static const char* kTIMInternalOperationGetBriefGroupMemberList = "internal_operation_get_brief_group_member_list";
+static const char* kTIMInternalOperationSetCustomLoginInfo = "internal_operation_set_custom_login_info";
+static const char* kTIMInternalOperationDisableHttpRequest = "internal_operation_disable_http_request";
 
 //------------------------------------------------------------------------------
 // 4.2 SSODataParam(发送 sso data 的参数)
@@ -264,6 +266,11 @@ static const char* kTIMRequestFindMergerMessagesMessageIDParam = "request_find_m
 static const char* kTIMRequestFindMergerMessagesMergerMessageIDListParam = "request_find_merger_messages_merger_message_id_list_param";
 // string, 只写(选填)，群 ID, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationGetBriefGroupMemberList 时需要设置
 static const char* kTIMRequestGetBriefGroupMemberListGroupIDParam = "request_get_brief_group_member_list_group_id_param";
+// string, 只写(选填), 自定义登录信息, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetCustomLoginInfo 时需要设置
+static const char* kTIMRequestSetCustomLoginInfoUserIDParam = "request_set_custom_login_info_user_id_param";
+static const char* kTIMRequestSetCustomLoginInfoCustomInfoParam = "request_set_custom_login_info_custom_info_param";
+// bool, 只写(选填), 设置是否禁用 http 请求, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationDisableHttpRequest 时需要设置
+static const char* kTIMRequestDisableHttpRequestParam = "request_disable_http_request_param";
 
 //------------------------------------------------------------------------------
 // 4.13 ResponseInfo(callExperimentalAPI 接口回调返回的数据)

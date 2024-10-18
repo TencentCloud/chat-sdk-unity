@@ -188,6 +188,24 @@ namespace com.tencent.imsdk.unity.callback
   public delegate void MsgUpdateCallback(List<Message> message_list, string user_data);
 
   /// <summary>
+  /// 设置消息扩展信息更新的回调 (Callback for message extensions updated)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgExtensionsChangedCallback(string message_id, List<MessageExtension> message_extension_array, string user_data);
+
+  /// <summary>
+  /// 设置消息扩展信息删除的回调 (Callback for message extensions deleted)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgExtensionsDeletedCallback(string message_id, List<MessageExtension> message_extension_key_array, string user_data);
+
+  /// <summary>
+  /// 群置顶消息变更回调 (Callback for group pinned message changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgGroupPinnedMessageChangedCallback(string group_id, Message message, bool is_pinned, string op_user, string user_data);
+
+  /// <summary>
   /// 获取群消息已读群成员列表回调 (Callback for group message read member list)
   /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -223,19 +241,198 @@ namespace com.tencent.imsdk.unity.callback
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
   public delegate void UserStatusChangedCallback(List<UserStatus> json_user_status_array, string user_data);
 
+  /// <summary>
+  /// 订阅用户资料变更通知回调 (Callback for user info changed)
+  /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
   public delegate void UserInfoChangedCallback(List<UserProfile> json_user_info_array,string user_data);
-  /// <summary>
-  /// 设置消息扩展信息更新的回调 (Callback for message extensions updated)
-  /// </summary>
-  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-  public delegate void MsgExtensionsChangedCallback(string message_id, List<MessageExtension> message_extension_array, string user_data);
 
   /// <summary>
-  /// 设置消息扩展信息删除的回调 (Callback for message extensions deleted)
+  /// 好友分组创建通知回调 (Callback for friend group created)
   /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-  public delegate void MsgExtensionsDeletedCallback(string message_id, List<MessageExtension> message_extension_key_array, string user_data);
+  public delegate void FriendGroupCreatedCallback(string group_name, List<FriendProfile> friend_info_list, string user_data);
+
+  /// <summary>
+  /// 好友分组删除通知回调 (Callback for friend group deleted)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void FriendGroupDeletedCallback(List<string> group_name_list, string user_data);
+
+  /// <summary>
+  /// 好友分组名称变更通知回调 (Callback for friend group name changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void FriendGroupNameChangedCallback(string old_group_name, string new_group_name, string user_data);
+
+  /// <summary>
+  /// 好友添加到分组通知回调 (Callback for friend added to group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void FriendsAddedToGroupCallback(string group_name, List<FriendProfile> friend_info_list, string user_data);
+
+  /// <summary>
+  /// 好友从分组删除通知回调 (Callback for friend deleted from group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void FriendsDeletedFromGroupCallback(string group_name, List<string> friend_id_list, string user_data);
+
+  /// <summary>
+  /// 订阅公众号通知回调 (Callback for subscribed official account)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void OfficialAccountSubscribedCallback(OfficialAccountInfo official_account_info, string user_data);
+
+  /// <summary>
+  /// 取消订阅公众号通知回调 (Callback for unsubscribed official account)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void OfficialAccountUnsubscribedCallback(string official_account_id, string user_data);
+
+  /// <summary>
+  /// 删除公众号通知回调 (Callback for deleted official account)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void OfficialAccountDeletedCallback(string official_account_id, string user_data);
+
+  /// <summary>
+  /// 公众号信息变更通知回调 (Callback for official account info changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void OfficialAccountInfoChangedCallback(OfficialAccountInfo official_account_info, string user_data);
+
+  /// <summary>
+  /// 我的关注列表变更通知回调 (Callback for my following list changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MyFollowingListChangedCallback(List<UserProfile> user_info_list, bool is_add, string user_data);
+
+  /// <summary>
+  /// 我的粉丝列表变更通知回调 (Callback for my followers list changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MyFollowersListChangedCallback(List<UserProfile> user_info_list, bool is_add, string user_data);
+
+  /// <summary>
+  /// 我的互关列表变更通知回调 (Callback for my mutual followers list changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MutualFollowersListChangedCallback(List<UserProfile> user_info_list, bool is_add, string user_data);
+
+  /// <summary>
+  /// 收到信令邀请通知回调 (Callback for receiving signaling invitation)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void SignalingReceiveNewInvitationCallback(string invite_id, string inviter, string group_id, List<string> invitee_list, string data, string user_data);
+
+  /// <summary>
+  /// 信令邀请被取消通知回调 (Callback for signaling invitation cancelled)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void SignalingInvitationCancelledCallback(string invite_id, string inviter, string data, string user_data);
+
+  /// <summary>
+  /// 信令邀请被接受通知回调 (Callback for signaling invitation accepted)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void SignalingInviteeAcceptedCallback(string invite_id, string invitee, string data, string user_data);
+
+  /// <summary>
+  /// 信令邀请被拒绝通知回调 (Callback for signaling invitation rejected)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void SignalingInviteeRejectedCallback(string invite_id, string invitee, string data, string user_data);
+
+  /// <summary>
+  /// 信令邀请超时通知回调 (Callback for signaling invitation timeout)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void SignalingInvitationTimeoutCallback(string invite_id, List<string> invitee_list, string user_data);
+
+  /// <summary>
+  /// 信令邀请被修改通知回调 (Callback for signaling invitation modified)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void SignalingInvitationModifiedCallback(string invite_id, string data, string user_data);
+
+  /// <summary>
+  /// 话题创建通知回调 (Callback for creating a topic)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityCreateTopicCallback(string group_id, string topic_id, string user_data);
+
+  /// <summary>
+  /// 话题删除通知回调 (Callback for deleting a topic)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityDeleteTopicCallback(string group_id, List<string> topic_id_list, string user_data);
+
+  /// <summary>
+  /// 话题变更通知回调 (Callback for a topic changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityChangeTopicInfoCallback(string group_id, TopicInfo topic_info, string user_data);
+
+  /// <summary>
+  /// 话题自定义数据通知回调 (Callback for a topic custom data)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityReceiveTopicRESTCustomDataCallback(string topic_id, string custom_data, string user_data);
+
+  /// <summary>
+  /// 权限组创建通知回调 (Callback for creating a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityCreatePermissionGroupCallback(string group_id, PermissionGroupInfo permission_group_info, string user_data);
+
+  /// <summary>
+  /// 权限组删除通知回调 (Callback for deleting a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityDeletePermissionGroupCallback(string group_id, List<string> permission_group_id_list, string user_data);
+
+  /// <summary>
+  /// 权限组变更通知回调 (Callback for a permission group changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityChangePermissionGroupInfoCallback(string group_id, PermissionGroupInfo permission_group_info, string user_data);
+
+  /// <summary>
+  /// 向权限组添加成员通知回调 (Callback for adding members to a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityAddMembersToPermissionGroupCallback(string group_id, PermissionGroupCallback result, string user_data);
+
+  /// <summary>
+  /// 从权限组删除成员通知回调 (Callback for deleting members from a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityRemoveMembersFromPermissionGroupCallback(string group_id, PermissionGroupCallback result, string user_data);
+
+  /// <summary>
+  /// 添加话题权限的通知回调 (Callback for adding a topic permission to a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityAddTopicPermissionCallback(string group_id, PermissionGroupCallback result, string user_data);
+
+  /// <summary>
+  /// 删除话题权限的通知回调 (Callback for deleting a topic permission from a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityDeleteTopicPermissionCallback(string group_id, PermissionGroupCallback result, string user_data);
+
+  /// <summary>
+  /// 修改话题权限的通知回调 (Callback for modifying a topic permission of a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityModifyTopicPermissionCallback(string group_id, PermissionGroupCallback result, string user_data);
+
+  /// <summary>
+  /// 实验性通知的回调 (Callback for experimental notification)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void ExperimentalNotifyCallback(string key, string data, string user_data);
+
 
   /// ----------------------------------------------------------------
 
@@ -360,6 +557,24 @@ namespace com.tencent.imsdk.unity.callback
   public delegate void MsgUpdateStringCallback(string message_list, string user_data);
 
   /// <summary>
+  /// 设置消息扩展信息更新的回调 (Callback for message extensions updated)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgExtensionsChangedStringCallback(string message_id, string message_extension_array, string user_data);
+
+  /// <summary>
+  /// 设置消息扩展信息删除的回调 (Callback for message extensions deleted)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgExtensionsDeletedStringCallback(string message_id, string message_extension_key_array, string user_data);
+
+  /// <summary>
+  /// 群置顶消息变更回调 (Callback for group pinned message changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MsgGroupPinnedMessageChangedStringCallback(string group_id, string json_message, bool is_pinned, string op_user, string user_data);
+
+  /// <summary>
   /// 获取群消息已读群成员列表回调 (Callback for group message read member list)
   /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -389,19 +604,196 @@ namespace com.tencent.imsdk.unity.callback
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
   public delegate void UserStatusChangedStringCallback(string json_user_status_array, string user_data);
 
-  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-  public delegate void UserInfoChangedStringCallback(string json_user_info_array,string user_data);
-
   /// <summary>
-  /// 设置消息扩展信息更新的回调 (Callback for message extensions updated)
+  /// 用户资料变更通知回调 (Callback for user info changed)
   /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-  public delegate void MsgExtensionsChangedStringCallback(string message_id, string message_extension_array, string user_data);
+  public delegate void UserInfoChangedStringCallback(string json_user_info_array, string user_data);
 
   /// <summary>
-  /// 设置消息扩展信息删除的回调 (Callback for message extensions deleted)
+  /// 好友分组创建通知回调 (Callback for friend group created)
   /// </summary>
   [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-  public delegate void MsgExtensionsDeletedStringCallback(string message_id, string message_extension_key_array, string user_data);
+  public delegate void FriendGroupCreatedStringCallback(string group_name, string json_friend_info_array, string user_data);
+
+  /// <summary>
+  /// 好友分组删除通知回调 (Callback for friend group deleted)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void FriendGroupDeletedStringCallback(string json_group_name_array, string user_data);
+
+  /// <summary>
+  /// 好友分组名称变更通知回调 (Callback for friend group name changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void FriendGroupNameChangedStringCallback(string old_group_name, string new_group_name, string user_data);
+
+  /// <summary>
+  /// 好友添加到分组通知回调 (Callback for friend added to group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void FriendsAddedToGroupStringCallback(string group_name, string json_friend_info_array, string user_data);
+
+  /// <summary>
+  /// 好友从分组删除通知回调 (Callback for friend deleted from group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void FriendsDeletedFromGroupStringCallback(string group_name, string json_friend_id_array, string user_data);
+
+  /// <summary>
+  /// 订阅公众号通知回调 (Callback for subscribed official account)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void OfficialAccountSubscribedStringCallback(string json_official_account_info, string user_data);
+
+  /// <summary>
+  /// 取消订阅公众号通知回调 (Callback for unsubscribed official account)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void OfficialAccountUnsubscribedStringCallback(string official_account_id, string user_data);
+
+  /// <summary>
+  /// 删除公众号通知回调 (Callback for deleted official account)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void OfficialAccountDeletedStringCallback(string official_account_id, string user_data);
+
+  /// <summary>
+  /// 公众号信息变更通知回调 (Callback for official account info changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void OfficialAccountInfoChangedStringCallback(string json_official_account_info, string user_data);
+
+  /// <summary>
+  /// 我的关注列表变更通知回调 (Callback for my following list changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MyFollowingListChangedStringCallback(string json_user_info_list, bool is_add, string user_data);
+
+  /// <summary>
+  /// 我的粉丝列表变更通知回调 (Callback for my followers list changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MyFollowersListChangedStringCallback(string json_user_info_list, bool is_add, string user_data);
+
+  /// <summary>
+  /// 我的互关列表变更通知回调 (Callback for my mutual followers list changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void MutualFollowersListChangedStringCallback(string json_user_info_list, bool is_add, string user_data);
+
+  /// <summary>
+  /// 收到信令邀请通知回调 (Callback for receiving signaling invitation)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void SignalingReceiveNewInvitationStringCallback(string invite_id, string inviter, string group_id, string json_invitee_list, string data, string user_data);
+
+  /// <summary>
+  /// 信令邀请被取消通知回调 (Callback for signaling invitation cancelled)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void SignalingInvitationCancelledStringCallback(string invite_id, string inviter, string data, string user_data);
+
+  /// <summary>
+  /// 信令邀请被接受通知回调 (Callback for signaling invitation accepted)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void SignalingInviteeAcceptedStringCallback(string invite_id, string invitee, string data, string user_data);
+
+  /// <summary>
+  /// 信令邀请被拒绝通知回调 (Callback for signaling invitation rejected)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void SignalingInviteeRejectedStringCallback(string invite_id, string invitee, string data, string user_data);
+
+  /// <summary>
+  /// 信令邀请超时通知回调 (Callback for signaling invitation timeout)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void SignalingInvitationTimeoutStringCallback(string invite_id, string json_invitee_list, string user_data);
+
+  /// <summary>
+  /// 信令邀请被修改通知回调 (Callback for signaling invitation modified)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void SignalingInvitationModifiedStringCallback(string invite_id, string data, string user_data);
+
+  /// <summary>
+  /// 话题创建通知回调 (Callback for creating a topic)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityCreateTopicStringCallback(string group_id, string topic_id, string user_data);
+
+  /// <summary>
+  /// 话题删除通知回调 (Callback for deleting a topic)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityDeleteTopicStringCallback(string group_id, string json_topic_id_array, string user_data);
+
+  /// <summary>
+  /// 话题变更通知回调 (Callback for a topic changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityChangeTopicInfoStringCallback(string group_id, string json_topic_info, string user_data);
+
+  /// <summary>
+  /// 话题自定义数据通知回调 (Callback for a topic custom data)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityReceiveTopicRESTCustomDataStringCallback(string topic_id, string custom_data, string user_data);
+
+  /// <summary>
+  /// 权限组创建通知回调 (Callback for creating a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityCreatePermissionGroupStringCallback(string group_id, string json_permission_group_info, string user_data);
+
+  /// <summary>
+  /// 权限组删除通知回调 (Callback for deleting a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityDeletePermissionGroupStringCallback(string group_id, string json_permission_group_id_array, string user_data);
+
+  /// <summary>
+  /// 权限组变更通知回调 (Callback for a permission group changed)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityChangePermissionGroupInfoStringCallback(string group_id, string json_permission_group_info, string user_data);
+
+  /// <summary>
+  /// 向权限组添加成员通知回调 (Callback for adding members to a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityAddMembersToPermissionGroupStringCallback(string group_id, string json_result, string user_data);
+
+  /// <summary>
+  /// 从权限组删除成员通知回调 (Callback for deleting members from a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityRemoveMembersFromPermissionGroupStringCallback(string group_id, string json_result, string user_data);
+
+  /// <summary>
+  /// 添加话题权限的通知回调 (Callback for adding a topic permission to a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityAddTopicPermissionStringCallback(string group_id, string json_result, string user_data);
+
+  /// <summary>
+  /// 删除话题权限的通知回调 (Callback for deleting a topic permission from a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityDeleteTopicPermissionStringCallback(string group_id, string json_result, string user_data);
+
+  /// <summary>
+  /// 修改话题权限的通知回调 (Callback for modifying a topic permission of a permission group)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void CommunityModifyTopicPermissionStringCallback(string group_id, string json_result, string user_data);
+
+  /// <summary>
+  /// 实验性通知的回调 (Callback for experimental notification)
+  /// </summary>
+  [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+  public delegate void ExperimentalNotifyStringCallback(string key, string data, string user_data);
 
 }

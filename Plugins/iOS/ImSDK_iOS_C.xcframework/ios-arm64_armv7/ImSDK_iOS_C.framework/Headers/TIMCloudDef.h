@@ -54,6 +54,8 @@ enum TIMReceiveMessageOpt {
     kTIMRecvMsgOpt_Not_Notify,
     /// 在线接收消息，离线只接收 at 消息的推送
     kTIMRecvMsgOpt_Not_Notify_Except_At,
+    /// 在线和离线都只接收@消息
+    kTIMRecvMsgOpt_Not_Receive_Except_At,
 };
 
 /////////////////////////////////////////////////////////////////////////////////

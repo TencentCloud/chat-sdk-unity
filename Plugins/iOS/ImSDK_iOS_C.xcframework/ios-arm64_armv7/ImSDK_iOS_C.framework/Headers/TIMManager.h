@@ -492,7 +492,7 @@ TIM_API int TIMGetLoginUserID(char* user_id_buffer);
  * @note
  * 如果用户已经处于已登录和登录中状态，请勿再频繁调用登录接口登录
  */
-TIM_API TIMLoginStatus TIMGetLoginStatus();
+TIM_API enum TIMLoginStatus TIMGetLoginStatus();
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -567,7 +567,7 @@ TIM_API int TIMProfileModifySelfUserProfile(const char* json_modify_self_user_pr
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  *
- * @note 请注意：
+ * @note
  *  - 该接口用于订阅陌生人的资料变更事件，订阅成功后，当订阅用户资料发生变更，您可以通过监听 @ref TIMSetUserInfoChangedCallback 回调来感知
  *  - 订阅列表最多允许订阅 200 个，超过限制后，会自动淘汰最先订阅的用户
  *  - 自己的资料变更通知不需要订阅，默认会通过  @ref TIMSetSelfInfoUpdatedCallback 回调通知给您
@@ -593,7 +593,7 @@ TIM_API int TIMSubscribeUserInfo(const char *json_user_id_list, TIMCommCallback 
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  * 
- * @note 请注意：
+ * @note
  * - 当 json_user_id_list 为空 或 nullptr 时，取消当前所有的订阅
  *
  * __示例__
@@ -616,7 +616,7 @@ TIM_API int TIMUnsubscribeUserInfo(const char *json_user_id_list, TIMCommCallbac
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  *
- * @note 请注意：
+ * @note
  * - 如果您想查询自己的自定义状态，您只需要传入自己的 userID 即可
  * 
  * __示例__
@@ -639,7 +639,7 @@ TIM_API int TIMGetUserStatus(const char *json_identifier_array, TIMCommCallback 
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  *
- * @note 请注意：
+ * @note
  * 该接口只支持设置自己的自定义状态，即 kTIMUserStatusCustomStatus 字段，请参考 @ref TIMUserStatus
  *
  * __示例__
@@ -661,7 +661,7 @@ TIM_API int TIMSetSelfStatus(const char *json_current_user_status, TIMCommCallba
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  *
- * @note 请注意：
+ * @note
  * - 当成功订阅用户状态后，当对方的状态（包含在线状态、自定义状态）发生变更后，您可以监听 @ref TIMSetUserStatusChangedCallback 回调来感知
  * - 如果您需要订阅好友列表的状态，您只需要在控制台上打开开关即可，无需调用该接口
  * - 该接口不支持订阅自己，您可以通过监听 @ref TIMSetUserStatusChangedCallback 回调来感知自身的自定义状态的变更
@@ -687,7 +687,7 @@ TIM_API int TIMSubscribeUserStatus(const char *json_identifier_array, TIMCommCal
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  *
- * @note 请注意：
+ * @note
  * - 当 json_identifier_array 为空或 nullptr 时，取消当前所有的订阅
  *
  * __示例__
@@ -803,7 +803,7 @@ static const char* kTIMUserStatusStatusType = "user_status_status_type";
 // string, 读写, 用户的自定义状态
 static const char* kTIMUserStatusCustomStatus = "user_status_custom_status";
 // array, 只读， 用户在线终端
-static const char* KTIMUserStatusOnlineDevices      = "user_status_online_devices";
+static const char* kTIMUserStatusOnlineDevices = "user_status_online_devices";
 
 //------------------------------------------------------------------------------
 // 8.3 UserProfile (用户个人资料)
@@ -994,6 +994,8 @@ static const char* kTIMFriendShipGetProfileListParamForceUpdate = "friendship_ge
 #define kTIMUserProfileItemLoaction  kTIMUserProfileItemLocation
 // GroupMemberInfo JsonKey
 #define kTIMGroupMemberInfoRemark  kTIMGroupMemberInfoFriendRemark
+// TIMUserStatus JsonKey
+#define KTIMUserStatusOnlineDevices kTIMUserStatusOnlineDevices
 
 #ifdef __cplusplus
 }

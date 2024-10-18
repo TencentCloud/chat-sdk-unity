@@ -372,6 +372,7 @@ enum TIMErrCode {
     ERR_SVR_GROUP_MEMBER_COUNT_LIMIT            = 10038,  // 群成员数量超过限制，请参考 [价格说明](https://cloud.tencent.com/document/product/269/11673) 购买或升级预付费套餐“扩展群人数上限”。
     ERR_SVR_GROUP_ATTRIBUTE_WRITE_CONFILCT      = 10056,  // 群属性写冲突，请先拉取最新的群属性后再尝试写操作，IMSDK  5.6 及其以上版本支持。
     ERR_SVR_GROUP_PINNED_MESSAGE_COUNT_LIMIT    = 10070,  // 置顶消息超出数量限制时。
+    ERR_SVR_GROUP_MESSAGE_ALREADY_PINNED        = 10071,  // 消息已经被置顶。
     
     // ///////////////////////////////////////////////////////////////////////////////
     //

@@ -682,7 +682,7 @@ TIM_API void TIMSetMsgElemUploadProgressCallback(TIMMsgElemUploadProgressCallbac
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  *
  * @note
- * 发送方发送消息，接收方调用接口 @ref TIMMsgReportReaded 上报 C2C 消息已读，或者调用 @ref TIMMsgSendMessageReadReceipts 发送群消息已读回执，发送方ImSDK会通过此接口设置的回调抛出。
+ * 发送方发送消息，接收方调用接口 @ref TIMConvCleanConversationUnreadMessageCount 清理 C2C 会话未读数，或者调用 @ref TIMMsgSendMessageReadReceipts 发送消息已读回执，发送方 ImSDK 会通过此接口设置的回调抛出相关通知。
  */
 TIM_API void TIMSetMsgReadedReceiptCallback(TIMMsgReadedReceiptCallback cb, const void* user_data);
 
@@ -806,16 +806,12 @@ TIM_API void TIMSetMsgGroupPinnedMessageChangedCallback(TIMMsgGroupPinnedMessage
  *
  * // json_value_msg.toStyledString().c_str() 得到 json_msg_param JSON 字符串如下
  * {
- *    "message_id" : "14400111550110000_1551446728_45598731"
- *    "message_client_time" : 1551446728,
  *    "message_elem_array" : [
  *       {
  *          "elem_type" : 0,
  *          "text_elem_content" : "send text"
  *       }
- *    ],
- *    "message_sender" : "user1",
- *    "message_server_time" : 1551446728
+ *    ]
  * }
  * @endcode
  */
@@ -876,15 +872,12 @@ TIM_API int TIMMsgCancelSend(const char* conv_id, enum TIMConvType conv_type, co
  * {
  *    "msg_batch_send_param_identifier_array" : [ "user2", "user3" ],
  *    "msg_batch_send_param_msg" : {
- *       "message_client_time" : 1551340614,
  *       "message_elem_array" : [
  *          {
  *             "elem_type" : 0,
  *             "text_elem_content" : "this is batch send msg"
  *          }
- *       ],
- *       "message_sender" : "user1",
- *       "message_server_time" : 1551340614
+ *       ]
  *    }
  * }
  * @endcode
@@ -913,7 +906,8 @@ TIM_API int TIMMsgBatchSend(const char* json_batch_send_param, TIMCommCallback c
  * download_param[kTIMMsgDownloadElemParamUrl] = url;
  *
  * TIMMsgDownloadElemToPath(download_param.toStyledString().c_str(), (path_ + "\\" + name).c_str(), [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
- *
+ *     // 请注意，下载进度和下载结果会共用此回调，所以该回调可能会被多次调用
+ *     // 当回调第二个参数 desc = "downloading" 时，表示下载进度（kTIMMsgDownloadElemResultCurrentSize、kTIMMsgDownloadElemResultTotalSize），否则表示下载结果
  * }, this);
  * @endcode
  */
@@ -951,20 +945,22 @@ TIM_API int TIMMsgDownloadMergerMessage(const char* json_single_msg, TIMCommCall
  *   json_parameters[kTIMMsgGetMsgListParamIsRamble] = true;
  *   json_parameters[kTIMMsgGetMsgListParamIsForward] = false;
  *   json_parameters[kTIMMsgGetMsgListParamCount] = 1;
+ * 
  *   TIMMsgGetMsgList("98826", kTIMConv_C2C, json_parameters.toStyledString().c_str(),
  *      [](int32_t code, const char* desc, const char* json_params, const void* user_data) {
  *       Json::Reader json_reader;
  *       json::Array json_message_array;
  *       json_reader.parse(json_params, json_message_array);
- *          if (json_message_array.size() > 0) {
- *              Json::Value json_obj_msg = json_message_array[0];
- *              json_obj_msg[kTIMMsgCustomStr] = "custom Str";
- *              json_obj_msg[kTIMMsgCustomInt] = "custom int";
- *              TIMMsgSetLocalCustomData(json_obj_msg.toStyledString().c_str(),
- *                  [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
- *                      printf("TIMMsgSetLocalCustomData complete|code:%d|desc:%s\n", code, desc);
- *                  }, nullptr);
- *          }
+ *       if (json_message_array.size() > 0) {
+ *           Json::Value json_obj_msg = json_message_array[0];
+ *           json_obj_msg[kTIMMsgCustomStr] = "custom Str";
+ *           json_obj_msg[kTIMMsgCustomInt] = 123;
+ * 
+ *           TIMMsgSetLocalCustomData(json_obj_msg.toStyledString().c_str(),
+ *               [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
+ *                   printf("TIMMsgSetLocalCustomData complete|code:%d|desc:%s\n", code, desc);
+ *               }, nullptr);
+ *       }
  *   }, nullptr);
  * @endcode
  */
@@ -999,7 +995,7 @@ TIM_API int TIMMsgSetLocalCustomData(const char* json_msg_param, TIMCommCallback
  * }, this);
  * @endcode
  */
-TIM_API int TIMMsgSetC2CReceiveMessageOpt(const char* json_identifier_array, TIMReceiveMessageOpt opt, TIMCommCallback cb, const void* user_data);
+TIM_API int TIMMsgSetC2CReceiveMessageOpt(const char* json_identifier_array, enum TIMReceiveMessageOpt opt, TIMCommCallback cb, const void* user_data);
 
 /**
  * 5.2 查询针对某个用户的 C2C 消息接收选项
@@ -1055,7 +1051,7 @@ TIM_API int TIMMsgGetC2CReceiveMessageOpt(const char* json_identifier_array, TIM
  * }, this);
  * @endcode
  */
-TIM_API int TIMMsgSetGroupReceiveMessageOpt(const char* group_id, TIMReceiveMessageOpt opt, TIMCommCallback cb, const void* user_data);
+TIM_API int TIMMsgSetGroupReceiveMessageOpt(const char* group_id, enum TIMReceiveMessageOpt opt, TIMCommCallback cb, const void* user_data);
 
 /**
  * 5.4 设置登录用户全局消息接收选项，从 7.4 版本开始支持
@@ -1069,7 +1065,7 @@ TIM_API int TIMMsgSetGroupReceiveMessageOpt(const char* group_id, TIMReceiveMess
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  *
- * @note 请注意
+ * @note
  *  - 当 duration 的取值小于 24*60*60 时，可用于实现重复免打扰，即消息免打扰从每天的 start_hour:start_minute:start_second 表示的时间点开始，持续时长为 duration 秒
  *  - 当 duration 取值不小于 24*60*60 时，可用于实现永久免打扰，即从调用该 API 当天 start_hour:start_minute:start_second 表示的时间点开始永久消息免打扰
  *
@@ -1080,7 +1076,7 @@ TIM_API int TIMMsgSetGroupReceiveMessageOpt(const char* group_id, TIMReceiveMess
  * }, this);
  * @endcode
  */
-TIM_API int TIMMsgSetAllReceiveMessageOpt(TIMReceiveMessageOpt opt, int32_t start_hour, int32_t start_minute, int32_t start_second, uint32_t duration, TIMCommCallback cb, const void* user_data);
+TIM_API int TIMMsgSetAllReceiveMessageOpt(enum TIMReceiveMessageOpt opt, int32_t start_hour, int32_t start_minute, int32_t start_second, uint32_t duration, TIMCommCallback cb, const void* user_data);
 
 /**
  * 5.5设置登录用户全局消息接收选项，从 7.4 版本开始支持
@@ -1099,7 +1095,7 @@ TIM_API int TIMMsgSetAllReceiveMessageOpt(TIMReceiveMessageOpt opt, int32_t star
  * }, this);
  * @endcode
  */
-TIM_API int TIMMsgSetAllReceiveMessageOpt2(TIMReceiveMessageOpt opt, uint32_t start_time_stamp, uint32_t duration, TIMCommCallback cb, const void* user_data);
+TIM_API int TIMMsgSetAllReceiveMessageOpt2(enum TIMReceiveMessageOpt opt, uint32_t start_time_stamp, uint32_t duration, TIMCommCallback cb, const void* user_data);
 
 /**
  * 5.6 获取登录用户全局消息接收选项，从 7.4 版本开始支持
@@ -1458,13 +1454,14 @@ TIM_API int TIMMsgSaveMsg(const char* conv_id, enum TIMConvType conv_type, const
 TIM_API int TIMMsgImportMsgList(const char* conv_id, enum TIMConvType conv_type, const char* json_msg_array, TIMCommCallback cb, const void* user_data);
 
 /**
- * 6.9 根据消息 messageID 查询本地的消息列表
+ * 6.9 根据消息 messageID 查询本地的消息列表，包括状态 kTIMMsgStatus 为 kTIMMsg_Revoked（已撤回）和 kTIMMsg_Deleted（已删除））的消息
  *
  * @param json_message_id_array  消息 ID 列表
  * @param cb 根据消息 messageID 查询本地的消息列表成功与否的回调。回调函数定义和参数解析请参考 @ref TIMCommCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
- * 
+ *
+ * @note 通过 kTIMMsgStatus 来区分消息的状态
  * __示例__
  * @code{.cpp}
  * Json::Value json_message_id_1("id_clienttime_rand_1");
@@ -1487,7 +1484,7 @@ TIM_API int TIMMsgImportMsgList(const char* conv_id, enum TIMConvType conv_type,
 TIM_API int TIMMsgFindMessages(const char* json_message_id_array, TIMCommCallback cb, const void* user_data);
 
 /**
- * 6.10 根据消息定位精准查找指定会话的消息
+ * 6.10 根据消息定位精准查找指定会话的消息，包括状态 kTIMMsgStatus 为 kTIMMsg_Revoked（已撤回）和 kTIMMsg_Deleted（已删除）
  *
  * @param conv_id   会话的ID
  * @param conv_type 会话类型，请参考 @ref TIMConvType
@@ -1499,7 +1496,8 @@ TIM_API int TIMMsgFindMessages(const char* json_message_id_array, TIMCommCallbac
  * @note
  *  - 此接口根据消息定位符精准查找指定会话的消息，该功能一般用于消息撤回时查找指定消息等
  *  - 一个消息定位符对应一条消息
- * 
+ *  - 通过 kTIMMsgStatus 来区分消息的状态
+ *
  * __示例__
  * @code{.cpp}
  * Json::Value json_msg_locator;                      // 一条消息对应一个消息定位符(精准定位)
@@ -1536,6 +1534,8 @@ TIM_API int TIMMsgFindByMsgLocatorList(const char* conv_id, enum TIMConvType con
  * @param cb 搜索成功与否的回调。回调函数定义和参数解析请参考 @ref TIMCommCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
+ *
+ * @note 返回的列表不包含消息状态 kTIMMsgStatus 为 kTIMMsg_Revoked（已撤回）和 kTIMMsg_Deleted（已删除）的消息
  *
  * __搜索本地消息示例__
  * @code{.cpp}
@@ -1575,6 +1575,7 @@ TIM_API int TIMMsgSearchLocalMessages(const char* json_search_message_param, TIM
  * @note
  *  - 该功能为 IM 增值功能，详见[价格说明](https://cloud.tencent.com/document/product/269/11673?from=17176#.E5.9F.BA.E7.A1.80.E6.9C.8D.E5.8A.A1.E8.AF.A6.E6.83.85)
  *  - 如果您没有开通该服务，调用接口会返回 60020 错误码
+ *  - 返回的列表不包含消息状态 kTIMMsgStatus 为 kTIMMsg_Revoked（已撤回）和 kTIMMsg_Deleted（已删除）的消息
  *
  * __搜索云端消息示例__
  * @code{.cpp}
@@ -1611,7 +1612,7 @@ TIM_API int TIMMsgSearchCloudMessages(const char* json_search_message_param, TIM
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  *
- * @note 请注意：
+ * @note
  *  - 向群消息发送已读回执，需要您先到控制台打开对应的开关，详情参考文档 [群消息已读回执](https://cloud.tencent.com/document/product/269/75343#.E8.AE.BE.E7.BD.AE.E6.94.AF.E6.8C.81.E5.B7.B2.E8.AF.BB.E5.9B.9E.E6.89.A7.E7.9A.84.E7.BE.A4.E7.B1.BB.E5.9E.8B) 。
  *  - 该接口调用成功后，会话未读数不会变化，消息发送者会收到 TIMSetMsgReadedReceiptCallback 注册的回调，回调里面会携带消息的最新已读信息。
  *
@@ -1631,7 +1632,7 @@ TIM_API int TIMMsgSendMessageReadReceipts(const char* json_msg_array, TIMCommCal
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  *
- * @note 请注意：
+ * @note
  *  - 获取群消息已读回执，需要您先到控制台打开对应的开关，详情参考文档 [群消息已读回执](https://cloud.tencent.com/document/product/269/75343#.E8.AE.BE.E7.BD.AE.E6.94.AF.E6.8C.81.E5.B7.B2.E8.AF.BB.E5.9B.9E.E6.89.A7.E7.9A.84.E7.BE.A4.E7.B1.BB.E5.9E.8B) 。
  *  - json_msg_array 中的多条消息必须在同一个会话中。
  * 
@@ -1669,7 +1670,7 @@ TIM_API int TIMMsgGetMessageReadReceipts(const char* json_msg_array, TIMCommCall
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  *
- * @note 请注意：
+ * @note
  *  - 使用该功能之前，请您先到控制台打开对应的开关，详情参考文档 [群消息已读回执](https://cloud.tencent.com/document/product/269/75343#.E8.AE.BE.E7.BD.AE.E6.94.AF.E6.8C.81.E5.B7.B2.E8.AF.BB.E5.9B.9E.E6.89.A7.E7.9A.84.E7.BE.A4.E7.B1.BB.E5.9E.8B) 。
  * 
  * __发送群消息已读回执示例__
@@ -1696,7 +1697,7 @@ TIM_API int TIMMsgGetMessageReadReceipts(const char* json_msg_array, TIMCommCall
  * }, this);
  * @endcode
  */
-TIM_API int TIMMsgGetGroupMessageReadMemberList(const char* json_msg, TIMGroupMessageReadMembersFilter filter, uint64_t next_seq, uint32_t count, TIMMsgGroupMessageReadMemberListCallback cb, const void* user_data);
+TIM_API int TIMMsgGetGroupMessageReadMemberList(const char* json_msg, enum TIMGroupMessageReadMembersFilter filter, uint64_t next_seq, uint32_t count, TIMMsgGroupMessageReadMemberListCallback cb, const void* user_data);
 
 /**
  * 6.16 设置消息扩展 （6.7 及其以上版本支持，需要您购买旗舰版套餐）
@@ -2124,8 +2125,7 @@ static const char* kTIMImageElemOrigUrl = "image_elem_orig_url";
 static const char* kTIMImageElemThumbUrl = "image_elem_thumb_url";
 // string, 只读, 大图片URL
 static const char* kTIMImageElemLargeUrl = "image_elem_large_url";
-// int, 只读, 任务ID，已废弃
-static const char* kTIMImageElemTaskId = "image_elem_task_id";
+
 
 //------------------------------------------------------------------------------
 // 7.5 SoundElem (音频元素)
@@ -2144,8 +2144,6 @@ static const char* kTIMSoundElemFileId = "sound_elem_file_id";
 static const char* kTIMSoundElemBusinessId = "sound_elem_business_id";
 // string, 只读, 下载的URL
 static const char* kTIMSoundElemUrl = "sound_elem_url";
-// int, 只读, 任务ID，已废弃
-static const char* kTIMSoundElemTaskId = "sound_elem_task_id";
 
 //------------------------------------------------------------------------------
 // 7.6 VideoElem (视频元素)
@@ -2177,8 +2175,6 @@ static const char* kTIMVideoElemImagePath = "video_elem_image_path";
 static const char* kTIMVideoElemImageId = "video_elem_image_id";
 // string, 只读, 截图文件下载的URL
 static const char* kTIMVideoElemImageUrl = "video_elem_image_url";
-// uint, 只读, 任务ID，已废弃
-static const char* kTIMVideoElemTaskId = "video_elem_task_id";
 
 //------------------------------------------------------------------------------
 // 7.7 FileElem (文件元素)
@@ -2194,8 +2190,6 @@ static const char* kTIMFileElemFileId = "file_elem_file_id";
 static const char* kTIMFileElemBusinessId = "file_elem_business_id";
 // string, 只读, 文件下载的URL
 static const char* kTIMFileElemUrl = "file_elem_url";
-// int, 只读, 任务ID，已废弃
-static const char* kTIMFileElemTaskId = "file_elem_task_id";
 
 //------------------------------------------------------------------------------
 // 7.8 LocationElem (位置元素)
@@ -2253,8 +2247,6 @@ static const char* kImSDK_MessageAtALL = "__kImSDK_MessageAtALL__";
 static const char* kTIMGroupReportElemReportType = "group_report_elem_report_type";
 // string, 只读, 群组ID
 static const char* kTIMGroupReportElemGroupId = "group_report_elem_group_id";
-// string, 只读, 群组名称（已废弃）
-static const char* kTIMGroupReportElemGroupName = "group_report_elem_group_name";
 // string, 只读, 操作者ID
 static const char* kTIMGroupReportElemOpUser = "group_report_elem_op_user";
 // string, 只读, 操作理由
@@ -2322,12 +2314,6 @@ static const char* kTIMMsgSupportMessageExtension = "message_support_message_ext
 static const char* kTIMMsgIsBroadcastMessage = "message_is_broadcast_message";
 // bool, 只读, 是否已经发送了已读回执（只有Group 消息有效）
 static const char* kTIMMsgHasSentReceipt = "message_has_sent_receipt";
-// int32, 只读, 注意：这个字段是内部字段，不推荐使用，推荐调用 TIMMsgGetMessageReadReceipts 获取群消息已读回执
-static const char* kTIMMsgGroupReceiptReadCount = "message_group_receipt_read_count";
-// int32, 只读, 注意：这个字段是内部字段，不推荐使用，推荐调用 TIMMsgGetMessageReadReceipts 获取群消息已读回执
-static const char* kTIMMsgGroupReceiptUnreadCount = "message_group_receipt_unread_count";
-// uint64, 只读, 注意：这个字段是内部字段，不推荐使用
-static const char* kTIMMsgVersion = "message_version";
 // uint @ref TIMMsgStatus, 读写(选填), 消息当前状态
 static const char* kTIMMsgStatus = "message_status";
 // uint64, 只读, 消息的唯一标识，推荐使用 kTIMMsgMsgId
@@ -2356,7 +2342,7 @@ static const char* kTIMMsgSenderProfile = "message_sender_profile";
 static const char* kTIMMsgSenderGroupMemberInfo = "message_sender_group_member_info";
 // bool, 读写, 是否作为会话的 lastMessage，true: 不作为，false: 作为
 static const char* kTIMMsgExcludedFromLastMessage = "message_excluded_from_last_message";
-// bool, 读写, 是否不过内容审核（包含【本地审核】和【云端审核】），只有在开通【本地审核】或【云端审核】功能后，该字段设置才有效，设置为 true，表明不过内容审核，设置为 false：表明过内容审核。【本地审核】开通流程请参考 [本地审核功能](https://cloud.tencent.com/document/product/269/83795#.E6.9C.AC.E5.9C.B0.E5.AE.A1.E6.A0.B8.E5.8A.9F.E8.83.BD)。 【云端审核】开通流程请参考 [云端审核功能](https://cloud.tencent.com/document/product/269/83795#.E4.BA.91.E7.AB.AF.E5.AE.A1.E6.A0.B8.E5.8A.9F.E8.83.BD)
+// bool, 读写, 是否不过内容审核（【云端审核】），只有在开通【云端审核】功能后，该字段设置才有效，设置为 true，表明不过内容审核，设置为 false：表明过内容审核。【云端审核】开通流程请参考 [云端审核功能](https://cloud.tencent.com/document/product/269/83795#.E4.BA.91.E7.AB.AF.E5.AE.A1.E6.A0.B8.E5.8A.9F.E8.83.BD)
 static const char* kTIMMsgExcludedFromContentModeration = "message_excluded_from_content_moderation";
 // string, 读写, 消息自定义审核配置 ID（从 7.8 版本开始支持）
 // 在开通【云端审核】功能后，您可以请前往 [控制台](https://console.cloud.tencent.com/im) (云端审核 -> 审核配置 -> 自定义配置 -> 添加自定义配置) 获取配置 ID。
@@ -2365,7 +2351,10 @@ static const char* kTIMMsgExcludedFromContentModeration = "message_excluded_from
 static const char* kTIMMsgCustomModerationConfigurationID= "message_custom_moderation_configuration_id";
 // bool, 只读（选填），是否被标记为有安全风险的消息（暂时只支持语音和视频消息），只有在开通【云端审核】功能后才生效，如果您发送的语音或视频消息内容不合规，云端异步审核后会触发 SDK 的 TIMMsgMessageModifiedCallback 回调，回调里的 message 对象该字段值为 true，从 7.4 版本开始支持
 static const char* kTIMMsgHasRiskContent = "message_has_risk_content";
-static const char* kTIMMsgRiskTypeIdentified = "message_risk_type_identified";
+/// bool, 读写, 是否禁用消息发送前云端回调，true: 禁用，false: 不禁用（从 8.1 版本开始支持）
+static const char* kTIMMsgDisableCloudMessagePreHook = "message_disable_cloud_message_pre_hook";
+/// bool, 读写, 是否禁用消息发送后云端回调，true: 禁用，false: 不禁用（从 8.1 版本开始支持）
+static const char* kTIMMsgDisableCloudMessagePostHook = "message_disable_cloud_message_post_hook";
 // array string, 只写(选填), 指定群消息接收成员（定向消息）；不支持群 @ 消息设置，不支持社群（Community）和直播群（AVChatRoom）消息设置；该字段设置后，消息会不计入会话未读数。
 static const char* kTIMMsgTargetGroupMemberArray = "message_target_group_member_array";
 // object @ref OfflinePushConfig, 读写(选填), 消息的离线推送设置
@@ -2378,6 +2367,17 @@ static const char* kTIMMsgRevokerNickName = "message_revoker_nick_name";
 static const char* kTIMMsgRevokerFaceUrl = "message_revoker_face_url";
 // string, 只读(选填), 消息撤回的原因, 仅当消息为撤回状态时有效，从 7.4 版本开始支持
 static const char* kTIMMsgRevokeReason = "message_revoke_reason";
+// string, 只读(选填), 消息置顶者的 user_id, 只有通过 GetPinnedGroupMessageList 获取到的置顶消息才包含该字段，从 8.0 版本开始支持
+static const char* kTIMMsgPinnerUserId = "message_pinner_user_id";
+// string, 只读(选填), 消息置顶者的昵称, 只有通过 GetPinnedGroupMessageList 获取到的置顶消息才包含该字段，从 8.0 版本开始支持
+static const char* kTIMMsgPinnerNickName = "message_pinner_nick_name";
+// string, 只读(选填), 消息置顶者的好友备注, 只有通过 GetPinnedGroupMessageList 获取到的置顶消息才包含该字段，从 8.0 版本开始支持
+static const char* kTIMMsgPinnerFriendRemark = "message_pinner_friend_remark";
+// string, 只读(选填), 消息置顶的群成员名片, 只有通过 GetPinnedGroupMessageList 获取到的置顶消息才包含该字段，从 8.0 版本开始支持
+static const char* kTIMMsgPinnerNameCard = "message_pinner_name_card";
+// string, 只读(选填), 消息置顶者的头像, 只有通过 GetPinnedGroupMessageList 获取到的置顶消息才包含该字段，从 8.0 版本开始支持
+static const char* kTIMMsgPinnerFaceURL = "message_pinner_face_url";
+
 
 //------------------------------------------------------------------------------
 // 7.13 MsgBatchSendParam (消息群发接口的参数)
@@ -2468,7 +2468,7 @@ static const char* kTIMMsgLocatorUniqueId = "message_locator_unique_id";
 static const char* kTIMMsgSearchParamKeywordArray = "msg_search_param_keyword_array";
 // array @ref TIMElemType, 只写(选填), 指定搜索的消息类型集合，传入空数组，表示搜索支持的全部类型消息（ @ref FaceElem 和 @ref GroupTipsElem 暂不支持）取值详见 @ref TIMElemType。
 static const char* kTIMMsgSearchParamMessageTypeArray = "msg_search_param_message_type_array";
-// string, 只写(选填)，会话唯一 ID，C2C 单聊组成方式为: "c2c_userID"：群聊组成方式为: "group_groupID"
+// string, 只写(选填)，会话唯一 ID，C2C 单聊为对方的 userID, 群聊为群 ID。
 static const char* kTIMMsgSearchParamConvId = "msg_search_param_conv_id";
 // uint @ref TIMConvType, 只写(选填), 会话类型，如果设置 kTIMConv_Invalid，代表搜索全部会话。否则，代表搜索指定会话。
 static const char* kTIMMsgSearchParamConvType = "msg_search_param_conv_type";
@@ -2484,9 +2484,9 @@ static const char* kTIMMsgSearchParamPageSize = "msg_search_param_page_size";
 static const char* kTIMMsgSearchParamKeywordListMatchType = "msg_search_param_keyword_list_match_type";
 // array string, 只写(选填), 按照发送者的 userid 进行搜索
 static const char* kTIMMsgSearchParamSenderIdentifierArray = "msg_search_param_send_identifier_array";
-// uint, 只写(选填), 服务武器搜索结果数量。
+// uint, 只写(选填), 服务器搜索结果数量。
 static const char* kTIMMsgSearchParamSearchCount = "msg_search_param_search_count";
-// string, 只写(选填)，服务武器搜索游标。第一次填空字符串，续拉时填写 @ref MessageSearchResult 中的返回值。
+// string, 只写(选填)，服务器搜索游标。第一次填空字符串，续拉时填写 @ref MessageSearchResult 中的返回值。
 static const char* kTIMMsgSearchParamSearchCursor = "msg_search_param_search_cursor";
 
 //------------------------------------------------------------------------------
@@ -2498,6 +2498,11 @@ static const char* kTIMMsgSearchResultItemConvType = "msg_search_result_item_con
 // uint, 只读, 当前会话一共搜索到了多少条符合要求的消息
 static const char* kTIMMsgSearchResultItemTotalMessageCount = "msg_search_result_item_total_message_count";
 // array @ref Message, 只读, 满足搜索条件的消息列表
+// @note
+//  - 如果您本次搜索【指定会话】，那么消息列表装载的是本会话中所有满足搜索条件的消息。
+//  - 如果您本次搜索【全部会话】，那么消息列表中装载的消息会有如下两种可能：
+//  - （1）如果某个会话中匹配到的消息条数 > 1，则消息列表为空，您可以在 UI 上显示 “messageCount 条相关记录”。
+//  - （2）如果某个会话中匹配到的消息条数 = 1，则消息列表为匹配到的那条消息，您可以在 UI 上显示之，并高亮匹配关键词。
 static const char* kTIMMsgSearchResultItemMessageArray = "msg_search_result_item_message_array";
 
 //------------------------------------------------------------------------------
@@ -2567,7 +2572,9 @@ static const char* kTIMMsgReceiptConvId = "msg_receipt_conv_id";
 static const char* kTIMMsgReceiptConvType = "msg_receipt_conv_type";
 // string, 只读, 群消息 ID
 static const char* kTIMMsgReceiptMsgId = "msg_receipt_msg_id";
-// uint64, 只读, 时间戳
+// uint64, 只读, C2C 对端已读的时间
+// 如果 msgID 为空，该字段表示对端用户标记会话已读的时间
+// 如果 msgID 不为空，该字段表示对端用户发送消息已读回执的时间（8.1 及以上版本支持）
 static const char* kTIMMsgReceiptTimeStamp = "msg_receipt_time_stamp";
 // bool, 只读, C2C 对端消息是否已读
 static const char* kTIMMsgReceiptIsPeerRead = "msg_receipt_is_peer_read";
@@ -2633,12 +2640,59 @@ static const char* kTIMMsgReactionChangeInfoReactionList = "message_reaction_cha
 
 /////////////////////////////////////////////////////////////////////////////////
 //
-//                            十一. 废弃字段
+//                    十一. SDK 内部字段（本部分所有字段均为只读，不推荐使用）
 //
 /////////////////////////////////////////////////////////////////////////////////
 
 //------------------------------------------------------------------------------
-// 11.1 以下为老版本拼写错误，为了兼容老版本而保留的宏定义
+// 11.1 MessageInternalField (消息内部字段)
+// uint64, 只读, 注意：该字段是内部字段，不推荐使用
+static const char* kTIMMsgSenderTinyId = "message_sender_tiny_id";
+// uint64, 只读, 注意：该字段是内部字段，不推荐使用
+static const char* kTIMMsgReceiverTinyId = "message_receiver_tiny_id";
+// int32, 只读, 注意：该字段是内部字段，不推荐使用，推荐调用 TIMMsgGetMessageReadReceipts 获取群消息已读回执
+static const char* kTIMMsgGroupReceiptReadCount = "message_group_receipt_read_count";
+// int32, 只读, 注意：该字段是内部字段，不推荐使用，推荐调用 TIMMsgGetMessageReadReceipts 获取群消息已读回执
+static const char* kTIMMsgGroupReceiptUnreadCount = "message_group_receipt_unread_count";
+// uint64, 只读, 注意：该字段是内部字段，不推荐使用
+static const char* kTIMMsgVersion = "message_version";
+// uint32, 只读, 注意：该字段是内部字段，不推荐使用
+static const char* kTIMMsgRiskTypeIdentified = "message_risk_type_identified";
+
+
+/////////////////////////////////////////////////////////////////////////////////
+//
+//                            十二. 废弃字段
+//
+/////////////////////////////////////////////////////////////////////////////////
+
+//------------------------------------------------------------------------------
+// 12.1 ImageElem (图片元素, 已废弃的部分)
+// int, 只读, 任务ID
+static const char* kTIMImageElemTaskId = "image_elem_task_id";
+
+//------------------------------------------------------------------------------
+// 12.2 SoundElem (音频元素, 已废弃的部分)
+// int, 只读, 任务ID
+static const char* kTIMSoundElemTaskId = "sound_elem_task_id";
+
+//------------------------------------------------------------------------------
+// 12.3 VideoElem (视频元素, 已废弃的部分)
+// uint, 只读, 任务ID
+static const char* kTIMVideoElemTaskId = "video_elem_task_id";
+
+//------------------------------------------------------------------------------
+// 12.4 FileElem (文件元素, 已废弃的部分)
+// int, 只读, 任务ID
+static const char* kTIMFileElemTaskId = "file_elem_task_id";
+
+//------------------------------------------------------------------------------
+// 12.5 GroupReportElem (群组系统通知元素, 已废弃的部分)
+// string, 只读, 群组名称
+static const char* kTIMGroupReportElemGroupName = "group_report_elem_group_name";
+
+//------------------------------------------------------------------------------
+// 12.6 以下为老版本拼写错误，为了兼容老版本而保留的宏定义
 // 若在消息 kTIMMsgGroupAtUserArray 字段中填入，表示当前消息需要 @ 群里所有人
 #define kImSDK_MesssageAtALL  kImSDK_MessageAtALL
 // LocationElem (位置元素) JsonKey
@@ -2646,11 +2700,11 @@ static const char* kTIMMsgReactionChangeInfoReactionList = "message_reaction_cha
 
 /////////////////////////////////////////////////////////////////////////////////
 //
-//                            十二. 废弃接口
+//                            十三. 废弃接口
 //
 /////////////////////////////////////////////////////////////////////////////////
 /**
- * 12.1 发送新消息（待废弃接口，请使用 TIMMsgSendMessage 接口）
+ * 13.1 发送新消息（待废弃接口，请使用 TIMMsgSendMessage 接口）
  *
  * @param conv_id   会话的ID
  * @param conv_type 会话类型，请参考 @ref TIMConvType
@@ -2710,7 +2764,7 @@ static const char* kTIMMsgReactionChangeInfoReactionList = "message_reaction_cha
 TIM_API int TIMMsgSendNewMsg(const char* conv_id, enum TIMConvType conv_type, const char* json_msg_param, TIMCommCallback cb, const void* user_data);
 
 /**
- * 12.2 发送新消息（待废弃接口，请使用 TIMMsgSendMessage 接口）
+ * 13.2 发送新消息（待废弃接口，请使用 TIMMsgSendMessage 接口）
  *
  * @param conv_id   会话的ID
  * @param conv_type 会话类型，请参考 @ref TIMConvType
@@ -2775,7 +2829,7 @@ TIM_API int TIMMsgSendNewMsg(const char* conv_id, enum TIMConvType conv_type, co
 TIM_API int TIMMsgSendNewMsgEx(const char* conv_id, enum TIMConvType conv_type, const char* json_msg_param, TIMCommCallback msgid_cb, TIMCommCallback res_cb, const void* user_data);
 
 /**
- * 12.3 消息上报已读（待废弃接口，请使用 TIMConvCleanConversationUnreadMessageCount 接口, 详见 TIMConversationManager.h 文件）
+ * 13.3 消息上报已读（待废弃接口，请使用 TIMConvCleanConversationUnreadMessageCount 接口, 详见 TIMConversationManager.h 文件）
  *
  * @param conv_id   会话的ID，从 5.8 版本开始，当 conv_id 为 NULL 空字符串指针或者 "" 空字符串时，标记 conv_type 表示的所有单聊消息或者群组消息为已读状态
  * @param conv_type 会话类型，请参考 @ref TIMConvType
@@ -2790,7 +2844,7 @@ TIM_API int TIMMsgSendNewMsgEx(const char* conv_id, enum TIMConvType conv_type, 
 TIM_API int TIMMsgReportReaded(const char* conv_id, enum TIMConvType conv_type, const char* json_msg_param, TIMCommCallback cb, const void* user_data);
 
 /**
- * 12.4 标记所有消息为已读（待废弃接口，请使用 TIMConvCleanConversationUnreadMessageCount 接口，详见 TIMConversationManager.h 文件）
+ * 13.4 标记所有消息为已读（待废弃接口，请使用 TIMConvCleanConversationUnreadMessageCount 接口，详见 TIMConversationManager.h 文件）
  *
  * @param cb 成功与否的回调。回调函数定义请参考 @ref TIMCommCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理

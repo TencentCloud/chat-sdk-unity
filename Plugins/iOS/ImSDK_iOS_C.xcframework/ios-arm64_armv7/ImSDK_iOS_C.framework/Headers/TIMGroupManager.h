@@ -88,6 +88,10 @@ enum TIMGroupTipType {
     kTIMGroupTip_MemberMarkChange,
     // 话题资料修改提示
     kTIMGroupTip_TopicInfoChange,
+    // 置顶群消息
+    KTIMGroupTip_PinnedMessageAdded,
+    // 取消置顶群消息
+    KTIMGroupTip_PinnedMessageDeleted,
 };
 
 // 1.3 群组类型
@@ -254,6 +258,15 @@ enum TIMGroupPendencyHandleResult {
     kTIMGroupPendency_Accept = 1,
 };
 
+// 1.15 加群类型
+enum TIMGroupJoinType {
+    // 未知
+    kTIMGroupJoin_None = 0,
+    // 主动加群
+    kTIMGroupJoin_Apply = 1,
+    // 邀请进群
+    kTIMGroupJoin_Invite = 2,
+};
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -797,7 +810,7 @@ TIM_API int TIMGroupGetGroupAttributes(const char *group_id, const char *json_ke
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  *
- * @note 请注意
+ * @note
  * - IMSDK 7.3 以前的版本仅支持直播群（ AVChatRoom）；
  * - IMSDK 7.3 及其以后的版本支持所有群类型。
  *
@@ -1165,7 +1178,6 @@ TIM_API int TIMGroupSearchGroupMembers(const char *json_group_search_group_membe
  * @note
  * 权限说明：
  *  - 只有群主或者管理员可以进行对群成员的身份进行修改。
- *  - 直播大群不支持修改用户群内身份。
  *  - 只有群主或者管理员可以进行对群成员进行禁言。
  * kTIMGroupModifyMemberInfoParamModifyFlag 可以按位或设置多个值，不同的 flag 设置不同的键, flag 信息请参考 @ref TIMGroupMemberModifyInfoFlag
  *
@@ -1290,7 +1302,7 @@ TIM_API int TIMGroupDeleteMember(const char* json_group_delete_param, TIMCommCal
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  *
- * @note 请注意
+ * @note
  * - 仅支持直播群。
  * - 只有群主才有权限标记群组中其他人。
  *
@@ -1467,6 +1479,8 @@ static const char* kTIMGroupTipMemberMarkChangeInfoUserIDList = "group_tips_memb
 //  - 针对所有群成员，可以通过监听 @ref TIMSetGroupTipsEventCallback 获取
 // uint @ref TIMGroupTipType, 只读, 群消息类型
 static const char* kTIMGroupTipsElemTipType = "group_tips_elem_tip_type";
+// uint @ref TIMGroupJoinType, 只读, 加群类型, @ref TIMGroupTipType 为 kTIMGroupTip_Invite 时有效, 从 8.0 版本开始支持
+static const char* kTIMGroupTipsElemJoinType = "group_tips_elem_join_type";
 // string, 只读, 操作者ID
 static const char* kTIMGroupTipsElemOpUser = "group_tips_elem_op_user";
 // string, 只读, 群组ID
@@ -1529,11 +1543,11 @@ static const char* kTIMGroupMemberInfoCustomInfo = "group_member_info_custom_inf
 // string, 只读，群成员是否在线
 static const char* kTIMGroupMemberInfoIsOnline = "group_member_info_is_online";
 // array, 只读， 群成员在线终端列表
-static const char* KTIMGroupMemberInfoOnlineDevices = "group_member_info_online_devices";
+static const char* kTIMGroupMemberInfoOnlineDevices = "group_member_info_online_devices";
 
 //------------------------------------------------------------------------------
 // 10.2 CreateGroupParam(创建群组接口的参数)
-// string, 只写(必填), 群组名称
+// string, 只写(必填)，群组名称，最长 100 字节，使用 UTF-8 编码，1 个汉字占 3 个字节。
 static const char* kTIMCreateGroupParamGroupName = "create_group_param_group_name";
 // string, 只写(选填), 群组ID,不填时创建成功回调会返回一个后台分配的群ID，如果创建社群（Community）需要自定义群组 ID ，那必须以 "@TGS#_" 作为前缀。
 static const char* kTIMCreateGroupParamGroupId = "create_group_param_group_id";
@@ -1559,7 +1573,7 @@ static const char* kTIMCreateGroupParamMaxMemberCount = "create_group_param_max_
 static const char* kTIMCreateGroupParamCustomInfo = "create_group_param_custom_info";
 // bool, 只写(选填), 开启权限组功能, 仅支持社群, 7.8 版本开始支持。开启后，管理员角色的权限失效，用群权限、话题权限和权限组能力来对社群、话题进行管理。
 static const char* kTIMCreateGroupParamEnablePermissionGroup = "create_group_param_enable_permission_group";
-// uint64, 只写(选填), 群默认权限, 仅支持社群, 7.8 版本开始支持。群成员在没有加入任何权限组时的默认权限，仅在 enablePermissionGroup = true 打开权限组之后生效
+// uint64, 只写(选填), 群默认权限, 仅支持社群, 7.8 版本开始支持。群成员在没有加入任何权限组时的默认权限，仅在 kTIMCreateGroupParamEnablePermissionGroup 为 true 时生效
 static const char* kTIMCreateGroupParamDefaultPermissions = "create_group_param_default_permissions";
 
 //------------------------------------------------------------------------------
@@ -2025,6 +2039,8 @@ static const char* kTIMGroupMemberGetInfoOptionCustomArray = "group_member_get_i
 // GroupSearchGroupMembersResult JsonKey
 #define TIMGroupSearchGroupMembersdResultGroupID         TIMGroupSearchGroupMembersResultGroupID
 #define TIMGroupSearchGroupMembersdResultMemberInfoList  TIMGroupSearchGroupMembersResultMemberInfoList
+// GroupMemberInfo JsonKey
+#define KTIMGroupMemberInfoOnlineDevices kTIMGroupMemberInfoOnlineDevices
 
 #ifdef __cplusplus
 }

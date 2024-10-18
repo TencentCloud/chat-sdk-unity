@@ -89,7 +89,7 @@ namespace com.tencent.imsdk.unity.enums
     /// <description>会话隐藏 (Conversation hide)</description>
     /// </summary>
     kTIMConversationMarkTypeHide = 0x1 << 3,  // 会话隐藏
-  }
+  };
 
   public enum TIMMsgPriority
   {
@@ -169,7 +169,6 @@ namespace com.tencent.imsdk.unity.enums
     /// <description>消息取消 (Message cancelled)</description>
     /// </summary>
     kTIMMsg_Cancel = 7,         // 消息取消
-
   };
 
   public enum TIMGenderType
@@ -621,6 +620,22 @@ namespace com.tencent.imsdk.unity.enums
     /// <description>修改群自定义信息 (Modify group custom data)</description>
     /// </summary>
     kTIMGroupModifyInfoFlag_Custom = 0x01 << 9,  // 修改群自定义信息
+    /// <summary>
+    /// <description>话题自定义字段 (Modify group topic custom string)</description>
+    /// </summary>
+    kTIMGroupTopicModifyInfoFlag_CustomString = 0x01 << 11,  // 话题自定义字段
+    /// <summary>
+    /// <description>邀请进群管理员审批选项 (Modify group invite approval option)</description>
+    /// </summary>
+    kTIMGroupModifyInfoFlag_ApproveOption = 0x01 << 12,  // 邀请进群管理员审批选项
+    /// <summary>
+    /// <description>开启权限组功能，仅支持社群，7.8 版本开始支持 (Enable permission group, only support community, supported in version 7.8 and later)</description>
+    /// </summary>
+    kTIMGroupModifyInfoFlag_EnablePermissionGroup = 0x1 << 13,  // 开启权限组功能，仅支持社群，7.8 版本开始支持
+    /// <summary>
+    /// <description>群默认权限，仅支持社群，7.8 版本开始支持 (Default permissions of group, only support community, supported in version 7.8 and later)</description>
+    /// </summary>
+    kTIMGroupModifyInfoFlag_DefaultPermissions = 0x1 << 14,  // 群默认权限，仅支持社群，7.8 版本开始支持
     /// <summary>
     /// <description>修改群主 (Modify group owner)</description>
     /// </summary>
@@ -1086,7 +1101,7 @@ namespace com.tencent.imsdk.unity.enums
     /// <description>internal_operation_write_log</description>
     /// </summary>
     internal_operation_write_log
-  }
+  };
 
   public enum HandleGroupMemberResult
   {
@@ -1133,11 +1148,11 @@ namespace com.tencent.imsdk.unity.enums
     /// <summary>
     /// <description>群消息已读成员列表 (Group message read member list)</description>
     /// </summary>
-    TIM_GROUP_MESSAGE_READ_MEMBERS_FILTER_READ = 0,  // 群消息已读成员列表
+    TIM_GROUP_MESSAGE_READ_MEMBERS_FILTER_READ = 0,
     /// <summary>
     /// <description>群消息未读成员列表 (Group message unread member list)</description>
     /// </summary>
-    TIM_GROUP_MESSAGE_READ_MEMBERS_FILTER_UNREAD = 1,  // 群消息未读成员列表
+    TIM_GROUP_MESSAGE_READ_MEMBERS_FILTER_UNREAD = 1,
   };
 
   public enum TIMUserStatusType
@@ -1145,18 +1160,206 @@ namespace com.tencent.imsdk.unity.enums
     /// <summary>
     /// <description>未知状态 (Unknown status)</description>
     /// </summary>
-    kTIMUserStatusType_Unkown = 0,  // 未知状态
+    kTIMUserStatusType_Unknown = 0,
     /// <summary>
     /// <description>在线状态 (Online)</description>
     /// </summary>
-    kTIMUserStatusType_Online = 1,  // 在线状态
+    kTIMUserStatusType_Online = 1,
     /// <summary>
     /// <description>离线状态 (Offline)</description>
     /// </summary>
-    kTIMUserStatusType_Offline = 2,  // 离线状态
+    kTIMUserStatusType_Offline = 2,
     /// <summary>
-    /// <description>未登录 (Unlogged in (called TIMLogout or never logged in))</description>
+    /// <description>未登录 (Unlogined in (called TIMLogout or never logged in))</description>
     /// </summary>
-    kTIMUserStatusType_UnLogined = 3,  // 未登录（如主动调用 TIMLogout 接口，或者账号注册后还未登录）
+    kTIMUserStatusType_UnLogined = 3,
+  };
+
+  public enum TIMFollowType
+  {
+    /// <summary>
+    /// <description>无任何关注关系 (No any follow relation)</description>
+    /// </summary>
+    kTIMFollowType_None = 0,
+    /// <summary>
+    /// <description>对方在我的关注列表中 (Peer is in my following list)</description>
+    /// </summary>
+    kTIMFollowType_InMyFollowingList = 1,
+    /// <summary>
+    /// <description>对方在我的粉丝列表中 (Peer is in my followers list)</description>
+    /// </summary>
+    kTIMFollowType_InMyFollowersList = 2,
+    /// <summary>
+    /// <description>对方与我互相关注 (Peer is in both followers list)</description>
+    /// </summary>
+    kTIMFollowType_InBothFollowersList = 3,
+  };
+
+  public enum TIMSignalingActionType
+  {
+    /// <summary>
+    /// <description> 未定义 (Unknown)</description>
+    /// </summary>
+    TIMSignalingActionType_Unknown = 0,
+    /// <summary>
+    /// <description> 邀请方发起邀请 (Invite)</description>
+    /// </summary>
+    TIMSignalingActionType_Invite = 1,
+    /// <summary>
+    /// <description> 邀请方取消邀请 (Cancel invitation)</description>
+    /// </summary>
+    TIMSignalingActionType_CancelInvite = 2,
+    /// <summary>
+    /// <description> 被邀请方接受邀请 (Accept invitation)</description>
+    /// </summary>
+    TIMSignalingActionType_AcceptInvite = 3,
+    /// <summary>
+    /// <description> 被邀请方拒绝邀请 (Reject invitation)</description>
+    /// </summary>
+    TIMSignalingActionType_RejectInvite = 4,
+    /// <summary>
+    /// <description> 邀请超时 (Invitation timeout)</description>
+    /// </summary>
+    TIMSignalingActionType_InviteTimeout = 5,
+  };
+
+  public enum TIMCommunityTopicModifyInfoFlag
+  {
+    /// <summary>
+    /// <description> 未定义 (Unknown)</description>
+    /// </summary>
+    kTIMCommunityTopicModifyInfoFlag_None = 0x00,
+    /// <summary>
+    /// <description> 修改话题名称 (Modify topic name)</description>
+    /// </summary>
+    kTIMCommunityTopicModifyInfoFlag_Name = 0x01,
+    /// <summary>
+    /// <description> 修改话题公告 (Modify topic notification)</description>
+    /// </summary>
+    kTIMCommunityTopicModifyInfoFlag_Notification = 0x01 << 1,
+    /// <summary>
+    /// <description> 修改话题简介 (Modify topic introduction)</description>
+    /// </summary>
+    kTIMCommunityTopicModifyInfoFlag_Introduction = 0x01 << 2,
+    /// <summary>
+    /// <description> 修改话题头像URL (Modify topic face url)</description>
+    /// </summary>
+    kTIMCommunityTopicModifyInfoFlag_FaceUrl = 0x01 << 3,
+    /// <summary>
+    /// <description> 修改话题是否全体禁言 (Modify topic mute all)</description>
+    /// </summary>
+    kTIMCommunityTopicModifyInfoFlag_MuteALl = 0x01 << 8,
+    /// <summary>
+    /// <description> 话题自定义字段 (Topic custom string)</description>
+    /// </summary>
+    kTIMCommunityTopicModifyInfoFlag_CustomString = 0x01 << 11,
+    /// <summary>
+    /// <description> 修改话题草稿 (Modify topic draft)</description>
+    /// </summary>
+    kTIMCommunityTopicModifyInfoFlag_Draft = 0x01 << 14,
+    /// <summary>
+    /// <description> 修改话题默认权限，7.8 版本开始支持 (Modify topic default permissions, supported in version 7.8 and later)</description>
+    /// </summary>
+    kTIMCommunityTopicModifyInfoFlag_DefaultPermissions = 0x01 << 15,
+  };
+
+  public enum TIMPermissionGroupModifyInfoFlag
+  {
+    /// <summary>
+    /// <description> 未定义 (Unknown)</description>
+    /// </summary>
+    kTIMPermissionGroupModifyInfoFlag_None = 0x00,
+    /// <summary>
+    /// <description> 名称 (Name)</description>
+    /// </summary>
+    kTIMPermissionGroupModifyInfoFlag_Name = 0x01,
+    /// <summary>
+    /// <description> 群权限 (Group permission)</description>
+    /// </summary>
+    kTIMPermissionGroupModifyInfoFlag_GroupPermission = 0x01 << 1,
+    /// <summary>
+    /// <description> 自定义字段 (Custom data)</description>
+    /// </summary>
+    kTIMPermissionGroupModifyInfoFlag_CustomData = 0x01 << 2,
+  };
+
+  public enum V2TIMCommunityPermissionValue
+  {
+    /// <summary>
+    /// <description> 修改群资料权限。该位设置为0，表示没有该权限；设置为1，表示有该权限 (The permission value of managing group info, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_COMMUNITY_PERMISSION_MANAGE_GROUP_INFO = 0x01,
+    /// <summary>
+    /// <description> 群成员管理权限，包含踢人，进群审核、修改成员资料等。该位设置为0，表示没有该权限；设置为1，表示有该权限 (The permission value of managing group member, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_COMMUNITY_PERMISSION_MANAGE_GROUP_MEMBER = 0x1 << 1,
+    /// <summary>
+    /// <description> 管理权限组资料权限，包含创建、修改、删除权限组；在权限组中添加、修改、删除话题权限。该位设置为0，表示没有该权限；设置为1，表示有该权限。(The permission value of managing permission group info, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_COMMUNITY_PERMISSION_MANAGE_PERMISSION_GROUP_INFO = 0x1 << 2,
+    /// <summary>
+    /// <description> 权限组成员管理权限，包含邀请成员进权限组和把成员从权限组踢出等。该位设置为0，表示没有该权限；设置为1，表示有该权限 (The permission value of managing permission group member, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_COMMUNITY_PERMISSION_MANAGE_PERMISSION_GROUP_MEMBER = 0x1 << 3,
+    /// <summary>
+    /// <description> 话题管理权限，包含创建、修改、删除话题等。该位设置为0，表示没有该权限；设置为1，表示有该权限 (The permission value of managing topic in community, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_COMMUNITY_PERMISSION_MANAGE_TOPIC_IN_COMMUNITY = 0x1 << 4,
+    /// <summary>
+    /// <description> 对某群成员在社群下所有话题的禁言权限。该位设置为0，表示没有该权限；设置为1，表示有该权限。(The permission value of muting member in all topics of community, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_COMMUNITY_PERMISSION_MUTE_MEMBER = 0x1 << 5,
+    /// <summary>
+    /// <description> 群成员在社群下所有话题的发消息权限。该位设置为0，表示没有该权限；设置为1，表示有该权限。(The permission value of sending message in all topics of community, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_COMMUNITY_PERMISSION_SEND_MESSAGE = 0x1 << 6,
+    /// <summary>
+    /// <description> 在社群下所有话题发 at all 消息权限。该位设置为0，表示没有该权限；设置为1，表示有该权限。(The permission value of sending at all message in all topics of community, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_COMMUNITY_PERMISSION_AT_ALL = 0x1 << 7,
+    /// <summary>
+    /// <description> 在社群下所有话题拉取入群前的历史消息权限。该位设置为0，表示没有该权限；设置为1，表示有该权限。(The permission value of getting history message in all topics of community, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_COMMUNITY_PERMISSION_GET_HISTORY_MESSAGE = 0x1 << 8,
+    /// <summary>
+    /// <description> 在社群下所有话题撤回他人消息权限。该位设置为0，表示没有该权限；设置为1，表示有该权限。(The permission value of revoking other member message in all topics of community, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_COMMUNITY_PERMISSION_REVOKE_OTHER_MEMBER_MESSAGE = 0x1 << 9,
+    /// <summary>
+    /// <description> 封禁社群成员权限。该位设置为0，表示没有该权限；设置为1，表示有该权限。(The permission value of banning member in community, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_COMMUNITY_PERMISSION_BAN_MEMBER = 0x1 << 10,
+  };
+
+  public enum V2TIMTopicPermissionValue
+  {
+    /// <summary>
+    /// <description> 管理当前话题的权限，包括修改当前话题的资料、删除当前话题。该位设置为0，表示没有该权限；设置为1，表示有该权限 (The permission value of managing current topic, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_TOPIC_PERMISSION_MANAGE_TOPIC = 0x1,
+    /// <summary>
+    /// <description> 在当前话题中管理话题权限，包括添加、修改、移除话题权限。该位设置为0，表示没有该权限；设置为1，表示有该权限 (The permission value of managing topic permission in current topic, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_TOPIC_PERMISSION_MANAGE_TOPIC_PERMISSION = 0x1 << 1,
+    /// <summary>
+    /// <description> 在当前话题中禁言成员权限。该位设置为0，表示没有该权限；设置为1，表示有该权限 (The permission value of muting member in current topic, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_TOPIC_PERMISSION_MUTE_MEMBER = 0x1 << 2,
+    /// <summary>
+    /// <description> 在当前话题中发消息权限。该位设置为0，表示没有该权限；设置为1，表示有该权限 (The permission value of sending message in current topic, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_TOPIC_PERMISSION_SEND_MESSAGE = 0x1 << 3,
+    /// <summary>
+    /// <description> 在当前话题中拉取入群前的历史消息权限。该位设置为0，表示没有该权限；设置为1，表示有该权限 (The permission value of getting history message in current topic, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_TOPIC_PERMISSION_GET_HISTORY_MESSAGE = 0x1 << 4,
+    /// <summary>
+    /// <description> 在当前话题中撤回他人消息权限。该位设置为0，表示没有该权限；设置为1，表示有该权限 (The permission value of revoking other member message in current topic, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_TOPIC_PERMISSION_REVOKE_OTHER_MEMBER_MESSAGE = 0x1 << 5,
+    /// <summary>
+    /// <description> 在当前话题中发消息时有 at all 权限。该位设置为0，表示没有该权限；设置为1，表示有该权限 (The permission value of sending at all message in current topic, 0: no permission, 1: has permission)</description>
+    /// </summary>
+    V2TIM_TOPIC_PERMISSION_AT_ALL = 0x1 << 6,
   };
 }
