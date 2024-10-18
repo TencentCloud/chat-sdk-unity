@@ -29,6 +29,16 @@ public static class I18n
       }
     },
     {
+      "Signaling Module", new I18nData{
+      cn = "信令模块"
+      }
+    },
+    {
+      "Community Module", new I18nData{
+      cn = "社群模块"
+      }
+    },
+    {
       "Config", new I18nData{
         cn = "配置信息"
       }
@@ -503,6 +513,166 @@ public static class I18n
       }
     },
     {
+      "SetMsgGroupPinnedMessageChangedCallback", new I18nData{
+        cn = "群置顶消息变更的回调"
+      }
+    },
+    {
+      "SetFriendGroupCreatedCallback", new I18nData{
+        cn = "好友分组创建通知回调"
+      }
+    },
+    {
+      "SetFriendGroupDeletedCallback", new I18nData{
+        cn = "好友分组删除通知回调"
+      }
+    },
+    {
+      "SetFriendGroupNameChangedCallback", new I18nData{
+        cn = "好友分组名称变更通知回调"
+      }
+    },
+    {
+      "SetFriendsAddedToGroupCallback", new I18nData{
+        cn = "好友添加到分组通知回调"
+      }
+    },
+    {
+      "SetFriendsDeletedFromGroupCallback", new I18nData{
+        cn = "好友从分组删除通知回调"
+      }
+    },
+    {
+      "SetOfficialAccountSubscribedCallback", new I18nData{
+        cn = "订阅公众号通知回调"
+      }
+    },
+    {
+      "SetOfficialAccountUnsubscribedCallback", new I18nData{
+        cn = "取消订阅公众号通知回调"
+      }
+    },
+    {
+      "SetOfficialAccountDeletedCallback", new I18nData{
+        cn = "删除公众号通知回调"
+      }
+    },
+    {
+      "SetOfficialAccountInfoChangedCallback", new I18nData{
+        cn = "公众号信息变更通知回调"
+      }
+    },
+    {
+      "SetMyFollowingListChangedCallback", new I18nData{
+        cn = "我的关注列表变更通知回调"
+      }
+    },
+    {
+      "SetMyFollowersListChangedCallback", new I18nData{
+        cn = "我的粉丝列表变更通知回调"
+      }
+    },
+    {
+      "SetMutualFollowersListChangedCallback", new I18nData{
+        cn = "互相关注列表变更通知回调"
+      }
+    },
+    {
+      "SetSignalingReceiveNewInvitationCallback", new I18nData{
+        cn = "收到信令邀请通知回调"
+      }
+    },
+    {
+      "SetSignalingInvitationCancelledCallback", new I18nData{
+        cn = "信令邀请被取消通知回调"
+      }
+    },
+    {
+      "SetSignalingInviteeAcceptedCallback", new I18nData{
+        cn = "信令邀请被接受通知回调"
+      }
+    },
+    {
+      "SetSignalingInviteeRejectedCallback", new I18nData{
+        cn = "信令邀请被拒绝通知回调"
+      }
+    },
+    {
+      "SetSignalingInvitationTimeoutCallback", new I18nData{
+        cn = "信令邀请超时通知回调"
+      }
+    },
+    {
+      "SetSignalingInvitationModifiedCallback", new I18nData{
+        cn = "信令邀请被修改通知回调"
+      }
+    },
+    {
+      "SetCommunityCreateTopicCallback", new I18nData{
+        cn = "话题创建通知回调"
+      }
+    },
+    {
+      "SetCommunityDeleteTopicCallback", new I18nData{
+        cn = "话题删除通知回调"
+      }
+    },
+    {
+      "SetCommunityChangeTopicInfoCallback", new I18nData{
+        cn = "话题变更通知回调"
+      }
+    },
+    {
+      "SetCommunityReceiveTopicRESTCustomDataCallback", new I18nData{
+        cn = "话题自定义数据接收通知回调"
+      }
+    },
+    {
+      "SetCommunityCreatePermissionGroupCallback", new I18nData{
+        cn = "权限组创建通知回调"
+      }
+    },
+    {
+      "SetCommunityDeletePermissionGroupCallback", new I18nData{
+        cn = "权限组删除通知回调"
+      }
+    },
+    {
+      "SetCommunityChangePermissionGroupInfoCallback", new I18nData{
+        cn = "权限组变更通知回调"
+      }
+    },
+    {
+      "SetCommunityAddMembersToPermissionGroupCallback", new I18nData{
+        cn = "向权限组添加成员通知回调"
+      }
+    },
+    {
+      "SetCommunityRemoveMembersFromPermissionGroupCallback", new I18nData{
+        cn = "从权限组删除成员通知回调"
+      }
+    },
+    {
+      "SetCommunityAddTopicPermissionCallback", new I18nData{
+        cn = "添加话题权限的通知回调"
+      }
+    },
+    {
+      "SetCommunityDeleteTopicPermissionCallback", new I18nData{
+        cn = "删除话题权限的通知回调"
+      }
+    },
+    {
+      "SetCommunityModifyTopicPermissionCallback", new I18nData{
+        cn = "修改话题权限的通知回调"
+      }
+    },
+    {
+      "SetExperimentalNotifyCallback", new I18nData{
+        cn = "实验性通知的回调"
+      }
+    },
+    {
       "FriendIDLabel", new I18nData{
         cn = "好友UserID",
         en = "Friend's UserID"
@@ -874,5 +1044,29 @@ public static class I18n
         en = "Message Receiving Option"
       }
     },
+    {
+      "UserIDsInputTips", new I18nData{
+        cn = "多个用户 ID 请用空格分隔",
+        en = "Please separate user IDs with spaces"
+      }
+    },
+    {
+      "OfficialAccountIDsInputTips", new I18nData{
+        cn = "多个公众号 ID 请用空格分隔",
+        en = "Please separate official account IDs with spaces"
+      }
+    },
+    {
+      "TopicIDsInputTips", new I18nData{
+        cn = "多个话题 ID 请用空格分隔",
+        en = "Please separate topic IDs with spaces"
+      }
+    },
+    {
+      "PermissionGroupIDsInputTips", new I18nData{
+        cn = "多个权限组 ID 请用空格分隔",
+        en = "Please separate permission group IDs with spaces"
+      }
+    }
   };
 };

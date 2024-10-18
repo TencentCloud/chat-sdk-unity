@@ -119,6 +119,7 @@ enum V2TIMTopicPermissionValue {
  *
  * @param group_id 话题所属的社群 ID
  * @param topic_id 话题 ID
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
  */
 typedef void (*TIMCommunityCreateTopicCallback)(const char* group_id, const char* topic_id, const void* user_data);
 
@@ -127,71 +128,99 @@ typedef void (*TIMCommunityCreateTopicCallback)(const char* group_id, const char
  *
  * @param group_id 话题所属的社群 ID
  * @param topic_id_array 话题列表
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
  */
-typedef void (*TIMCommunityDeleteTopicCallback)(const char* group_id, const char* topic_id_array,
-                                                const void* user_data);
+typedef void (*TIMCommunityDeleteTopicCallback)(const char* group_id, const char* topic_id_array, const void* user_data);
 
 /**
  * 2.3 话题更新的回调
  *
+ * @param group_id 话题所属的社群 ID
  * @param topic_info 话题信息，参见 @ref TIMGroupTopicInfo 类型
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
  */
-typedef void (*TIMCommunityChangeTopicInfoCallback)(const char* group_id, const char* topic_info,
-                                                    const void* user_data);
+typedef void (*TIMCommunityChangeTopicInfoCallback)(const char* group_id, const char* topic_info, const void* user_data);
 
 /**
  * 2.4 话题自定义系统通知
+ *
+ * @param group_id 话题所属的社群 ID
+ * @param custom_data 自定义的通知信息
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
  */
-typedef void (*TIMCommunityReceiveTopicRESTCustomDataCallback)(const char* topic_id, const char* custom_data,
-                                                               const void* user_data);
+typedef void (*TIMCommunityReceiveTopicRESTCustomDataCallback)(const char* topic_id, const char* custom_data, const void* user_data);
 
 /**
  * 2.5 权限组创建的回调
+ * 
+ * @param group_id 权限组所属的社群 ID
+ * @param permission_group_info 权限组信息，Json Key 请参考 @ref PermissionGroupInfo
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
  */
-typedef void (*TIMCommunityCreatePermissionGroupCallback)(const char* group_id, const char* permission_group_info,
-                                                          const void* user_data);
+typedef void (*TIMCommunityCreatePermissionGroupCallback)(const char* group_id, const char* permission_group_info, const void* user_data);
 
 /**
  * 2.6 权限组删除的回调
+ * 
+ * @param group_id 权限组所属的社群 ID
+ * @param permission_group_id_array 权限组 ID 列表
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
  */
-typedef void (*TIMCommunityDeletePermissionGroupCallback)(const char* group_id, const char* permission_group_id_array,
-                                                          const void* user_data);
+typedef void (*TIMCommunityDeletePermissionGroupCallback)(const char* group_id, const char* permission_group_id_array, const void* user_data);
 
 /**
  * 2.7 权限组更新的回调
+ * 
+ * @param group_id 权限组所属的社群 ID
+ * @param permission_group_info 权限组信息，Json Key 请参考 @ref PermissionGroupInfo
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
  */
-typedef void (*TIMCommunityChangePermissionGroupInfoCallback)(const char* group_id, const char* permission_group_info,
-                                                              const void* user_data);
+typedef void (*TIMCommunityChangePermissionGroupInfoCallback)(const char* group_id, const char* permission_group_info, const void* user_data);
 
 /**
  * 2.8 添加成员到权限组中
+ * 
+ * @param group_id 权限组所属的社群 ID
+ * @param json_result 权限组 ID 以及 向该权限组中添加的用户 ID 列表，Json Key 请参考 @ref PermissionGroupCallback
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
  */
-typedef void (*TIMCommunityAddMembersToPermissionGroupCallback)(const char* group_id, const char* json_result,
-                                                                const void* user_data);
+typedef void (*TIMCommunityAddMembersToPermissionGroupCallback)(const char* group_id, const char* json_result, const void* user_data);
 
 /**
  * 2.9 从权限组中删除成员
+ * 
+ * @param group_id 权限组所属的社群 ID
+ * @param json_result 权限组 ID 以及 从该权限组中删除的用户 ID 列表，Json Key 请参考 @ref PermissionGroupCallback
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
  */
-typedef void (*TIMCommunityRemoveMembersFromPermissionGroupCallback)(const char* group_id, const char* json_result,
-                                                                     const void* user_data);
+typedef void (*TIMCommunityRemoveMembersFromPermissionGroupCallback)(const char* group_id, const char* json_result, const void* user_data);
 
 /**
  * 2.10 话题权限添加的回调
+ * 
+ * @param group_id 权限组所属的社群 ID
+ * @param json_result 权限组 ID 以及 向该权限组中添加的话题权限信息，Json Key 请参考 @ref PermissionGroupCallback
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
  */
-typedef void (*TIMCommunityAddTopicPermissionCallback)(const char* group_id, const char* json_result,
-                                                       const void* user_data);
+typedef void (*TIMCommunityAddTopicPermissionCallback)(const char* group_id, const char* json_result, const void* user_data);
 
 /**
  * 2.11 话题权限删除的回调
+ * 
+ * @param group_id 权限组所属的社群 ID
+ * @param json_result  权限组 ID 以及 从该权限组中删除的话题 ID 列表，Json Key 请参考 @ref PermissionGroupCallback
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
  */
-typedef void (*TIMCommunityDeleteTopicPermissionCallback)(const char* group_id, const char* json_result,
-                                                          const void* user_data);
+typedef void (*TIMCommunityDeleteTopicPermissionCallback)(const char* group_id, const char* json_result, const void* user_data);
 
 /**
  * 2.12 话题权限修改的回调
+ * 
+ * @param group_id 权限组所属的社群 ID
+ * @param json_result  权限组 ID 以及 该权限组内修改的话题权限列表，Json Key 请参考 @ref TopicPermission
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
  */
-typedef void (*TIMCommunityModifyTopicPermissionCallback)(const char* group_id, const char* json_result,
-                                                          const void* user_data);
+typedef void (*TIMCommunityModifyTopicPermissionCallback)(const char* group_id, const char* json_result, const void* user_data);
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -475,6 +504,18 @@ TIM_API int TIMCommunitySetTopicInfo(const char* json_topic_info, TIMCommCallbac
 TIM_API int TIMCommunityGetTopicInfoList(const char* group_id, const char* json_topic_id_array, TIMCommCallback cb,
                                          const void* user_data);
 
+/**
+ * 4.7 登录用户在话题中的消息接收选项是否继承社群。该功能仅增强版 SDK 8.1 及以上版本支持。
+ *
+ * @param topic_id 话题 ID
+ * @param isInherit 是否继承
+ * @param cb 修改的回调。回调函数定义请参考 @ref TIMCommCallback
+ * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
+ * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
+ */
+TIM_API int TIMCommunitySetTopicInheritMessageReceiveOptionFromCommunity(const char* topic_id, bool isInherit,
+                                                                         TIMCommCallback cb, const void* user_data);
+
 /////////////////////////////////////////////////////////////////////////////////
 //
 //                       五. 权限组 API
@@ -575,8 +616,8 @@ TIM_API int TIMCommunityModifyPermissionGroupInfoInCommunity(const char* json_pe
  *   }, nullptr);
  * @endcode
  */
-TIM_API int TIMCommunityGetJoinedPermissionGroupListInCommunity(const char* group_id,
-                                                                TIMCommCallback cb, const void* user_data);
+TIM_API int TIMCommunityGetJoinedPermissionGroupListInCommunity(const char* group_id, TIMCommCallback cb,
+                                                                const void* user_data);
 
 /**
  * 5.5 获取权限组列表（7.8 及其以上版本支持）
@@ -850,7 +891,7 @@ static const char* kTIMCommunityTopicInfoDraftText = "group_topic_info_draft_tex
 static const char* kTIMCommunityTopicInfoUnreadCount = "group_topic_info_unread_count";
 // object @ref Message, 只读, 话题 lastMessage
 static const char* kTIMCommunityTopicInfoLastMessage = "group_topic_info_last_message";
-// uin64, 只读, 话题已读消息的 sequence，从 7.8 版本开始支持
+// uint64, 只读, 话题已读消息的 sequence，从 7.8 版本开始支持
 static const char* kTIMCommunityTopicInfoReadSequence = "topic_info_read_sequence";
 // array @ref GroupAtInfo, 只读, 话题 at 信息列表
 static const char* kTIMCommunityTopicInfoGroupAtInfoArray = "group_topic_info_group_at_info_array";
@@ -858,12 +899,14 @@ static const char* kTIMCommunityTopicInfoGroupAtInfoArray = "group_topic_info_gr
 static const char* kTIMCommunityTopicInfoModifyFlag = "group_modify_info_param_modify_flag";
 // uint32, 只读, 话题创建时间
 static const char* kTIMCommunityTopicCreateTime = "topic_create_time";
-// uint64, 读写, 话题默认权限, 7.8 版本开始支持。群成员在没有加入任何权限组时的默认权限，仅在社群资料 V2TIMGroupInfo 中 enablePermissionGroup = true 打开权限组之后生效
+// uint64, 读写, 话题默认权限, 7.8 版本开始支持。群成员在没有加入任何权限组时的默认权限，仅在社群资料 @ref GroupDetailInfo 中的 kTIMGroupDetailInfoEnablePermissionGroup 为 true 时生效
 static const char* kTIMCommunityTopicInfoDefaultPermissions = "default_permissions";
+// bool, 只读, 登录用户在话题中的消息接收选项是否继承社群。该功能仅增强版 SDK 8.1 及以上版本支持。
+static const char* kTIMCommunityTopicInfoIsInheritMessageReceiveOptionFromCommunity = "group_topic_info_is_inherit_message_receive_option_from_community";
 
 //------------------------------------------------------------------------------
 // 6.2 TopicInfoResult(获取话题信息的结果)
-// int, 只读, 结果 0：成功；非0：失败
+// int, 只读, 结果 0：成功；非 0：失败
 static const char* kTIMCommunityTopicInfoResultErrorCode = "group_topic_info_result_error_code";
 // string, 只读, 如果删除失败，会返回错误信息
 static const char* kTIMCommunityTopicInfoResultErrorMessage = "group_topic_info_result_error_message";
@@ -872,7 +915,7 @@ static const char* kTIMCommunityTopicInfoResultTopicInfo = "group_topic_info_res
 
 //------------------------------------------------------------------------------
 // 6.3 TopicOperationResult(话题操作结果)
-// int, 只读, 结果 0：成功；非0：失败
+// int, 只读, 结果 0：成功；非 0：失败
 static const char* kTIMCommunityTopicOperationResultErrorCode = "group_topic_operation_result_error_code";
 // string, 只读, 如果删除失败，会返回错误信息
 static const char* kTIMCommunityTopicOperationResultErrorMessage = "group_topic_operation_result_error_message";
@@ -897,7 +940,7 @@ static const char* kTIMPermissionGroupMemberCount = "permission_group_member_cou
 static const char* kTIMPermissionGroupModifyInfoFlag = "permission_group_modify_info_flag";
 
 //------------------------------------------------------------------------------
-// 6.5 TopicPermissionMap(话题权限 map)
+// 6.5 TopicPermission(话题权限 key-value 对)
 // string, 读写, 自定义字段的 key
 static const char* kTIMTopicPermissionKey = "topic_permission_key";
 // uint64, 读写, 自定义字段的 value
@@ -905,7 +948,7 @@ static const char* kTIMTopicPermissionValue = "topic_permission_value";
 
 //------------------------------------------------------------------------------
 // 6.6 PermissionGroupInfoResult(获取权限组信息的结果)
-// int, 只读, 结果 0：成功；非0：失败
+// int, 只读, 结果 0：成功；非 0：失败
 static const char* kTIMPermissionGroupInfoResultErrorCode = "permission_group_info_result_error_code";
 // string, 只读, 如果删除失败，会返回错误信息
 static const char* kTIMPermissionGroupInfoResultErrorMessage = "permission_group_info_result_error_message";
@@ -914,7 +957,7 @@ static const char* kTIMPermissionGroupInfoResult = "permission_group_info_result
 
 //------------------------------------------------------------------------------
 // 6.7 PermissionGroupOperationResult(权限组操作结果)
-// int, 只读, 结果 0：成功；非0：失败
+// int, 只读, 结果 0：成功；非 0：失败
 static const char* kTIMPermissionGroupOperationResultErrorCode = "permission_group_operation_result_error_code";
 // string, 只读, 如果删除失败，会返回错误信息
 static const char* kTIMPermissionGroupOperationResultErrorMessage = "permission_group_operation_result_error_message";
@@ -925,7 +968,7 @@ static const char* kTIMPermissionGroupOperationResultID = "permission_group_oper
 // 6.8 PermissionGroupMemberOperationResult(权限组成员处理结果)
 // string, 只读, 被邀请加入权限组的用户 ID
 static const char* kTIMPermissionGroupMemberOperationResultIdentifier = "permission_group_member_operation_result_identifier";
-// uint @ref TIMPermissionGroupMemberOperationResult, 只读, 处理结果
+// int, 只读, 处理结果
 static const char* kTIMPermissionGroupMemberOperationResultErrorCode = "permission_group_member_operation_result_error_code";
 
 //------------------------------------------------------------------------------
@@ -937,7 +980,7 @@ static const char* kTIMPermissionGroupMemberInfoResultArray = "permission_group_
 
 //------------------------------------------------------------------------------
 // 6.10 TopicPermissionResult(获取话题权限列表接口的返回)
-// int, 只读, 结果 0：成功；非0：失败
+// int, 只读, 结果 0：成功；非 0：失败
 static const char* kTIMTopicPermissionResultErrorCode = "topic_permission_result_error_code";
 // string, 只读, 如果获取失败，会返回错误信息
 static const char* kTIMTopicPermissionResultErrorMessage = "topic_permission_result_error_message";
@@ -952,7 +995,9 @@ static const char* kTIMTopicPermissionResultPermissionGroupID = "topic_permissio
 
 //------------------------------------------------------------------------------
 // 6.11 PermissionGroupCallback(权限组相关监听回调)
-// array, 只读, 话题权限 map
+// string, 读写, 权限组 ID
+static const char* kTIMPermissionGroupId = "permission_group_id";
+// array, 只读, 话题权限 map, Json Key 请参考 @ref TopicPermission
 static const char* kTIMTopicPermissionMap = "topic_permission_map";
 // array, 只读, 删除话题权限的话题 id 列表
 static const char* kTIMTopicIDList = "topic_id_list";

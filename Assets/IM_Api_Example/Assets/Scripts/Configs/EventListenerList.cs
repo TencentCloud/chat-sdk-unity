@@ -158,6 +158,166 @@ namespace com.tencent.im.unity.demo.config.EventListenerList
         ""eventText"": ""消息扩展信息删除的回调"",
         ""eventDesc"": ""设置消息扩展信息删除的回调""
       },
+      {
+        ""eventName"": ""SetMsgGroupPinnedMessageChangedCallback"",
+        ""eventText"": ""群置顶消息变更的回调"",
+        ""eventDesc"": ""设置群置顶消息变更的回调""
+      },
+      {
+        ""eventName"": ""SetFriendGroupCreatedCallback"",
+        ""eventText"": ""好友分组创建通知回调"",
+        ""eventDesc"": ""设置好友分组创建通知回调""
+      },
+      {
+        ""eventName"": ""SetFriendGroupDeletedCallback"",
+        ""eventText"": ""好友分组删除通知回调"",
+        ""eventDesc"": ""设置好友分组删除通知回调""
+      },
+      {
+        ""eventName"": ""SetFriendGroupNameChangedCallback"",
+        ""eventText"": ""好友分组名称变更通知回调"",
+        ""eventDesc"": ""设置好友分组名称变更通知回调""
+      },
+      {
+        ""eventName"": ""SetFriendsAddedToGroupCallback"",
+        ""eventText"": ""好友添加到分组通知回调"",
+        ""eventDesc"": ""设置好友添加到分组通知回调""
+      },
+      {
+        ""eventName"": ""SetFriendsDeletedFromGroupCallback"",
+        ""eventText"": ""好友从分组删除通知回调"",
+        ""eventDesc"": ""设置好友从分组删除通知回调""
+      },
+      {
+        ""eventName"": ""SetOfficialAccountSubscribedCallback"",
+        ""eventText"": ""订阅公众号通知回调"",
+        ""eventDesc"": ""设置订阅公众号通知回调""
+      },
+      {
+        ""eventName"": ""SetOfficialAccountUnsubscribedCallback"",
+        ""eventText"": ""取消订阅公众号通知回调"",
+        ""eventDesc"": ""设置取消订阅公众号通知回调""
+      },
+      {
+        ""eventName"": ""SetOfficialAccountDeletedCallback"",
+        ""eventText"": ""删除公众号通知回调"",
+        ""eventDesc"": ""设置删除公众号通知回调""
+      },
+      {
+        ""eventName"": ""SetOfficialAccountInfoChangedCallback"",
+        ""eventText"": ""公众号信息变更通知回调"",
+        ""eventDesc"": ""设置公众号信息变更通知回调""
+      },
+      {
+        ""eventName"": ""SetMyFollowingListChangedCallback"",
+        ""eventText"": ""我的关注列表变更通知回调"",
+        ""eventDesc"": ""设置我的关注列表变更通知回调""
+      },
+      {
+        ""eventName"": ""SetMyFollowersListChangedCallback"",
+        ""eventText"": ""我的粉丝列表变更通知回调"",
+        ""eventDesc"": ""设置我的粉丝列表变更通知回调""
+      },
+      {
+        ""eventName"": ""SetMutualFollowersListChangedCallback"",
+        ""eventText"": ""我的互关列表变更通知回调"",
+        ""eventDesc"": ""设置我的互关列表变更通知回调""
+      },
+      {
+        ""eventName"": ""SetSignalingReceiveNewInvitationCallback"",
+        ""eventText"": ""收到信令邀请通知回调"",
+        ""eventDesc"": ""设置收到信令邀请通知回调""
+      },
+      {
+        ""eventName"": ""SetSignalingInvitationCancelledCallback"",
+        ""eventText"": ""信令邀请被取消通知回调"",
+        ""eventDesc"": ""设置信令邀请被取消通知回调""
+      },
+      {
+        ""eventName"": ""SetSignalingInviteeAcceptedCallback"",
+        ""eventText"": ""信令邀请被接受通知回调"",
+        ""eventDesc"": ""设置信令邀请被接受通知回调""
+      },
+      {
+        ""eventName"": ""SetSignalingInviteeRejectedCallback"",
+        ""eventText"": ""信令邀请被拒绝通知回调"",
+        ""eventDesc"": ""设置信令邀请被拒绝通知回调""
+      },
+      {
+        ""eventName"": ""SetSignalingInvitationTimeoutCallback"",
+        ""eventText"": ""信令邀请超时通知回调"",
+        ""eventDesc"": ""设置信令邀请超时通知回调""
+      },
+      {
+        ""eventName"": ""SetSignalingInvitationModifiedCallback"",
+        ""eventText"": ""信令邀请被修改通知回调"",
+        ""eventDesc"": ""设置信令邀请被修改通知回调""
+      },
+      {
+        ""eventName"": ""SetCommunityCreateTopicCallback"",
+        ""eventText"": ""话题创建通知回调"",
+        ""eventDesc"": ""设置话题创建通知回调""
+      },
+      {
+        ""eventName"": ""SetCommunityDeleteTopicCallback"",
+        ""eventText"": ""话题删除通知回调"",
+        ""eventDesc"": ""设置话题删除通知回调""
+      },
+      {
+        ""eventName"": ""SetCommunityChangeTopicInfoCallback"",
+        ""eventText"": ""话题变更通知回调"",
+        ""eventDesc"": ""设置话题变更通知回调""
+      },
+      {
+        ""eventName"": ""SetCommunityReceiveTopicRESTCustomDataCallback"",
+        ""eventText"": ""话题自定义数据通知回调"",
+        ""eventDesc"": ""设置话题自定义数据通知回调""
+      },
+      {
+        ""eventName"": ""SetCommunityCreatePermissionGroupCallback"",
+        ""eventText"": ""权限组创建通知回调"",
+        ""eventDesc"": ""设置权限组创建通知回调""
+      },
+      {
+        ""eventName"": ""SetCommunityDeletePermissionGroupCallback"",
+        ""eventText"": ""权限组删除通知回调"",
+        ""eventDesc"": ""设置权限组删除通知回调""
+      },
+      {
+        ""eventName"": ""SetCommunityChangePermissionGroupInfoCallback"",
+        ""eventText"": ""权限组变更通知回调"",
+        ""eventDesc"": ""设置权限组变更通知回调""
+      },
+      {
+        ""eventName"": ""SetCommunityAddMembersToPermissionGroupCallback"",
+        ""eventText"": ""向权限组添加成员通知回调"",
+        ""eventDesc"": ""设置向权限组添加成员通知回调""
+      },
+      {
+        ""eventName"": ""SetCommunityRemoveMembersFromPermissionGroupCallback"",
+        ""eventText"": ""从权限组删除成员通知回调"",
+        ""eventDesc"": ""设置从权限组删除成员通知回调""
+      },
+      {
+        ""eventName"": ""SetCommunityAddTopicPermissionCallback"",
+        ""eventText"": ""添加话题权限的通知回调"",
+        ""eventDesc"": ""设置添加话题权限的通知回调""
+      },
+      {
+        ""eventName"": ""SetCommunityDeleteTopicPermissionCallback"",
+        ""eventText"": ""删除话题权限的通知回调"",
+        ""eventDesc"": ""设置删除话题权限的通知回调""
+      },
+      {
+        ""eventName"": ""SetCommunityModifyTopicPermissionCallback"",
+        ""eventText"": ""修改话题权限的通知回调"",
+        ""eventDesc"": ""设置修改话题权限的通知回调""
+      },
+      {
+        ""eventName"": ""SetExperimentalNotifyCallback"",
+        ""eventText"": ""实验性通知的回调"",
+        ""eventDesc"": ""设置实验性通知的回调""
+      },
     ]";
   }
 }

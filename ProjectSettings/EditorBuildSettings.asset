@@ -323,4 +323,118 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/IM_Api_Example/Assets/Scenes/IM/MsgDeleteMessageExtensions.unity
     guid: b00868997e09547b691a709fc9cc4bd7
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/PinGroupMessage.unity
+    guid: 77fd711f829214f3a86039515db1c889
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GetPinnedGroupMessageList.unity
+    guid: c481db9194c8a4167833a6df02acbc45
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/FollowUser.unity
+    guid: 5eec3465ea481423581fc638edd09b74
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/UnfollowUser.unity
+    guid: 357a1bea1486d458ea14a8671552b5c3
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GetMutualFollowersList.unity
+    guid: f3a6ac59f6f2c409db973207adc555f8
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GetMyFollowersList.unity
+    guid: 8c884d587f5a7472dbbf278e77c96a1e
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GetMyFollowingList.unity
+    guid: dfffa9ee00e44463bbda59dd13838b5c
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GetUserFollowInfo.unity
+    guid: ef95ddf2a4c614d0998e5590a01fbe2c
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CheckFollowType.unity
+    guid: 3ef1467593f1e43b29b4120a068a7742
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/SubscribeOfficialAccount.unity
+    guid: ca8893baa06cf483b80e73f95da36de5
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/UnsubscribeOfficialAccount.unity
+    guid: 99693ed8208b74d41a7110a1b77e4a52
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GetOfficialAccountsInfo.unity
+    guid: f21a045c05e1841dfb965a32e3648861
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/SignalingInvite.unity
+    guid: 83b066672cc98422ab2de1f20a266fd6
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/SignalingInviteInGroup.unity
+    guid: 2cd636afddd4a4d129699e2ffab3a87c
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/SignalingCancel.unity
+    guid: 66cecf6d9125049578d24bee45425f9c
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/SignalingAccept.unity
+    guid: 8ad7921261f144890b538369e9898320
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/SignalingReject.unity
+    guid: 107196479d4794339a981ddf723f9c01
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GetSignalingInfo.unity
+    guid: 86c1ccfd0950a4ac39e7b0ac4bc0123d
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/SignalingModifyInvitation.unity
+    guid: e9bf5bdde930449609bcfa89989f9d19
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityCreate.unity
+    guid: d003cc4efcd7c4729aff4f530f4e057c
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityAddCommunityMembersToPermissionGroup.unity
+    guid: dae0cf10be22146fbba93f47fc7a5e7a
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityAddTopicPermissionToPermissionGroup.unity
+    guid: b517d04c1d7d64af0b42579a8fec177f
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityCreatePermissionGroupInCommunity.unity
+    guid: 5cdeea2174e90421393724a456989548
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityCreateTopicInCommunity.unity
+    guid: d4871083c695241238c1c5ce3056e480
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityDeletePermissionGroupFromCommunity.unity
+    guid: a6fd96e6aa972414cbf651c2b0bdd0c3
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityDeleteTopicFromCommunity.unity
+    guid: c0575cbe8335b422bb39d5e86f878d4a
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityDeleteTopicPermissionFromPermissionGroup.unity
+    guid: 9dd357abe9e3d408ab8c9e02370469d7
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityGetCommunityMemberListInPermissionGroup.unity
+    guid: 9eee896481d26482184bc5608724f30e
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityGetJoinedCommunityList.unity
+    guid: 1f85b1801d88348eaa9b294bf9417c1b
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityGetJoinedPermissionGroupListInCommunity.unity
+    guid: 0fab3355e2dc24188b70fd844eb5d377
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityGetPermissionGroupListInCommunity.unity
+    guid: 8d43a827baf7d460aaf2d86fcd8bd220
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityGetTopicInfoList.unity
+    guid: cac75fe3470f74d84a37b9f7625e0e9c
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityGetTopicPermissionInPermissionGroup.unity
+    guid: 4f5cd8339be3f485bb935ced017d7bb0
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityModifyPermissionGroupInfoInCommunity.unity
+    guid: f617be9a3226c4fdb8e250901d5fba17
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityModifyTopicPermissionInPermissionGroup.unity
+    guid: 0ccfa0930ee954fc490472e573687bed
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunityRemoveCommunityMembersFromPermissionGroup.unity
+    guid: 5d169f103ea434e05ba74da500bd6d03
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunitySetTopicInfo.unity
+    guid: d5663867b1d3043fe8627613ad04ab95
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunitySetTopicInheritMessageReceiveOptionFromCommunity.unity
+    guid: 2aca37d4d806e47d2adc39a20d41ae77
   m_configObjects: {}

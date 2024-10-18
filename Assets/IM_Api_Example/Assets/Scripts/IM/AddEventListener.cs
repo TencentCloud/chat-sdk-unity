@@ -215,6 +215,166 @@ public class AddEventListener : MonoBehaviour
           TencentIMSDK.SetMsgExtensionsDeletedCallback(null);
           break;
         }
+      case "SetMsgGroupPinnedMessageChangedCallback":
+        {
+          TencentIMSDK.SetMsgGroupPinnedMessageChangedCallback(null);
+          break;
+        }
+      case "SetFriendGroupCreatedCallback":
+        {
+          TencentIMSDK.SetFriendGroupCreatedCallback(null);
+          break;
+        }
+      case "SetFriendGroupDeletedCallback":
+        {
+          TencentIMSDK.SetFriendGroupDeletedCallback(null);
+          break;
+        }
+      case "SetFriendGroupNameChangedCallback":
+        {
+          TencentIMSDK.SetFriendGroupNameChangedCallback(null);
+          break;
+        }
+      case "SetFriendsAddedToGroupCallback":
+        {
+          TencentIMSDK.SetFriendsAddedToGroupCallback(null);
+          break;
+        }
+      case "SetFriendsDeletedFromGroupCallback":
+        {
+          TencentIMSDK.SetFriendsDeletedFromGroupCallback(null);
+          break;
+        }
+      case "SetOfficialAccountSubscribedCallback":
+        {
+          TencentIMSDK.SetOfficialAccountSubscribedCallback(null);
+          break;
+        }
+      case "SetOfficialAccountUnsubscribedCallback":
+        {
+          TencentIMSDK.SetOfficialAccountUnsubscribedCallback(null);
+          break;
+        }
+      case "SetOfficialAccountDeletedCallback":
+        {
+          TencentIMSDK.SetOfficialAccountDeletedCallback(null);
+          break;
+        }
+      case "SetOfficialAccountInfoChangedCallback":
+        {
+          TencentIMSDK.SetOfficialAccountInfoChangedCallback(null);
+          break;
+        }
+      case "SetMyFollowingListChangedCallback":
+        {
+          TencentIMSDK.SetMyFollowingListChangedCallback(null);
+          break;
+        }
+      case "SetMyFollowersListChangedCallback":
+        {
+          TencentIMSDK.SetMyFollowersListChangedCallback(null);
+          break;
+        }
+      case "SetMutualFollowersListChangedCallback":
+        {
+          TencentIMSDK.SetMutualFollowersListChangedCallback(null);
+          break;
+        }
+      case "SetSignalingReceiveNewInvitationCallback":
+        {
+          TencentIMSDK.SetSignalingReceiveNewInvitationCallback(null);
+          break;
+        }
+      case "SetSignalingInvitationCancelledCallback":
+        {
+          TencentIMSDK.SetSignalingInvitationCancelledCallback(null);
+          break;
+        }
+      case "SetSignalingInviteeAcceptedCallback":
+        {
+          TencentIMSDK.SetSignalingInviteeAcceptedCallback(null);
+          break;
+        }
+      case "SetSignalingInviteeRejectedCallback":
+        {
+          TencentIMSDK.SetSignalingInviteeRejectedCallback(null);
+          break;
+        }
+      case "SetSignalingInvitationTimeoutCallback":
+        {
+          TencentIMSDK.SetSignalingInvitationTimeoutCallback(null);
+          break;
+        }
+      case "SetSignalingInvitationModifiedCallback":
+        {
+          TencentIMSDK.SetSignalingInvitationModifiedCallback(null);
+          break;
+        }
+      case "SetCommunityCreateTopicCallback":
+        {
+          TencentIMSDK.SetCommunityCreateTopicCallback(null);
+          break;
+        }
+      case "SetCommunityDeleteTopicCallback":
+        {
+          TencentIMSDK.SetCommunityDeleteTopicCallback(null);
+          break;
+        }
+      case "SetCommunityChangeTopicInfoCallback":
+        {
+        TencentIMSDK.SetCommunityChangeTopicInfoCallback(null);
+          break;
+        }
+      case "SetCommunityReceiveTopicRESTCustomDataCallback":
+        {
+          TencentIMSDK.SetCommunityReceiveTopicRESTCustomDataCallback(null);
+          break;
+        }
+      case "SetCommunityCreatePermissionGroupCallback":
+        {
+          TencentIMSDK.SetCommunityCreatePermissionGroupCallback(null);
+          break;
+        }
+      case "SetCommunityDeletePermissionGroupCallback":
+        {
+          TencentIMSDK.SetCommunityDeletePermissionGroupCallback(null);
+          break;
+        }
+      case "SetCommunityChangePermissionGroupInfoCallback":
+        {
+          TencentIMSDK.SetCommunityChangePermissionGroupInfoCallback(null);
+          break;
+        }
+      case "SetCommunityAddMembersToPermissionGroupCallback":
+        {
+          TencentIMSDK.SetCommunityAddMembersToPermissionGroupCallback(null);
+          break;
+        }
+      case "SetCommunityRemoveMembersFromPermissionGroupCallback":
+        {
+          TencentIMSDK.SetCommunityRemoveMembersFromPermissionGroupCallback(null);
+          break;
+        }
+      case "SetCommunityAddTopicPermissionCallback":
+        {
+          TencentIMSDK.SetCommunityAddTopicPermissionCallback(null);
+          break;
+        }
+      case "SetCommunityDeleteTopicPermissionCallback":
+        {
+          TencentIMSDK.SetCommunityDeleteTopicPermissionCallback(null);
+          break;
+        }
+      case "SetCommunityModifyTopicPermissionCallback":
+        {
+          TencentIMSDK.SetCommunityModifyTopicPermissionCallback(null);
+          break;
+        }
+      case "SetExperimentalNotifyCallback":
+        {
+          TencentIMSDK.SetExperimentalNotifyCallback(null);
+          break;
+        }
       default:
         {
           print($"Unknown event {eventName}");
@@ -384,6 +544,166 @@ public class AddEventListener : MonoBehaviour
       case "SetMsgExtensionsDeletedCallback":
         {
           TencentIMSDK.SetMsgExtensionsDeletedCallback(null, Utils.SetMsgExtensionsDeletedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetMsgGroupPinnedMessageChangedCallback":
+        {
+          TencentIMSDK.SetMsgGroupPinnedMessageChangedCallback(null, Utils.SetMsgGroupPinnedMessageChangedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetFriendGroupCreatedCallback":
+        {
+          TencentIMSDK.SetFriendGroupCreatedCallback(null, Utils.SetFriendGroupCreatedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetFriendGroupDeletedCallback":
+        {
+          TencentIMSDK.SetFriendGroupDeletedCallback(null, Utils.SetFriendGroupDeletedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetFriendGroupNameChangedCallback":
+        {
+          TencentIMSDK.SetFriendGroupNameChangedCallback(null, Utils.SetFriendGroupNameChangedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetFriendsAddedToGroupCallback":
+        {
+          TencentIMSDK.SetFriendsAddedToGroupCallback(null, Utils.SetFriendsAddedToGroupCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetFriendsDeletedFromGroupCallback":
+        {
+          TencentIMSDK.SetFriendsDeletedFromGroupCallback(null, Utils.SetFriendsDeletedFromGroupCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetOfficialAccountSubscribedCallback":
+        {
+          TencentIMSDK.SetOfficialAccountSubscribedCallback(null, Utils.SetOfficialAccountSubscribedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetOfficialAccountUnsubscribedCallback":
+        {
+          TencentIMSDK.SetOfficialAccountUnsubscribedCallback(null, Utils.SetOfficialAccountUnsubscribedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetOfficialAccountDeletedCallback":
+        {
+          TencentIMSDK.SetOfficialAccountDeletedCallback(null, Utils.SetOfficialAccountDeletedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetOfficialAccountInfoChangedCallback":
+        {
+          TencentIMSDK.SetOfficialAccountInfoChangedCallback(null, Utils.SetOfficialAccountInfoChangedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetMyFollowingListChangedCallback":
+        {
+          TencentIMSDK.SetMyFollowingListChangedCallback(null, Utils.SetMyFollowingListChangedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetMyFollowersListChangedCallback":
+        {
+          TencentIMSDK.SetMyFollowersListChangedCallback(null, Utils.SetMyFollowersListChangedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetMutualFollowersListChangedCallback":
+        {
+          TencentIMSDK.SetMutualFollowersListChangedCallback(null, Utils.SetMutualFollowersListChangedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetSignalingReceiveNewInvitationCallback":
+        {
+          TencentIMSDK.SetSignalingReceiveNewInvitationCallback(null, Utils.SetSignalingReceiveNewInvitationCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetSignalingInvitationCancelledCallback":
+        {
+          TencentIMSDK.SetSignalingInvitationCancelledCallback(null, Utils.SetSignalingInvitationCancelledCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetSignalingInviteeAcceptedCallback":
+        {
+          TencentIMSDK.SetSignalingInviteeAcceptedCallback(null, Utils.SetSignalingInviteeAcceptedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetSignalingInviteeRejectedCallback":
+        {
+          TencentIMSDK.SetSignalingInviteeRejectedCallback(null, Utils.SetSignalingInviteeRejectedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetSignalingInvitationTimeoutCallback":
+        {
+          TencentIMSDK.SetSignalingInvitationTimeoutCallback(null, Utils.SetSignalingInvitationTimeoutCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetSignalingInvitationModifiedCallback":
+        {
+          TencentIMSDK.SetSignalingInvitationModifiedCallback(null, Utils.SetSignalingInvitationModifiedCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetCommunityCreateTopicCallback":
+        {
+          TencentIMSDK.SetCommunityCreateTopicCallback(null, Utils.SetCommunityCreateTopicCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetCommunityDeleteTopicCallback":
+        {
+          TencentIMSDK.SetCommunityDeleteTopicCallback(null, Utils.SetCommunityDeleteTopicCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetCommunityChangeTopicInfoCallback":
+        {
+          TencentIMSDK.SetCommunityChangeTopicInfoCallback(null, Utils.SetCommunityChangeTopicInfoCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetCommunityReceiveTopicRESTCustomDataCallback":
+        {
+          TencentIMSDK.SetCommunityReceiveTopicRESTCustomDataCallback(null, Utils.SetCommunityReceiveTopicRESTCustomDataCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetCommunityCreatePermissionGroupCallback":
+        {
+          TencentIMSDK.SetCommunityCreatePermissionGroupCallback(null, Utils.SetCommunityCreatePermissionGroupCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetCommunityDeletePermissionGroupCallback":
+        {
+          TencentIMSDK.SetCommunityDeletePermissionGroupCallback(null, Utils.SetCommunityDeletePermissionGroupCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetCommunityChangePermissionGroupInfoCallback":
+        {
+          TencentIMSDK.SetCommunityChangePermissionGroupInfoCallback(null, Utils.SetCommunityChangePermissionGroupInfoCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetCommunityAddMembersToPermissionGroupCallback":
+        {
+          TencentIMSDK.SetCommunityAddMembersToPermissionGroupCallback(null, Utils.SetCommunityAddMembersToPermissionGroupCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetCommunityRemoveMembersFromPermissionGroupCallback":
+        {
+          TencentIMSDK.SetCommunityRemoveMembersFromPermissionGroupCallback(null, Utils.SetCommunityRemoveMembersFromPermissionGroupCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetCommunityAddTopicPermissionCallback":
+        {
+          TencentIMSDK.SetCommunityAddTopicPermissionCallback(null, Utils.SetCommunityAddTopicPermissionCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetCommunityDeleteTopicPermissionCallback":
+        {
+          TencentIMSDK.SetCommunityDeleteTopicPermissionCallback(null, Utils.SetCommunityDeleteTopicPermissionCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetCommunityModifyTopicPermissionCallback":
+        {
+          TencentIMSDK.SetCommunityModifyTopicPermissionCallback(null, Utils.SetCommunityModifyTopicPermissionCallback(GetResult, eventInfo));
+          break;
+        }
+      case "SetExperimentalNotifyCallback":
+        {
+          TencentIMSDK.SetExperimentalNotifyCallback(null, Utils.SetExperimentalNotifyCallback(GetResult, eventInfo));
           break;
         }
       default:

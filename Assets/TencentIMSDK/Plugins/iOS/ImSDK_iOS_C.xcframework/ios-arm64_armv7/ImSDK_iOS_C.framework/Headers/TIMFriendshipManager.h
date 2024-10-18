@@ -32,35 +32,7 @@ extern "C" {
 //                        一. 关系链相关配置选项定义
 //
 /////////////////////////////////////////////////////////////////////////////////
-// 1.1 好友变更类型
-enum TIMFriendChangeType {
-    // 未知类型
-    kTIMFriendChange_None,
-    // 新增好友
-    kTIMFriendChange_FriendAdd,
-    // 删除好友
-    kTIMFriendChange_FriendDel,
-    // 新增好友申请的未决
-    kTIMFriendChange_PendencyAdd,
-    // 删除好友申请的未决
-    kTIMFriendChange_PendencyDel,
-    // 加入黑名单
-    kTIMFriendChange_BlackListAdd,
-    // 从黑名单移除
-    kTIMFriendChange_BlackListDel,
-    // 未决已读上报
-    kTIMFriendChange_PendencyReadedReport,
-    // 好友数据更新
-    kTIMFriendChange_FriendProfileUpdate,
-    // 分组增加
-    kTIMFriendChange_FriendGroupAdd,
-    // 分组删除
-    kTIMFriendChange_FriendGroupDel,
-    // 分组修改
-    kTIMFriendChange_FriendGroupModify,
-};
-
-// 1.2 好友类型
+// 1.1 好友类型
 enum TIMFriendType {
     // 单向好友：用户A的好友表中有用户B，但B的好友表中却没有A
     FriendTypeSingle,
@@ -68,7 +40,7 @@ enum TIMFriendType {
     FriendTypeBoth,
 };
 
-// 1.3 好友申请未决类型
+// 1.2 好友申请未决类型
 enum TIMFriendPendencyType {
     // 别人发给我的
     FriendPendencyTypeComeIn,
@@ -78,7 +50,7 @@ enum TIMFriendPendencyType {
     FriendPendencyTypeBoth,
 };
 
-// 1.4 响应好友申请的动作类型
+// 1.3 响应好友申请的动作类型
 enum TIMFriendResponseAction {
     // 同意
     ResponseActionAgree,
@@ -88,7 +60,7 @@ enum TIMFriendResponseAction {
     ResponseActionReject,
 };
 
-// 1.5 好友的类型
+// 1.4 好友的类型
 enum TIMFriendCheckRelation {
     // 无关系
     FriendCheckNoRelation,
@@ -100,7 +72,7 @@ enum TIMFriendCheckRelation {
     FriendCheckBothWay,
 };
 
-// 1.6 好友搜索的枚举
+// 1.5 好友搜索的枚举
 enum TIMFriendshipSearchFieldKey {
     // 用户 ID
     kTIMFriendshipSearchFieldKey_Identifier = 0x01,
@@ -110,7 +82,7 @@ enum TIMFriendshipSearchFieldKey {
     kTIMFriendshipSearchFieldKey_Remark = 0x01 << 2,
 };
 
-// 1.7 两个用户之间的好友关系
+// 1.6 两个用户之间的好友关系
 enum TIMFriendshipRelationType {
     // 未知关系
     kTIMFriendshipRelationType_None,
@@ -122,7 +94,7 @@ enum TIMFriendshipRelationType {
     kTIMFriendshipRelationType_BothFriend,
 };
 
-// 1.8 关注类型
+// 1.7 关注类型
 enum TIMFollowType {
     // 无任何关注关系
     kTIMFollowLTypeNone,
@@ -291,7 +263,50 @@ typedef void(*TIMFriendBlackListAddedCallback)(const char* json_friend_black_add
 typedef void(*TIMFriendBlackListDeletedCallback)(const char* json_identifier_array, const void* user_data);
 
 /**
- * 2.9 订阅公众号的回调
+ * 2.9 好友分组被创建的通知
+ * 
+ * @param group_name 创建的好友分组名
+ * @param json_friend_info_array 指定进入该分组的好友信息列表，好友资料 Json Key 请参考 @ref FriendProfile
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+ */
+typedef void(*TIMFriendGroupCreatedCallback)(const char* group_name, const char* json_friend_info_array, const void* user_data);
+
+/**
+ * 2.10 好友分组被删除的通知
+ * 
+ * @param json_group_name_array 删除的好友分组名列表
+ */
+typedef void(*TIMFriendGroupDeletedCallback)(const char* json_group_name_array, const void* user_data);
+
+/**
+ * 2.11 好友分组名变更的通知
+ * 
+ * @param old_group_name 修改前的分组名
+ * @param new_group_name 修改后的分组名
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+ */
+typedef void(*TIMFriendGroupNameChangedCallback)(const char* old_group_name, const char* new_group_name, const void* user_data);
+
+/**
+ * 2.12 好友分组新增好友的通知
+ * 
+ * @param group_name 好友分组名
+ * @param json_friend_info_array 向该分组中添加的好友信息列表，好友资料 Json Key 请参考 @ref FriendProfile
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+ */
+typedef void(*TIMFriendsAddedToGroupCallback)(const char* group_name, const char* json_friend_info_array, const void* user_data);
+
+/**
+ * 2.13 好友分组删除好友的通知
+ * 
+ * @param group_name 好友分组名
+ * @param json_friend_id_array 从该分组中删除的好友 ID 列表
+ * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+ */
+typedef void(*TIMFriendsDeletedFromGroupCallback)(const char* group_name, const char* json_friend_id_array, const void* user_data);
+
+/**
+ * 2.14 订阅公众号的回调
  *
  * @param json_official_account_info 公众号资料，Json Key 请参考 @ref OfficialAccountInfo
  * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
@@ -299,7 +314,7 @@ typedef void(*TIMFriendBlackListDeletedCallback)(const char* json_identifier_arr
 typedef void (*TIMOfficialAccountSubscribedCallback)(const char* json_official_account_info, const void* user_data);
 
 /**
- * 2.10 取消订阅公众号的回调
+ * 2.15 取消订阅公众号的回调
  *
  * @param official_account_id 公众号 ID
  * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
@@ -307,7 +322,7 @@ typedef void (*TIMOfficialAccountSubscribedCallback)(const char* json_official_a
 typedef void (*TIMOfficialAccountUnsubscribedCallback)(const char* official_account_id, const void* user_data);
 
 /**
- * 2.11 订阅的公众号被删除的回调
+ * 2.16 订阅的公众号被删除的回调
  *
  * @param official_account_id 公众号 ID
  * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
@@ -315,7 +330,7 @@ typedef void (*TIMOfficialAccountUnsubscribedCallback)(const char* official_acco
 typedef void (*TIMOfficialAccountDeletedCallback)(const char* official_account_id, const void* user_data);
 
 /**
- * 2.12 订阅的公众号资料更新的回调
+ * 2.17 订阅的公众号资料更新的回调
  *
  * @param json_official_account_info 公众号资料，Json Key 请参考 @ref OfficialAccountInfo
  * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
@@ -323,7 +338,7 @@ typedef void (*TIMOfficialAccountDeletedCallback)(const char* official_account_i
 typedef void (*TIMOfficialAccountInfoChangedCallback)(const char* json_official_account_info, const void* user_data);
 
 /**
- * 2.13 关注列表变更的回调
+ * 2.18 关注列表变更的回调
  *
  * @param json_user_info_list 变更的用户列表，Json Key 请参考 @ref UserInfo
  * @param is_add 变更用户是否为新增
@@ -332,7 +347,7 @@ typedef void (*TIMOfficialAccountInfoChangedCallback)(const char* json_official_
 typedef void (*TIMMyFollowingListChangedCallback)(const char* json_user_info_list, bool is_add, const void* user_data);
 
 /**
- * 2.14 粉丝列表变更的回调
+ * 2.19 粉丝列表变更的回调
  *
  * @param json_user_info_list 变更的用户列表，Json Key 请参考 @ref UserInfo
  * @param is_add 变更用户是否为新增
@@ -341,7 +356,7 @@ typedef void (*TIMMyFollowingListChangedCallback)(const char* json_user_info_lis
 typedef void (*TIMMyFollowersListChangedCallback)(const char* json_user_info_list, bool is_add, const void* user_data);
 
 /**
- * 2.15 互关列表变更的回调
+ * 2.20 互关列表变更的回调
  *
  * @param json_user_info_list 变更的用户列表，Json Key 请参考 @ref UserInfo
  * @param is_add 变更用户是否为新增
@@ -441,7 +456,47 @@ TIM_API void TIMSetFriendBlackListAddedCallback(TIMFriendBlackListAddedCallback 
 TIM_API void TIMSetFriendBlackListDeletedCallback(TIMFriendBlackListDeletedCallback cb, const void* user_data);
 
 /**
- * 3.9 设置公众号订阅的回调
+ * 3.9 设置好友分组被创建的回调
+ * 
+ * @param cb 好友分组新增回调，请参考 @ref TIMFriendGroupCreatedCallback
+ * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
+ */
+TIM_API void TIMSetFriendGroupCreatedCallback(TIMFriendGroupCreatedCallback cb, const void* user_data);
+
+/**
+ * 3.10 设置好友分组被删除的回调
+ * 
+ * @param cb 好友分组删除回调，请参考 @ref TIMFriendGroupDeletedCallback
+ * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
+ */
+TIM_API void TIMSetFriendGroupDeletedCallback(TIMFriendGroupDeletedCallback cb, const void* user_data);
+
+/**
+ * 3.11 好友分组名变更的回调
+ * 
+ * @param cb 好友分组名变更回调，请参考 @ref TIMFriendGroupNameChangedCallback
+ * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
+ */
+TIM_API void TIMSetFriendGroupNameChangedCallback(TIMFriendGroupNameChangedCallback cb, const void* user_data);
+
+/**
+ * 3.12 设置好友分组新增好友的回调
+ * 
+ * @param cb 好友分组新增好友回调，请参考 @ref TIMFriendsAddedToGroupCallback
+ * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
+ */
+TIM_API void TIMSetFriendsAddedToGroupCallback(TIMFriendsAddedToGroupCallback cb, const void* user_data);
+
+/**
+ * 3.13 设置好友分组删除好友的回调
+ * 
+ * @param cb 好友分组删除好友回调，请参考 @ref TIMFriendsDeletedFromGroupCallback
+ * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
+ */
+TIM_API void TIMSetFriendsDeletedFromGroupCallback(TIMFriendsDeletedFromGroupCallback cb, const void* user_data);
+
+/**
+ * 3.14 设置公众号订阅的回调
  *
  * @param cb 公众号订阅的回调，请参考 @ref TIMOfficialAccountSubscribedCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
@@ -449,7 +504,7 @@ TIM_API void TIMSetFriendBlackListDeletedCallback(TIMFriendBlackListDeletedCallb
 TIM_API void TIMSetOfficialAccountSubscribedCallback(TIMOfficialAccountSubscribedCallback cb, const void* user_data);
 
 /**
- * 3.10 设置公众号取消订阅的回调
+ * 3.15 设置公众号取消订阅的回调
  *
  * @param cb 公众号取消订阅的回调，请参考 @ref TIMOfficialAccountUnsubscribedCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
@@ -457,7 +512,7 @@ TIM_API void TIMSetOfficialAccountSubscribedCallback(TIMOfficialAccountSubscribe
 TIM_API void TIMSetOfficialAccountUnsubscribedCallback(TIMOfficialAccountUnsubscribedCallback cb, const void *user_data);
 
 /**
- * 3.11 设置订阅的公众号被删除的回调
+ * 3.16 设置订阅的公众号被删除的回调
  *
  * @param cb 订阅的公众号被删除的回调，请参考 @ref TIMOfficialAccountDeletedCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
@@ -465,7 +520,7 @@ TIM_API void TIMSetOfficialAccountUnsubscribedCallback(TIMOfficialAccountUnsubsc
 TIM_API void TIMSetOfficialAccountDeletedCallback(TIMOfficialAccountDeletedCallback cb, const void *user_data);
 
 /**
- * 3.12 设置订阅的公众号资料更新的回调
+ * 3.17 设置订阅的公众号资料更新的回调
  *
  * @param cb 订阅的公众号资料更新的回调，请参考 @ref TIMOfficialAccountInfoChangedCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
@@ -473,7 +528,7 @@ TIM_API void TIMSetOfficialAccountDeletedCallback(TIMOfficialAccountDeletedCallb
 TIM_API void TIMSetOfficialAccountInfoChangedCallback(TIMOfficialAccountInfoChangedCallback cb, const void *user_data);
 
 /**
- * 3.13 设置关注列表变更的回调
+ * 3.18 设置关注列表变更的回调
  *
  * @param cb 关注列表变更的回调，请参考 @ref TIMMyFollowingListChangedCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
@@ -481,7 +536,7 @@ TIM_API void TIMSetOfficialAccountInfoChangedCallback(TIMOfficialAccountInfoChan
 TIM_API void TIMSetMyFollowingListChangedCallback(TIMMyFollowingListChangedCallback cb, const void *user_data);
 
 /**
- * 3.14 设置粉丝列表变更的回调
+ * 3.19 设置粉丝列表变更的回调
  *
  * @param cb 关注列表变更的回调，请参考 @ref TIMMyFollowersListChangedCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
@@ -489,7 +544,7 @@ TIM_API void TIMSetMyFollowingListChangedCallback(TIMMyFollowingListChangedCallb
 TIM_API void TIMSetMyFollowersListChangedCallback(TIMMyFollowersListChangedCallback cb, const void *user_data);
 
 /**
- * 3.15 设置互关列表变更的回调
+ * 3.20 设置互关列表变更的回调
  *
  * @param cb 关注列表变更的回调，请参考 @ref TIMMutualFollowersListChangedCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
@@ -1006,18 +1061,19 @@ TIM_API int TIMFriendshipDeleteFriendGroup(const char* json_delete_friend_group_
  *
  * __示例__
  * @code{.cpp}
+ * // 优先级 new_name > add_ids > delete_ids, 每次只能修改其中的一个，如果填写多个，则按优先级执行
  * json::Object json_modify_friend_group_param;
  * json_modify_friend_group_param[kTIMFriendshipModifyFriendGroupParamName] = "Group123";
  * json_modify_friend_group_param[kTIMFriendshipModifyFriendGroupParamNewName] = "GroupNewName";
  *
- * json::Array json_friend_delete_array;
- * json_friend_delete_array.push_back("user4");
- * json_modify_friend_group_param[kTIMFriendshipModifyFriendGroupParamDeleteIdentifierArray] = json_friend_delete_array;
- *
  * json::Array json_friend_add_array;
- * json_friend_add_array.push_back("user5");
- * json_friend_add_array.push_back("user9");
+ * json_friend_add_array.push_back("user1");
  * json_modify_friend_group_param[kTIMFriendshipModifyFriendGroupParamAddIdentifierArray] = json_friend_add_array;
+ *
+ * json::Array json_friend_delete_array;
+ * json_friend_delete_array.push_back("user2");
+ * json_modify_friend_group_param[kTIMFriendshipModifyFriendGroupParamDeleteIdentifierArray] = json_friend_delete_array;
+ * 
  * int ret = TIMFriendshipModifyFriendGroup(json_modify_friend_group_param.toStyledString().c_str(), [](int32_t code, const char* desc, const char* json_params, const void* user_data) {
  *
  * }, nullptr);
@@ -1054,12 +1110,12 @@ TIM_API int TIMUnsubscribeOfficialAccount(const char* unsubscribe_official_accou
 /**
  * 8.3 获取公众号列表（7.6 及其以上版本支持）
  *
- * @param json_get_official_accounts_info_param 获取公众号列表的参数Json字符串
+ * @param json_official_account_id_list 公众号 ID 列表，传入列表为空表示获取全部已订阅的公众号
  * @param cb 获取公众号列表成功与否的回调。回调函数定义请参考 @ref TIMCommCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  */
-TIM_API int TIMGetOfficialAccountsInfo(const char* json_get_official_accounts_info_param, TIMCommCallback cb, const void* user_data);
+TIM_API int TIMGetOfficialAccountsInfo(const char* json_official_account_id_list, TIMCommCallback cb, const void* user_data);
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -1290,33 +1346,6 @@ static const char* kTIMFriendProfileUpdateIdentifier = "friend_profile_update_id
 // object @ref FriendProfileItem, 只写, 资料更新的Item
 static const char* kTIMFriendProfileUpdateItem = "friend_profile_update_item";
 
-//------------------------------------------------------------------------------
-// 10.6 FriendChangeElem (好友变更通知)
-// uint @ref TIMFriendChangeType, 只读, 资料变更类型
-static const char* kTIMFriendChangeElemChangeType = "friend_change_elem_change_type";
-// array string, 只读, 新增的好友UserID列表，只有当 change_type 为 kTIMFriendChange_FriendAdd 时有效
-static const char* kTIMFriendChangeElemFriendAddIdentifierArray = "friend_change_elem_friend_add_identifier_array";
-// array string, 只读, 删除的好友UserID列表，只有当 change_type 为 kTIMFriendChange_FriendDel 时有效
-static const char* kTIMFriendChangeElemFriendDelIdentifierArray = "friend_change_elem_friend_del_identifier_array";
-// array @ref FriendAddPendency, 只读, 好友申请的未决列表， 只有当 change_type 为 kTIMFriendChange_PendencyAdd 时有效
-static const char* kTIMFriendChangeElemFriendAddPendencyItemArray = "friend_change_elem_friend_add_pendency_array";
-// array string, 只读, 被删除的好友申请的未决列表， 只有当 change_type 为 kTIMFriendChange_PendencyDel 时有效
-static const char* kTIMFriendChangeElemPendencyDelIdentifierArray = "friend_change_elem_pendency_del_identifier_array";
-// uint64, 只读, 未决已读上报时间戳， 只有当 change_type 为 kTIMFriendChange_PendencyReadedReport 时有效
-static const char* kTIMFriendChangeElemPendencyReadedReportTimestamp = "friend_change_elem_pendency_readed_report_timestamp";
-// array string, 只读, 新增的黑名单UserID列表，只有当 change_type 为 kTIMFriendChange_BlackListAdd 时有效
-static const char* kTIMFriendChangeElemBlackListAddIdentifierArray = "friend_change_elem_blacklist_add_identifier_array";
-// array string, 只读, 删除的黑名单UserID列表，只有当 change_type 为 kTIMFriendChange_BlackListDel 时有效
-static const char* kTIMFriendChangeElemBlackListDelIdentifierArray = "friend_change_elem_blacklist_del_identifier_array";
-// array @ref FriendProfileUpdate, 只读, 好友资料更新列表， 只有当 change_type 为 kTIMFriendChange_FriendProfileUpdate 时有效
-static const char* kTIMFriendChangeElemFriendProfileUpdateItemArray = "friend_change_elem_friend_profile_update_item_array";
-// array string, 只读, 新增的好友分组名称列表， 只有当 change_type 为 kTIMFriendChange_FriendGroupAdd 时有效
-static const char* kTIMFriendChangeElemFriendGroupAddIdentifierArray = "friend_change_elem_friend_group_add_array";
-// array string, 只读, 删除的好友分组名称列表， 只有当 change_type 为 kTIMFriendChange_FriendGroupDel 时有效
-static const char* kTIMFriendChangeElemFriendGroupDelIdentifierArray = "friend_change_elem_friend_group_del_array";
-// array string, 只读, 修改的好友分组名称列表， 只有当 change_type 为 kTIMFriendChange_FriendGroupModify 时有效
-static const char* kTIMFriendChangeElemFriendGroupModifyIdentifierArray = "friend_change_elem_friend_group_update_array";
-
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -1348,13 +1377,19 @@ static const char* kTIMFriendshipDeleteFriendParamIdentifierArray = "friendship_
 
 //------------------------------------------------------------------------------
 // 11.3 FriendAddPendency (好友申请未决信息)
-// string, 只读, 添加好友请求方的UserID
+// uint @ref TIMFriendPendencyType, 只读, 好友申请未决的类型
+static const char* kTIMFriendAddPendencyType = "friend_add_pendency_type";
+// string, 只读, 好友申请未决的 UserID
 static const char* kTIMFriendAddPendencyIdentifier = "friend_add_pendency_identifier";
-// string, 只读, 添加好友请求方的昵称
+// string, 只读, 好友申请未决的用户昵称
 static const char* kTIMFriendAddPendencyNickName = "friend_add_pendency_nick_name";
-// string, 只读, 添加好友请求方的来源
+// string, 只读, 好友申请未决的用户头像
+static const char* kTIMFriendAddPendencyFaceUrl = "friend_add_pendency_face_url";
+// uint64, 只读, 发起好友申请的时间
+static const char* kTIMFriendAddPendencyAddTime = "friend_add_pendency_add_time";
+// string, 只读, 好友申请未决的来源
 static const char* kTIMFriendAddPendencyAddSource = "friend_add_pendency_add_source";
-// string, 只读, 添加好友请求方的附言
+// string, 只读, 好友申请未决的附言
 static const char* kTIMFriendAddPendencyAddWording = "friend_add_pendency_add_wording";
 
 //------------------------------------------------------------------------------
@@ -1574,9 +1609,9 @@ static const char* kTIMFollowOperationResultInfo = "follow_operation_result_Info
 //------------------------------------------------------------------------------
 // 17.2 FollowListResult (获取 关注/粉丝/互关 列表的结果)
 // string, 只读, 下一次拉要取列表的起始位置
-static const char* KTIMFollowListResultNextCursor = "follow_list_result_next_cursor";
+static const char* kTIMFollowListResultNextCursor = "follow_list_result_next_cursor";
 // array @ref UserProfile, 只读, 用户资料列表
-static const char* KTIMFollowListResultUerInfoList = "follow_list_result_user_info_list";
+static const char* kTIMFollowListResultUerInfoList = "follow_list_result_user_info_list";
 
 //------------------------------------------------------------------------------
 // 17.3 FollowInfo (用户关注信息)
@@ -1611,8 +1646,63 @@ static const char* kTIMFollowTypeCheckResultFollowType = "follow_type_check_resu
 //
 /////////////////////////////////////////////////////////////////////////////////
 
+// 18.1 好友变更类型
+enum TIMFriendChangeType {
+    // 未知类型
+    kTIMFriendChange_None,
+    // 新增好友
+    kTIMFriendChange_FriendAdd,
+    // 删除好友
+    kTIMFriendChange_FriendDel,
+    // 新增好友申请的未决
+    kTIMFriendChange_PendencyAdd,
+    // 删除好友申请的未决
+    kTIMFriendChange_PendencyDel,
+    // 加入黑名单
+    kTIMFriendChange_BlackListAdd,
+    // 从黑名单移除
+    kTIMFriendChange_BlackListDel,
+    // 未决已读上报
+    kTIMFriendChange_PendencyReadedReport,
+    // 好友数据更新
+    kTIMFriendChange_FriendProfileUpdate,
+    // 分组增加
+    kTIMFriendChange_FriendGroupAdd,
+    // 分组删除
+    kTIMFriendChange_FriendGroupDel,
+    // 分组修改
+    kTIMFriendChange_FriendGroupModify,
+};
+
 //------------------------------------------------------------------------------
-// 18.1以下为老版本拼写错误，为了兼容老版本而保留的宏定义
+// 18.2 FriendChangeElem (好友变更通知)
+// uint @ref TIMFriendChangeType, 只读, 资料变更类型
+static const char* kTIMFriendChangeElemChangeType = "friend_change_elem_change_type";
+// array string, 只读, 新增的好友UserID列表，只有当 change_type 为 kTIMFriendChange_FriendAdd 时有效
+static const char* kTIMFriendChangeElemFriendAddIdentifierArray = "friend_change_elem_friend_add_identifier_array";
+// array string, 只读, 删除的好友UserID列表，只有当 change_type 为 kTIMFriendChange_FriendDel 时有效
+static const char* kTIMFriendChangeElemFriendDelIdentifierArray = "friend_change_elem_friend_del_identifier_array";
+// array @ref FriendAddPendency, 只读, 好友申请的未决列表， 只有当 change_type 为 kTIMFriendChange_PendencyAdd 时有效
+static const char* kTIMFriendChangeElemFriendAddPendencyItemArray = "friend_change_elem_friend_add_pendency_array";
+// array string, 只读, 被删除的好友申请的未决列表， 只有当 change_type 为 kTIMFriendChange_PendencyDel 时有效
+static const char* kTIMFriendChangeElemPendencyDelIdentifierArray = "friend_change_elem_pendency_del_identifier_array";
+// uint64, 只读, 未决已读上报时间戳， 只有当 change_type 为 kTIMFriendChange_PendencyReadedReport 时有效
+static const char* kTIMFriendChangeElemPendencyReadedReportTimestamp = "friend_change_elem_pendency_readed_report_timestamp";
+// array string, 只读, 新增的黑名单UserID列表，只有当 change_type 为 kTIMFriendChange_BlackListAdd 时有效
+static const char* kTIMFriendChangeElemBlackListAddIdentifierArray = "friend_change_elem_blacklist_add_identifier_array";
+// array string, 只读, 删除的黑名单UserID列表，只有当 change_type 为 kTIMFriendChange_BlackListDel 时有效
+static const char* kTIMFriendChangeElemBlackListDelIdentifierArray = "friend_change_elem_blacklist_del_identifier_array";
+// array @ref FriendProfileUpdate, 只读, 好友资料更新列表， 只有当 change_type 为 kTIMFriendChange_FriendProfileUpdate 时有效
+static const char* kTIMFriendChangeElemFriendProfileUpdateItemArray = "friend_change_elem_friend_profile_update_item_array";
+// array string, 只读, 新增的好友分组名称列表， 只有当 change_type 为 kTIMFriendChange_FriendGroupAdd 时有效
+static const char* kTIMFriendChangeElemFriendGroupAddIdentifierArray = "friend_change_elem_friend_group_add_array";
+// array string, 只读, 删除的好友分组名称列表， 只有当 change_type 为 kTIMFriendChange_FriendGroupDel 时有效
+static const char* kTIMFriendChangeElemFriendGroupDelIdentifierArray = "friend_change_elem_friend_group_del_array";
+// array string, 只读, 修改的好友分组名称列表， 只有当 change_type 为 kTIMFriendChange_FriendGroupModify 时有效
+static const char* kTIMFriendChangeElemFriendGroupModifyIdentifierArray = "friend_change_elem_friend_group_update_array";
+
+//------------------------------------------------------------------------------
+// 18.3 以下为老版本拼写错误，为了兼容老版本而保留的宏定义
 // enum TIMFriendType
 #define FriendTypeSignle  FriendTypeSingle
 // enum TIMFriendshipSearchFieldKey
@@ -1627,6 +1717,9 @@ static const char* kTIMFollowTypeCheckResultFollowType = "follow_type_check_resu
 #define kTIMFriendResponeAction      kTIMFriendResponseAction
 #define kTIMFriendResponeRemark      kTIMFriendResponseRemark
 #define kTIMFriendResponeGroupName   kTIMFriendResponseGroupName
+// FollowListResult JsonKey
+#define KTIMFollowListResultNextCursor   kTIMFollowListResultNextCursor
+#define KTIMFollowListResultUerInfoList  kTIMFollowListResultUerInfoList
 
 #ifdef __cplusplus
 }

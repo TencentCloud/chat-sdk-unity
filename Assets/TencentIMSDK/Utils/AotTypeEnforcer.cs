@@ -14,7 +14,7 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureDictionary<string, JToken>();
     AotHelper.EnsureType<SdkConfig>();
     AotHelper.EnsureType<ConvParam>();
-    AotHelper.EnsureType<UserProfileCustemStringInfo>();
+    AotHelper.EnsureType<UserProfileCustomStringInfo>();
     AotHelper.EnsureType<UserProfile>();
     AotHelper.EnsureType<Message>();
     AotHelper.EnsureType<OfflinePushConfig>();
@@ -26,6 +26,7 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureType<GroupTipGroupChangeInfo>();
     AotHelper.EnsureType<GroupMemberInfoCustomString>();
     AotHelper.EnsureType<GroupTipMemberChangeInfo>();
+    AotHelper.EnsureType<GroupSearchGroupMembersResult>();
     AotHelper.EnsureType<DraftParam>();
     AotHelper.EnsureType<MsgLocator>();
     AotHelper.EnsureType<MsgGetMsgListParam>();
@@ -34,7 +35,7 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureType<MsgBatchSendParam>();
     AotHelper.EnsureType<MessageSearchParam>();
     AotHelper.EnsureType<CreateGroupParam>();
-    AotHelper.EnsureType<GroupInfoCustemString>();
+    AotHelper.EnsureType<GroupInfoCustomString>();
     AotHelper.EnsureType<GroupInviteMemberParam>();
     AotHelper.EnsureType<GroupDeleteMemberParam>();
     AotHelper.EnsureType<GroupModifyInfoParam>();
@@ -53,7 +54,7 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureType<FriendResponse>();
     AotHelper.EnsureType<FriendshipModifyFriendProfileParam>();
     AotHelper.EnsureType<FriendProfileItem>();
-    AotHelper.EnsureType<FriendProfileCustemStringInfo>();
+    AotHelper.EnsureType<FriendProfileCustomStringInfo>();
     AotHelper.EnsureType<FriendshipDeleteFriendParam>();
     AotHelper.EnsureType<FriendshipCheckFriendTypeParam>();
     AotHelper.EnsureType<FriendGroupInfo>();
@@ -79,7 +80,7 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureType<CustomServerInfo>();
     AotHelper.EnsureType<SM4GCMCallbackParam>();
     AotHelper.EnsureType<CosSaveRegionForConversationParam>();
-    AotHelper.EnsureType<ExperimentalAPIReqeustParam>();
+    AotHelper.EnsureType<ExperimentalAPIRequestParam>();
     AotHelper.EnsureType<GetTotalUnreadNumberResult>();
     AotHelper.EnsureType<GetC2CRecvMsgOptResult>();
     AotHelper.EnsureType<ReceiveMessageOptInfo>();
@@ -105,7 +106,7 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureType<MessageSearchResultItem>();
     AotHelper.EnsureType<MsgBatchSendResult>();
     AotHelper.EnsureType<MsgDownloadElemResult>();
-    AotHelper.EnsureType<ReponseInfo>();
+    AotHelper.EnsureType<ResponseInfo>();
     AotHelper.EnsureType<UserInfo>();
     AotHelper.EnsureType<SSODataRes>();
     AotHelper.EnsureType<GroupGetMemberInfoListResult>();
@@ -113,12 +114,28 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureType<GroupInfo>();
     AotHelper.EnsureType<GroupTopicOperationResult>();
     AotHelper.EnsureType<UserStatus>();
+    AotHelper.EnsureType<TopicInfo>();
+    AotHelper.EnsureType<PermissionGroupInfo>();
+    AotHelper.EnsureType<TopicPermission>();
+    AotHelper.EnsureType<PermissionGroupInfoResult>();
+    AotHelper.EnsureType<PermissionGroupOperationResult>();
+    AotHelper.EnsureType<PermissionGroupMemberOperationResult>();
+    AotHelper.EnsureType<PermissionGroupMemberInfoResult>();
+    AotHelper.EnsureType<TopicPermissionResult>();
+    AotHelper.EnsureType<PermissionGroupCallback>();
+    AotHelper.EnsureType<OfficialAccountInfo>();
+    AotHelper.EnsureType<GetOfficialAccountInfoResult>();
+    AotHelper.EnsureType<FollowOperationResult>();
+    AotHelper.EnsureType<FollowListResult>();
+    AotHelper.EnsureType<FollowInfo>();
+    AotHelper.EnsureType<FollowTypeCheckResult>();
+    AotHelper.EnsureType<SignalingInfo>();
 
     AotHelper.EnsureList<string>();
     AotHelper.EnsureList<ulong>();
     AotHelper.EnsureList<SdkConfig>();
     AotHelper.EnsureList<ConvParam>();
-    AotHelper.EnsureList<UserProfileCustemStringInfo>();
+    AotHelper.EnsureList<UserProfileCustomStringInfo>();
     AotHelper.EnsureList<UserProfile>();
     AotHelper.EnsureList<Message>();
     AotHelper.EnsureList<OfflinePushConfig>();
@@ -130,6 +147,7 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureList<GroupTipGroupChangeInfo>();
     AotHelper.EnsureList<GroupMemberInfoCustomString>();
     AotHelper.EnsureList<GroupTipMemberChangeInfo>();
+    AotHelper.EnsureList<GroupSearchGroupMembersResult>();
     AotHelper.EnsureList<DraftParam>();
     AotHelper.EnsureList<MsgLocator>();
     AotHelper.EnsureList<MsgGetMsgListParam>();
@@ -138,7 +156,7 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureList<MsgBatchSendParam>();
     AotHelper.EnsureList<MessageSearchParam>();
     AotHelper.EnsureList<CreateGroupParam>();
-    AotHelper.EnsureList<GroupInfoCustemString>();
+    AotHelper.EnsureList<GroupInfoCustomString>();
     AotHelper.EnsureList<GroupInviteMemberParam>();
     AotHelper.EnsureList<GroupDeleteMemberParam>();
     AotHelper.EnsureList<GroupModifyInfoParam>();
@@ -157,7 +175,7 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureList<FriendResponse>();
     AotHelper.EnsureList<FriendshipModifyFriendProfileParam>();
     AotHelper.EnsureList<FriendProfileItem>();
-    AotHelper.EnsureList<FriendProfileCustemStringInfo>();
+    AotHelper.EnsureList<FriendProfileCustomStringInfo>();
     AotHelper.EnsureList<FriendshipDeleteFriendParam>();
     AotHelper.EnsureList<FriendshipCheckFriendTypeParam>();
     AotHelper.EnsureList<FriendGroupInfo>();
@@ -183,7 +201,7 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureList<CustomServerInfo>();
     AotHelper.EnsureList<SM4GCMCallbackParam>();
     AotHelper.EnsureList<CosSaveRegionForConversationParam>();
-    AotHelper.EnsureList<ExperimentalAPIReqeustParam>();
+    AotHelper.EnsureList<ExperimentalAPIRequestParam>();
     AotHelper.EnsureList<GetTotalUnreadNumberResult>();
     AotHelper.EnsureList<GetC2CRecvMsgOptResult>();
     AotHelper.EnsureList<ReceiveMessageOptInfo>();
@@ -209,7 +227,7 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureList<MessageSearchResultItem>();
     AotHelper.EnsureList<MsgBatchSendResult>();
     AotHelper.EnsureList<MsgDownloadElemResult>();
-    AotHelper.EnsureList<ReponseInfo>();
+    AotHelper.EnsureList<ResponseInfo>();
     AotHelper.EnsureList<UserInfo>();
     AotHelper.EnsureList<SSODataRes>();
     AotHelper.EnsureList<GroupGetMemberInfoListResult>();
@@ -217,5 +235,21 @@ public class AotTypeEnforcer : MonoBehaviour
     AotHelper.EnsureList<GroupInfo>();
     AotHelper.EnsureList<GroupTopicOperationResult>();
     AotHelper.EnsureList<UserStatus>();
+    AotHelper.EnsureList<TopicInfo>();
+    AotHelper.EnsureList<PermissionGroupInfo>();
+    AotHelper.EnsureList<TopicPermission>();
+    AotHelper.EnsureList<PermissionGroupInfoResult>();
+    AotHelper.EnsureList<PermissionGroupOperationResult>();
+    AotHelper.EnsureList<PermissionGroupMemberOperationResult>();
+    AotHelper.EnsureList<PermissionGroupMemberInfoResult>();
+    AotHelper.EnsureList<TopicPermissionResult>();
+    AotHelper.EnsureList<PermissionGroupCallback>();
+    AotHelper.EnsureList<OfficialAccountInfo>();
+    AotHelper.EnsureList<GetOfficialAccountInfoResult>();
+    AotHelper.EnsureList<FollowOperationResult>();
+    AotHelper.EnsureList<FollowListResult>();
+    AotHelper.EnsureList<FollowInfo>();
+    AotHelper.EnsureList<FollowTypeCheckResult>();
+    AotHelper.EnsureList<SignalingInfo>();
   }
 }

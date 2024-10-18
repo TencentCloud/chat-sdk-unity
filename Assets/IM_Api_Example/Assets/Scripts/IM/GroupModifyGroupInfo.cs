@@ -109,14 +109,14 @@ public class GroupModifyGroupInfo : MonoBehaviour
   void GroupModifyGroupInfoSDK()
   {
     if (groupIDList.Count < 1) return;
-    var custom_string_array = new List<GroupInfoCustemString>();
+    var custom_string_array = new List<GroupInfoCustomString>();
     var keys = CustomKey.text.Split(',');
     var vals = CustomValue.text.Split(',');
     for (int idx = 0; idx < keys.Length; idx++)
     {
       if (!string.IsNullOrEmpty(keys[idx]))
       {
-        custom_string_array.Add(new GroupInfoCustemString
+        custom_string_array.Add(new GroupInfoCustomString
         {
           group_info_custom_string_info_key = keys[idx],
           group_info_custom_string_info_value = idx < vals.Length ? vals[idx] : ""

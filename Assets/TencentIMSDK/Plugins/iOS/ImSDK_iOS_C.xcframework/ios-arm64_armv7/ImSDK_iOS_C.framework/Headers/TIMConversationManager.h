@@ -71,7 +71,6 @@ enum TIMGroupAtType {
     kTIMGroup_At_All_At_ME,
 };
 
-
 /////////////////////////////////////////////////////////////////////////////////
 //
 //                        二. 会话事件及会话未读数相关回调定义
@@ -227,8 +226,13 @@ typedef void (*TIMConvConversationsAddedToGroupCallback)(const char* group_name,
  * @param group_name 分组名
  * @param conversation_array 会话列表
  * @param user_data ImSDK负责透传的用户自定义数据，未做任何处理
+ *
+ * @note
+ * - reason 表示会话从所在分组删除的原因，其取值有：
+ * - 当 reason 为 0 时，表示由用户主动调用 deleteConversationsFromGroup 触发
+ * - 当 reason 为 1 时，表示添加到分组的会话数量超过 1000，最早添加进分组的会话被淘汰
  */
-typedef void (*TIMConvConversationsDeletedFromGroupCallback)(const char* group_name, const char* conversation_array, const void* user_data);
+typedef void (*TIMConvConversationsDeletedFromGroupCallback)(const char* group_name, const char* conversation_array, uint32_t reason, const void* user_data);
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -296,7 +300,7 @@ TIM_API void TIMSetConvConversationGroupCreatedCallback(TIMConvConversationGroup
 /**
  * 5.2 设置会话分组被删除的回调
  * 
- * @param cb 会话未读消息总数变更的回调，请参考 @ref TIMConvConversationGroupDeletedCallback
+ * @param cb 会话分组被删除的回调，请参考 @ref TIMConvConversationGroupDeletedCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  */
 TIM_API void TIMSetConvConversationGroupDeletedCallback(TIMConvConversationGroupDeletedCallback cb, const void* user_data);
@@ -304,7 +308,7 @@ TIM_API void TIMSetConvConversationGroupDeletedCallback(TIMConvConversationGroup
 /**
  * 5.3 设置会话分组命名变更回调
  * 
- * @param cb 会话未读消息总数变更的回调，请参考 @ref TIMConvConversationGroupNameChangedCallback
+ * @param cb 会话分组命名变更回调，请参考 @ref TIMConvConversationGroupNameChangedCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  */
 TIM_API void TIMSetConvConversationGroupNameChangedCallback(TIMConvConversationGroupNameChangedCallback cb, const void* user_data);
@@ -312,19 +316,18 @@ TIM_API void TIMSetConvConversationGroupNameChangedCallback(TIMConvConversationG
 /**
  * 5.4 设置会话分组新增会话的回调
  * 
- * @param cb 会话未读消息总数变更的回调，请参考 @ref TIMConvConversationsAddedToGroupCallback
+ * @param cb 会话分组新增会话的回调，请参考 @ref TIMConvConversationsAddedToGroupCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  */
 TIM_API void TIMSetConvConversationsAddedToGroupCallback(TIMConvConversationsAddedToGroupCallback cb, const void* user_data);
 
 /**
  * 5.5 设置会话分组删除会话的回调
- * 
- * @param cb 会话未读消息总数变更的回调，请参考 @ref TIMConvConversationsDeletedFromGroupCallback
+ *
+ * @param cb 会话分组删除会话的回调，请参考 @ref TIMConvConversationsDeletedFromGroupCallback
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  */
 TIM_API void TIMSetConvConversationsDeletedFromGroupCallback(TIMConvConversationsDeletedFromGroupCallback cb, const void* user_data);
-
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -480,7 +483,7 @@ TIM_API int TIMConvDelete(const char* conv_id, enum TIMConvType conv_type, TIMCo
  * @param user_data 用户自定义数据，ImSDK 只负责传回给回调函数 cb，不做任何处理
  * @return int 返回 TIM_SUCC 表示接口调用成功（接口只有返回 TIM_SUCC，回调 cb 才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  *
- * @note 请注意: 每次最多支持删除 100 个会话
+ * @note 每次最多支持删除 100 个会话
  *
  * __示例(回调结果中 json_param 使用的 Json Key 请参考 @ref TIMConversationOperationResult)__
  * @code{.cpp}
@@ -598,7 +601,7 @@ TIM_API int TIMConvSetConversationCustomData(const char* conversation_id_array, 
  * }, nullptr);
  * @endcode
  */
-TIM_API int TIMConvPinConversation(const char* conv_id, TIMConvType conv_type, bool is_pinned, TIMCommCallback cb, const void* user_data);
+TIM_API int TIMConvPinConversation(const char* conv_id, enum TIMConvType conv_type, bool is_pinned, TIMCommCallback cb, const void* user_data);
 
 /**
  * 6.10 标记会话（从 6.5 版本开始支持，需要您购买旗舰版套餐）

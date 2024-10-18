@@ -30,7 +30,7 @@ namespace com.tencent.imsdk.unity.types
 
 
   [JsonObject(MemberSerialization.OptOut)]
-  public class UserProfileCustemStringInfo : ExtraData
+  public class UserProfileCustomStringInfo : ExtraData
   {
     /// <value>只写, 用户自定义资料字段的key值（包含前缀Tag_Profile_Custom_） (Write only, user profile custom string key)</value>
     public string user_profile_custom_string_info_key;
@@ -65,7 +65,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>只读, 角色 (Read only, user's role)</value>
     public uint user_profile_role;
     /// <value>只读, 请参考[自定义资料字段](https://cloud.tencent.com/document/product/269/1500#.E8.87.AA.E5.AE.9A.E4.B9.89.E8.B5.84.E6.96.99.E5.AD.97.E6.AE.B5) (Read only, user profile's custom string key-value pair. Check [Custom Profile Fields](https://www.tencentcloud.com/document/product/1047/33520))</value>
-    public List<UserProfileCustemStringInfo> user_profile_custom_string_array;
+    public List<UserProfileCustomStringInfo> user_profile_custom_string_array;
     /// <value>只读, 用户好友备注(请注意，本字段仅在消息的发送者资料中提供)</value>
     public string user_profile_friend_remark;
   }
@@ -105,12 +105,6 @@ namespace com.tencent.imsdk.unity.types
     public bool? message_support_message_extension;
     /// <value>只读, 是否已经发送了已读回执（只有Group 消息有效）(Read only, has sent receipt or not)</value>
     public bool? message_has_sent_receipt;
-    /// <value>只读, 注意：这个字段是内部字段，不推荐使用，推荐调用 TIMMsgGetMessageReadReceipts 获取群消息已读回执 (Read only. Caveat: this is SDK internal field, please call TIMMsgGetMessageReadReceipts to get group message read receipts.)</value>
-    public int? message_group_receipt_read_count;
-    /// <value>只读, 注意：这个字段是内部字段，不推荐使用，推荐调用 TIMMsgGetMessageReadReceipts 获取群消息已读回执 (Read only. Caveat: this is SDK internal field, please call TIMMsgGetMessageReadReceipts to get group message read receipts.)</value>
-    public int? message_group_receipt_unread_count;
-    /// <value>只读，注意：这个字段是内部字段，不推荐使用 (Read only. Caveat: this is SDK internal field, don't use it.)</value>
-    public ulong? message_version;
     /// <value>读写(选填), 消息当前状态 (Read & Write (Optional), message status)</value>
     public TIMMsgStatus? message_status;
     /// <value>只读, 消息的唯一标识，推荐使用 kTIMMsgMsgId (Read only, message unique ID, please use kTIMMsgMsgId instead)</value>
@@ -145,8 +139,12 @@ namespace com.tencent.imsdk.unity.types
     public bool? message_excluded_from_last_message;
     ///<value>读写 是否不过内容审核（包含【本地审核】和【云端审核】），只有在开通【本地审核】或【云端审核】功能后，该字段设置才有效，设置为 true，表明不过内容审核，设置为 false：表明过内容审核。【本地审核】开通流程请参考 [本地审核功能](https://cloud.tencent.com/document/product/269/83795#.E6.9C.AC.E5.9C.B0.E5.AE.A1.E6.A0.B8.E5.8A.9F.E8.83.BD)。 【云端审核】开通流程请参考 [云端审核功能](https://cloud.tencent.com/document/product/269/83795#.E4.BA.91.E7.AB.AF.E5.AE.A1.E6.A0.B8.E5.8A.9F.E8.83.BD)</value>
     public bool? message_excluded_from_content_moderation;
-    ///<value>只读（选填），是否被标记为有安全风险的消息（暂时只支持语音和视频消息），只有在开通【云端审核】功能后才生效，如果您发送的语音或视频消息内容不合规，云端异步审核后会触发 SDK 的 TIMMsgMessageModifiedCallback 回调，回调里的 message 对象该字段值为 true，从 7.4 版本开始支持</value>
+    ///<value>只读（选填），是否被标记为有安全风险的消息（暂时只支持语音和视频消息），只有在开通【云端审核】功能后才生效，如果您发送的语音或视频消息内容不合规，云端异步审核后会触发 SDK 的 TIMMsgMessageModifiedCallback 回调，回调里的 message 对象该字段值为 true，从 7.4 版本开始支持 (Read only(Optional), whether the message has risk content, supported in version 7.4 and later)</value>
     public bool? message_has_risk_content;
+    /// <value>读写(选填), 是否禁用消息发送前云端回调，true: 禁用，false: 不禁用（从 8.1 版本开始支持）(Read & Write (Optional), whether to disable cloud message pre-hook, true: disable, false: enable, supported in version 8.1 and later)</value>
+    public bool? message_disable_cloud_message_pre_hook;
+    /// <value>读写(选填), 是否禁用消息发送后云端回调，true: 禁用，false: 不禁用（从 8.1 版本开始支持）(Read & Write (Optional), whether to disable cloud message post-hook, true: disable, false: enable, supported in version 8.1 and later)</value>
+    public bool? message_disable_cloud_message_post_hook;
     ///<value>只读(选填), 消息撤回者的 user_id, 仅当消息为撤回状态时有效，从 7.4 版本开始支持</value>
     public string? message_revoker_user_id;
     ///<value>只读(选填), 消息撤回者的昵称, 仅当消息为撤回状态时有效，从 7.4 版本开始支持</value>
@@ -155,7 +153,30 @@ namespace com.tencent.imsdk.unity.types
     public string? message_revoker_face_url;
     ///<value>只读(选填), 消息撤回的原因, 仅当消息为撤回状态时有效，从 7.4 版本开始支持</value>
     public string? message_revoke_reason;
+    /// <value>只读(选填), 消息置顶者的 user_id, 只有通过 GetPinnedGroupMessageList 获取到的置顶消息才包含该字段，从 8.0 版本开始支持(Read only(Optional), the user_id of the user who pinned the message is only valid when using the GetPinnedGroupMessageList API, supported in version 8.0 and later)</value>
+    public string? message_pinner_user_id;
+    /// <value>只读(选填), 消息置顶者的昵称, 只有通过 GetPinnedGroupMessageList 获取到的置顶消息才包含该字段，从 8.0 版本开始支持(Read only(Optional), the nickname of the user who pinned the message is only valid when using the GetPinnedGroupMessageList API, supported in version 8.0 and later)</value>
+    public string? message_pinner_nick_name;
+    /// <value>只读(选填), 消息置顶者的好友备注, 只有通过 GetPinnedGroupMessageList 获取到的置顶消息才包含该字段，从 8.0 版本开始支持(Read only(Optional), the friend remark of the user who pinned the message is only valid when using the GetPinnedGroupMessageList API, supported in version 8.0 and later)</value>
+    public string? message_pinner_friend_remark;
+    /// <value>只读(选填), 消息置顶的群成员名片, 只有通过 GetPinnedGroupMessageList 获取到的置顶消息才包含该字段，从 8.0 版本开始支持(Read only(Optional), the group member card of the user who pinned the message is only valid when using the GetPinnedGroupMessageList API, supported in version 8.0 and later)</value>
+    public string? message_pinner_name_card;
+    /// <value>只读(选填), 消息置顶者的头像, 只有通过 GetPinnedGroupMessageList 获取到的置顶消息才包含该字段，从 8.0 版本开始支持(Read only(Optional), the face_url of the user who pinned the message is only valid when using the GetPinnedGroupMessageList API, supported in version 8.0 and later)</value>
+    public string? message_pinner_face_url;
+    /// <value>只读，注意：这个字段是内部字段，不推荐使用 (Read only. Caveat: this is SDK internal field, don't use it.)</value>
+    public ulong? message_sender_tiny_id;
+    /// <value>只读，注意：这个字段是内部字段，不推荐使用 (Read only. Caveat: this is SDK internal field, don't use it.)</value>
+    public ulong? message_receiver_tiny_id;
+    /// <value>只读, 注意：这个字段是内部字段，不推荐使用，推荐调用 TIMMsgGetMessageReadReceipts 获取群消息已读回执 (Read only. Caveat: this is SDK internal field, please call TIMMsgGetMessageReadReceipts to get group message read receipts.)</value>
+    public int? message_group_receipt_read_count;
+    /// <value>只读, 注意：这个字段是内部字段，不推荐使用，推荐调用 TIMMsgGetMessageReadReceipts 获取群消息已读回执 (Read only. Caveat: this is SDK internal field, please call TIMMsgGetMessageReadReceipts to get group message read receipts.)</value>
+    public int? message_group_receipt_unread_count;
+    /// <value>只读，注意：这个字段是内部字段，不推荐使用 (Read only. Caveat: this is SDK internal field, don't use it.)</value>
+    public ulong? message_version;
+    /// <value>只读, 注意：这个字段是内部字段，不推荐使用 (Read only. Caveat: this is SDK internal field, don't use it.)</value>
+    public int? message_risk_type_identified;
   }
+
   [JsonObject(MemberSerialization.OptOut)]
   public class MessageExtension : ExtraData
   {
@@ -164,6 +185,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>string, 读写(选填), 扩展字段的 value (Read & Write (Optional), message extension value)</value>
     public string message_extension_value;
   }
+  
   [JsonObject(MemberSerialization.OptOut)]
   public class MessageExtensionResult : ExtraData
   {
@@ -516,7 +538,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>只写, 修改角色 (Write only, role)</value>
     public uint? user_profile_item_role; // UserProfileItem
     /// <value>只写, 修改[自定义资料字段](https://cloud.tencent.com/document/product/269/1500#.E8.87.AA.E5.AE.9A.E4.B9.89.E8.B5.84.E6.96.99.E5.AD.97.E6.AE.B5) (Write only, custom key-value pair. Check [Custom Profile Fields](https://www.tencentcloud.com/document/product/1047/33520))</value>
-    public List<UserProfileCustemStringInfo> user_profile_item_custom_string_array; // UserProfileItem
+    public List<UserProfileCustomStringInfo> user_profile_item_custom_string_array; // UserProfileItem
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -577,6 +599,15 @@ namespace com.tencent.imsdk.unity.types
     public string group_tips_member_change_info_identifier;
     /// <value>只读, 禁言时间 (Read only, mute time)</value>
     public uint group_tips_member_change_info_shutupTime;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class GroupSearchGroupMembersResult : ExtraData
+  {
+    /// <value>string, 只读, 群 id (Read only, group id)</value>
+    public string group_search_group_members_result_groupid;
+    /// <value>array @ref GroupMemberInfo, 只读, 群成员的列表 (Read only, group member list)</value>
+    public List<GroupMemberInfo> group_search_group_members_result_member_info_list;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -706,6 +737,8 @@ namespace com.tencent.imsdk.unity.types
     public string create_group_param_group_id;
     /// <value>只写(选填), 群组类型,默认为Public (Write (Optional), group type, default: Public)</value>
     public TIMGroupType? create_group_param_group_type;
+    /// <value>只写(选填), 社群是否支持创建话题, 只在群类型为 Community 时有效 (Write (Optional), support topic or not, only valid when group type is Community)</value>
+    public bool? create_group_param_is_support_topic;
     /// <value>只写(选填), 群组初始成员数组 (Write (Optional), init group members)</value>
     public List<GroupMemberInfo> create_group_param_group_member_array;
     /// <value>只写(选填), 群组公告 (Write (Optional), group notification)</value>
@@ -716,14 +749,21 @@ namespace com.tencent.imsdk.unity.types
     public string create_group_param_face_url;
     /// <value>只写(选填), 加群选项，默认为Any (Write (Optional), join group option, default: Any)</value>
     public TIMGroupAddOption? create_group_param_add_option;
+    /// <value>只写(选填), 邀请进群审批选项 (Write (Optional), invite group approval option)</value>
+    public TIMGroupAddOption? create_group_param_approve_option;
+
     /// <value>只写(选填), 群组最大成员数 (Write (Optional), group max member number)</value>
     public uint? create_group_param_max_member_num;
     /// <value>只读(选填), 请参考[自定义字段](https://cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Write (Optional), Check [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
-    public List<GroupInfoCustemString> create_group_param_custom_info;
+    public List<GroupInfoCustomString> create_group_param_custom_info;
+    /// <value>只写(选填), 开启权限组功能, 仅支持社群, 7.8 版本开始支持。开启后，管理员角色的权限失效，用群权限、话题权限和权限组能力来对社群、话题进行管理。 (Write (Optional), enable permission group, it only supports the community and has been supported since version 7.8.)</value>
+    public bool? create_group_param_enable_permission_group;
+    /// <value>只写(选填), 群默认权限, 仅支持社群, 7.8 版本开始支持。群成员在没有加入任何权限组时的默认权限，仅在 kTIMCreateGroupParamEnablePermissionGroup 为 true 时生效 (Write (Optional), group default permissions, it only supports the community and has been supported since version 7.8.)</value>
+    public ulong? create_group_param_default_permissions;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
-  public class GroupInfoCustemString : ExtraData
+  public class GroupInfoCustomString : ExtraData
   {
     /// <value>只写, 自定义字段的key (Write only, group custom string key)</value>
     public string group_info_custom_string_info_key;
@@ -781,7 +821,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>只写(选填), 修改群主所有者, 当 modify_flag 包含 kTIMGroupModifyInfoFlag_Owner 时必填,其他情况不用填。此时 modify_flag 不能包含其他值，当修改群主时，同时修改其他信息已无意义 (Write (Optional), modified group owner, required when modify_flag contains kTIMGroupModifyInfoFlag_Owner, and modify_flag can't contain other values)</value>
     public string group_modify_info_param_owner;
     /// <value>只写(选填), 请参考[自定义字段](https://cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Write (Optional), Check [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
-    public List<GroupInfoCustemString> group_modify_info_param_custom_info;
+    public List<GroupInfoCustomString> group_modify_info_param_custom_info;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -978,7 +1018,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>只写, 修改好友分组名称列表 (Write only, modified group name list)</value>
     public List<string> friend_profile_item_group_name_array;
     /// <value>只写, 修改[自定义好友字段](https://cloud.tencent.com/document/product/269/1501#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.A5.BD.E5.8F.8B.E5.AD.97.E6.AE.B5) (Write only, modified [Custom Friend Fields](https://www.tencentcloud.com/document/product/1047/33521))</value>
-    public List<FriendProfileCustemStringInfo> friend_profile_item_custom_string_array;
+    public List<FriendProfileCustomStringInfo> friend_profile_item_custom_string_array;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -991,7 +1031,7 @@ namespace com.tencent.imsdk.unity.types
   }
 
   [JsonObject(MemberSerialization.OptOut)]
-  public class FriendProfileCustemStringInfo : ExtraData
+  public class FriendProfileCustomStringInfo : ExtraData
   {
     /// <value>只写, 好友自定义资料字段key (Write only, custom friend field key)</value>
     public string friend_profile_custom_string_info_key;
@@ -1224,7 +1264,7 @@ namespace com.tencent.imsdk.unity.types
     /// <value>只读, 好友的个人资料 (Read only, friend's user profile)</value>
     public UserProfile friend_profile_user_profile;
     /// <value>只读, [自定义好友字段](https://cloud.tencent.com/document/product/269/1501#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.A5.BD.E5.8F.8B.E5.AD.97.E6.AE.B5) (Read only, [Custom Friend Fields](https://www.tencentcloud.com/document/product/1047/33521))</value>
-    public List<FriendProfileCustemStringInfo> friend_profile_custom_string_array;
+    public List<FriendProfileCustomStringInfo> friend_profile_custom_string_array;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -1352,7 +1392,7 @@ namespace com.tencent.imsdk.unity.types
   }
 
   [JsonObject(MemberSerialization.OptOut)]
-  public class ExperimentalAPIReqeustParam : ExtraData
+  public class ExperimentalAPIRequestParam : ExtraData
   {
     /// <value>只写(必填), 内部接口的操作类型 (Write only (Required), internal operation)</value>
     public string request_internal_operation; // TIMInternalOperation
@@ -1536,9 +1576,13 @@ namespace com.tencent.imsdk.unity.types
     /// <value>bool, 只读, 群组是否被设置了全员禁言 (Read only, is set mute all)</value>
     public bool group_detail_info_is_shutup_all;
     /// <value>string, 只读, 群组所有者ID (Read only, group owner user ID)</value>
-    public string group_detail_info_owener_identifier;
-    /// <value>array [GroupInfoCustemString](), 只读, 请参考[自定义字段](https:///cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Read only, [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
-    public List<GroupInfoCustemString> group_detail_info_custom_info;
+    public string group_detail_info_owner_identifier;
+    /// <value>array [GroupInfoCustomString](), 只读, 请参考[自定义字段](https:///cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Read only, [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
+    public List<GroupInfoCustomString> group_detail_info_custom_info;
+    /// <value>bool, 只读, 开启权限组功能，仅在社群生效，7.8 版本开始支持 (Read only, enable permission group, only works in community, 7.8 version and later)</value>
+    public bool group_detail_info_enable_permission_group;
+    /// <value>uint, 只读, 群组权限，仅在社群生效，7.8 版本开始支持 (Read only, group permissions, only works in community, 7.8 version and later)</value>
+    public uint group_detail_info_default_permissions;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -1603,9 +1647,9 @@ namespace com.tencent.imsdk.unity.types
     /// <value>bool, 只读, 群组是否被设置了全员禁言 (Read only, is set mute all)</value>
     public bool group_detail_info_is_shutup_all;
     /// <value>string, 只读, 群组所有者ID (Read only, group owner user ID)</value>
-    public string group_detail_info_owener_identifier;
-    /// <value>array [GroupInfoCustemString](), 只读, 请参考[自定义字段](https:///cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Read only, [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
-    public List<GroupInfoCustemString> group_detail_info_custom_info;
+    public string group_detail_info_owner_identifier;
+    /// <value>array [GroupInfoCustomString](), 只读, 请参考[自定义字段](https:///cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5) (Read only, [Custom Group Fields](https://www.tencentcloud.com/document/product/1047/33529))</value>
+    public List<GroupInfoCustomString> group_detail_info_custom_info;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -1742,7 +1786,7 @@ namespace com.tencent.imsdk.unity.types
   }
 
   [JsonObject(MemberSerialization.OptOut)]
-  public class ReponseInfo : ExtraData
+  public class ResponseInfo : ExtraData
   {
     /// <value>string [TIMInternalOperation](), 只读(必填), 响应的内部操作 (Read only, internal operation response)</value>
     public string response_internal_operation;
@@ -1789,7 +1833,7 @@ namespace com.tencent.imsdk.unity.types
     public int group_topic_info_result_error_code;
     /// <value>string, 只读, 如果删除失败，会返回错误信息 (Read only, if failed, it will return error message)</value>
     public string group_topic_info_result_error_message;
-    /// <value>object [TIMGroupTopicInfo](), 只读, 如果获取成功，会返回对应的 info (Read only, if successed, it will return GroupTopicInfo)</value>
+    /// <value>object [TIMGroupTopicInfo](), 只读, 如果获取成功，会返回对应的 info (Read only, it will return GroupTopicInfo if successful)</value>
     public GroupTopicInfo group_topic_info_result_topic_info;
   }
   [JsonObject(MemberSerialization.OptOut)]
@@ -1839,12 +1883,151 @@ namespace com.tencent.imsdk.unity.types
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupTopicOperationResult : ExtraData
   {
-    /// <value>只读, 结果 0：成功；非0：失败 (Read only, result code, 0: success; !0: fail)</value>
+    /// <value>只读, 结果 0：成功；非0：失败 (Read only, result code, 0: success; not 0: fail)</value>
     public int group_topic_operation_result_error_code;
-    /// <value>只读, 如果删除失败，会返回错误信息 (Read only, error message if request failed)</value>
+    /// <value>只读, 如果删除失败，会返回错误信息 (Read only, error message)</value>
     public string group_topic_operation_result_error_message;
-    /// <value>只读, 如果删除成功，会返回对应的 topicID (Read only, if success, return its topic ID)</value>
+    /// <value>只读, 如果删除成功，会返回对应的 topicID (Read only, it will return topic ID if successful)</value>
     public string group_topic_operation_result_topic_id;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class TopicInfo : ExtraData
+  {
+    /// <value>读写, 话题 ID, 只能在创建话题或者修改话题信息的时候设置。组成方式为：社群 ID + @TOPIC#_xxx，例如社群 ID 为 @TGS#_123，则话题 ID 为 @TGS#_123@TOPIC#_xxx(Read & Write, topic id)</value>
+    public string group_topic_info_topic_id;
+    /// <value>读写, 话题名称(Read & Write, topic name)</value>
+    public string group_topic_info_topic_name;
+    /// <value>读写, 话题介绍(Read & Write, topic introduction)</value>
+    public string group_topic_info_introduction;
+    /// <value>读写, 话题公告(Read & Write, topic notification)</value>
+    public string group_topic_info_notification;
+    /// <value>读写, 话题头像(Read & Write, topic face url)</value>
+    public string group_topic_info_topic_face_url;
+    /// <value>读写, 话题全员禁言(Read & Write, topic is all muted)</value>
+    public bool? group_topic_info_is_all_muted;
+    /// <value>只读, 当前用户在话题中的禁言时间(Read only, self mute time)</value>
+    public uint? group_topic_info_self_mute_time;
+    /// <value>读写, 话题自定义字段(Read & Write, topic custom string)</value>
+    public string group_topic_info_custom_string;
+    /// <value>TIMReceiveMessageOpt, 只读, 话题消息接收选项，修改话题消息接收选项请调用 @ref TIMMsgSetGroupReceiveMessageOpt 接口(Read & Write, receive opt)</value>
+    public TIMReceiveMessageOpt? group_topic_info_recv_opt;
+    /// <value>读写, 话题草稿(Read & Write, topic draft text)</value>
+    public string group_topic_info_draft_text;
+    /// <value>只读, 话题已读消息的 sequence，从 7.8 版本开始支持(Read only, topic unread count)</value>
+    public ulong group_topic_info_unread_count;
+    /// <value>只读, 话题 lastMessage(Read only, topic last message)</value>
+    public Message group_topic_info_last_message;
+    /// <value>只读, 话题已读消息的 sequence，从 7.8 版本开始支持(Read only, topic read sequence)</value>
+    public ulong group_topic_info_read_sequence;
+    /// <value>只读, 话题 at 信息列表(Read only, topic at info array)</value>
+    public List<GroupAtInfo> group_topic_info_group_at_info_array;
+    /// <value>ulong, 只写(必填), 修改标识, TIMCommunityTopicModifyInfoFlag 可设置多个值按位或(Write only, modify flag)</value>
+    public ulong group_modify_info_param_modify_flag;
+    /// <value>只读, 话题创建时间(Read only, topic create time)</value>
+    public uint create_time;
+    /// <value>读写, 话题默认权限, 7.8 版本开始支持。群成员在没有加入任何权限组时的默认权限，仅在社群资料 GroupDetailInfo 中的 group_detail_info_enable_permission_group 为 true 时生效(Read & Write, default permissions)</value>
+    public ulong default_permissions;
+    /// <value>只读, 登录用户在话题中的消息接收选项是否继承社群。该功能仅增强版 SDK 8.1 及以上版本支持。(Read only, whether the message receive option is inherited from community)</value>
+    public bool group_topic_info_is_inherit_message_receive_option_from_community;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class PermissionGroupInfo : ExtraData
+  {
+    /// <value>读写, 社群 ID(Read & Write, community group id)</value>
+    public string community_group_id;
+    /// <value>读写, 权限组 ID, 只能在创建话题或者修改话题信息的时候设置(Read & Write, permission group id)</value>
+    public string permission_group_id;
+    /// <value>读写, 权限组名称(Read & Write, permission group name)</value>
+    public string permission_group_name;
+    /// <value>读写, 权限组自定义数据(Read & Write, permission group custom data)</value>
+    public string permission_custom_data;
+    /// <value>读写, 社群权限(Read & Write, community permission)</value>
+    public ulong group_permission;
+    /// <value>只读, 权限组人数(Read only, permission group member count)</value>
+    public ulong permission_group_member_count;
+    /// <value>只写(必填), 修改标识, TIMPermissionGroupModifyInfoFlag 可设置多个值按位或(Write only, modify flag)</value>
+    public uint permission_group_modify_info_flag;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class TopicPermission : ExtraData
+  {
+    /// <value>读写, 话题权限自定义的 key(Read & Write, the key of custom topic permission)</value>
+    public string topic_permission_key;
+    /// <value>读写, 话题权限自定义的 value(Read & Write, the value of custom topic permission)</value>
+    public ulong topic_permission_value;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class PermissionGroupInfoResult : ExtraData
+  {
+    /// <value>只读, 结果 0：成功；非 0：失败(Read only, result code, 0: success; not 0: fail)</value>
+    public int permission_group_info_result_error_code;
+    /// <value>只读, 如果删除失败，会返回错误信息(Read only, error message)</value>
+    public string permission_group_info_result_error_message;
+    /// <value>只读, 如果获取成功，会返回对应的 PermissionGroupInfo 信息(Read only, it will return PermissionGroupInfo if successful)</value>
+    public PermissionGroupInfo permission_group_info_result_permission_group_info;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class PermissionGroupOperationResult : ExtraData
+  {
+    /// <value>只读, 结果 0：成功；非 0：失败(Read only, result code, 0: success; not 0: fail)</value>
+    public int permission_group_operation_result_error_code;
+    /// <value>只读, 如果删除失败，会返回错误信息(Read only, error message)</value>
+    public string permission_group_operation_result_error_message;
+    /// <value>只读, 如果删除成功，会返回对应的 permissionGroupID(Read only, it will return permissionGroupID if successful)</value>
+    public string permission_group_operation_result_id;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class PermissionGroupMemberOperationResult : ExtraData
+  {
+    /// <value>只读, 被邀请加入权限组的用户 ID(Read only, the identifier of the user invited to the permission group)</value>
+    public string permission_group_member_operation_result_identifier;
+    /// <value>只读, 处理结果(Read only, result code)</value>
+    public uint permission_group_member_operation_result_error_code;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class PermissionGroupMemberInfoResult : ExtraData
+  {
+    /// <value>只读, 下一次拉取的标志, server 返回空表示没有更多的数据,否则在下次获取数据时可以填入这个标志继续拉取(Read only, the next cursor to get the next page of data)</value>
+    public string permission_group_member_info_result_next_cursor;
+    /// <value>只读, 成员信息列表(Read only, group member info list)</value>
+    public List<GroupMemberInfo> permission_group_member_info_result_array;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class TopicPermissionResult : ExtraData
+  {
+    /// <value>只读, 结果 0：成功；非 0：失败(Read only, result code, 0: success; not 0: fail)</value>
+    public int topic_permission_result_error_code;
+    /// <value>只读, 如果获取失败，会返回错误信息(Read only, error message)</value>
+    public string topic_permission_result_error_message;
+    /// <value>只读, 话题 ID。(Read only, topic ID)</value>
+    public string topic_permission_result_topic_id;
+    /// <value>只读, 话题 权限。(Read only, topic permission)</value>
+    public uint topic_permission_result_topic_permission;
+    /// <value>只读, 社群 ID。(Read only, group ID)</value>
+    public string topic_permission_result_group_id;
+    /// <value>只读, 权限组 ID。(Read only, permission group ID)</value>
+    public string topic_permission_result_permission_group_id;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class PermissionGroupCallback : ExtraData
+  {
+    /// <value>读写, 权限组 ID(Read & Write, permission group id)</value>
+    public string permission_group_info_permission_group_id;
+    /// <value>只读, 话题权限 map (Read only, topic permission map)</value>
+    public List<TopicPermission> permission_group_callback_topic_permission_map;
+    /// <value>只读, 删除话题权限的话题 id 列表 (Read only, topic id list)</value>
+    public List<string> permission_group_callback_topic_id_list;
+    /// <value>只读, 权限组中添加或者删除成员的 id 列表 (Read only, member id list)</value>
+    public List<string> permission_group_callback_member_id_list;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -1902,6 +2085,112 @@ namespace com.tencent.imsdk.unity.types
     /// <value>string, 只读, 翻译后的文本 (Read only, translated text)</value>
     public string msg_translate_text_target_text;
   }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class OfficialAccountInfo : ExtraData
+  {
+    /// <value>只读, 公众号 ID (Read only, official account ID)</value>
+    public string official_account_id;
+    /// <value>只读, 公众号名称 (Read only, official account name)</value>
+    public string official_account_name;
+    /// <value>只读, 公众号头像 URL (Read only, official account face url)</value>
+    public string official_account_face_url;
+    /// <value>只读, 公众号所有者 (Read only, official account owner)</value>
+    public string official_account_owner_user_id;
+    /// <value>只读, 公众号介绍 (Read only, official account introduction)</value>
+    public string official_account_introduction;
+    /// <value>只读, 公众号组织 (Read only, official account organization)</value>
+    public string official_account_organization;
+    /// <value>只读, 公众号创建时间，单位：秒 (Read only, official account create time)</value>
+    public ulong official_account_create_time;
+    /// <value>只读, 公众号订阅者数量 (Read only, official account subscriber count)</value>
+    public ulong official_account_subscriber_count;
+    /// <value>只读, 公众号订阅时间，单位：秒 (Read only, official account subscribe time)</value>
+    public ulong official_account_subscribe_time;
+    /// <value>只读, 公众号自定义字段 (Read only, official account custom data)</value>
+    public string official_account_custom_data;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class GetOfficialAccountInfoResult : ExtraData
+  {
+    /// <value>只读, 获取公众号详细资料的结果 (Read only, result code)</value>
+    public int get_official_account_info_result_code;
+    /// <value>只读, 获取公众号详细资料失败的描述信息 (Read only, result desc)</value>
+    public string get_official_account_info_result_desc;
+    /// <value>只读, 公众号详细信息 (Read only, official account info)</value>
+    public OfficialAccountInfo get_official_account_info;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class FollowOperationResult : ExtraData
+  {
+    /// <value>只读, 关注/取关操作的用户 ID (Read only, user ID)</value>
+    public string follow_operation_result_user_id;
+    /// <value>只读, 关注/取关的操作返回码 (Read only, result code)</value>
+    public int follow_operation_result_code;
+    /// <value>只读, 关注/取关操作的返回结果描述 (Read only, result desc)</value>
+    public string follow_operation_result_info;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class FollowListResult : ExtraData
+  {
+    /// <value>只读, 下一次拉要取列表的起始位置 (Read only, next cursor)</value>
+    public string follow_list_result_next_cursor;
+    /// <value>只读, 用户资料列表 (Read only, user info list)</value>
+    public List<UserProfile> follow_list_result_user_info_list;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class FollowInfo : ExtraData
+  {
+    /// <value>只读, 用户 ID (Read only, user ID)</value>
+    public string follow_info_user_id;
+    /// <value>只读, 获取用户关注数量信息的返回码 (Read only, result code)</value>
+    public int follow_info_result_code;
+    /// <value>只读, 获取用户关注数量信息的返回结果描述 (Read only, result desc)</value>
+    public string follow_info_result_info;
+    /// <value>只读, 用户的关注数量 (Read only, following count)</value>
+    public ulong? follow_info_following_count;
+    /// <value>只读, 用户的粉丝数量 (Read only, followers count)</value>
+    public ulong? follow_info_followers_count;
+    /// <value>只读, 用户的互关数量 (Read only, mutual followers count)</value>
+    public ulong? follow_info_mutual_followers_count;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class FollowTypeCheckResult : ExtraData
+  {
+    /// <value>只读, 用户 ID (Read only, user ID)</value>
+    public string follow_type_check_result_user_id;
+    /// <value>只读, 关注类型检查的返回码 (Read only, result code)</value>
+    public int follow_type_check_result_code;
+    /// <value>只读, 关注类型检查的返回结果描述 (Read only, result desc)</value>
+    public string follow_type_check_result_info;
+    /// <value>只读, 关注类型 (Read only, follow type)</value>
+    public TIMFollowType follow_type_check_result_follow_type;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class SignalingInfo : ExtraData
+  {
+    /// <value>只读, 邀请 ID (Read only, invite ID)</value>
+    public string signaling_info_invite_id;
+    /// <value>只读, 群组 ID (Read only, group ID)</value>
+    public string signaling_info_group_id;
+    /// <value>只读, 邀请方的 ID (Read only, inviter ID)</value>
+    public string signaling_info_inviter;
+    /// <value>只读, 被邀请方列表 (Read only, invitee list)</value>
+    public List<string> signaling_info_invitee_list;
+    /// <value>只读, 信令自定义内容 (Read only, data)</value>
+    public string signaling_info_data;
+    /// <value>只读, 信令响应类型 (Read only, action type)</value>
+    public TIMSignalingActionType signaling_info_action_type;
+    /// <value>只读, 超时时间 (Read only, timeout)</value>
+    public uint signaling_info_timeout;
+  }
+
 
   // 用于处理Deserialize时多余的参数
   // Handle Unknown Fields when Deserialize

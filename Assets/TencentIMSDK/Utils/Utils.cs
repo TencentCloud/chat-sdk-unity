@@ -16,7 +16,9 @@ namespace com.tencent.imsdk.unity.utils
     private static int randomIndex = 1;
     public static void Log(string s)
     {
+#if DEBUG
       UnityEngine.Debug.Log("TencentIMSDK：" + s);
+#endif
     }
     public static IntPtr string2intptr(string str)
     {

@@ -66,14 +66,14 @@ public class ProfileModifySelfUserProfile : MonoBehaviour
 
   void ProfileModifySelfUserProfileSDK()
   {
-    var custom_string_array = new List<UserProfileCustemStringInfo>();
+    var custom_string_array = new List<UserProfileCustomStringInfo>();
     var keys = CustomKey.text.Split(',');
     var vals = CustomValue.text.Split(',');
     for (int idx = 0; idx < keys.Length; idx++)
     {
       if (!string.IsNullOrEmpty(keys[idx]))
       {
-        custom_string_array.Add(new UserProfileCustemStringInfo
+        custom_string_array.Add(new UserProfileCustomStringInfo
         {
           user_profile_custom_string_info_key = keys[idx],
           user_profile_custom_string_info_value = idx < vals.Length ? vals[idx] : ""

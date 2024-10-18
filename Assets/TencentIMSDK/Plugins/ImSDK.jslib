@@ -143,7 +143,7 @@ var ImSDKPlugin = {
       }
       return res;
     },
-    fromGroupInfoCustemString: function fromGroupInfoCustemString(list) {
+    fromGroupInfoCustomString: function fromGroupInfoCustomString(list) {
       if (!list) {
         return null;
       }
@@ -176,7 +176,7 @@ var ImSDKPlugin = {
         res.joinOption = this.fromGroupAddOption(param.group_modify_info_param_add_option);
       }
       if (param.group_modify_info_param_custom_info) {
-        res.groupCustomField = this.fromGroupInfoCustemString(param.group_modify_info_param_custom_info);
+        res.groupCustomField = this.fromGroupInfoCustomString(param.group_modify_info_param_custom_info);
       }
       return res;
     },
@@ -512,7 +512,7 @@ var ImSDKPlugin = {
         };
       });
     },
-    toGroupInfoCustemString: function toGroupInfoCustemString(list) {
+    toGroupInfoCustomString: function toGroupInfoCustomString(list) {
       if (!list) {
         return null;
       }
@@ -562,7 +562,7 @@ var ImSDKPlugin = {
       res.group_detail_info_is_shutup_all = group.muteAllMembers;
       res.group_detail_info_owener_identifier = group.ownerID;
       if (group.groupCustomField) {
-        var list = this.toGroupInfoCustemString(group.groupCustomField);
+        var list = this.toGroupInfoCustomString(group.groupCustomField);
         res.create_group_param_custom_info = list;
       }
       return res;

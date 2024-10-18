@@ -831,8 +831,8 @@ public class TestApi : MonoBehaviour
         FriendshipModifyFriendProfileParam param = new FriendshipModifyFriendProfileParam();
         param.friendship_modify_friend_profile_param_identifier = "287646";
         FriendProfileItem item = new FriendProfileItem();
-        List<FriendProfileCustemStringInfo> list = new List<FriendProfileCustemStringInfo>();
-        FriendProfileCustemStringInfo info = new FriendProfileCustemStringInfo();
+        List<FriendProfileCustomStringInfo> list = new List<FriendProfileCustomStringInfo>();
+        FriendProfileCustomStringInfo info = new FriendProfileCustomStringInfo();
         info.friend_profile_custom_string_info_key = "Tag_SNS_Custom_ATime";
         info.friend_profile_custom_string_info_value = "2021.12.21";
         list.Add(info);

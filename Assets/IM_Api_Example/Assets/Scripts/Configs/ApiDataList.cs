@@ -492,11 +492,23 @@ namespace com.tencent.im.unity.demo.config.ApiDataList
         ""apiText"": ""翻译文本消息"",
         ""apiDesc"": ""翻译文本消息"",
         ""scene"": ""MsgTranslateText""
+      },
+      {
+        ""apiName"": ""PinGroupMessage"",
+        ""apiText"": ""置顶群消息"",
+        ""apiDesc"": ""置顶群消息"",
+        ""scene"": ""PinGroupMessage""
+      },
+      {
+        ""apiName"": ""GetPinnedGroupMessageList"",
+        ""apiText"": ""获取置顶群消息列表"",
+        ""apiDesc"": ""获取置顶群消息列表"",
+        ""scene"": ""GetPinnedGroupMessageList""
       }
     ]
   },
   {
-    ""apiManager"": ""V2TimMessageManager"",
+    ""apiManager"": ""V2TimFriendShipManager"",
     ""managerName"": ""FriendShip Module"",
     ""apis"": [
       {
@@ -606,6 +618,66 @@ namespace com.tencent.im.unity.demo.config.ApiDataList
         ""apiText"": ""搜索好友"",
         ""apiDesc"": ""搜索好友"",
         ""scene"": ""FriendshipSearchFriends""
+      },
+      {
+        ""apiName"": ""FollowUser"",
+        ""apiText"": ""关注用户"",
+        ""apiDesc"": ""关注用户"",
+        ""scene"": ""FollowUser""
+      },
+      {
+        ""apiName"": ""UnfollowUser"",
+        ""apiText"": ""取消关注用户"",
+        ""apiDesc"": ""取消关注用户"",
+        ""scene"": ""UnfollowUser""
+      },
+      {
+        ""apiName"": ""GetMyFollowingList"",
+        ""apiText"": ""获取我关注的用户列表"",
+        ""apiDesc"": ""获取我关注的用户列表"",
+        ""scene"": ""GetMyFollowingList""
+      },
+      {
+        ""apiName"": ""GetMyFollowersList"",
+        ""apiText"": ""获取我的粉丝列表"",
+        ""apiDesc"": ""获取我的粉丝列表"",
+        ""scene"": ""GetMyFollowersList""
+      },
+      {
+        ""apiName"": ""GetMutualFollowersList"",
+        ""apiText"": ""获取互关用户列表"",
+        ""apiDesc"": ""获取互关用户列表"",
+        ""scene"": ""GetMutualFollowersList""
+      },
+      {
+        ""apiName"": ""GetUserFollowInfo"",
+        ""apiText"": ""获取用户关注数量信息"",
+        ""apiDesc"": ""获取用户关注数量信息"",
+        ""scene"": ""GetUserFollowInfo""
+      },
+      {
+        ""apiName"": ""CheckFollowType"",
+        ""apiText"": ""检查用户关注类型"",
+        ""apiDesc"": ""检查用户关注类型"",
+        ""scene"": ""CheckFollowType""
+      },
+      {
+        ""apiName"": ""SubscribeOfficialAccount"",
+        ""apiText"": ""订阅公众号"",
+        ""apiDesc"": ""订阅公众号"",
+        ""scene"": ""SubscribeOfficialAccount""
+      },
+      {
+        ""apiName"": ""UnsubscribeOfficialAccount"",
+        ""apiText"": ""取消订阅公众号"",
+        ""apiDesc"": ""取消订阅公众号"",
+        ""scene"": ""UnsubscribeOfficialAccount""
+      },
+      {
+        ""apiName"": ""GetOfficialAccountsInfo"",
+        ""apiText"": ""获取公众号信息"",
+        ""apiDesc"": ""获取公众号信息"",
+        ""scene"": ""GetOfficialAccountsInfo""
       }
     ]
   },
@@ -800,6 +872,174 @@ namespace com.tencent.im.unity.demo.config.ApiDataList
         ""scene"": ""GroupDecreaseGroupCounter""
       }
     ]
+  },
+  {
+    ""apiManager"": ""V2TimSignalingManager"",
+    ""managerName"": ""Signaling Module"",
+    ""apis"": [
+      {
+        ""apiName"": ""SignalingInvite"",
+        ""apiText"": ""邀请某个人"",
+        ""apiDesc"": ""邀请某个人"",
+        ""scene"": ""SignalingInvite""
+      },
+      {
+        ""apiName"": ""SignalingInviteInGroup"",
+        ""apiText"": ""邀请群内的某些人"",
+        ""apiDesc"": ""邀请群内的某些人"",
+        ""scene"": ""SignalingInviteInGroup""
+      },
+      {
+        ""apiName"": ""SignalingCancel"",
+        ""apiText"": ""邀请方取消邀请"",
+        ""apiDesc"": ""邀请方取消邀请"",
+        ""scene"": ""SignalingCancel""
+      },
+      {
+        ""apiName"": ""SignalingAccept"",
+        ""apiText"": ""被邀请方接受邀请"",
+        ""apiDesc"": ""被邀请方接受邀请"",
+        ""scene"": ""SignalingAccept""
+      },
+      {
+        ""apiName"": ""SignalingReject"",
+        ""apiText"": ""被邀请方拒绝邀请"",
+        ""apiDesc"": ""被邀请方拒绝邀请"",
+        ""scene"": ""SignalingReject""
+      },
+      {
+        ""apiName"": ""GetSignalingInfo"",
+        ""apiText"": ""获取信令信息"",
+        ""apiDesc"": ""获取信令信息"",
+        ""scene"": ""GetSignalingInfo""
+      },
+      {
+        ""apiName"": ""SignalingModifyInvitation"",
+        ""apiText"": ""修改邀请信令"",
+        ""apiDesc"": ""修改邀请信令"",
+        ""scene"": ""SignalingModifyInvitation""
+      }
+     ]
+  },
+  {
+    ""apiManager"": ""V2TimCommunityManager"",
+    ""managerName"": ""Community Module"",
+    ""apis"": [
+      {
+        ""apiName"": ""CommunityCreate"",
+        ""apiText"": ""创建支持话题的社群"",
+        ""apiDesc"": ""创建支持话题的社群"",
+        ""scene"": ""CommunityCreate""
+      },
+      {
+        ""apiName"": ""CommunityGetJoinedCommunityList"",
+        ""apiText"": ""获取当前用户已经加入的社群列表"",
+        ""apiDesc"": ""获取当前用户已经加入的社群列表"",
+        ""scene"": ""CommunityGetJoinedCommunityList""
+      },
+      {
+        ""apiName"": ""CommunityCreateTopicInCommunity"",
+        ""apiText"": ""创建话题"",
+        ""apiDesc"": ""创建话题"",
+        ""scene"": ""CommunityCreateTopicInCommunity""
+      },
+      {
+        ""apiName"": ""CommunityDeleteTopicFromCommunity"",
+        ""apiText"": ""删除话题"",
+        ""apiDesc"": ""删除话题"",
+        ""scene"": ""CommunityDeleteTopicFromCommunity""
+      },
+      {
+        ""apiName"": ""CommunitySetTopicInfo"",
+        ""apiText"": ""修改话题信息"",
+        ""apiDesc"": ""修改话题信息"",
+        ""scene"": ""CommunitySetTopicInfo""
+      },
+      {
+        ""apiName"": ""CommunityGetTopicInfoList"",
+        ""apiText"": ""获取话题列表"",
+        ""apiDesc"": ""获取话题列表"",
+        ""scene"": ""CommunityGetTopicInfoList""
+      },
+      {
+        ""apiName"": ""CommunitySetTopicInheritMessageReceiveOptionFromCommunity"",
+        ""apiText"": ""设置话题消息接收选项是否继承社群"",
+        ""apiDesc"": ""设置话题消息接收选项是否继承社群"",
+        ""scene"": ""CommunitySetTopicInheritMessageReceiveOptionFromCommunity""
+      },
+      {
+        ""apiName"": ""CommunityCreatePermissionGroupInCommunity"",
+        ""apiText"": ""创建权限组"",
+        ""apiDesc"": ""创建权限组"",
+        ""scene"": ""CommunityCreatePermissionGroupInCommunity""
+      },
+      {
+        ""apiName"": ""CommunityDeletePermissionGroupFromCommunity"",
+        ""apiText"": ""删除权限组"",
+        ""apiDesc"": ""删除权限组"",
+        ""scene"": ""CommunityDeletePermissionGroupFromCommunity""
+      },
+      {
+        ""apiName"": ""CommunityModifyPermissionGroupInfoInCommunity"",
+        ""apiText"": ""修改权限组信息"",
+        ""apiDesc"": ""修改权限组信息"",
+        ""scene"": ""CommunityModifyPermissionGroupInfoInCommunity""
+      },
+      {
+        ""apiName"": ""CommunityGetJoinedPermissionGroupListInCommunity"",
+        ""apiText"": ""获取已经加入的权限组列表"",
+        ""apiDesc"": ""获取已经加入的权限组列表"",
+        ""scene"": ""CommunityGetJoinedPermissionGroupListInCommunity""
+      },
+      {
+        ""apiName"": ""CommunityGetPermissionGroupListInCommunity"",
+        ""apiText"": ""获取权限组列表"",
+        ""apiDesc"": ""获取权限组列表"",
+        ""scene"": ""CommunityGetPermissionGroupListInCommunity""
+      },
+      {
+        ""apiName"": ""CommunityAddCommunityMembersToPermissionGroup"",
+        ""apiText"": ""向社群权限组添加成员"",
+        ""apiDesc"": ""向社群权限组添加成员"",
+        ""scene"": ""CommunityAddCommunityMembersToPermissionGroup""
+      },
+      {
+        ""apiName"": ""CommunityRemoveCommunityMembersFromPermissionGroup"",
+        ""apiText"": ""从社群权限组移除成员"",
+        ""apiDesc"": ""从社群权限组移除成员"",
+        ""scene"": ""CommunityRemoveCommunityMembersFromPermissionGroup""
+      },
+      {
+        ""apiName"": ""CommunityGetCommunityMemberListInPermissionGroup"",
+        ""apiText"": ""获取社群权限组成员列表"",
+        ""apiDesc"": ""获取社群权限组成员列表"",
+        ""scene"": ""CommunityGetCommunityMemberListInPermissionGroup""
+      },
+      {
+        ""apiName"": ""CommunityAddTopicPermissionToPermissionGroup"",
+        ""apiText"": ""向权限组添加话题权限"",
+        ""apiDesc"": ""向权限组添加话题权限"",
+        ""scene"": ""CommunityAddTopicPermissionToPermissionGroup""
+      },
+      {
+        ""apiName"": ""CommunityDeleteTopicPermissionFromPermissionGroup"",
+        ""apiText"": ""从权限组移除话题权限"",
+        ""apiDesc"": ""从权限组移除话题权限"",
+        ""scene"": ""CommunityDeleteTopicPermissionFromPermissionGroup""
+      },
+      {
+        ""apiName"": ""CommunityModifyTopicPermissionInPermissionGroup"",
+        ""apiText"": ""修改权限组中的话题权限"",
+        ""apiDesc"": ""修改权限组中的话题权限"",
+        ""scene"": ""CommunityModifyTopicPermissionInPermissionGroup""
+      },
+      {
+        ""apiName"": ""CommunityGetTopicPermissionInPermissionGroup"",
+        ""apiText"": ""获取权限组中的话题权限"",
+        ""apiDesc"": ""获取权限组中的话题权限"",
+        ""scene"": ""CommunityGetTopicPermissionInPermissionGroup""
+      }
+     ]
   },
 ]
 ";

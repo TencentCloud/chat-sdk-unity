@@ -92,12 +92,12 @@ public class FriendshipModifyFriendProfile : MonoBehaviour
     };
     if (!string.IsNullOrEmpty(CustomKey.text))
     {
-      var custom_string_array = new List<FriendProfileCustemStringInfo>();
+      var custom_string_array = new List<FriendProfileCustomStringInfo>();
       var keys = CustomKey.text.Split(',');
       var vals = CustomValue.text.Split(',');
       for (int idx = 0; idx < keys.Length; idx++)
       {
-        custom_string_array.Add(new FriendProfileCustemStringInfo
+        custom_string_array.Add(new FriendProfileCustomStringInfo
         {
           friend_profile_custom_string_info_key = keys[idx],
           friend_profile_custom_string_info_value = idx < vals.Length ? vals[idx] : ""

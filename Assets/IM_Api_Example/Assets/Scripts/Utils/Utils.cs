@@ -454,6 +454,422 @@ namespace com.tencent.im.unity.demo.utils
     };
     }
 
+    public static MsgGroupPinnedMessageChangedStringCallback SetMsgGroupPinnedMessageChangedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_id, string json_message, bool is_pinned, string op_user, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_id"":""" + group_id + @""",""json_message"":" + json_message + @",""is_pinned"":""" + is_pinned + @""",""op_user"":" + op_user + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static FriendGroupCreatedStringCallback SetFriendGroupCreatedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_name, string json_friend_info_array, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_name"":""" + group_name + @""",""json_friend_info_array"":" + json_friend_info_array + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static FriendGroupDeletedStringCallback SetFriendGroupDeletedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string json_group_name_array, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""json_group_name_array"":" + json_group_name_array + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static FriendGroupNameChangedStringCallback SetFriendGroupNameChangedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string old_group_name, string new_group_name, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""old_group_name"":""" + old_group_name + @""",""new_group_name"":""" + new_group_name + @"""}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static FriendsAddedToGroupStringCallback SetFriendsAddedToGroupCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_name, string json_friend_info_array, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_name"":""" + group_name + @""",""json_friend_info_array"":" + json_friend_info_array + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static FriendsDeletedFromGroupStringCallback SetFriendsDeletedFromGroupCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_name, string json_friend_id_array, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_name"":""" + group_name + @""",""json_friend_id_array"":" + json_friend_id_array + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static OfficialAccountSubscribedStringCallback SetOfficialAccountSubscribedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string json_official_account_info, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""json_official_account_info"":" + json_official_account_info + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static OfficialAccountUnsubscribedStringCallback SetOfficialAccountUnsubscribedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string official_account_id, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""official_account_id"":""" + official_account_id + @"""}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static OfficialAccountDeletedStringCallback SetOfficialAccountDeletedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string official_account_id, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""official_account_id"":""" + official_account_id + @"""}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static OfficialAccountInfoChangedStringCallback SetOfficialAccountInfoChangedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string json_official_account_info, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""json_official_account_info"":" + json_official_account_info + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static MyFollowingListChangedStringCallback SetMyFollowingListChangedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string json_user_info_list, bool is_add, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""json_user_info_list"":" + json_user_info_list + @",""is_add"":""" + is_add + @"""}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static MyFollowersListChangedStringCallback SetMyFollowersListChangedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string json_user_info_list, bool is_add, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""json_user_info_list"":" + json_user_info_list + @",""is_add"":""" + is_add + @"""}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static MutualFollowersListChangedStringCallback SetMutualFollowersListChangedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string json_user_info_list, bool is_add, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""json_user_info_list"":" + json_user_info_list + @",""is_add"":""" + is_add + @"""}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static SignalingReceiveNewInvitationStringCallback SetSignalingReceiveNewInvitationCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string invite_id, string inviter, string group_id, string json_invitee_list, string data, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""invite_id"":""" + invite_id + @""",""inviter"":""" + inviter + @""",""group_id"":""" + group_id + @""",""json_invitee_list"":" + json_invitee_list + @""",""data"":""" + data + @"""}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+    public static SignalingInvitationCancelledStringCallback SetSignalingInvitationCancelledCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string invite_id, string inviter, string data, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""invite_id"":""" + invite_id + @""",""inviter"":""" + inviter + @""",""data"":""" + data + @"""}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static SignalingInviteeAcceptedStringCallback SetSignalingInviteeAcceptedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string invite_id, string invitee, string data, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""invite_id"":""" + invite_id + @""",""invitee"":""" + invitee + @""",""data"":""" + data + @"""}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static SignalingInviteeRejectedStringCallback SetSignalingInviteeRejectedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string invite_id, string invitee, string data, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""invite_id"":""" + invite_id + @""",""invitee"":""" + invitee + @""",""data"":""" + data + @"""}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static SignalingInvitationTimeoutStringCallback SetSignalingInvitationTimeoutCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string invite_id, string json_invitee_list, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""invite_id"":""" + invite_id + @""",""json_invitee_list"":" + json_invitee_list + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static SignalingInvitationModifiedStringCallback SetSignalingInvitationModifiedCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string invite_id, string data, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""invite_id"":""" + invite_id + @""",""data"":""" + data + @"""}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static CommunityCreateTopicStringCallback SetCommunityCreateTopicCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_id, string topic_id, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_id"":""" + group_id + @""",""topic_id"":""" + topic_id + @"""}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static CommunityDeleteTopicStringCallback SetCommunityDeleteTopicCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_id, string json_topic_id_array, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_id"":""" + group_id + @""",""json_topic_id_array"":" + json_topic_id_array + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static CommunityChangeTopicInfoStringCallback SetCommunityChangeTopicInfoCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_id, string json_topic_info, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_id"":""" + group_id + @""",""json_topic_info"":" + json_topic_info + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static CommunityReceiveTopicRESTCustomDataStringCallback SetCommunityReceiveTopicRESTCustomDataCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string topic_id, string custom_data, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""topic_id"":""" + topic_id + @""",""custom_data"":""" + custom_data + @"""}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static CommunityCreatePermissionGroupStringCallback SetCommunityCreatePermissionGroupCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_id, string json_permission_group_id_array, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_id"":""" + group_id + @""",""json_permission_group_id_array"":" + json_permission_group_id_array + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static CommunityDeletePermissionGroupStringCallback SetCommunityDeletePermissionGroupCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_id, string json_permission_group_info, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_id"":""" + group_id + @""",""json_permission_group_info"":" + json_permission_group_info + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static CommunityChangePermissionGroupInfoStringCallback SetCommunityChangePermissionGroupInfoCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_id, string json_permission_group_info, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_id"":""" + group_id + @""",""json_permission_group_info"":" + json_permission_group_info + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static CommunityAddMembersToPermissionGroupStringCallback SetCommunityAddMembersToPermissionGroupCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_id, string json_result, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_id"":""" + group_id + @""",""json_result"":" + json_result + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static CommunityRemoveMembersFromPermissionGroupStringCallback SetCommunityRemoveMembersFromPermissionGroupCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_id, string json_result, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_id"":""" + group_id + @""",""json_result"":" + json_result + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static CommunityAddTopicPermissionStringCallback SetCommunityAddTopicPermissionCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_id, string json_result, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_id"":""" + group_id + @""",""json_result"":" + json_result + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static CommunityDeleteTopicPermissionStringCallback SetCommunityDeleteTopicPermissionCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_id, string json_result, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_id"":""" + group_id + @""",""json_result"":" + json_result + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static CommunityModifyTopicPermissionStringCallback SetCommunityModifyTopicPermissionCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string group_id, string json_result, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""group_id"":""" + group_id + @""",""json_result"":" + json_result + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+    public static ExperimentalNotifyStringCallback SetExperimentalNotifyCallback(EventCallback cb, EventListenerInfo.EventInfo eventInfo)
+    {
+      var callback = cb;
+      return (string key, string data, string user_data) =>
+      {
+        string head = "\n" + user_data + "Asynchronous return:\n\n";
+        string body = @"{""key"":""" + key + @""",""data"":" + data + "}";
+        JObject json = JObject.Parse(body);
+        string formatted = SyntaxHighlightJson(json.ToString());
+        callback(eventInfo, head + formatted);
+      };
+    }
+
+
     public delegate void EventCallback(EventListenerInfo.EventInfo eventInfo, params string[] parameters);
 
     public static string PrefixEventCallbackData(string eventName, string data)
