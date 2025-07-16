@@ -124,4 +124,33 @@ namespace com.tencent.imsdk.unity.utils
         return fn_name + "_" + Utils.getRandomStr();
     }
   }
+
+  public class StringToList<T> : JsonConverter
+  {
+    public override bool CanConvert(Type objectType)
+    {
+      return objectType == typeof(List<T>);
+    }
+
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+      if (reader.TokenType == JsonToken.StartArray)
+      {
+        return serializer.Deserialize<List<T>>(reader);
+      }
+
+      if (reader.TokenType == JsonToken.String)
+      {
+        string jsonString = reader.Value.ToString();
+        return JsonConvert.DeserializeObject<List<T>>(jsonString);
+      }
+
+      return new List<T>();
+    }
+
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+      serializer.Serialize(writer, value);
+    }
+  }
 }

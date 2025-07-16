@@ -162,6 +162,15 @@ static const char* kTIMIOSOfflinePushConfigPushType = "ios_offline_push_config_p
 //  - 需要在 IM 控制台打开 mutable-content 属性，支持 iOS 10 Service Extension 特性
 //  - 获取 iOSImage 资源的 key 值是 "image"
 static const char* kTIMIOSOfflinePushConfigImage = "ios_offline_push_config_image";
+/// string, 读写, iOS 离线推送的通知级别  (iOS 15 及以上支持)
+/// 使用说明：
+/// "passive"，不会发出声音、振动或横幅提示，只会静默地出现在通知中心。适用于不紧急的信息，例如应用内的社交活动更新或推荐内容。
+/// "active", 会发出声音或振动，并显示横幅提示。适用于一般的重要通知，例如消息提醒、日历事件等。（默认类型）
+/// "time-sensitive"，会发出声音或振动，并显示横幅提示，这种级别的通知会打扰用户，即使用户启用了“专注模式”（Focus Mode）。适用于需要用户立即关注的紧急通知，例如安全警报、重要的时间提醒等。打开需要在苹果开发者平台和 xcode 项目中增加相应的配置。
+/// "critical", 会发出声音或振动，并显示横幅提示。这种级别的通知会打扰用户，即使设备处于静音模式。适用于极其重要的紧急通知，例如公共安全警报、严重的健康警告等。打开需要向 Apple 特殊申请。
+static const char* kTIMIOSOfflinePushConfigInterruptionLevel = "ios_offline_push_config_interruption_level";
+/// bool, 读写, 设置 iOS 后台透传消息, 设置打开后，离线接收会唤起应用并透传消息内容 ext
+static const char* kTIMIOSOfflinePushConfigEnableBackgroundNotification = "ios_offline_push_config_enable_background_notification";
 
 //------------------------------------------------------------------------------
 // 3.4 AndroidOfflinePushConfig(消息在 Android 系统上的离线推送配置)
@@ -184,6 +193,14 @@ static const char* kTIMAndroidOfflinePushConfigXiaoMiChannelID = "android_offlin
 static const char* kTIMAndroidOfflinePushConfigFCMChannelID = "android_offline_push_config_fcm_channel_id";
 // string, 读写, 离线推送设置华为推送消息分类，详见 [官网]( https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-classification-0000001149358835)
 static const char* kTIMAndroidOfflinePushConfigHuaWeiCategory = "android_offline_push_config_huawei_category";
+// string, 读写, 离线推送设置 OPPO 推送消息分类，详见：https://open.oppomobile.com/new/developmentDoc/info?id=13189。 通讯与服务类型有："IM"，"ACCOUNT"等；内容与营销类型有："NEWS"，"CONTENT"等
+static const char* kTIMAndroidOfflinePushConfigOPPOCategory = "android_offline_push_config_oppo_category";
+// uint @ref TIMAndroidOfflinePushConfigOPPONotifyLevel, 读写, 离线推送设置 OPPO 推送通知栏消息提醒等级，详见：https://open.oppomobile.com/new/developmentDoc/info?id=13189。使用生效前，需要先设置 AndroidOPPOCategory 指定 category 为 IM 类消息。消息提醒等级有：1，通知栏；2，通知栏 + 锁屏 （默认）；16，通知栏 + 锁屏 + 横幅 + 震动 + 铃声；
+static const char* kTIMAndroidOfflinePushConfigOPPONotifyLevel = "android_offline_push_config_oppo_notify_level";
+// uint @ref TIMAndroidOfflinePushConfigHonorImportance, 读写, 离线推送设置 Honor 推送消息分类，详见：https://developer.honor.com/cn/docs/11002/guides/notification-class, "NORMAL", 表示消息为服务通讯类;"LOW", 表示消息为资讯营销类
+static const char* kTIMAndroidOfflinePushConfigHonorImportance = "android_offline_push_config_honor_importance";
+// uint @ref TIMAndroidOfflinePushConfigMeizuNotitfyType, 读写, 离线推送设置魅族推送消息分类，详见：https://open.flyme.cn/docs?id=329, 0,公信消息：⽤⼾对收到此类消息⽆预期，关注程度较低; 1,私信消息：⽤⼾预期收到的，与⽤⼾关联较强的消息。
+static const char* kTIMAndroidOfflinePushConfigMeizuNotifyType = "android_offline_push_config_meizu_notify_type";
 // string, 读写, 设置华为设备离线推送的通知图片 url, url 使用的协议必须是 HTTPS 协议，取值样例：https://example.com/image.png
 // @note
 // string, 读写, 图片文件须小于 512KB，规格建议为 40dp x 40dp，弧角大小为 8dp。超出建议规格的图片会存在图片压缩或图片显示不全的情况。图片格式建议使用 JPG/JPEG/PNG。
@@ -196,6 +213,11 @@ static const char* kTIMAndroidOfflinePushConfigHonorImage = "android_offline_pus
 // @note
 // 图标文件大小须小于 1 MB，超出规格大小的图标会存在图片压缩或显示不全的情况。
 static const char* kTIMAndroidOfflinePushConfigFCMImage = "android_offline_push_config_fcm_image";
+
+//------------------------------------------------------------------------------
+// 3.4 HarmonyOfflinePushConfig(消息在 Harmony 系统上推送配置)
+// string, 读写, 通知标题
+static const char* kTIMHarmonyOfflinePushConfigTitle = "harmony_offline_push_config_title";
 // string, 读写, 设置鸿蒙设备离线推送的通知图片，URL使用的协议必须是HTTPS协议，取值样例：https://example.com/image.png。
 // @note
 // 支持图片格式为png、jpg、jpeg、heif、gif、bmp，图片长*宽 < 25000像素。
@@ -207,7 +229,9 @@ static const char* kTIMHarmonyOfflinePushConfigCategory = "harmony_offline_push_
 static const char* kTIMHarmonyOfflinePushConfigIgnoreBadge = "harmony_offline_push_config_ignore_badge";
 
 //------------------------------------------------------------------------------
-// 3.4 OfflinePushConfig(消息离线推送配置)
+// 3.5 OfflinePushConfig(消息离线推送配置)
+// string, 读写, 当前消息在对方收到离线推送时候展示标题
+static const char* kTIMOfflinePushConfigTitle = "offline_push_config_title";
 // string, 读写, 当前消息在对方收到离线推送时候展示内容
 static const char* kTIMOfflinePushConfigDesc = "offline_push_config_desc";
 // string, 读写, 当前消息离线推送时的扩展字段

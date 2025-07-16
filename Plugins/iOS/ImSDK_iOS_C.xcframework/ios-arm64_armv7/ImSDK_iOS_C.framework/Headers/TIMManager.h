@@ -609,6 +609,46 @@ TIM_API int TIMSubscribeUserInfo(const char *json_user_id_list, TIMCommCallback 
 TIM_API int TIMUnsubscribeUserInfo(const char *json_user_id_list, TIMCommCallback cb, const void* user_data);
 
 /**
+ * 6.4 搜索云端用户资料（8.4 及以上版本支持）
+ *
+ * @param json_user_search_param 用户搜索参数，详见 @ref UserSearchParam 的定义
+ * @param cb 用户搜索成功与否的回调。回调函数定义请参考 @ref TIMCommCallback
+ * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
+ * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
+ *
+ * @note
+ * - 该功能为 IM 增值功能，详见[价格说明](https://cloud.tencent.com/document/product/269/11673?from=17176#.E5.9F.BA.E7.A1.80.E6.9C.8D.E5.8A.A1.E8.AF.A6.E6.83.85)
+ * - 如果您没有开通该服务，调用接口会返回 60020 错误码
+ * - 该接口返回的是云端存储的用户资料，包括好友和非好友资料，您可以调用 TIMFriendshipCheckFriendType 接口来判断是否为好友。
+ *
+ * __示例__
+ * @code{.cpp}
+ *   json::Array json_keyword_list;
+ *   json_keyword_list.push_back("abc");
+ *
+ *   json::Object json_obj;
+ *   json_obj[kTIMUserSearchParamKeywordList] = json_keyword_list;
+ *   json_obj[kTIMUserSearchParamKeywordListMatchType] = TIMKeywordListMatchType_Or;
+ *   json_obj[kTIMUserSearchParamGender] = kTIMGenderType_Unkown;
+ *   json_obj[kTIMUserSearchParamMinBirthday] = 0;
+ *   json_obj[kTIMUserSearchParamMaxBirthday] = 1730774350;
+ *   json_obj[kTIMUserSearchParamSearchCount] = 20;
+ *   json_obj[kTIMUserSearchParamSearchCursor] = "";
+ * @endcode
+ *
+ * __回调的 json_param 示例 (Json Key 请参考 @ref GroupSearchResult)__
+ * @code{.cpp}
+ * {
+ *    "user_search_result_is_finished": false,
+ *    "user_search_result_search_cursor": "nvWNvg7lJePQgCQGxYNogjo2PbnxaX1PlRHWSDCCSyA",
+ *    "user_search_result_total_count": 1,
+ *    "user_search_result_user_list":""
+ * }
+ * @endcode
+ */
+TIM_API int TIMSearchUsers(const char *json_user_search_param, TIMCommCallback cb, const void* user_data);
+
+/**
  * 6.5 查询用户状态（6.3 及其以上版本支持，需要您购买旗舰版套餐）
  *
  * @param json_identifier_array 用户 ID 列表
@@ -719,6 +759,15 @@ static const char* kTIMSdkConfigConfigFilePath = "sdk_config_config_file_path";
 static const char* kTIMSdkConfigLogFilePath = "sdk_config_log_file_path";
 // int64, 只写(选填), 主线程 ID
 static const char* kTIMSdkConfigMainThreadID = "sdk_config_main_thread_id";
+// int64, 只写(选填), 主线程 Looper 指针
+static const char* kTIMSdkConfigMainLooperPointer = "sdk_config_main_looper_pointer";
+
+// string, 只写(选填), device type
+static const char* kTIMSdkConfigDeviceType = "sdk_config_device_type";
+// int64, 只写(选填), brand type
+static const char* kTIMSdkConfigBrandType = "sdk_config_brand_type";
+// string, 只写(选填), system version
+static const char* kTIMSdkConfigSystemVersion = "sdk_config_system_version";
 
 //------------------------------------------------------------------------------
 // 7.2 UserConfig(用户配置信息)
@@ -875,13 +924,50 @@ static const char* kTIMProfileChangeElemFromIdentifier = "profile_change_elem_fr
 // object @ref UserProfileItem, 只读, 具体的变更信息，只有当 kTIMProfileChangeElemChangeType 为 kTIMProfileChange_Profile 时有效
 static const char* kTIMProfileChangeElemUserProfileItem = "profile_change_elem_user_profile_item";
 
+//------------------------------------------------------------------------------
+// 8.7 UserSearchParam (用户搜索字段)
+// array , 搜索的关键字列表，关键字列表最多支持 5 个，keyword 会自动匹配用户 ID、昵称。
+static const char* kTIMUserSearchParamKeywordList = "user_search_param_keyword_list";
+// uint @ref TIMKeywordListMatchType, 指定关键字列表匹配类型，可设置为“或”关系搜索或者“与”关系搜索.
+static const char* kTIMUserSearchParamKeywordListMatchType = "user_search_param_keyword_list_match_type";
+// uint @ref TIMGenderType, 用户性别（如果不设置，默认男性和女性都会返回）
+static const char* kTIMUserSearchParamGender = "user_search_param_gender";
+// uint , 用户最小生日（如果不设置，默认值为 0）
+static const char* kTIMUserSearchParamMinBirthday = "user_search_param_min_birthday";
+// uint , 用户最大生日（如果不设置，默认 birthday >= minBirthday 的用户都会返回）
+static const char* kTIMUserSearchParamMaxBirthday = "user_search_param_max_birthday";
+// uint , 每次云端搜索返回结果的条数（必须大于 0，最大支持 100，默认 20）
+static const char* kTIMUserSearchParamSearchCount = "user_search_param_search_count";
+// string , 每次云端搜索的起始位置。第一次填空字符串，续拉时填写 UserSearchResult 中的返回值。
+static const char* kTIMUserSearchParamSearchCursor = "user_search_param_search_cursor";
+
+//------------------------------------------------------------------------------
+// 8.8 UserSearchResult (用户搜索结果)
+// bool , 是否已经返回全部满足搜索条件的用户列表
+static const char* kTIMUserSearchResultIsFinished = "user_search_result_is_finished";
+// uint , 满足搜索条件的用户总数量
+static const char* kTIMUserSearchResultTotalCount = "user_search_result_total_count";
+// string , 下一次云端搜索的起始位置
+static const char* kTIMUserSearchResultNextCursor = "user_search_result_next_cursor";
+// array @ref UserProfile, 当前一次云端搜索返回的用户列表
+static const char* kTIMUserSearchResultUserList = "user_search_result_user_list";
 
 /////////////////////////////////////////////////////////////////////////////////
 //
-//                              九. 废弃字段
+//                    九. SDK 内部字段（本部分所有字段均为只读，不推荐使用）
 //
 /////////////////////////////////////////////////////////////////////////////////
-// 9.1 群组信息标识
+//------------------------------------------------------------------------------
+// 9.1 SdKConfig(初始化ImSDK的配置)
+// uint64, 只写(选填), 注意：该字段是内部字段，不推荐使用
+static const char* kTIMSdkConfigApiType = "sdk_config_api_type";
+
+/////////////////////////////////////////////////////////////////////////////////
+//
+//                              十. 废弃字段
+//
+/////////////////////////////////////////////////////////////////////////////////
+// 10.1 群组信息标识
 enum TIMGroupGetInfoFlag {
     // 未定义
     kTIMGroupInfoFlag_None = 0x00,
@@ -927,7 +1013,7 @@ enum TIMGroupGetInfoFlag {
     kTIMGroupInfoFlag_ShutupAll = 0x01 << 19,
 };
 
-// 9.2 群组成员信息标识
+// 10.2 群组成员信息标识
 enum TIMGroupMemberInfoFlag {
     // 无
     kTIMGroupMemberInfoFlag_None = 0x00,
@@ -946,19 +1032,19 @@ enum TIMGroupMemberInfoFlag {
 };
 
 //------------------------------------------------------------------------------
-// 9.3 GroupGetInfoOption(获取群组信息的选项)
+// 10.3 GroupGetInfoOption(获取群组信息的选项)
 // uint64 @ref TIMGroupGetInfoFlag, 读写(选填), 根据想要获取的信息过滤，默认值为0xffffffff(获取全部信息)
 static const char* kTIMGroupGetInfoOptionInfoFlag = "group_get_info_option_info_flag";
 // array string, 只写(选填), 想要获取的群组自定义字段列表，请参考 [群组自定义字段](https://cloud.tencent.com/document/product/269/1502#.E8.87.AA.E5.AE.9A.E4.B9.89.E5.AD.97.E6.AE.B5)
 static const char* kTIMGroupGetInfoOptionCustomArray = "group_get_info_option_custom_array";
 
 //------------------------------------------------------------------------------
-// 9.4 SdKConfig(初始化ImSDK的配置, 已废弃的部分)
+// 10.4 SdKConfig(初始化ImSDK的配置, 已废弃的部分)
 // uint64, 只写(选填), 配置Android平台的Java虚拟机指针
 static const char* kTIMSdkConfigJavaVM = "sdk_config_java_vm";
 
 //------------------------------------------------------------------------------
-// 9.5 UserConfig(用户配置信息，已废弃的部分)
+// 10.5 UserConfig(用户配置信息，已废弃的部分)
 // bool, 只写(选填), true表示要收已读回执事件
 static const char* kTIMUserConfigIsReadReceipt = "user_config_is_read_receipt";
 // bool, 只写(选填), true表示群tips不计入群消息已读计数
@@ -971,12 +1057,12 @@ static const char* kTIMUserConfigGroupGetInfoOption = "user_config_group_getinfo
 static const char* kTIMUserConfigGroupMemberGetInfoOption = "user_config_group_member_getinfo_option";
 
 //------------------------------------------------------------------------------
-// 9.6 FriendShipGetProfileListParam (获取指定用户列表的个人资料的参数，已废弃的部分)
+// 10.6 FriendShipGetProfileListParam (获取指定用户列表的个人资料的参数，已废弃的部分)
 // bool, 只写, 是否强制更新。false表示优先从本地缓存获取，获取不到则去网络上拉取。true表示直接去网络上拉取资料。默认为false
 static const char* kTIMFriendShipGetProfileListParamForceUpdate = "friendship_getprofilelist_param_force_update";
 
 //------------------------------------------------------------------------------
-// 9.7 以下为老版本拼写错误，为了兼容老版本而保留的宏定义
+// 10.7 以下为老版本拼写错误，为了兼容老版本而保留的宏定义
 // enum TIMGroupGetInfoFlag
 #define kTIMGroupInfoFlag_AddOpton  kTIMGroupInfoFlag_AddOption
 // enum TIMGenderType

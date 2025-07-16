@@ -3145,6 +3145,44 @@ namespace com.tencent.imsdk.unity
     }
 
     /// <summary>
+    /// 搜索云端群资料（8.4 及以上版本支持）
+    /// Search cloud groups (^5.3, ^8.4)
+    /// </summary>
+    /// <param name="json_group_search_groups_param">群列表的参数 array ，Json Key 请参考 @ref GroupSearchParam</param>
+    /// <param name="callback">搜索群列表回调。回调函数定义请参考 @ref TIMCommCallback</param>
+    /// <param name="user_data">用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult GroupSearchCloudGroups(GroupSearchParam json_group_search_groups_param, ValueCallback<GroupSearchResult> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(json_group_search_groups_param);
+
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<GroupSearchResult>);
+
+      int res = IMNativeSDK.TIMGroupSearchCloudGroups(Utils.string2intptr(param), ValueCallbackInstance, Utils.string2intptr(user_data));
+
+      Log(user_data, param);
+      return (TIMResult)res;
+    }
+    public static TIMResult GroupSearchCloudGroups(GroupSearchParam json_group_search_groups_param, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(json_group_search_groups_param);
+
+      ValuecallbackStore.Add(user_data, callback);
+
+      int res = IMNativeSDK.TIMGroupSearchCloudGroups(Utils.string2intptr(param), StringValueCallbackInstance, Utils.string2intptr(user_data));
+
+      Log(user_data, param);
+      return (TIMResult)res;
+    }
+
+    /// <summary>
     /// 搜索群成员
     /// Search group members
     /// </summary>
@@ -3176,6 +3214,44 @@ namespace com.tencent.imsdk.unity
       ValuecallbackStore.Add(user_data, callback);
 
       int res = IMNativeSDK.TIMGroupSearchGroupMembers(Utils.string2intptr(param), StringValueCallbackInstance, Utils.string2intptr(user_data));
+
+      Log(user_data, param);
+      return (TIMResult)res;
+    }
+
+    /// <summary>
+    /// 搜索云端群成员资料（8.4 及以上版本支持）
+    /// Search cloud group members (^8.4)
+    /// </summary>
+    /// <param name="json_group_search_cloud_group_members_param">群列表的参数 array ，Json Key 请参考 @ref GroupMemberSearchParam</param>
+    /// <param name="callback">搜索群列表回调。回调函数定义请参考 @ref TIMCommCallback</param>
+    /// <param name="user_data">用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult GroupSearchCloudGroupMembers(GroupMemberSearchParam json_group_search_cloud_group_members_param, ValueCallback<GroupMemberSearchResult> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(json_group_search_cloud_group_members_param);
+
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<GroupMemberSearchResult>);
+
+      int res = IMNativeSDK.TIMGroupSearchCloudGroupMembers(Utils.string2intptr(param), ValueCallbackInstance, Utils.string2intptr(user_data));
+
+      Log(user_data, param);
+      return (TIMResult)res;
+    }
+    public static TIMResult GroupSearchCloudGroupMembers(GroupMemberSearchParam json_group_search_cloud_group_members_param, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(json_group_search_cloud_group_members_param);
+
+      ValuecallbackStore.Add(user_data, callback);
+
+      int res = IMNativeSDK.TIMGroupSearchCloudGroupMembers(Utils.string2intptr(param), StringValueCallbackInstance, Utils.string2intptr(user_data));
 
       Log(user_data, param);
       return (TIMResult)res;
@@ -3500,6 +3576,43 @@ namespace com.tencent.imsdk.unity
       int res = IMNativeSDK.TIMGroupGetTopicInfoList(Utils.string2intptr(group_id), Utils.string2intptr(list), StringValueCallbackInstance, Utils.string2intptr(user_data));
 
       Log(user_data, group_id, list);
+      return (TIMResult)res;
+    }
+
+    /// <summary>
+    /// 搜索云端用户资料（8.4 及以上版本支持）
+    /// Search users in cloud
+    /// </summary>
+    /// <param name="user_search_param">用户搜索参数，(User search parameters)</param>
+    /// <param name="callback">异步回调 (Asynchronous callback)</param>
+    /// <returns><see cref="TIMResult"/></returns>
+    public static TIMResult SearchUsers(UserSearchParam user_search_param, ValueCallback<UserSearchResult> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(user_search_param);
+
+      ValuecallbackStore.Add(user_data, callback);
+      ValuecallbackDeleStore.Add(user_data, threadOperation<UserSearchResult>);
+
+      int res = IMNativeSDK.TIMSearchUsers(Utils.string2intptr(param), ValueCallbackInstance, Utils.string2intptr(user_data));
+
+      Log(user_data, param);
+      return (TIMResult)res;
+    }
+    public static TIMResult SearchUsers(UserSearchParam user_search_param, ValueCallback<string> callback)
+    {
+      string fn_name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+      string user_data = fn_name + "_" + Utils.getRandomStr();
+      var param = Utils.ToJson(user_search_param);
+
+      ValuecallbackStore.Add(user_data, callback);
+
+      int res = IMNativeSDK.TIMSearchUsers(Utils.string2intptr(param), StringValueCallbackInstance, Utils.string2intptr(user_data));
+
+      Log(user_data, param);
       return (TIMResult)res;
     }
 

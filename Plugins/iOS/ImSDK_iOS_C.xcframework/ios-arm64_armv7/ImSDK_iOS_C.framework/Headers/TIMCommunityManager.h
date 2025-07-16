@@ -51,6 +51,12 @@ enum TIMCommunityTopicModifyInfoFlag {
     kTIMCommunityTopicModifyInfoFlag_Draft = 0x01 << 14,
     // 修改话题默认权限，7.8 版本开始支持
     kTIMCommunityTopicModifyInfoFlag_DefaultPermissions = 0x01 << 15,
+    // 话题类型（从 8.5 版本开始支持）
+    kTIMCommunityTopicModifyInfoFlag_TopicType = 0x1 << 24,
+    // 申请加入话题选项(私密话题有效)（从 8.4 版本开始支持）
+    kTIMCommunityTopicModifyInfoFlag_TopicAddOption = 0x1 << 25,
+    // 话题邀请选项(私密话题有效)（从 8.4 版本开始支持）
+    kTIMCommunityTopicModifyInfoFlag_TopicApproveOption = 0x1 << 26,
 };
 
 // 1.2 修改权限组信息的类型
@@ -869,6 +875,10 @@ TIM_API int TIMCommunityGetTopicPermissionInPermissionGroup(const char* group_id
 // 6.1 TopicInfo(话题信息)
 // string, 读写, 话题 ID, 只能在创建话题或者修改话题信息的时候设置。组成方式为：社群 ID + @TOPIC#_xxx，例如社群 ID 为 @TGS#_123，则话题 ID 为 @TGS#_123@TOPIC#_xxx
 static const char* kTIMCommunityTopicInfoTopicID = "group_topic_info_topic_id";
+// string, 读写, 话题类型（默认为 Public 话题）（从 8.4 版本开始支持）
+// "Public"  ：公开话题，社群内成员可以自由进出发言。
+// "Private" ：私密话题，有自己的成员列表（成员上限 10000 人），社群成员需要加入话题才能发言（私密话题需要购买企业版套餐包）。
+static const char* kTIMCommunityTopicInfoTopicType = "group_topic_info_topic_type";
 // string, 读写, 话题名称
 static const char* kTIMCommunityTopicInfoTopicName = "group_topic_info_topic_name";
 // string, 读写, 话题介绍
@@ -899,6 +909,14 @@ static const char* kTIMCommunityTopicInfoGroupAtInfoArray = "group_topic_info_gr
 static const char* kTIMCommunityTopicInfoModifyFlag = "group_modify_info_param_modify_flag";
 // uint32, 只读, 话题创建时间
 static const char* kTIMCommunityTopicCreateTime = "topic_create_time";
+// uint @ref TIMGroupAddOption, 只写(选填)，申请加入话题是否需要管理员审批（私密话题有效，默认不需要审批，可以自由加入）（从 8.4 版本开始支持）
+static const char* kTIMCommunityTopicInfoTopicAddOpt = "group_topic_info_topic_add_opt";
+// uint @ref TIMGroupAddOption, 只写(选填)，邀请加入话题是否需要管理员审批（私密话题有效，默认不需要审批，可以自由加入）（从 8.4 版本开始支持）
+static const char* kTIMCommunityTopicInfoTopicApproveOpt = "group_topic_info_topic_approve_opt";
+// array @ref GroupMemberInfo, 只写(选填), 话题默认群成员（私密话题有效，最大支持 100 个群成员，只能在创建话题的时候设置）（从 8.4 版本开始支持）
+static const char* kTIMCommunityTopicInfoMemberlist = "group_topic_info_member_list";
+// uint32, 读写, 话题成员的最大个数（私密话题有效，最大支持 10000，默认 10000，只能在创建话题的时候设置）（从 8.4 版本开始支持）
+static const char* kTIMCommunityTopicInfoMemberMaxCount = "group_topic_info_member_max_count";
 // uint64, 读写, 话题默认权限, 7.8 版本开始支持。群成员在没有加入任何权限组时的默认权限，仅在社群资料 @ref GroupDetailInfo 中的 kTIMGroupDetailInfoEnablePermissionGroup 为 true 时生效
 static const char* kTIMCommunityTopicInfoDefaultPermissions = "default_permissions";
 // bool, 只读, 登录用户在话题中的消息接收选项是否继承社群。该功能仅增强版 SDK 8.1 及以上版本支持。
@@ -952,7 +970,7 @@ static const char* kTIMTopicPermissionValue = "topic_permission_value";
 static const char* kTIMPermissionGroupInfoResultErrorCode = "permission_group_info_result_error_code";
 // string, 只读, 如果删除失败，会返回错误信息
 static const char* kTIMPermissionGroupInfoResultErrorMessage = "permission_group_info_result_error_message";
-// object @ref TIMGroupTopicInfo, 只读, 如果获取成功，会返回对应的 @ref TIMGroupTopicInfo 信息
+// object @ref PermissionGroupInfo, 只读, 如果获取成功，会返回对应的 @ref PermissionGroupInfo 信息
 static const char* kTIMPermissionGroupInfoResult = "permission_group_info_result";
 
 //------------------------------------------------------------------------------

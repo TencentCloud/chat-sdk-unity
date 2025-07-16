@@ -79,6 +79,7 @@ static const char* kTIMInternalOperationSSOData = "internal_operation_sso_data";
 static const char* kTIMInternalOperationUserId2TinyId = "internal_operation_userid_tinyid";
 static const char* kTIMInternalOperationTinyId2UserId = "internal_operation_tinyid_userid";
 static const char* kTIMInternalOperationSetEnv = "internal_operation_set_env";
+static const char* kTIMInternalOperationDisableCrashReport = "internal_operation_disable_crash_report";
 static const char* kTIMInternalOperationSetIPv6Prior = "internal_operation_set_ipv6_prior";
 static const char* kTIMInternalOperationSetMaxRetryCount = "internal_operation_set_max_retry_count";
 static const char* kTIMInternalOperationSetPacketRequestTimeout = "internal_operation_set_packet_request_timeout";
@@ -93,6 +94,7 @@ static const char* kTIMInternalOperationIsCommercialAbilityEnabled = "internal_o
 static const char* kTIMInternalOperationSetOfflinePushState = "internal_operation_set_offline_push_state";
 static const char* kTIMInternalOperationGetOfflinePushState = "internal_operation_get_offline_push_state";
 static const char* kTIMInternalOperationGetMessageRevoker = "internal_operation_get_message_revoker";
+static const char* kTIMInternalOperationSetLogSetting = "internal_operation_set_log_setting";
 static const char* kTIMInternalOperationWriteLog = "internal_operation_write_log";
 static const char* kTIMInternalOperationClearLocalHistoryMessage = "internal_operation_clear_local_history_message";
 static const char* kTIMInternalOperationUpdateProxyInfo = "internal_operation_update_proxy_info";
@@ -108,6 +110,7 @@ static const char* kTIMInternalOperationFindMergerMessages = "internal_operation
 static const char* kTIMInternalOperationGetBriefGroupMemberList = "internal_operation_get_brief_group_member_list";
 static const char* kTIMInternalOperationSetCustomLoginInfo = "internal_operation_set_custom_login_info";
 static const char* kTIMInternalOperationDisableHttpRequest = "internal_operation_disable_http_request";
+static const char* kTIMInternalOperationSetNetworkInfo = "internal_operation_set_network_info";
 
 //------------------------------------------------------------------------------
 // 4.2 SSODataParam(发送 sso data 的参数)
@@ -182,7 +185,14 @@ static const char* kTIMDatabaseEncryptInfoEncryptKey = "database_encrypt_info_en
 static const char* kTIMCommercialAbilityResultEnabled = "commercial_ability_result_enabled";
 
 //------------------------------------------------------------------------------
-// 4.12 RequestParam(callExperimentalAPI 接口请求的参数)
+// 4.12 LogSetting(日志配置)
+// bool, 只写(必填), 是否关闭自动清理，true：是，false：否
+static const char* kTIMLogSettingDisableAutoClean = "log_setting_disable_auto_clean";
+// uint64, 只写(选填), 日志文件的最大大小，单位 Bytes，默认 100MB，不能小于 150KB
+static const char* kTIMLogSettingMaxFileSize = "log_setting_max_file_size";
+
+//------------------------------------------------------------------------------
+// 4.13 RequestParam(callExperimentalAPI 接口请求的参数)
 // string @ref TIMInternalOperation, 只写(必填), 内部接口的操作类型
 static const char* kTIMRequestInternalOperation = "request_internal_operation";
 // object @ref SSODataParam, 只写(选填), sso发包请求, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSSOData 时需要设置
@@ -193,6 +203,8 @@ static const char* kTIMRequestUserId2TinyIdParam = "request_userid_tinyid_param"
 static const char* kTIMRequestTinyId2UserIdParam = "request_tinyid_userid_param";
 // bool, 只写(选填), true 表示设置当前环境为测试环境，false表示设置当前环境是正式环境，默认是正式环境, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetEnv 时需要设置
 static const char* kTIMRequestSetEnvParam = "request_set_env_param";
+// bool, 只写(选填), true 表示关闭 crash 上报，false 表示开启 crash 上报，默认开启, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationDisableCrashReport 时需要设置
+static const char* kTIMRequestDisableCrashReportParam = "request_disable_crash_report_param";
 // bool, 只写(选填), 在 IPv6 双栈网络下，是否优先使用 IPv6 协议，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetIPv6Prior 时需要设置
 static const char* kTIMRequestSetIPv6PriorParam = "request_set_ipv6_prior_param";
 // uint32, 只写(选填), 设置登录、发消息请求的重试次数, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetMaxRetryCount 时需要设置
@@ -219,6 +231,8 @@ static const char* kTIMRequestIsCommercialAbilityEnabledParam = "request_is_comm
 static const char* kTIMRequestSetOfflinePushStateParam = "request_set_offline_push_state_param";
 // array string, 只写(选填), 撤回消息的 id, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationGetMessageRevoker 时需要设置
 static const char* kTIMRequestMessageRevokerMessageIdArray = "request_message_revoker_message_id_array";
+// object @ref LogSetting, 只写(选填), 设置日志参数, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetLogSetting 时需要设置
+static const char* kTIMRequestSetLogSettingParam = "request_set_log_setting_param";
 // int, 只写(选填), 打印日志的级别, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationWriteLog 时需要设置
 static const char* kTIMRequestWriteLogLogLevelParam = "request_write_log_log_level_param";
 // string, 只写(选填), 打印日志的内容, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationWriteLog 时需要设置
@@ -237,12 +251,16 @@ static const char* kTIMRequestClearLocalHistoryMessageBeginTimestampParam = "req
 static const char* kTIMRequestClearLocalHistoryMessageEndTimestampParam = "request_clear_local_history_message_end_timestamp_param";
 static const char* kTIMRequestReportTUIComponentUsageUIComponentTypeParam = "report_tuicomponent_usage_uicomponent_type_param";
 static const char* kTIMRequestReportTUIComponentUsageUIStyleTypeParam = "report_tuicomponent_usage_uistyle_type_param";
-// string, 只写(必填)，长连接透传发送的数据，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSendTRTCCustomData 时需要设置
+// string, 只写(必填)，长连接透传的 TRTC 自定义数据，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSendTRTCCustomData 时需要设置
 static const char* kTIMRequestSendTRTCCustomDataParam = "request_send_trtc_custom_data_param";
-// string, 只写(必填)，长连接透传发送的数据，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSendRoomCustomData 时需要设置
+// string, 只写(必填)，长连接透传的 Room 自定义数据命令字，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSendRoomCustomData 时需要设置
 static const char* kTIMRequestSendRoomCustomDataServiceCommandParam = "request_send_room_custom_data_service_command_param";
-// string, 只写(必填)，长连接透传发送的数据，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSendRoomCustomData 时需要设置
+// string, 只写(必填)，长连接透传的 Room 自定义数据，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSendRoomCustomData 时需要设置
 static const char* kTIMRequestSendRoomCustomDataRequestContentParam = "request_send_room_custom_data_request_content_param";
+// int64, 只写(选填)，长连接透传 Room 自定义数据的超时时间，单位 s，限定范围 [5,120]s，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSendRoomCustomData 时需要设置
+static const char* kTIMRequestSendRoomCustomDataTimeoutParam = "request_send_room_custom_data_timeout_param";
+// uint32, 只写(选填)，长连接透传 Room 自定义数据的最大重试次数，限定范围 [1,10]，当 kTIMRequestInternalOperation 为 kTIMInternalOperationSendRoomCustomData 时需要设置
+static const char* kTIMRequestSendRoomCustomDataMaxRetryCountParam = "request_send_room_custom_data_max_retry_count_param";
 // uint8, 只写(选填), 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetApplicationID 时需要设置
 static const char* kTIMRequestSetApplicationIDParam = "request_set_application_id_param";
 // string, 只写(必填), 当 kTIMRequestInternalOperation 为 kTIMInternalOperationGetServerConfig 时需要设置
@@ -271,9 +289,23 @@ static const char* kTIMRequestSetCustomLoginInfoUserIDParam = "request_set_custo
 static const char* kTIMRequestSetCustomLoginInfoCustomInfoParam = "request_set_custom_login_info_custom_info_param";
 // bool, 只写(选填), 设置是否禁用 http 请求, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationDisableHttpRequest 时需要设置
 static const char* kTIMRequestDisableHttpRequestParam = "request_disable_http_request_param";
+// int32, 只写(选填), 设置网络类型, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetNetworkInfo 时需要设置
+static const char* kTIMRequestSetNetworkInfoNetworkTypeParam = "request_set_network_info_network_type_param";
+// int32, 只写(选填), 设置 IP 协议类型, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetNetworkInfo 时需要设置
+static const char* kTIMRequestSetNetworkInfoIPTypeParam = "request_set_network_info_ip_type_param";
+// string, 只写(选填), 设置网络标识, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetNetworkInfo 时需要设置
+static const char* kTIMRequestSetNetworkInfoNetworkIdParam = "request_set_network_info_network_id_param";
+// uint64, 只写(选填), 设置 WIFI 的网卡接口信息, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetNetworkInfo 时需要设置
+static const char* kTIMRequestSetNetworkInfoWifiNetworkHandleParam = "request_set_network_info_wifi_network_handle_param";
+// uint64, 只写(选填), 设置 XG 的网卡接口信息, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetNetworkInfo 时需要设置
+static const char* kTIMRequestSetNetworkInfoXgNetworkHandleParam = "request_set_network_info_xg_network_handle_param";
+// bool, 只写(选填), 设置网络连接状态, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetNetworkInfo 时需要设置
+static const char* kTIMRequestSetNetworkInfoNetworkConnectedParam = "request_set_network_info_network_connected_param";
+// int64, 只写(选填), 设置获取网络信息的耗时, 当 kTIMRequestInternalOperation 为 kTIMInternalOperationSetNetworkInfo 时需要设置
+static const char* kTIMRequestSetNetworkInfoInitializeCostTimeParam = "request_set_network_info_initialize_cost_time_param";
 
 //------------------------------------------------------------------------------
-// 4.13 ResponseInfo(callExperimentalAPI 接口回调返回的数据)
+// 4.14 ResponseInfo(callExperimentalAPI 接口回调返回的数据)
 // string @ref TIMInternalOperation, 只读(必填), 响应的内部操作
 static const char* kTIMResponseInternalOperation = "response_internal_operation";
 // object @ref SSODataRes, 只读(选填), sso发包请求的响应, 当 kTIMResponseInternalOperation 为 kTIMInternalOperationSSOData 时有值
