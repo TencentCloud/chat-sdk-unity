@@ -1051,6 +1051,12 @@ public static class I18n
       }
     },
     {
+      "GroupIDsInputTips", new I18nData{
+        cn = "多个群 ID 请用空格分隔",
+        en = "Please separate group IDs with spaces"
+      }
+    },
+    {
       "OfficialAccountIDsInputTips", new I18nData{
         cn = "多个公众号 ID 请用空格分隔",
         en = "Please separate official account IDs with spaces"
@@ -1066,6 +1072,12 @@ public static class I18n
       "PermissionGroupIDsInputTips", new I18nData{
         cn = "多个权限组 ID 请用空格分隔",
         en = "Please separate permission group IDs with spaces"
+      }
+    },
+    {
+      "KeywordInputTips", new I18nData{
+        cn = "多个关键字请用空格分隔",
+        en = "Please separate keywords with spaces"
       }
     }
   };

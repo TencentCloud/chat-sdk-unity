@@ -51,13 +51,13 @@ enum TIMConvEvent {
 
 // 1.2 会话标记类型
 enum TIMConversationMarkType {
-    // /< 会话标星
+    // 会话标星
     kTIMConversationMarkTypeStar = 0x1,
-    // /< 会话标记未读（重要会话）
+    // 会话标记未读（重要会话）
     kTIMConversationMarkTypeUnread = 0x1 << 1,
-    // /< 会话折叠
+    // 会话折叠
     kTIMConversationMarkTypeFold = 0x1 << 2,
-    // /< 会话隐藏
+    // 会话隐藏
     kTIMConversationMarkTypeHide = 0x1 << 3,
 };
 

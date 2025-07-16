@@ -331,7 +331,13 @@ namespace com.tencent.imsdk.unity.native
     public static extern int TIMGroupSearchGroups(IntPtr json_group_search_groups_param, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMGroupSearchCloudGroups(IntPtr json_group_search_groups_param, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMGroupSearchGroupMembers(IntPtr json_group_search_group_members_param, CommonValueCallback cb, IntPtr user_data);
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMGroupSearchCloudGroupMembers(IntPtr json_group_search_cloud_group_members_param, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMGroupInitGroupAttributes(IntPtr group_id, IntPtr json_group_atrributes, CommonValueCallback cb, IntPtr user_data);
@@ -361,6 +367,9 @@ namespace com.tencent.imsdk.unity.native
     public static extern int TIMGroupGetTopicInfoList(IntPtr group_id, IntPtr json_topic_id_array, CommonValueCallback cb, IntPtr user_data);
 
 
+
+    [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int TIMSearchUsers(IntPtr json_user_search_param, CommonValueCallback cb, IntPtr user_data);
 
     [DllImport(MyLibName, CallingConvention = CallingConvention.Cdecl)]
     public static extern int TIMGetUserStatus(IntPtr json_identifier_array, CommonValueCallback cb, IntPtr user_data);

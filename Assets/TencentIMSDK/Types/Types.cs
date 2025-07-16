@@ -1,4 +1,5 @@
 using com.tencent.imsdk.unity.enums;
+using com.tencent.imsdk.unity.utils;
 using System.Collections.Generic;
 using System;
 using System.Runtime.Serialization;
@@ -587,9 +588,9 @@ namespace com.tencent.imsdk.unity.types
   public class GroupMemberInfoCustomString : ExtraData
   {
     /// <value>只写, 自定义字段的key (Write only, custom string info key)</value>
-    public string group_member_info_custom_string_info_key; // GroupMemberInfoCustomString
+    public string group_member_info_custom_string_info_key;
     /// <value>只写, 自定义字段的value (Write only, custom string info value)</value>
-    public string group_member_info_custom_string_info_value; // GroupMemberInfoCustomString
+    public string group_member_info_custom_string_info_value;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -599,15 +600,6 @@ namespace com.tencent.imsdk.unity.types
     public string group_tips_member_change_info_identifier;
     /// <value>只读, 禁言时间 (Read only, mute time)</value>
     public uint group_tips_member_change_info_shutupTime;
-  }
-
-  [JsonObject(MemberSerialization.OptOut)]
-  public class GroupSearchGroupMembersResult : ExtraData
-  {
-    /// <value>string, 只读, 群 id (Read only, group id)</value>
-    public string group_search_group_members_result_groupid;
-    /// <value>array @ref GroupMemberInfo, 只读, 群成员的列表 (Read only, group member list)</value>
-    public List<GroupMemberInfo> group_search_group_members_result_member_info_list;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -936,10 +928,29 @@ namespace com.tencent.imsdk.unity.types
   [JsonObject(MemberSerialization.OptOut)]
   public class GroupSearchParam : ExtraData
   {
-    /// <value>搜索关键字列表，最多支持5个(searching keyword list, maximum 5)</value>
+    /// <value>搜索关键字列表，最多支持5个，如果是本地搜索，您需主动设置 keyword 是否匹配群 ID、群名称；如果是云端搜索，keyword 会自动匹配群 ID、群名称(searching keyword list, maximum 5, if local search, you need to set keyword whether to match group ID, group name; if cloud search, keyword will automatically match group ID, group name)</value>
     public List<string> group_search_params_keyword_list;
-    /// <value>搜索域列表表 (Search field list)</value>
-    public List<TIMGroupSearchFieldKey> group_search_params_field_list;
+    /// <value>搜索域列表(仅本地搜索有效)(Search field list (only valid for local search))</value>
+    public List<TIMGroupSearchFieldKey>? group_search_params_field_list;
+    /// <value>指定关键字列表匹配类型，可设置为“或”关系搜索或者“与”关系搜索（仅云端搜索有效）(Specify keyword list matching type, can be set to "or" relationship search or "and" relationship search (only valid for cloud search))</value>
+    public TIMKeywordListMatchType? group_search_params_keyword_list_match_type;
+    /// <value>每次云端搜索返回结果的条数（必须大于 0，最大支持 100，仅云端搜索有效）(Number of results returned by each cloud search, must be greater than 0, maximum 100, only valid for cloud search)</value>
+    public uint group_search_params_search_count;
+    /// <value>每次云端搜索的起始位置。第一次填空字符串，续拉时填写 GroupSearchResult 中的返回值（仅云端搜索有效）(Start position of each cloud search. Fill in an empty string the first time, and fill in the return value in GroupSearchResult when pulling again (only valid for cloud search))</value>
+    public string? group_search_params_search_cursor;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class GroupSearchResult : ExtraData
+  {
+    /// <value>满足搜索条件的群列表是否已经全部返回(Is finished)</value>
+    public bool group_search_result_is_finished;
+    /// <value>满足搜索条件的群总数量(Total count of groups that meet the search conditions)</value>
+    public uint group_search_result_total_count;
+    /// <value>下一次云端搜索的起始位置(Next cursor for next search)</value>
+    public string group_search_result_next_cursor;
+    /// <value>满足搜索条件的群列表(List of groups that meet the search conditions)</value>
+    public List<GroupDetailInfo> group_search_result_group_list;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -947,10 +958,41 @@ namespace com.tencent.imsdk.unity.types
   {
     /// <value>指定群 ID 列表，若为不填则搜索全部群中的群成员 (Search group member's user ID list, null means all the member)</value>
     public List<string> group_search_member_params_groupid_list;
-    /// <value>搜索关键字列表，最多支持5个 (searching keyword list, maximum 5)</value>
+    /// <value>搜索关键字列表，最多支持5个，如果是本地搜索，您需主动设置 keyword 是否匹配群成员 ID、昵称、备注、群名片。如果是云端搜索，keyword 会自动匹配群成员 ID、昵称、群名片(searching keyword list, maximum 5, if local search, you need to set keyword whether to match group member ID, nickname, remark, group card; if cloud search, keyword will automatically match group member ID, nickname, group card)</value>
     public List<string> group_search_member_params_keyword_list;
-    /// <value>搜索域列表 (Search field list)</value>
-    public List<TIMGroupMemberSearchFieldKey> group_search_member_params_field_list;
+    /// <value>搜索域列表(仅本地搜索有效)(Search field list (only valid for local search))</value>
+    public List<TIMGroupMemberSearchFieldKey>? group_search_member_params_field_list;
+    /// <value>指定关键字列表匹配类型，可设置为“或”关系搜索或者“与”关系搜索（仅云端搜索有效）(Specify keyword list matching type, can be set to "or" relationship search or "and" relationship search (only valid for cloud search))</value>
+    public TIMKeywordListMatchType? group_member_search_params_keyword_list_match_type;
+    /// <value>每次云端搜索返回结果的条数（必须大于 0，最大支持 100，仅云端搜索有效）(Number of results returned by each cloud search, must be greater than 0, maximum 100, only valid for cloud search)</value>
+    public uint group_member_search_params_search_count;
+    /// <value>每次云端搜索的起始位置。第一次填空字符串，续拉时填写 GroupSearchResult 中的返回值（仅云端搜索有效）(Start position of each cloud search. Fill in an empty string the first time, and fill in the return value in GroupSearchResult when pulling again (only valid for cloud search))</value>
+    public string group_member_search_params_search_cursor;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  /// 本地群成员搜索结果
+  public class GroupSearchGroupMembersResult : ExtraData
+  {
+    /// <value>只读, 群 id (Read only, group id)</value>
+    public string group_search_member_result_groupid;
+    /// <value>只读, 群成员的列表 (Read only, group member list)</value>
+    public List<GroupMemberInfo> group_search_member_result_member_info_list;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  // 云端群成员搜索结果
+  public class GroupMemberSearchResult : ExtraData
+  {
+    /// <value>只读, 满足搜索条件的群成员列表是否已经全部返回(Is finished)</value>
+    public bool group_member_search_result_is_finished;
+    /// <value>只读, 满足搜索条件的群成员总数量(Total count of group m  embers that meet the search conditions)</value>
+    public uint group_member_search_result_total_count;
+    /// <value>只读, 下一次云端搜索的起始位置(Next cursor for next search)</value>
+    public string group_member_search_result_next_cursor;
+    /// <value>只读, 满足搜索条件的群成员列表(List of group members that meet the search conditions)</value>
+    [JsonConverter(typeof(StringToList<GroupSearchGroupMembersResult>))]
+    public List<GroupSearchGroupMembersResult> group_member_search_result_member_list;
   }
 
   [JsonObject(MemberSerialization.OptOut)]
@@ -2170,6 +2212,39 @@ namespace com.tencent.imsdk.unity.types
     public string follow_type_check_result_info;
     /// <value>只读, 关注类型 (Read only, follow type)</value>
     public TIMFollowType follow_type_check_result_follow_type;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class UserSearchParam : ExtraData
+  {
+    /// <value>只写, 搜索的关键字列表，关键字列表最多支持 5 个，keyword 会自动匹配用户 ID、昵称。(Write only, keyword list, max: 5)</value>
+    public List<string> user_search_param_keyword_list;
+    /// <value>只写(选填), 指定关键字列表匹配类型，可设置为“或”关系搜索或者“与”关系搜索.(Write only, keyword list match type, default: TIMKeywordListMatchType_Or)</value>
+    public TIMKeywordListMatchType? user_search_param_keyword_list_match_type;
+    /// <value>只写(选填), 用户性别（如果不设置，默认男性和女性都会返回）(Write only, user gender, default: kTIMGenderType_Unknown)</value>
+    public TIMGenderType? user_search_param_gender;
+    /// <value>只写(选填), 用户最小生日（如果不设置，默认值为 0）(Write only, user min birthday, default: 0)</value>
+    public uint? user_search_param_min_birthday;
+    /// <value>只写(选填), 用户最大生日（如果不设置，默认 birthday >= minBirthday 的用户都会返回）(Write only, user max birthday, default: birthday >= minBirthday)</value>
+    public uint? user_search_param_max_birthday;
+    /// <value>只写, 每次云端搜索返回结果的条数（必须大于 0，最大支持 100，仅云端搜索有效）(Write only, count of results returned by each cloud search, must be greater than 0, maximum 100, only valid for cloud search)</value>
+    public uint user_search_param_search_count;
+    /// <value>只写(选填), 每次云端搜索的起始位置。第一次填空字符串，续拉时填写 UserSearchResult 中的返回值。(Write only, search cursor, default: "")</value>
+    public string user_search_param_search_cursor;
+  }
+
+  [JsonObject(MemberSerialization.OptOut)]
+  public class UserSearchResult : ExtraData
+  {
+    /// <value>只读, 是否已经返回全部满足搜索条件的用户列表(Read only, is finished)</value>
+    public bool? user_search_result_is_finished;
+    /// <value>只读, 满足搜索条件的用户总数量(Read only, total count of users that meet the search conditions)</value>
+    public uint? user_search_result_total_count;
+    /// <value>只读, 下一次云端搜索的起始位置(Read only, next cursor for next search)</value>
+    public string user_search_result_next_cursor;
+    /// <value>只读, 当前一次云端搜索返回的用户列表(Read only, user list of current search)</value>
+    [JsonConverter(typeof(StringToList<UserProfile>))]
+    public List<UserProfile> user_search_result_user_list;
   }
 
   [JsonObject(MemberSerialization.OptOut)]

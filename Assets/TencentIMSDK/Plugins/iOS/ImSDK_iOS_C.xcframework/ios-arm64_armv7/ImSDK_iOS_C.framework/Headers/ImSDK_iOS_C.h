@@ -1,4 +1,4 @@
-// Copyright (c) 2024 Tencent. All rights reserved.
+// Copyright (c) 2025 Tencent. All rights reserved.
 
 
 #ifndef TIM_IM_SDK_PLUS_H_

@@ -64,6 +64,12 @@ enum TIMGroupTipGroupChangeFlag {
     kTIMGroupTipChangeFlag_EnablePermissionGroup = 0x0D,
     // 群默认权限，只支持社群，7.8 版本开始支持
     kTIMGroupTipChangeFlag_DefaultPermissions = 0x0E,
+    // 申请加入私密话题时管理员的审批选项变更
+    kTIMGroupTipChangeFlag_TopicAddOpt = 0x0F,
+    // 邀请进入私密话题时管理员的审批选项变更
+    kTIMGroupTipChangeFlag_TopicApproveOpt = 0x10,
+    // 私密话题最大成员数量
+    kTIMGroupTipChangeFlag_TopicMemberMaxCount = 0x11,
 };
 
 // 1.2 群组系统消息类型
@@ -514,7 +520,7 @@ TIM_API int TIMGroupQuit(const char* group_id, TIMCommCallback cb, const void* u
  * 权限说明：
  *  - 此接口可以获取自己所加入的群列表
  *  - 此接口只能获得加入的部分直播大群的列表。
- * 此接口用于获取当前用户已加入的群组列表，返回群组的基础信息。具体返回的群组信息字段参考[GroupBaseInfo, GroupDetailInfo]()
+ * 此接口用于获取当前用户已加入的群组列表，返回群组的基础信息。具体返回的群组信息字段参考 @ref GroupDetailInfo, @ref GroupBaseInfo
  */
 TIM_API int TIMGroupGetJoinedGroupList(TIMCommCallback cb, const void* user_data);
 
@@ -552,7 +558,7 @@ TIM_API int TIMGroupGetJoinedGroupList(TIMCommCallback cb, const void* user_data
 TIM_API int TIMGroupGetGroupInfoList(const char* json_group_getinfo_param, TIMCommCallback cb, const void* user_data);
 
 /**
- * 5.2 搜索群组信息列表（5.4.666 及以上版本支持，需要您购买旗舰版套餐）
+ * 5.2 搜索本地群资料（5.4.666 及以上版本支持，需要您购买旗舰版套餐）
  *
  * @param json_group_search_groups_param  群列表的参数 array ，Json Key 请参考 @ref GroupSearchParam
  * @param cb 搜索群列表回调。回调函数定义请参考 @ref TIMCommCallback
@@ -571,8 +577,8 @@ TIM_API int TIMGroupGetGroupInfoList(const char* json_group_getinfo_param, TIMCo
  *    json_field_list.append(kTIMGroupSearchFieldKey_GroupId);
  *
  *    Json::Object json_obj;
- *    json_obj[TIMGroupSearchParamKeywordList] = json_keyword_list;
- *    json_obj[TIMGroupSearchParamFieldList] = json_field_list;
+ *    json_obj[kTIMGroupSearchParamKeywordList] = json_keyword_list;
+ *    json_obj[kTIMGroupSearchParamFieldList] = json_field_list;
  *   TIMGroupSearchGroups(json_array.toStyledString().c_str(), [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
  *
  *   }, nullptr);
@@ -619,7 +625,58 @@ TIM_API int TIMGroupGetGroupInfoList(const char* json_group_getinfo_param, TIMCo
 TIM_API int TIMGroupSearchGroups(const char *json_group_search_groups_param, TIMCommCallback cb, const void* user_data);
 
 /**
- * 5.3 修改群信息
+ * 5.3 搜索云端群资料（8.4 及以上版本支持）
+ *
+ * @param json_group_search_groups_param  群列表的参数 array ，Json Key 请参考 @ref GroupSearchParam
+ * @param cb 搜索群列表回调。回调函数定义请参考 @ref TIMCommCallback
+ * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
+ * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
+ *
+ * @note 该功能为 IM 旗舰版功能，[购买旗舰版套餐包](https://buy.cloud.tencent.com/avc?from=17474)后可使用，详见[价格说明](https://cloud.tencent.com/document/product/269/11673?from=17176#.E5.9F.BA.E7.A1.80.E6.9C.8D.E5.8A.A1.E8.AF.A6.E6.83.85)
+ *
+ * __示例__
+ * @code{.cpp}
+ *   json::Array json_keyword_list;
+ *   json_keyword_list.push_back("啊");
+
+ *   json::Object json_obj;
+ *   json_obj[kTIMGroupSearchParamKeywordList] = json_keyword_list;
+ *   json_obj[kTIMGroupSearchParamKeywordListMatchType] = TIMKeywordListMatchType_Or;
+ *   json_obj[kTIMGroupSearchParamSearchCount] = 20;
+ *   json_obj[kTIMGroupSearchParamSearchCursor] = "";
+ *   TIMGroupSearchCloudGroups(json::Serialize(json_obj).c_str(), [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
+ *     Printf("SearchCloudGroup code:%d|desc:%s|json_param %s\r\n", code, desc, json_param);
+ *   }, nullptr);
+ * @endcode
+ *
+ * __回调的 json_param 示例 (Json Key 请参考 @ref GroupSearchResult)__
+ * @code{.cpp}
+ * {
+ *    "group_search_result_is_finished": true,
+ *    "group_search_result_total_count": 3
+ *    "group_search_result_next_cursor": "",
+ *    "group_search_result_group_list": [
+ *        {
+ *            "group_base_info_face_url": "",
+ *            "group_base_info_group_id": "groupID",
+ *            "group_base_info_group_name": "groupA",
+ *            "group_base_info_group_type": 0,
+ *            "group_base_info_info_seq": 0,
+ *            "group_base_info_is_shutup_all": false,
+ *            "group_base_info_latest_seq": 0,
+ *            "group_base_info_msg_flag": 0,
+ *            "group_base_info_readed_seq": 0,
+ *            "..."
+ *        },
+ *    ],
+ * }
+ * @endcode
+ */
+TIM_API int TIMGroupSearchCloudGroups(const char *json_group_search_groups_param, TIMCommCallback cb, const void* user_data);
+
+
+/**
+ * 5.4 修改群信息
  *
  * @param json_group_modifyinfo_param 设置群信息参数的 Json 字符串, Json Key 请参考 @ref GroupModifyInfoParam
  * @param cb 设置群信息成功与否的回调。回调函数定义请参考 @ref TIMCommCallback
@@ -678,7 +735,7 @@ TIM_API int TIMGroupSearchGroups(const char *json_group_search_groups_param, TIM
 TIM_API int TIMGroupModifyGroupInfo(const char* json_group_modifyinfo_param, TIMCommCallback cb, const void* user_data);
 
 /**
- * 5.4 初始化群属性，会清空原有的群属性列表
+ * 5.5 初始化群属性，会清空原有的群属性列表
  *
  * @param group_id  群 ID
  * @param json_group_attributes 群属性的列表, 群属性的 Json Key 请参考 @ref GroupAttributes
@@ -714,7 +771,7 @@ TIM_API int TIMGroupModifyGroupInfo(const char* json_group_modifyinfo_param, TIM
 TIM_API int TIMGroupInitGroupAttributes(const char *group_id, const char *json_group_attributes, TIMCommCallback cb, const void* user_data);
 
 /**
- * 5.5 设置群属性，已有该群属性则更新其 value 值，没有该群属性则添加该群属性
+ * 5.6 设置群属性，已有该群属性则更新其 value 值，没有该群属性则添加该群属性
  *
  * @param group_id 群 ID
  * @param json_group_attributes 群属性的列表, 群属性的 Json Key 请参考 @ref GroupAttributes
@@ -743,7 +800,7 @@ TIM_API int TIMGroupInitGroupAttributes(const char *group_id, const char *json_g
 TIM_API int TIMGroupSetGroupAttributes(const char *group_id, const char *json_group_attributes, TIMCommCallback cb, const void* user_data);
 
 /**
- * 5.6 删除群属性
+ * 5.7 删除群属性
  * @param group_id 群 ID
  * @param json_keys 群属性 key 的列表
  * @param cb 删除群属性的回调。回调函数定义请参考 @ref TIMCommCallback
@@ -769,7 +826,7 @@ TIM_API int TIMGroupSetGroupAttributes(const char *group_id, const char *json_gr
 TIM_API int TIMGroupDeleteGroupAttributes(const char *group_id, const char *json_keys, TIMCommCallback cb, const void* user_data);
 
 /**
- * 5.7 获取群指定属性，若传入的 json_keys 为空，则获取所有群属性。
+ * 5.8 获取群指定属性，若传入的 json_keys 为空，则获取所有群属性。
  *
  * @param group_id 群 ID
  * @param json_keys 群属性的 key 列表，若传入为 "", 则获取所有属性列表
@@ -803,7 +860,7 @@ TIM_API int TIMGroupDeleteGroupAttributes(const char *group_id, const char *json
 TIM_API int TIMGroupGetGroupAttributes(const char *group_id, const char *json_keys, TIMCommCallback cb, const void* user_data);
 
 /**
- * 5.8 获取指定群在线人数
+ * 5.9 获取指定群在线人数
  *
  * @param group_id 群 ID
  * @param cb 获取指定群在线人数的回调。回调函数定义请参考 @ref TIMCommCallback
@@ -829,7 +886,7 @@ TIM_API int TIMGroupGetGroupAttributes(const char *group_id, const char *json_ke
 TIM_API int TIMGroupGetOnlineMemberCount(const char* group_id, TIMCommCallback cb, const void* user_data);
 
 /**
- * 5.9 设置群计数器（7.0 及其以上版本支持）
+ * 5.10 设置群计数器（7.0 及其以上版本支持）
  *
  * @param group_id 群 ID
  * @param json_group_counter_array 群计数器信息列表，群计数器 Json Key 请参考 @ref TIMGroupCounter
@@ -860,7 +917,7 @@ TIM_API int TIMGroupGetOnlineMemberCount(const char* group_id, TIMCommCallback c
 TIM_API int TIMGroupSetGroupCounters(const char* group_id, const char* json_group_counter_array, TIMCommCallback cb, const void* user_data);
 
 /**
- * 5.10 获取群计数器（7.0 及其以上版本支持）
+ * 5.11 获取群计数器（7.0 及其以上版本支持）
  *
  * @param group_id 群 ID
  * @param json_group_counter_key_array 需要获取的群计数器的 key 列表，群计数器 Json Key 请参考 @ref TIMGroupCounter
@@ -886,7 +943,7 @@ TIM_API int TIMGroupSetGroupCounters(const char* group_id, const char* json_grou
 TIM_API int TIMGroupGetGroupCounters(const char* group_id, const char* json_group_counter_key_array, TIMCommCallback cb, const void* user_data);
 
 /**
- * 5.11 递增群计数器（7.0 及其以上版本支持）
+ * 5.12 递增群计数器（7.0 及其以上版本支持）
  *
  * @param group_id 群 ID
  * @param group_counter_key 群计数器的 key
@@ -910,7 +967,7 @@ TIM_API int TIMGroupGetGroupCounters(const char* group_id, const char* json_grou
 TIM_API int TIMGroupIncreaseGroupCounter(const char* group_id, const char* group_counter_key, int64_t group_counter_value, TIMCommCallback cb, const void* user_data);
 
 /**
- * 5.12 递减群计数器（7.0 及其以上版本支持）
+ * 5.13 递减群计数器（7.0 及其以上版本支持）
  *
  * @param group_id 群 ID
  * @param group_counter_key 群计数器的 key
@@ -1112,7 +1169,7 @@ TIM_API int TIMGroupGetTopicInfoList(const char *group_id, const char *json_topi
 TIM_API int TIMGroupGetMemberInfoList(const char* json_group_getmeminfos_param, TIMCommCallback cb, const void* user_data);
 
 /**
- * 7.2 搜索群成员（5.4.666 及以上版本支持，需要您购买旗舰版套餐）
+ * 7.2 搜索本地群成员资料（5.4.666 及以上版本支持，需要您购买旗舰版套餐）
  *
  * @param json_group_search_group_members_param 群成员的列表, Json Key 请参考 @ref GroupMemberSearchParam
  * @param cb 搜索群成员列表的回调。回调函数定义请参考 @ref TIMCommCallback
@@ -1168,7 +1225,44 @@ TIM_API int TIMGroupGetMemberInfoList(const char* json_group_getmeminfos_param, 
 TIM_API int TIMGroupSearchGroupMembers(const char *json_group_search_group_members_param, TIMCommCallback cb, const void* user_data);
 
 /**
- * 7.3 修改群成员信息
+ * 7.3 搜索云端群成员资料（8.4 及以上版本支持）
+ *
+ * @param json_group_search_cloud_group_members_param  群列表的参数 array ，Json Key 请参考 @ref GroupMemberSearchParam
+ * @param cb 搜索群列表回调。回调函数定义请参考 @ref TIMCommCallback
+ * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
+ * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
+ *
+ * @note 该功能为 IM 旗舰版功能，[购买旗舰版套餐包](https://buy.cloud.tencent.com/avc?from=17474)后可使用，详见[价格说明](https://cloud.tencent.com/document/product/269/11673?from=17176#.E5.9F.BA.E7.A1.80.E6.9C.8D.E5.8A.A1.E8.AF.A6.E6.83.85)
+ *
+ * __示例__
+ * @code{.cpp}
+ *   json::Array json_keyword_list;
+ *   json_keyword_list.push_back("测试");
+
+ *   json::Object json_obj;
+ *   json_obj[TIMGroupMemberSearchParamKeywordList] = json_keyword_list;
+ *   json_obj[TIMGroupMemberSearchParamKeywordListMatchType] = TIMKeywordListMatchType_Or;
+ *   json_obj[TIMGroupMemberSearchParamSearchCount] = 20;
+ *   json_obj[TIMGroupMemberSearchParamSearchCursor] = "";
+ *   TIMGroupSearchCloudGroupMembers(json::Serialize(json_obj).c_str(), [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
+ *     Printf("TIMGroupSearchCloudGroupMembers code:%d|desc:%s|json_param %s\r\n", code, desc, json_param);
+ *   }, nullptr);
+ * @endcode
+ *
+ * __回调的 json_param 示例 (Json Key 请参考 @ref GroupSearchResult)__
+ * @code{.cpp}
+ * {
+ *   "group_member_search_result_is_finished": false,
+ *   "group_member_search_result_next_cursor": "_YMEo64o8LCv9_8azJx7GxJ5K-9K_oM42TgvcqBzClg",
+ *   "group_member_search_result_total_count": 115,
+ *   "group_member_search_result_member_list": "[{"group_search_member_result_groupid":"@TGS#1JDXSOIOA","group_search_member_result_member_info_list":""}]",
+ * }
+ * @endcode
+ */
+TIM_API int TIMGroupSearchCloudGroupMembers(const char *json_group_search_cloud_group_members_param, TIMCommCallback cb, const void* user_data);
+
+/**
+ * 7.4 修改群成员信息
  *
  * @param json_group_modifymeminfo_param 设置群信息参数的 Json 字符串, Json Key 请参考 @ref GroupModifyMemberInfoParam
  * @param cb 设置群成员信息成功与否的回调。回调函数定义请参考 @ref TIMCommCallback
@@ -1207,7 +1301,7 @@ TIM_API int TIMGroupSearchGroupMembers(const char *json_group_search_group_membe
 TIM_API int TIMGroupModifyMemberInfo(const char* json_group_modifymeminfo_param, TIMCommCallback cb, const void* user_data);
 
 /**
- * 7.4 邀请加入群组
+ * 7.5 邀请加入群组
  *
  * @param json_group_invite_param 邀请加入群组的 Json 字符串, Json Key 请参考 @ref GroupInviteMemberParam
  * @param cb 邀请加入群组成功与否的回调。回调函数定义和参数解析请参考 @ref TIMCommCallback
@@ -1253,7 +1347,7 @@ TIM_API int TIMGroupModifyMemberInfo(const char* json_group_modifymeminfo_param,
 TIM_API int TIMGroupInviteMember(const char* json_group_invite_param, TIMCommCallback cb, const void* user_data);
 
 /**
- * 7.5 删除群组成员（直播群删除群组成员从 6.6 版本开始支持，需要您购买旗舰版套餐）
+ * 7.6 删除群组成员（直播群删除群组成员从 6.6 版本开始支持，需要您购买旗舰版套餐）
  *
  * @param json_group_delete_param 删除群组成员的 Json 字符串, Json Key 请参考 @ref GroupDeleteMemberParam
  * @param cb 删除群组成员成功与否的回调。回调函数定义和参数解析请参考 @ref TIMCommCallback
@@ -1292,7 +1386,7 @@ TIM_API int TIMGroupInviteMember(const char* json_group_invite_param, TIMCommCal
 TIM_API int TIMGroupDeleteMember(const char* json_group_delete_param, TIMCommCallback cb, const void* user_data);
 
 /**
- * 7.6 标记群成员(从 6.6 版本开始支持，需要您购买旗舰版套餐)
+ * 7.7 标记群成员(从 6.6 版本开始支持，需要您购买旗舰版套餐)
  *
  * @param group_id 群 ID。
  * @param member_array 群成员 ID 列表。
@@ -1453,6 +1547,8 @@ static const char* kTIMGroupTipGroupChangeInfoBoolValue = "group_tips_group_chan
 //  - 从 6.5 版本开始，当 info_flag 为 kTIMGroupTipChangeFlag_MessageReceiveOpt 时，该字段标识了群消息接收选项发生了变化，其取值详见 @ref TIMReceiveMessageOpt
 //  - 从 6.5 版本开始，当 info_flag 为 kTIMGroupTipChangeFlag_GroupAddOpt 时，该字段标识了申请加群审批选项发生了变化，其取值详见 @ref TIMGroupAddOption
 //  - 从 7.1 版本开始，当 info_flag 为 kTIMGroupTipChangeFlag_GroupApproveOpt 时，该字段标识了邀请进群审批选项发生了变化，取值类型详见 @ref TIMGroupAddOption
+//  - 从 8.4 版本开始，当 info_flag 为 kTIMGroupTipChangeFlag_TopicAddOpt 时，该字段标识了申请加私密话题审批选项发生了变化，其取值详见 @ref TIMGroupAddOption
+//  - 从 8.4 版本开始，当 info_flag 为 kTIMGroupTipChangeFlag_TopicApproveOpt 时，该字段标识了邀请进私密话题审批选项发生了变化，取值类型详见 @ref TIMGroupAddOption
 static const char* kTIMGroupTipGroupChangeInfoIntValue    = "group_tips_group_change_info_int_value";
 // uint64, 只读, 根据变更类型表示不同的值，当前只有 info_flag 为 kTIMGroupTipChangeFlag_DefaultPermissions 时有效
 static const char* kTIMGroupTipGroupChangeInfoUint64Value    = "group_tips_group_change_info_uint64_value";
@@ -1683,12 +1779,31 @@ static const char* kTIMGetGroupInfoResultInfo = "get_groups_info_result_info";
 //------------------------------------------------------------------------------
 // 10.9 GroupSearchParam(群搜索参数)
 // array string, 只写(选填), 搜索关键字列表，最多支持5个
-static const char* TIMGroupSearchParamKeywordList = "group_search_params_keyword_list";
-// array @ref TIMGroupSearchFieldKey, 只写(选填), 搜索域列表
-static const char* TIMGroupSearchParamFieldList = "group_search_params_field_list";
+// 如果是本地搜索，您需主动设置 keyword 是否匹配群 ID、群名称。
+// 如果是云端搜索，keyword 会自动匹配群 ID、群名称。
+static const char* kTIMGroupSearchParamKeywordList = "group_search_params_keyword_list";
+// array @ref TIMGroupSearchFieldKey, 只写(选填), 搜索域列表（仅本地搜索有效）
+static const char* kTIMGroupSearchParamFieldList = "group_search_params_field_list";
+// uint @ref TIMKeywordListMatchType, 指定关键字列表匹配类型，可设置为“或”关系搜索或者“与”关系搜索（仅云端搜索有效）
+static const char* kTIMGroupSearchParamKeywordListMatchType = "group_search_params_keyword_list_match_type";
+// uint , 每次云端搜索返回结果的条数（必须大于 0，最大支持 100，默认 20，仅云端搜索有效）
+static const char* kTIMGroupSearchParamSearchCount = "group_search_params_search_count";
+// string , 每次云端搜索的起始位置。第一次填空字符串，续拉时填写 GroupSearchResult 中的返回值（仅云端搜索有效）
+static const char* kTIMGroupSearchParamSearchCursor = "group_search_params_search_cursor";
 
 //------------------------------------------------------------------------------
-// 10.10 GroupModifyInfoParam(设置群信息接口的参数)
+// 10.10 GroupSearchResult (群组搜索结果)
+// bool , 满足搜索条件的群列表是否已经全部返回
+static const char* kTIMGroupSearchResultIsFinished = "group_search_result_is_finished";
+// uint , 满足搜索条件的群总数量
+static const char* kTIMGroupSearchResultTotalCount = "group_search_result_total_count";
+// string , 下一次云端搜索的起始位置
+static const char* kTIMGroupSearchResultNextCursor = "group_search_result_next_cursor";
+// array @ref GroupInfo, 满足搜索条件的群总数量
+static const char* kTIMGroupSearchResultGroupList = "group_search_result_group_list";
+
+//------------------------------------------------------------------------------
+// 10.11 GroupModifyInfoParam(设置群信息接口的参数)
 // string, 只写(必填), 群组ID
 static const char* kTIMGroupModifyInfoParamGroupId = "group_modify_info_param_group_id";
 // uint @ref TIMGroupModifyInfoFlag, 只写(必填), 修改标识,可设置多个值按位或
@@ -1723,21 +1838,21 @@ static const char* kTIMGroupModifyInfoParamEnablePermissionGroup = "group_modify
 static const char* kTIMGroupModifyInfoParamDefaultPermissions = "group_modify_info_param_default_permissions";
 
 //------------------------------------------------------------------------------
-// 10.11 GroupAttributes(设置群属性的 map 对象)
+// 10.12 GroupAttributes(设置群属性的 map 对象)
 // string, 只写, 群属性 map 的 key
 static const char* TIMGroupAttributeKey = "group_attribute_key";
 // string, 只写, 群属性 map 的 value
 static const char* TIMGroupAttributeValue = "group_attribute_value";
 
 //------------------------------------------------------------------------------
-// 10.12 GroupCounter(群计数器信息)
+// 10.13 GroupCounter(群计数器信息)
 // string, 读写, 群计数器的 key 值
 static const char* kTIMGroupCounterKey = "group_counter_key";
 // int64, 读写, 群计数器的 value 值
 static const char* kTIMGroupCounterValue = "group_counter_value";
 
 //------------------------------------------------------------------------------
-// 10.12 GroupGetOnlineMemberCountResult(获取指定群在线人数结果)
+// 10.14 GroupGetOnlineMemberCountResult(获取指定群在线人数结果)
 // int, 只读, 指定群的在线人数
 static const char* TIMGroupGetOnlineMemberCountResult = "group_get_online_member_count_result";
 
@@ -1827,29 +1942,48 @@ static const char* kTIMGroupGetMemberInfoListResultInfoArray = "group_get_member
 
 //------------------------------------------------------------------------------
 // 12.4 GroupMemberSearchParam(群成员搜索参数)
+// array string, 只写(必填), 搜索关键字列表，最多支持5个
+// 如果是本地搜索，您需主动设置 keyword 是否匹配群成员 ID、昵称、备注、群名片。
+// 如果是云端搜索，keyword 会自动匹配群成员 ID、昵称、群名片。
+static const char* TIMGroupMemberSearchParamKeywordList = "group_search_member_params_keyword_list";
 // array string, 只写(选填), 指定群 ID 列表，若为不填则搜索全部群中的群成员
 static const char* TIMGroupMemberSearchParamGroupidList = "group_search_member_params_groupid_list";
-// array string, 只写(必填), 搜索关键字列表，最多支持5个
-static const char* TIMGroupMemberSearchParamKeywordList = "group_search_member_params_keyword_list";
-// array @ref TIMGroupMemberSearchFieldKey, 只写(必填), 搜索域列表
+// array @ref TIMGroupMemberSearchFieldKey, 只写(必填), 搜索域列表（仅本地搜索有效）
 static const char* TIMGroupMemberSearchParamFieldList = "group_search_member_params_field_list";
+// uint @ref TIMKeywordListMatchType, 指定关键字列表匹配类型，可设置为“或”关系搜索或者“与”关系搜索（仅云端搜索有效）
+static const char* TIMGroupMemberSearchParamKeywordListMatchType = "group_member_search_params_keyword_list_match_type";
+// uint , 每次云端搜索返回结果的条数（必须大于 0，最大支持 100，默认 20，仅云端搜索有效）
+static const char* TIMGroupMemberSearchParamSearchCount = "group_member_search_params_search_count";
+// string , 每次云端搜索的起始位置。第一次填空字符串，续拉时填写 GroupMemberSearchResult 中的返回值（仅云端搜索有效）
+static const char* TIMGroupMemberSearchParamSearchCursor = "group_member_search_params_search_cursor";
 
 //------------------------------------------------------------------------------
-// 12.5 GroupSearchGroupMembersResult(群成员搜索结果)
+// 12.5 GroupSearchGroupMembersResult(本地群成员搜索结果)
 // array string, 只读, 群 id 列表
 static const char* TIMGroupSearchGroupMembersResultGroupID = "group_search_member_result_groupid";
 // array @ref GroupMemberInfo, 只读, 群成员的列表
 static const char* TIMGroupSearchGroupMembersResultMemberInfoList = "group_search_member_result_member_info_list";
 
 //------------------------------------------------------------------------------
-// 12.6 GroupMemberInfoCustomString(群成员信息自定义字段)
+// 12.6 GroupMemberSearchResult (云端群成员搜索结果)
+// bool , 满足搜索条件的群成员列表是否已经全部返回
+static const char* TIMGroupMemberSearchResultIsFinished = "group_member_search_result_is_finished";
+// uint , 满足搜索条件的群成员总数量
+static const char* TIMGroupMemberSearchResultTotalCount = "group_member_search_result_total_count";
+// string , 下一次云端搜索的起始位置
+static const char* TIMGroupMemberSearchResultNextCursor = "group_member_search_result_next_cursor";
+// object @ref GroupSearchGroupMembersResult, 满足搜索条件的群成员列表
+static const char* TIMGroupMemberSearchResultMemberList = "group_member_search_result_member_list";
+
+//------------------------------------------------------------------------------
+// 12.7 GroupMemberInfoCustomString(群成员信息自定义字段)
 // string, 只写, 自定义字段的key
 static const char* kTIMGroupMemberInfoCustomStringInfoKey = "group_member_info_custom_string_info_key";
 // string, 只写, 自定义字段的value
 static const char* kTIMGroupMemberInfoCustomStringInfoValue = "group_member_info_custom_string_info_value";
 
 //------------------------------------------------------------------------------
-// 12.7 GroupModifyMemberInfoParam(设置群成员信息接口的参数)
+// 12.8 GroupModifyMemberInfoParam(设置群成员信息接口的参数)
 // string, 只写(必填), 群组ID
 static const char* kTIMGroupModifyMemberInfoParamGroupId = "group_modify_member_info_group_id";
 // string, 只写(必填), 被设置信息的成员ID
@@ -1868,7 +2002,7 @@ static const char* kTIMGroupModifyMemberInfoParamNameCard = "group_modify_member
 static const char* kTIMGroupModifyMemberInfoParamCustomInfo = "group_modify_member_info_custom_info";
 
 //------------------------------------------------------------------------------
-// 12.8 GroupInviteMemberParam(邀请成员接口的参数)
+// 12.9 GroupInviteMemberParam(邀请成员接口的参数)
 // string, 只写(必填), 群组ID
 static const char* kTIMGroupInviteMemberParamGroupId = "group_invite_member_param_group_id";
 // array string, 只写(必填), 被邀请加入群组用户ID数组
@@ -1877,14 +2011,14 @@ static const char* kTIMGroupInviteMemberParamIdentifierArray = "group_invite_mem
 static const char* kTIMGroupInviteMemberParamUserData = "group_invite_member_param_user_data";
 
 //------------------------------------------------------------------------------
-// 12.9 GroupInviteMemberResult(邀请成员接口的返回)
+// 12.10 GroupInviteMemberResult(邀请成员接口的返回)
 // string, 只读, 被邀请加入群组的用户ID
 static const char* kTIMGroupInviteMemberResultIdentifier = "group_invite_member_result_identifier";
 // uint @ref HandleGroupMemberResult, 只读, 邀请结果
 static const char* kTIMGroupInviteMemberResultResult = "group_invite_member_result_result";
 
 //------------------------------------------------------------------------------
-// 12.10 GroupDeleteMemberParam(删除成员接口的参数)
+// 12.11 GroupDeleteMemberParam(删除成员接口的参数)
 // string, 只写(必填), 群组ID
 static const char* kTIMGroupDeleteMemberParamGroupId = "group_delete_member_param_group_id";
 // array string, 只写(必填), 被删除群组成员数组
@@ -1895,7 +2029,7 @@ static const char* kTIMGroupDeleteMemberParamUserData = "group_delete_member_par
 static const char* kTIMGroupDeleteMemberParamDuration = "group_delete_member_param_duration";
 
 //------------------------------------------------------------------------------
-// 12.11 GroupDeleteMemberResult(删除成员接口的返回)
+// 12.12 GroupDeleteMemberResult(删除成员接口的返回)
 // string, 只读, 删除的成员ID
 static const char* kTIMGroupDeleteMemberResultIdentifier = "group_delete_member_result_identifier";
 // uint @ref HandleGroupMemberResult, 只读, 删除结果
@@ -2032,6 +2166,9 @@ static const char* kTIMGroupMemberGetInfoOptionCustomArray = "group_member_get_i
 #define kTIMGroupDetialInfoIsShutupAll          kTIMGroupDetailInfoIsShutupAll
 #define kTIMGroupDetialInfoOwnerIdentifier      kTIMGroupDetailInfoOwnerIdentifier
 #define kTIMGroupDetialInfoCustomInfo           kTIMGroupDetailInfoCustomInfo
+// GroupSearchParam JsonKey
+#define TIMGroupSearchParamKeywordList          kTIMGroupSearchParamKeywordList
+#define TIMGroupSearchParamFieldList            kTIMGroupSearchParamFieldList
 // GroupGetOnlineMemberCountResult JsonKey
 #define TIMGroupGetOnlineMemberCountResulCount  TIMGroupGetOnlineMemberCountResult
 // GroupMemberInfo JsonKey

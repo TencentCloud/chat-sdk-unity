@@ -677,6 +677,9 @@ TIM_API int TIMFriendshipModifyFriendProfile(const char* json_modify_friend_info
  * @param user_data 用户自定义数据，ImSDK只负责传回给回调函数cb，不做任何处理
  * @return int 返回TIM_SUCC表示接口调用成功（接口只有返回TIM_SUCC，回调cb才会被调用），其他值表示接口调用失败。每个返回值的定义请参考 @ref TIMResult
  *
+ * @note
+ * - 该接口返回的是本地存储的用户资料，包含好友和非好友资料.
+ *
  * __示例__
  * @code{.cpp}
  *   json::Object json_obj;

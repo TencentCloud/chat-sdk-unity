@@ -68,6 +68,12 @@ namespace com.tencent.im.unity.demo.config.ApiDataList
         ""scene"": ""ProfileModifySelfUserProfile""
       },
       {
+        ""apiName"": ""SearchUsers"",
+        ""apiText"": ""搜索云端用户"",
+        ""apiDesc"": ""搜索云端用户"",
+        ""scene"": ""SearchUsers""
+      },
+      {
         ""apiName"": ""SubscribeUserInfo"",
         ""apiText"": ""订阅用户资料"",
         ""apiDesc"": ""订阅用户资料"",
@@ -776,16 +782,28 @@ namespace com.tencent.im.unity.demo.config.ApiDataList
         ""scene"": ""GroupReportPendencyReaded""
       },
       {
+        ""apiName"": ""GroupSearchGroups"",
+        ""apiText"": ""搜索本地群资料"",
+        ""apiDesc"": ""搜索本地群资料"",
+        ""scene"": ""GroupSearchGroups""
+      },
+      {
+        ""apiName"": ""GroupSearchCloudGroups"",
+        ""apiText"": ""搜索云端群资料"",
+        ""apiDesc"": ""搜索云端群资料"",
+        ""scene"": ""GroupSearchCloudGroups""
+      },
+      {
         ""apiName"": ""GroupSearchGroupMembers"",
-        ""apiText"": ""搜索群成员"",
-        ""apiDesc"": ""搜索群成员"",
+        ""apiText"": ""搜索本地群成员"",
+        ""apiDesc"": ""搜索本地群成员"",
         ""scene"": ""GroupSearchGroupMembers""
       },
       {
-        ""apiName"": ""GroupSearchGroups (Flagship only)"",
-        ""apiText"": ""搜索群资料 (需旗舰版套餐)"",
-        ""apiDesc"": ""搜索群资料 (需旗舰版套餐)"",
-        ""scene"": ""GroupSearchGroups""
+        ""apiName"": ""GroupSearchCloudGroupMembers"",
+        ""apiText"": ""搜索云端群成员"",
+        ""apiDesc"": ""搜索云端群成员"",
+        ""scene"": ""GroupSearchCloudGroupMembers""
       },
       {
         ""apiName"": ""GroupInitGroupAttributes"",

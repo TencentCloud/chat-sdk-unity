@@ -437,4 +437,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/IM_Api_Example/Assets/Scenes/IM/CommunitySetTopicInheritMessageReceiveOptionFromCommunity.unity
     guid: 2aca37d4d806e47d2adc39a20d41ae77
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/SubscribeUserInfo.unity
+    guid: 7efc6b11e9e4246f68de2f9ecbea4e0e
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/UnsubscribeUserInfo.unity
+    guid: f1d788558432c4050a26e7bb2e5f4e70
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/SearchUsers.unity
+    guid: f91ca994446a24919adfd091596cc3eb
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GroupSearchCloudGroups.unity
+    guid: 68d53208ca19847afbb35f98acd9163c
+  - enabled: 1
+    path: Assets/IM_Api_Example/Assets/Scenes/IM/GroupSearchCloudGroupMembers.unity
+    guid: 07aa9f3ffea4a4927bb541c7220c68d6
   m_configObjects: {}

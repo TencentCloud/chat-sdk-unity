@@ -2377,6 +2377,8 @@ static const char* kTIMMsgPinnerFriendRemark = "message_pinner_friend_remark";
 static const char* kTIMMsgPinnerNameCard = "message_pinner_name_card";
 // string, 只读(选填), 消息置顶者的头像, 只有通过 GetPinnedGroupMessageList 获取到的置顶消息才包含该字段，从 8.0 版本开始支持
 static const char* kTIMMsgPinnerFaceURL = "message_pinner_face_url";
+// bool, 读写, 是否忽略禁言，true: 忽略，false: 不忽略。从 8.6 版本开始对齐
+static const char* kTIMMsgExcludedFromMuting = "message_excluded_from_muting";
 
 
 //------------------------------------------------------------------------------
@@ -2596,7 +2598,7 @@ static const char* kTIMMsgExtensionValue = "message_extension_value";
 static const char* kTIMMsgExtensionResultCode = "message_extension_result_code";
 // string, 只读, 消息扩展操作的返回信息提示
 static const char* kTIMMsgExtensionResultInfo = "message_extension_result_info";
-// object, 只读, 消息扩展操作返回结果所对应的扩展字段（每一对 key-value 都会自己的操作返回码以及返回信息提示）
+// object @ref MessageExtension, 只读, 消息扩展操作返回结果所对应的扩展字段（每一对 key-value 都会自己的操作返回码以及返回信息提示）
 static const char* kTIMMsgExtensionItem = "message_extension_item";
 
 //------------------------------------------------------------------------------
