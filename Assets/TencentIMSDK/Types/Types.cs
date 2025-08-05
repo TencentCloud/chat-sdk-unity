@@ -245,6 +245,8 @@ namespace com.tencent.imsdk.unity.types
   [JsonObject(MemberSerialization.OptOut)]
   public class OfflinePushConfig : ExtraData
   {
+    /// <value>读写, 当前消息在对方收到离线推送时候展示标题 ((Read & Write, offline message notification text title))</value>
+    public string offline_push_config_title;
     /// <value>读写, 当前消息在对方收到离线推送时候展示内容 (Read & Write, offline message notification text description)</value>
     public string offline_push_config_desc; // 文本消息
     /// <value>读写, 当前消息离线推送时的扩展字段 (Read & Write, offline message notification text extension info)</value>
