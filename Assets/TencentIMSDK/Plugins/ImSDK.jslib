@@ -4236,7 +4236,155 @@ var ImSDKPlugin = {
   TIMUnsubscribeUserInfo: function TIMUnsubscribeUserInfo(){
 
   },
-  
+
+  TIMCommunityCreate: function TIMCommunityCreate(json_community_create_param, cb, user_data){},
+
+  TIMCommunityGetJoinedCommunityList: function TIMCommunityGetJoinedCommunityList(cb, user_data){},
+
+  TIMCommunityCreateTopicInCommunity: function TIMCommunityCreateTopicInCommunity(group_id, json_topic_info, cb, user_data){},
+
+  TIMCommunityDeleteTopicFromCommunity: function TIMCommunityDeleteTopicFromCommunity(group_id, json_topic_id_array, cb, user_data){},
+
+  TIMCommunitySetTopicInfo: function TIMCommunitySetTopicInfo(json_topic_info, cb, user_data){},
+
+  TIMCommunityGetTopicInfoList: function TIMCommunityGetTopicInfoList(group_id, json_topic_id_array, cb, user_data){},
+
+  TIMCommunitySetTopicInheritMessageReceiveOptionFromCommunity: function TIMCommunitySetTopicInheritMessageReceiveOptionFromCommunity(topic_id, isInherit, cb, user_data){},
+
+  TIMCommunityCreatePermissionGroupInCommunity: function TIMCommunityCreatePermissionGroupInCommunity(json_permission_group_info, cb, user_data){},
+
+  TIMCommunityDeletePermissionGroupFromCommunity: function TIMCommunityDeletePermissionGroupFromCommunity(group_id, json_permission_group_id_array, cb, user_data){},
+
+  TIMCommunityModifyPermissionGroupInfoInCommunity: function TIMCommunityModifyPermissionGroupInfoInCommunity(json_permission_group_info, cb, user_data){},
+
+  TIMCommunityGetJoinedPermissionGroupListInCommunity: function TIMCommunityGetJoinedPermissionGroupListInCommunity(group_id, cb, user_data){},
+
+  TIMCommunityGetPermissionGroupListInCommunity: function TIMCommunityGetPermissionGroupListInCommunity(group_id, json_permission_group_id_array, cb, user_data){},
+
+  TIMCommunityAddCommunityMembersToPermissionGroup: function TIMCommunityAddCommunityMembersToPermissionGroup(group_id, permission_group_id, json_member_id_array, cb, user_data){},
+
+  TIMCommunityRemoveCommunityMembersFromPermissionGroup: function TIMCommunityRemoveCommunityMembersFromPermissionGroup(group_id, permission_group_id, json_member_id_array, cb, user_data){},
+
+  TIMCommunityGetCommunityMemberListInPermissionGroup: function TIMCommunityGetCommunityMemberListInPermissionGroup(group_id, permission_group_id, next_cursor, cb, user_data){},
+
+  TIMCommunityAddTopicPermissionToPermissionGroup: function TIMCommunityAddTopicPermissionToPermissionGroup(group_id, permission_group_id, json_topic_permission_map, cb, user_data){},
+
+  TIMCommunityDeleteTopicPermissionFromPermissionGroup: function TIMCommunityDeleteTopicPermissionFromPermissionGroup(group_id, permission_group_id, json_topic_id_array, cb, user_data){},
+
+  TIMCommunityModifyTopicPermissionInPermissionGroup: function TIMCommunityModifyTopicPermissionInPermissionGroup(group_id, permission_group_id, json_topic_permission_map, cb, user_data){},
+
+  TIMCommunityGetTopicPermissionInPermissionGroup: function TIMCommunityGetTopicPermissionInPermissionGroup(group_id, permission_group_id, json_topic_id_array, cb, user_data){},
+
+  TIMSetCommunityCreateTopicCallback : function TIMSetCommunityCreateTopicCallback(cb, user_data){},
+
+  TIMSetCommunityDeleteTopicCallback : function TIMSetCommunityDeleteTopicCallback(cb, user_data){},
+
+  TIMSetCommunityChangeTopicInfoCallback : function TIMSetCommunityChangeTopicInfoCallback(cb, user_data){},
+
+  TIMSetCommunityReceiveTopicRESTCustomDataCallback : function TIMSetCommunityReceiveTopicRESTCustomDataCallback(cb, user_data){},
+
+  TIMSetCommunityCreatePermissionGroupCallback : function TIMSetCommunityCreatePermissionGroupCallback(cb, user_data){},
+
+  TIMSetCommunityDeletePermissionGroupCallback : function TIMSetCommunityDeletePermissionGroupCallback(cb, user_data){},
+
+  TIMSetCommunityChangePermissionGroupInfoCallback : function TIMSetCommunityChangePermissionGroupInfoCallback(cb, user_data){},
+
+  TIMSetCommunityAddMembersToPermissionGroupCallback : function TIMSetCommunityAddMembersToPermissionGroupCallback(cb, user_data){},
+
+  TIMSetCommunityRemoveMembersFromPermissionGroupCallback : function TIMSetCommunityRemoveMembersFromPermissionGroupCallback(cb, user_data){},
+
+  TIMSetCommunityAddTopicPermissionCallback : function TIMSetCommunityAddTopicPermissionCallback(cb, user_data){},
+
+  TIMSetCommunityDeleteTopicPermissionCallback : function TIMSetCommunityDeleteTopicPermissionCallback(cb, user_data){},
+
+  TIMSetCommunityModifyTopicPermissionCallback : function TIMSetCommunityModifyTopicPermissionCallback(cb, user_data){},
+
+
+  TIMFollowUser : function TIMFollowUser(json_user_id_list, cb, user_data){},
+
+  TIMUnfollowUser : function TIMUnfollowUser(json_user_id_list, cb, user_data){},
+
+  TIMGetMyFollowingList : function TIMGetMyFollowingList(next_cursor, cb, user_data){},
+
+  TIMGetMyFollowersList : function TIMGetMyFollowersList(next_cursor, cb, user_data){},
+
+  TIMGetMutualFollowersList : function TIMGetMutualFollowersList(next_cursor, cb, user_data){},
+
+  TIMGetUserFollowInfo : function TIMGetUserFollowInfo(json_user_id_list, cb, user_data){},
+
+  TIMCheckFollowType : function TIMCheckFollowType(json_user_id_list, cb, user_data){},
+
+  TIMSetMutualFollowersListChangedCallback: function  TIMSetMutualFollowersListChangedCallback(cb, user_data) {},
+
+  TIMSetMyFollowersListChangedCallback: function  TIMSetMyFollowersListChangedCallback(cb, user_data) {},
+
+  TIMSetMyFollowingListChangedCallback: function  TIMSetMyFollowingListChangedCallback(cb, user_data) {},
+
+
+  TIMSignalingInvite : function TIMSignalingInvite(invitee, data, online_user_only, json_offline_push_info, timeout, invite_id_buffer, cb, user_data){},
+
+  TIMSignalingInviteInGroup : function TIMSignalingInviteInGroup(group_id, json_invitee_array, data, online_user_only, timeout, invite_id_buffer, cb, user_data){},
+
+  TIMSignalingCancel : function TIMSignalingCancel(invite_id, data, cb, user_data){},
+
+  TIMSignalingAccept : function TIMSignalingAccept(invite_id, data, cb, user_data){},
+
+  TIMSignalingReject : function TIMSignalingReject(invite_id, data, cb, user_data){},
+
+  TIMGetSignalingInfo : function TIMGetSignalingInfo(json_msg, json_signaling_info_cb, user_data){},
+
+  TIMSignalingModifyInvitation : function TIMSignalingModifyInvitation(invite_id, data, cb, user_data){},
+
+  TIMSetSignalingReceiveNewInvitationCallback : function TIMSetSignalingReceiveNewInvitationCallback(cb, user_data){},
+
+  TIMSetSignalingInviteeAcceptedCallback : function TIMSetSignalingInviteeAcceptedCallback(cb, user_data){},
+
+  TIMSetSignalingInviteeRejectedCallback : function TIMSetSignalingInviteeRejectedCallback(cb, user_data){},
+
+  TIMSetSignalingInvitationCancelledCallback : function TIMSetSignalingInvitationCancelledCallback(cb, user_data){},
+
+  TIMSetSignalingInvitationTimeoutCallback : function TIMSetSignalingInvitationTimeoutCallback(cb, user_data){},
+
+  TIMSetSignalingInvitationModifiedCallback : function TIMSetSignalingInvitationModifiedCallback(cb, user_data){},
+
+
+  TIMSubscribeOfficialAccount : function TIMSubscribeOfficialAccount(official_account_id,cb, user_data){},
+
+  TIMUnsubscribeOfficialAccount : function TIMUnsubscribeOfficialAccount(official_account_id,cb, user_data){},
+
+  TIMGetOfficialAccountsInfo : function TIMGetOfficialAccountsInfo(json_official_account_id_list,cb, user_data){},
+    
+  TIMSetOfficialAccountSubscribedCallback : function TIMSetOfficialAccountSubscribedCallback(cb, user_data){},
+
+  TIMSetOfficialAccountUnsubscribedCallback : function TIMSetOfficialAccountUnsubscribedCallback(cb, user_data){},
+    
+  TIMSetOfficialAccountDeletedCallback : function TIMSetOfficialAccountDeletedCallback(cb, user_data){},
+    
+  TIMSetOfficialAccountInfoChangedCallback : function TIMSetOfficialAccountInfoChangedCallback(cb, user_data){},
+
+  TIMPinGroupMessage: function  TIMPinGroupMessage(group_id, json_msg, is_pinned, cb, user_data) {},
+
+  TIMGetPinnedGroupMessageList: function TIMGetPinnedGroupMessageList(group_id, cb, user_data) {},
+
+  TIMSetMsgGroupPinnedMessageChangedCallback: function  TIMSetMsgGroupPinnedMessageChangedCallback(cb, user_data) {},
+
+  TIMGroupSearchCloudGroupMembers: function  TIMGroupSearchCloudGroupMembers(json_group_search_cloud_group_members_param, cb, user_data) {},
+
+  TIMGroupSearchCloudGroups: function  TIMGroupSearchCloudGroups(json_group_search_groups_param, cb, user_data) {},
+
+  TIMSearchUsers: function TIMSearchUsers (json_user_search_param, cb, user_data) {},
+
+  TIMSetExperimentalNotifyCallback: function  TIMSetExperimentalNotifyCallback(cb, user_data) {},
+
+  TIMSetFriendGroupCreatedCallback: function  TIMSetFriendGroupCreatedCallback(cb, user_data) {},
+
+  TIMSetFriendGroupDeletedCallback: function  TIMSetFriendGroupDeletedCallback(cb, user_data) {},
+
+  TIMSetFriendGroupNameChangedCallback: function  TIMSetFriendGroupNameChangedCallback(cb, user_data) {},
+
+  TIMSetFriendsAddedToGroupCallback: function TIMSetFriendsAddedToGroupCallback (cb, user_data) {},
+
+  TIMSetFriendsDeletedFromGroupCallback: function  TIMSetFriendsDeletedFromGroupCallback(cb, user_data) {},
 };
 autoAddDeps(ImSDKPlugin, '$tim');
 autoAddDeps(ImSDKPlugin, '$store');
